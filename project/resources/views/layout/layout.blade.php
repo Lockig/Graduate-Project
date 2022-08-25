@@ -15,7 +15,7 @@
     <!--begin:CSS-->
     <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css"/>
     <!--end:CSS-->
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
+    <link rel="shortcut icon" href="{{mix('media/logos/favicon.ico')}}"/>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -37,6 +37,7 @@
         @include('layout.patials.header')
         <!--end::Header-->
             <!--begin::Content-->
+        @yield('content')
         @include('layout.patials.content')
         <!--end::Content-->
             <!--begin::Footer-->
@@ -128,6 +129,11 @@
 <!--begin:Javascript-->
 <script src="{{mix('js/app.js')}}"></script>
 <!--end:Javascript-->
+
+<!--begin:Javascript-->
+@yield('script')
+<!--end:Javascript-->
+
 </body>
 <!--end::Body-->
 </html>

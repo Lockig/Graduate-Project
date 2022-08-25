@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/layout', function () {
-    return view('layout.layout');
+    return view('auth.layout.layout');
 });

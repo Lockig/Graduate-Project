@@ -30,3 +30,11 @@ mix.scripts([
     "resources/assets/js/pages/widgets.js",
 ],'public/js/app.js').version();
 
+
+mix.styles('resources/assets/css/pages/login/login-3.css', 'public/css/auth/auth.css').version();
+mix.scripts('resources/assets/js/pages/custom/user/add-user.js', 'public/js/user/user.js');
+mix.scripts([
+    'resources/assets/js/pages/custom/profile/profile.js',
+    'resources/assets/js/pages/crud/ktdatatable/base/html-table.js',
+], 'public/js/user/table.js').version();
+
