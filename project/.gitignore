@@ -1,9 +1,11 @@
 /node_modules
-
-
-/storage/*.key
 /vendor
-.env
+/public/css
+/public/images
+/public/js
+/public/media
+/public/plugins
+
 .env.example
 .env.backup
 .phpunit.result.cache

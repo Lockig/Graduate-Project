@@ -8,6 +8,7 @@ mix.copyDirectory('resources/assets/plugins/global/fonts', 'public/css/fonts');
 
 //css file
 mix.styles([
+    "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css",
     "resources/assets/plugins/global/plugins.bundle.css" ,
     "resources/assets/plugins/custom/prismjs/prismjs.bundle.css" ,
     "resources/assets/css/style.bundle.css" ,
@@ -15,7 +16,7 @@ mix.styles([
     "resources/assets/css/themes/layout/header/menu/light.css" ,
     "resources/assets/css/themes/layout/brand/dark.css" ,
     "resources/assets/css/themes/layout/aside/dark.css",
-    "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css"
+
 ],'public/css/app.css').version();
 
 

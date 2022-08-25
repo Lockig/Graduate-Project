@@ -1,0 +1,1 @@
+- chạy npm run dev để gen ra asset trong public
