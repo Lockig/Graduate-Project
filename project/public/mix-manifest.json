@@ -1840,5 +1840,6 @@
     "/js/app.js": "/js/app.js?id=1e4fcb8423ba7c706d7ea46ad5f878bb",
     "/css/auth/auth.css": "/css/auth/auth.css?id=bc4aa9d52aaf519e04223c1120e4eb8c",
     "/js/user/user.js": "/js/user/user.js?id=de814d19497f5ef454ce41af1f77d1e0",
-    "/js/user/table.js": "/js/user/table.js?id=f1174bb01b104333e900dae9f5368afb"
+    "/js/user/table.js": "/js/user/table.js?id=f1174bb01b104333e900dae9f5368afb",
+    "/js/user/profile.js": "/js/user/profile.js?id=b210b560b5be1a1f8ebd95631c8299c3"
 }

@@ -38,7 +38,7 @@
         <!--end::Header-->
             <!--begin::Content-->
         @yield('content')
-        @include('layout.patials.content')
+{{--        @include('layout.patials.content')--}}
         <!--end::Content-->
             <!--begin::Footer-->
         @include('layout.patials.footer')

@@ -38,3 +38,5 @@ mix.scripts([
     'resources/assets/js/pages/crud/ktdatatable/base/html-table.js',
 ], 'public/js/user/table.js').version();
 
+//js user profile
+mix.scripts('resources/assets/js/pages/custom/profile/profile.js','public/js/user/profile.js').version();
