@@ -65,7 +65,7 @@
 @include('layout.patials.scroll_top')
 <!--end::Scrolltop-->
 <!--begin::Sticky Toolbar-->
-@include('layout.patials.sticky_toolbar')
+{{--@include('layout.patials.sticky_toolbar')--}}
 <!--end::Sticky Toolbar-->
 <!--begin::Demo Panel-->
 @include('layout.patials.demo_panel')
