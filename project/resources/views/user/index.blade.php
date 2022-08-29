@@ -2,53 +2,53 @@
 @section('content')
     <!--begin::Content-->
     <div id="content">
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
-        <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
-                <div class="d-flex align-items-center flex-wrap mr-1">
-                    <!--begin::Mobile Toggle-->
-                    <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
-                            id="kt_subheader_mobile_toggle">
-                        <span></span>
-                    </button>
-                    <!--end::Mobile Toggle-->
-                    <!--begin::Page Heading-->
-                    <div class="d-flex align-items-baseline flex-wrap mr-5">
-                        <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Profile 1</h5>
-                        <!--end::Page Title-->
-                        <!--begin::Breadcrumb-->
-                        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Apps</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Profile</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Profile 1</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Personal Information</a>
-                            </li>
-                        </ul>
-                        <!--end::Breadcrumb-->
+        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+            <!--begin::Subheader-->
+            <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+                <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                    <!--begin::Info-->
+                    <div class="d-flex align-items-center flex-wrap mr-1">
+                        <!--begin::Mobile Toggle-->
+                        <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none"
+                                id="kt_subheader_mobile_toggle">
+                            <span></span>
+                        </button>
+                        <!--end::Mobile Toggle-->
+                        <!--begin::Page Heading-->
+                        <div class="d-flex align-items-baseline flex-wrap mr-5">
+                            <!--begin::Page Title-->
+                            <h5 class="text-dark font-weight-bold my-1 mr-5">Profile 1</h5>
+                            <!--end::Page Title-->
+                            <!--begin::Breadcrumb-->
+                            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                <li class="breadcrumb-item">
+                                    <a href="" class="text-muted">Apps</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="" class="text-muted">Profile</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="" class="text-muted">Profile 1</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="" class="text-muted">Personal Information</a>
+                                </li>
+                            </ul>
+                            <!--end::Breadcrumb-->
+                        </div>
+                        <!--end::Page Heading-->
                     </div>
-                    <!--end::Page Heading-->
-                </div>
-                <!--end::Info-->
-                <!--begin::Toolbar-->
-                <div class="d-flex align-items-center">
-                    <!--begin::Actions-->
-                    <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">Actions</a>
-                    <!--end::Actions-->
-                    <!--begin::Dropdown-->
-                    <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions"
-                         data-placement="left">
-                        <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
+                    <!--end::Info-->
+                    <!--begin::Toolbar-->
+                    <div class="d-flex align-items-center">
+                        <!--begin::Actions-->
+                        <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">Actions</a>
+                        <!--end::Actions-->
+                        <!--begin::Dropdown-->
+                        <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions"
+                             data-placement="left">
+                            <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
 											<span class="svg-icon svg-icon-success svg-icon-2x">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Files/File-plus.svg-->
 												<svg xmlns="http://www.w3.org/2000/svg"
@@ -66,226 +66,200 @@
 												</svg>
                                                 <!--end::Svg Icon-->
 											</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right p-0 m-0">
-                            <!--begin::Navigation-->
-                            <ul class="navi navi-hover">
-                                <li class="navi-header font-weight-bold py-4">
-                                    <span class="font-size-lg">Choose Label:</span>
-                                    <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip"
-                                       data-placement="right" title="Click to learn more..."></i>
-                                </li>
-                                <li class="navi-separator mb-3 opacity-70"></li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right p-0 m-0">
+                                <!--begin::Navigation-->
+                                <ul class="navi navi-hover">
+                                    <li class="navi-header font-weight-bold py-4">
+                                        <span class="font-size-lg">Choose Label:</span>
+                                        <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip"
+                                           data-placement="right" title="Click to learn more..."></i>
+                                    </li>
+                                    <li class="navi-separator mb-3 opacity-70"></li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
 														<span class="navi-text">
 															<span
                                                                 class="label label-xl label-inline label-light-success">Customer</span>
 														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
 														<span class="navi-text">
 															<span
                                                                 class="label label-xl label-inline label-light-danger">Partner</span>
 														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
 														<span class="navi-text">
 															<span
                                                                 class="label label-xl label-inline label-light-warning">Suplier</span>
 														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
 														<span class="navi-text">
 															<span
                                                                 class="label label-xl label-inline label-light-primary">Member</span>
 														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
+                                        </a>
+                                    </li>
+                                    <li class="navi-item">
+                                        <a href="#" class="navi-link">
 														<span class="navi-text">
 															<span class="label label-xl label-inline label-light-dark">Staff</span>
 														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-separator mt-3 opacity-70"></li>
-                                <li class="navi-footer py-4">
-                                    <a class="btn btn-clean font-weight-bold btn-sm" href="#">
-                                        <i class="ki ki-plus icon-sm"></i>Add new</a>
-                                </li>
-                            </ul>
-                            <!--end::Navigation-->
-                        </div>
-                    </div>
-                    <!--end::Dropdown-->
-                </div>
-                <!--end::Toolbar-->
-            </div>
-        </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container">
-                <!--begin::Profile Personal Information-->
-                <div class="d-flex flex-row">
-                    <!--begin::Aside-->
-                    <div class="flex-row-auto offcanvas-mobile w-250px w-xxl-350px" id="kt_profile_aside">
-                        <!--begin::Profile Card-->
-                        <div class="card card-custom card-stretch">
-                            <!--begin::Body-->
-                            <div class="card-body pt-4">
-                                <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ki ki-bold-more-hor"></i>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                            <!--begin::Navigation-->
-                                            <ul class="navi navi-hover py-5">
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                    </li>
+                                    <li class="navi-separator mt-3 opacity-70"></li>
+                                    <li class="navi-footer py-4">
+                                        <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                                            <i class="ki ki-plus icon-sm"></i>Add new</a>
+                                    </li>
+                                </ul>
+                                <!--end::Navigation-->
+                            </div>
+                        </div>
+                        <!--end::Dropdown-->
+                    </div>
+                    <!--end::Toolbar-->
+                </div>
+            </div>
+            <!--end::Subheader-->
+            <!--begin::Entry-->
+            <div class="d-flex flex-column-fluid">
+                <!--begin::Container-->
+                <div class="container">
+                    <!--begin::Profile Personal Information-->
+                    <div class="d-flex flex-row">
+                        <!--begin::Aside-->
+                        <div class="flex-row-auto offcanvas-mobile w-250px w-xxl-350px" id="kt_profile_aside">
+                            <!--begin::Profile Card-->
+                            <div class="card card-custom card-stretch">
+                                <!--begin::Body-->
+                                <div class="card-body pt-4">
+                                    <!--begin::Toolbar-->
+                                    <div class="d-flex justify-content-end">
+                                        <div class="dropdown dropdown-inline">
+                                            <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ki ki-bold-more-hor"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                <!--begin::Navigation-->
+                                                <ul class="navi navi-hover py-5">
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-drop"></i>
 																		</span>
-                                                        <span class="navi-text">New Group</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">New Group</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-list-3"></i>
 																		</span>
-                                                        <span class="navi-text">Contacts</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">Contacts</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-rocket-1"></i>
 																		</span>
-                                                        <span class="navi-text">Groups</span>
-                                                        <span class="navi-link-badge">
+                                                            <span class="navi-text">Groups</span>
+                                                            <span class="navi-link-badge">
 																			<span
                                                                                 class="label label-light-primary label-inline font-weight-bold">new</span>
 																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-bell-2"></i>
 																		</span>
-                                                        <span class="navi-text">Calls</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">Calls</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-gear"></i>
 																		</span>
-                                                        <span class="navi-text">Settings</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-separator my-3"></li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">Settings</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-separator my-3"></li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-magnifier-tool"></i>
 																		</span>
-                                                        <span class="navi-text">Help</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">Help</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																		<span class="navi-icon">
 																			<i class="flaticon2-bell-2"></i>
 																		</span>
-                                                        <span class="navi-text">Privacy</span>
-                                                        <span class="navi-link-badge">
+                                                            <span class="navi-text">Privacy</span>
+                                                            <span class="navi-link-badge">
 																			<span
                                                                                 class="label label-light-danger label-rounded font-weight-bold">5</span>
 																		</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Navigation-->
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <!--end::Navigation-->
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end::Toolbar-->
-                                <!--begin::User-->
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                                        <div class="symbol-label"
-                                             style="background-image:url('assets/media/users/300_21.jpg')"></div>
-                                        <i class="symbol-badge bg-success"></i>
+                                    <!--end::Toolbar-->
+                                    <!--begin::User-->
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
+                                            <div class="symbol-label"
+                                                 style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                                            <i class="symbol-badge bg-success"></i>
+                                        </div>
+                                        <div>
+                                            <a href="#"
+                                               class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">James
+                                                Jones</a>
+                                            <div class="text-muted">Application Developer</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a href="#"
-                                           class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">James
-                                            Jones</a>
-                                        <div class="text-muted">Application Developer</div>
+                                    <!--end::User-->
+                                    <!--begin::Contact-->
+                                    <div class="py-9">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="font-weight-bold mr-2">Email:</span>
+                                            <a href="#" class="text-muted text-hover-primary">matt@fifestudios.com</a>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="font-weight-bold mr-2">Phone:</span>
+                                            <span class="text-muted">44(76)34254578</span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="font-weight-bold mr-2">Location:</span>
+                                            <span class="text-muted">Melbourne</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <!--end::User-->
-                                <!--begin::Contact-->
-                                <div class="py-9">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="font-weight-bold mr-2">Email:</span>
-                                        <a href="#" class="text-muted text-hover-primary">matt@fifestudios.com</a>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="font-weight-bold mr-2">Phone:</span>
-                                        <span class="text-muted">44(76)34254578</span>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <span class="font-weight-bold mr-2">Location:</span>
-                                        <span class="text-muted">Melbourne</span>
-                                    </div>
-                                </div>
-                                <!--end::Contact-->
-                                <!--begin::Nav-->
-                                <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
-                                    <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/overview.html" class="navi-link py-4">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<polygon points="0 0 24 0 24 24 0 24"/>
-																			<path
-                                                                                d="M12.9336061,16.072447 L19.36,10.9564761 L19.5181585,10.8312381 C20.1676248,10.3169571 20.2772143,9.3735535 19.7629333,8.72408713 C19.6917232,8.63415859 19.6104327,8.55269514 19.5206557,8.48129411 L12.9336854,3.24257445 C12.3871201,2.80788259 11.6128799,2.80788259 11.0663146,3.24257445 L4.47482784,8.48488609 C3.82645598,9.00054628 3.71887192,9.94418071 4.23453211,10.5925526 C4.30500305,10.6811601 4.38527899,10.7615046 4.47382636,10.8320511 L4.63,10.9564761 L11.0659024,16.0730648 C11.6126744,16.5077525 12.3871218,16.5074963 12.9336061,16.072447 Z"
-                                                                                fill="#000000" fill-rule="nonzero"/>
-																			<path
-                                                                                d="M11.0563554,18.6706981 L5.33593024,14.122919 C4.94553994,13.8125559 4.37746707,13.8774308 4.06710397,14.2678211 C4.06471678,14.2708238 4.06234874,14.2738418 4.06,14.2768747 L4.06,14.2768747 C3.75257288,14.6738539 3.82516916,15.244888 4.22214834,15.5523151 C4.22358765,15.5534297 4.2250303,15.55454 4.22647627,15.555646 L11.0872776,20.8031356 C11.6250734,21.2144692 12.371757,21.2145375 12.909628,20.8033023 L19.7677785,15.559828 C20.1693192,15.2528257 20.2459576,14.6784381 19.9389553,14.2768974 C19.9376429,14.2751809 19.9363245,14.2734691 19.935,14.2717619 L19.935,14.2717619 C19.6266937,13.8743807 19.0546209,13.8021712 18.6572397,14.1104775 C18.654352,14.112718 18.6514778,14.1149757 18.6486172,14.1172508 L12.9235044,18.6705218 C12.377022,19.1051477 11.6029199,19.1052208 11.0563554,18.6706981 Z"
-                                                                                fill="#000000" opacity="0.3"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text font-size-lg">Profile Overview</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/personal-information.html"
-                                           class="navi-link py-4 active">
+                                    <!--end::Contact-->
+                                    <!--begin::Nav-->
+                                    <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
+                                        <div class="navi-item mb-2">
+                                            <a href="custom/apps/profile/profile-1/personal-information.html"
+                                               class="navi-link py-4 active">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
@@ -308,12 +282,12 @@
                                                                     <!--end::Svg Icon-->
 																</span>
 															</span>
-                                            <span class="navi-text font-size-lg">Personal Information</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/account-information.html"
-                                           class="navi-link py-4">
+                                                <span class="navi-text font-size-lg">Personal Information</span>
+                                            </a>
+                                        </div>
+                                        <div class="navi-item mb-2">
+                                            <a href="custom/apps/profile/profile-1/account-information.html"
+                                               class="navi-link py-4">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
@@ -335,12 +309,12 @@
                                                                     <!--end::Svg Icon-->
 																</span>
 															</span>
-                                            <span class="navi-text font-size-lg">Account Information</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="#" id="change_password"
-                                           class="navi-link py-4">
+                                                <span class="navi-text font-size-lg">Account Information</span>
+                                            </a>
+                                        </div>
+                                        <div class="navi-item mb-2">
+                                            <a href="#" id="change_password"
+                                               class="navi-link py-4">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Shield-user.svg-->
@@ -365,160 +339,150 @@
                                                                     <!--end::Svg Icon-->
 																</span>
 															</span>
-                                            <span class="navi-text font-size-lg">Change Password</span>
-                                        </a>
+                                                <span class="navi-text font-size-lg">Change Password</span>
+                                            </a>
+                                        </div>
                                     </div>
+                                    <!--end::Nav-->
                                 </div>
-                                <!--end::Nav-->
+                                <!--end::Body-->
                             </div>
-                            <!--end::Body-->
+                            <!--end::Profile Card-->
                         </div>
-                        <!--end::Profile Card-->
-                    </div>
-                    <!--end::Aside-->
-                    <!--begin::Content-->
-                    <div class="flex-row-fluid ml-lg-8">
-                        <!--begin::Card-->
-                        <div class="card card-custom card-stretch">
-                            <!--begin::Header-->
-                            <div class="card-header py-3">
-                                <div class="card-title align-items-start flex-column">
-                                    <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
-                                    <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
-                                </div>
-                                <div class="card-toolbar">
-                                    <button type="reset" class="btn btn-success mr-2">Save Changes</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Form-->
-                            <form class="form">
-                                <!--begin::Body-->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <label class="col-xl-3"></label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <h5 class="font-weight-bold mb-6">Customer Info</h5>
-                                        </div>
+                        <!--end::Aside-->
+                        <!--begin::Content-->
+                        <div class="flex-row-fluid ml-lg-8">
+                            <!--begin::Card-->
+                            <div class="card card-custom card-stretch">
+                                <!--begin::Header-->
+                                <div class="card-header py-3">
+                                    <div class="card-title align-items-start flex-column">
+                                        <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
+                                        <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <div class="image-input image-input-outline" id="kt_profile_avatar"
-                                                 style="background-image: url(assets/media/users/blank.png)">
-                                                <div class="image-input-wrapper"
-                                                     style="background-image: url(assets/media/users/300_21.jpg)"></div>
-                                                <label
-                                                    class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                    data-action="change" data-toggle="tooltip" title=""
-                                                    data-original-title="Change avatar">
-                                                    <i class="fa fa-pen icon-sm text-muted"></i>
-                                                    <input type="file" name="profile_avatar"
-                                                           accept=".png, .jpg, .jpeg"/>
-                                                    <input type="hidden" name="profile_avatar_remove"/>
-                                                </label>
-                                                <span
-                                                    class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                    data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-																	<i class="ki ki-bold-close icon-xs text-muted"></i>
-																</span>
-                                                <span
-                                                    class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                    data-action="remove" data-toggle="tooltip" title="Remove avatar">
-																	<i class="ki ki-bold-close icon-xs text-muted"></i>
-																</span>
+                                    <div class="card-toolbar">
+                                        <button type="reset" class="btn btn-success mr-2">Save Changes</button>
+                                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                                    </div>
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Form-->
+                                <form class="form">
+                                    <!--begin::Body-->
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <label class="col-xl-3"></label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <h5 class="font-weight-bold mb-6">Customer Info</h5>
                                             </div>
-                                            <span
-                                                class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <input class="form-control form-control-lg form-control-solid" type="text"
-                                                   value="Nick"/>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="image-input image-input-outline" id="kt_profile_avatar"
+                                                     style="background-image: url(assets/media/users/blank.png)">
+                                                    <div class="image-input-wrapper"
+                                                         style="background-image: url(assets/media/users/300_21.jpg)"></div>
+                                                    <label
+                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                        data-action="change" data-toggle="tooltip" title=""
+                                                        data-original-title="Change avatar">
+                                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                                        <input type="file" name="profile_avatar"
+                                                               accept=".png, .jpg, .jpeg"/>
+                                                        <input type="hidden" name="profile_avatar_remove"/>
+                                                    </label>
+                                                    <span
+                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                        data-action="cancel" data-toggle="tooltip"
+                                                        title="Cancel avatar">
+																	<i class="ki ki-bold-close icon-xs text-muted"></i>
+																</span>
+                                                    <span
+                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                                                        data-action="remove" data-toggle="tooltip"
+                                                        title="Remove avatar">
+																	<i class="ki ki-bold-close icon-xs text-muted"></i>
+																</span>
+                                                </div>
+                                                <span
+                                                    class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <input class="form-control form-control-lg form-control-solid" type="text"
-                                                   value="Bold"/>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <input class="form-control form-control-lg form-control-solid"
+                                                       type="text"
+                                                       value="Nick"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <input class="form-control form-control-lg form-control-solid" type="text"
-                                                   value="Loop Inc."/>
-                                            <span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <input class="form-control form-control-lg form-control-solid"
+                                                       type="text"
+                                                       value="Bold"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <label class="col-xl-3"></label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <h5 class="font-weight-bold mt-10 mb-6">Contact Info</h5>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">User Name</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <input class="form-control form-control-lg form-control-solid"
+                                                       type="text"
+                                                       value="Bold"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Contact Phone</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <div class="input-group input-group-lg input-group-solid">
-                                                <div class="input-group-prepend">
+                                        <div class="row">
+                                            <label class="col-xl-3"></label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <h5 class="font-weight-bold mt-10 mb-6">Contact Info</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Mobile Phone</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend">
 																	<span class="input-group-text">
 																		<i class="la la-phone"></i>
 																	</span>
+                                                    </div>
+                                                    <input type="text"
+                                                           class="form-control form-control-lg form-control-solid"
+                                                           value="+35278953712" placeholder="Phone"/>
                                                 </div>
-                                                <input type="text"
-                                                       class="form-control form-control-lg form-control-solid"
-                                                       value="+35278953712" placeholder="Phone"/>
                                             </div>
-                                            <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <div class="input-group input-group-lg input-group-solid">
-                                                <div class="input-group-prepend">
+                                        <div class="form-group row">
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend">
 																	<span class="input-group-text">
 																		<i class="la la-at"></i>
 																	</span>
-                                                </div>
-                                                <input type="text"
-                                                       class="form-control form-control-lg form-control-solid"
-                                                       value="nick.bold@loop.com" placeholder="Email"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-xl-3 col-lg-3 col-form-label">Company Site</label>
-                                        <div class="col-lg-9 col-xl-6">
-                                            <div class="input-group input-group-lg input-group-solid">
-                                                <input type="text"
-                                                       class="form-control form-control-lg form-control-solid"
-                                                       placeholder="Username" value="loop"/>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text">.com</span>
+                                                    </div>
+                                                    <input type="text"
+                                                           class="form-control form-control-lg form-control-solid"
+                                                           value="nick.bold@loop.com" placeholder="Email"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end::Body-->
-                            </form>
-                            <!--end::Form-->
+                                    <!--end::Body-->
+                                </form>
+                                <!--end::Form-->
+                            </div>
                         </div>
+                        <!--end::Content-->
                     </div>
-                    <!--end::Content-->
+                    <!--end::Profile Personal Information-->
                 </div>
-                <!--end::Profile Personal Information-->
+                <!--end::Container-->
             </div>
-            <!--end::Container-->
+            <!--end::Entry-->
         </div>
-        <!--end::Entry-->
-    </div>
     </div>
     <!--end::Content-->
 @endsection
@@ -529,8 +493,8 @@
     <!--end::Page Scripts-->
 
     <script>
-        $(document).ready(function(){
-            $("#change_password").click(function(){
+        $(document).ready(function () {
+            $("#change_password").click(function () {
                 $("#content").load('/password');
             })
         });

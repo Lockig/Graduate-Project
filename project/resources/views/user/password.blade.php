@@ -1,6 +1,4 @@
-@extends('layout.layout')
 
-@section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
@@ -264,32 +262,6 @@
                                 <!--begin::Nav-->
                                 <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                                     <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/overview.html" class="navi-link py-4">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<polygon points="0 0 24 0 24 24 0 24"/>
-																			<path
-                                                                                d="M12.9336061,16.072447 L19.36,10.9564761 L19.5181585,10.8312381 C20.1676248,10.3169571 20.2772143,9.3735535 19.7629333,8.72408713 C19.6917232,8.63415859 19.6104327,8.55269514 19.5206557,8.48129411 L12.9336854,3.24257445 C12.3871201,2.80788259 11.6128799,2.80788259 11.0663146,3.24257445 L4.47482784,8.48488609 C3.82645598,9.00054628 3.71887192,9.94418071 4.23453211,10.5925526 C4.30500305,10.6811601 4.38527899,10.7615046 4.47382636,10.8320511 L4.63,10.9564761 L11.0659024,16.0730648 C11.6126744,16.5077525 12.3871218,16.5074963 12.9336061,16.072447 Z"
-                                                                                fill="#000000" fill-rule="nonzero"/>
-																			<path
-                                                                                d="M11.0563554,18.6706981 L5.33593024,14.122919 C4.94553994,13.8125559 4.37746707,13.8774308 4.06710397,14.2678211 C4.06471678,14.2708238 4.06234874,14.2738418 4.06,14.2768747 L4.06,14.2768747 C3.75257288,14.6738539 3.82516916,15.244888 4.22214834,15.5523151 C4.22358765,15.5534297 4.2250303,15.55454 4.22647627,15.555646 L11.0872776,20.8031356 C11.6250734,21.2144692 12.371757,21.2145375 12.909628,20.8033023 L19.7677785,15.559828 C20.1693192,15.2528257 20.2459576,14.6784381 19.9389553,14.2768974 C19.9376429,14.2751809 19.9363245,14.2734691 19.935,14.2717619 L19.935,14.2717619 C19.6266937,13.8743807 19.0546209,13.8021712 18.6572397,14.1104775 C18.654352,14.112718 18.6514778,14.1149757 18.6486172,14.1172508 L12.9235044,18.6705218 C12.377022,19.1051477 11.6029199,19.1052208 11.0563554,18.6706981 Z"
-                                                                                fill="#000000" opacity="0.3"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text font-size-lg">Profile Overview</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
                                         <a href="custom/apps/profile/profile-1/personal-information.html"
                                            class="navi-link py-4">
 															<span class="navi-icon mr-2">
@@ -345,7 +317,7 @@
                                         </a>
                                     </div>
                                     <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/change-password.html"
+                                        <a href="#"
                                            class="navi-link py-4 active">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
@@ -371,122 +343,7 @@
                                                                     <!--end::Svg Icon-->
 																</span>
 															</span>
-                                            <span class="navi-text font-size-lg">Change Passwort</span>
-                                            <span class="navi-label">
-																<span
-                                                                    class="label label-light-danger label-rounded font-weight-bold">5</span>
-															</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="custom/apps/profile/profile-1/email-settings.html"
-                                           class="navi-link py-4">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Mail-opened.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<rect x="0" y="0" width="24" height="24"/>
-																			<path
-                                                                                d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
-                                                                                fill="#000000" opacity="0.3"/>
-																			<path
-                                                                                d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
-                                                                                fill="#000000"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text font-size-lg">Email settings</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="#" class="navi-link py-4" data-toggle="tooltip" title="Coming soon..."
-                                           data-placement="right">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-top-panel-6.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<rect x="0" y="0" width="24" height="24"/>
-																			<rect fill="#000000" x="2" y="5" width="19"
-                                                                                  height="4" rx="1"/>
-																			<rect fill="#000000" opacity="0.3" x="2"
-                                                                                  y="11" width="19" height="10" rx="1"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text font-size-lg">Saved Credit Cards</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="#" class="navi-link py-4" data-toggle="tooltip" title="Coming soon..."
-                                           data-placement="right">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Files/File.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<polygon points="0 0 24 0 24 24 0 24"/>
-																			<path
-                                                                                d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                                                fill="#000000" fill-rule="nonzero"
-                                                                                opacity="0.3"/>
-																			<rect fill="#000000" x="6" y="11" width="9"
-                                                                                  height="2" rx="1"/>
-																			<rect fill="#000000" x="6" y="15" width="5"
-                                                                                  height="2" rx="1"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text font-size-lg">Tax information</span>
-                                            <span class="navi-label">
-																<span
-                                                                    class="label label-light-primary label-inline font-weight-bold">new</span>
-															</span>
-                                        </a>
-                                    </div>
-                                    <div class="navi-item mb-2">
-                                        <a href="#" class="navi-link py-4" data-toggle="tooltip" title="Coming soon..."
-                                           data-placement="right">
-															<span class="navi-icon mr-2">
-																<span class="svg-icon">
-																	<!--begin::Svg Icon | path:assets/media/svg/icons/Text/Article.svg-->
-																	<svg xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                         width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         version="1.1">
-																		<g stroke="none" stroke-width="1" fill="none"
-                                                                           fill-rule="evenodd">
-																			<rect x="0" y="0" width="24" height="24"/>
-																			<rect fill="#000000" x="4" y="5" width="16"
-                                                                                  height="3" rx="1.5"/>
-																			<path
-                                                                                d="M5.5,15 L18.5,15 C19.3284271,15 20,15.6715729 20,16.5 C20,17.3284271 19.3284271,18 18.5,18 L5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 Z M5.5,10 L12.5,10 C13.3284271,10 14,10.6715729 14,11.5 C14,12.3284271 13.3284271,13 12.5,13 L5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 Z"
-                                                                                fill="#000000" opacity="0.3"/>
-																		</g>
-																	</svg>
-                                                                    <!--end::Svg Icon-->
-																</span>
-															</span>
-                                            <span class="navi-text">Statements</span>
+                                            <span class="navi-text font-size-lg">Change Password</span>
                                         </a>
                                     </div>
                                 </div>
@@ -500,7 +357,7 @@
                     <!--begin::Content-->
                     <div class="flex-row-fluid ml-lg-8">
                         <!--begin::Card-->
-                        <div class="card card-custom">
+                        <form class="card card-custom" method="post" action="#">
                             <!--begin::Header-->
                             <div class="card-header py-3">
                                 <div class="card-title align-items-start flex-column">
@@ -508,51 +365,13 @@
                                     <span class="text-muted font-weight-bold font-size-sm mt-1">Change your account password</span>
                                 </div>
                                 <div class="card-toolbar">
-                                    <button type="reset" class="btn btn-success mr-2">Save Changes</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" class="btn btn-success mr-2">Save Changes</button>
                                 </div>
                             </div>
                             <!--end::Header-->
                             <!--begin::Form-->
-                            <form class="form">
+                            <div class="form">
                                 <div class="card-body">
-                                    <!--begin::Alert-->
-                                    <div class="alert alert-custom alert-light-danger fade show mb-10" role="alert">
-                                        <div class="alert-icon">
-															<span class="svg-icon svg-icon-3x svg-icon-danger">
-																<!--begin::Svg Icon | path:assets/media/svg/icons/Code/Info-circle.svg-->
-																<svg xmlns="http://www.w3.org/2000/svg"
-                                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                     width="24px" height="24px" viewBox="0 0 24 24"
-                                                                     version="1.1">
-																	<g stroke="none" stroke-width="1" fill="none"
-                                                                       fill-rule="evenodd">
-																		<rect x="0" y="0" width="24" height="24"/>
-																		<circle fill="#000000" opacity="0.3" cx="12"
-                                                                                cy="12" r="10"/>
-																		<rect fill="#000000" x="11" y="10" width="2"
-                                                                              height="7" rx="1"/>
-																		<rect fill="#000000" x="11" y="7" width="2"
-                                                                              height="2" rx="1"/>
-																	</g>
-																</svg>
-                                                                <!--end::Svg Icon-->
-															</span>
-                                        </div>
-                                        <div class="alert-text font-weight-bold">Configure user passwords to expire
-                                            periodically. Users will need warning that their passwords are going to
-                                            expire,
-                                            <br/>or they might inadvertently get locked out of the system!
-                                        </div>
-                                        <div class="alert-close">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																<span aria-hidden="true">
-																	<i class="ki ki-close"></i>
-																</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!--end::Alert-->
                                     <div class="form-group row">
                                         <label class="col-xl-3 col-lg-3 col-form-label text-alert">Current
                                             Password</label>
@@ -581,9 +400,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                             <!--end::Form-->
-                        </div>
+                        </form>
                     </div>
                     <!--end::Content-->
                 </div>
@@ -594,7 +413,6 @@
         <!--end::Entry-->
     </div>
     <!--end::Content-->
-@endsection
 
 @section('script')
     <script src="{{mix('js/user/user.js')}}"></script>
