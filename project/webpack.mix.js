@@ -16,27 +16,26 @@ mix.styles([
     "resources/assets/css/themes/layout/header/menu/light.css" ,
     "resources/assets/css/themes/layout/brand/dark.css" ,
     "resources/assets/css/themes/layout/aside/dark.css",
-
 ],'public/css/app.css').version();
 
+mix.styles('resources/assets/css/pages/login/login-3.css', 'public/css/auth/auth.css').version();
 
 //js file
 mix.scripts([
-    "resources/assets/plugins/global/plugins.bundle.js",
-    "resources/assets/plugins/custom/prismjs/prismjs.bundle.js",
     "resources/assets/js/scripts.bundle.js",
-    "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
-    "resources/assets/plugins/custom/gmaps/gmaps.js",
-    "resources/assets/js/pages/widgets.js",
+    // "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
+    // "resources/assets/plugins/custom/gmaps/gmaps.js",
+    // "resources/assets/js/pages/widgets.js",
 ],'public/js/app.js').version();
 
 
-mix.styles('resources/assets/css/pages/login/login-3.css', 'public/css/auth/auth.css').version();
+
 mix.scripts('resources/assets/js/pages/custom/user/add-user.js', 'public/js/user/user.js');
 mix.scripts([
-    'resources/assets/js/pages/custom/profile/profile.js',
+    // 'resources/assets/js/pages/custom/profile/profile.js',
     'resources/assets/js/pages/crud/ktdatatable/base/html-table.js',
 ], 'public/js/user/table.js').version();
 
 //js user profile
 mix.scripts('resources/assets/js/pages/custom/profile/profile.js','public/js/user/profile.js').version();
+

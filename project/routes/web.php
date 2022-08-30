@@ -26,3 +26,13 @@ Route::get('/password', function () {
 });
 
 
+Route::get('/attendance', function () {
+    return view('user.attendance');
+});
+
+
+Route::get('/list', function () {
+    return view('user.admin.list_employee');
+});
+
+

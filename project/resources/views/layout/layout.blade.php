@@ -127,9 +127,11 @@
 <!--end::Global Config-->
 
 <!--begin:Javascript-->
+<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
+<script src="{{asset('custom/prismjs/prismjs.bundle.js')}}"></script>
 <script src="{{mix('js/app.js')}}"></script>
-<!--end:Javascript-->
 
+<!--end:Javascript-->
 <!--begin:Javascript-->
 @yield('script')
 <!--end:Javascript-->
