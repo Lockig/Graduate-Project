@@ -134,7 +134,7 @@
                             <!--begin::Nav-->
                             <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                                 <div class="navi-item mb-2">
-                                    <a href="custom/apps/profile/profile-1/personal-information.html"
+                                    <a href=""
                                        class="navi-link py-4">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
@@ -162,7 +162,7 @@
                                     </a>
                                 </div>
                                 <div class="navi-item mb-2">
-                                    <a href="custom/apps/profile/profile-1/account-information.html"
+                                    <a href=""
                                        class="navi-link py-4">
 															<span class="navi-icon mr-2">
 																<span class="svg-icon">
