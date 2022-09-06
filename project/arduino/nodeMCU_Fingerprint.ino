@@ -660,49 +660,49 @@ int getFingerprintID() {
   uint8_t p = finger.getImage();
   switch (p) {
     case FINGERPRINT_OK:
-      //Serial.println("Image taken");
+      Serial.println("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
-      //Serial.println("No finger detected");
+      Serial.println("No finger detected");
       return 0;
     case FINGERPRINT_PACKETRECIEVEERR:
-      //Serial.println("Communication error");
+      Serial.println("Communication error");
       return -2;
     case FINGERPRINT_IMAGEFAIL:
-      //Serial.println("Imaging error");
+      Serial.println("Imaging error");
       return -2;
     default:
-      //Serial.println("Unknown error");
+      Serial.println("Unknown error");
       return -2;
   }
   // OK success!
   p = finger.image2Tz();
   switch (p) {
     case FINGERPRINT_OK:
-      //Serial.println("Image converted");
+      Serial.println("Image converted");
       break;
     case FINGERPRINT_IMAGEMESS:
-      //Serial.println("Image too messy");
+      Serial.println("Image too messy");
       return -1;
     case FINGERPRINT_PACKETRECIEVEERR:
-      //Serial.println("Communication error");
+      Serial.println("Communication error");
       return -2;
     case FINGERPRINT_FEATUREFAIL:
-      //Serial.println("Could not find fingerprint features");
+      Serial.println("Could not find fingerprint features");
       return -2;
     case FINGERPRINT_INVALIDIMAGE:
-      //Serial.println("Could not find fingerprint features");
+      Serial.println("Could not find fingerprint features");
       return -2;
     default:
-      //Serial.println("Unknown error");
+      Serial.println("Unknown error");
       return -2;
   }
   // OK converted!
   p = finger.fingerFastSearch();
   if (p == FINGERPRINT_OK) {
-    //Serial.println("Found a print match!");
+    Serial.println("Found a print match!");
   } else if (p == FINGERPRINT_PACKETRECIEVEERR) {
-    //Serial.println("Communication error");
+    Serial.println("Communication error");
     return -2;
   } else if (p == FINGERPRINT_NOTFOUND) {
     //Serial.println("Did not find a match");
