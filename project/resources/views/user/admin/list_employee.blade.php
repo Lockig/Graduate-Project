@@ -11,7 +11,7 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">DANH SÁCH NHÂN VIÊN</h5>
+                        <h5 class="text-muted font-weight-bold my-1 mr-5">DANH SÁCH NHÂN VIÊN</h5>
                         <!--end::Page Title-->
                     </div>
                     <!--end::Page Heading-->
@@ -117,7 +117,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <div class="card-title align-items-start flex-column">
-                            <h3 class="align-self-baseline">THÔNG TIN</h3>
+                            <h3 class="align-self-baseline text-muted">DANH SÁCH NHÂN VIÊN</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -245,7 +245,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                    <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                                    <button class="btn btn-light-primary px-6 font-weight-bold">Search</button>
                                 </div>
                             </div>
                         </form>

@@ -106,7 +106,7 @@
                                             </a>
                                         </div>
                                         <div class="navi-item mb-2">
-                                            <a href="#" id="change_password"
+                                            <a href="/change-password" id="change_password"
                                                class="navi-link py-4">
                                                     <span class="navi-icon mr-2">
                                                         <span class="svg-icon">
@@ -144,7 +144,7 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        <div class="flex-row-fluid ml-lg-8">
+                        <form method="" action="" class="flex-row-fluid ml-lg-8">
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
                                 <!--begin::Header-->
@@ -154,13 +154,13 @@
                                         <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
                                     </div>
                                     <div class="card-toolbar">
-                                        <button type="reset" class="btn btn-success mr-2">Save Changes</button>
-                                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                                        <button type="submit" class="btn btn-success mr-2">Lưu thông tin</button>
+                                        <button type="reset" class="btn btn-secondary">Hủy</button>
                                     </div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Form-->
-                                <form class="form">
+                                <div class="form">
                                     <!--begin::Body-->
                                     <div class="card-body">
                                         <div class="row">
@@ -264,10 +264,10 @@
                                         </div>
                                     </div>
                                     <!--end::Body-->
-                                </form>
+                                </div>
                                 <!--end::Form-->
                             </div>
-                        </div>
+                        </form>
                         <!--end::Content-->
                     </div>
                     <!--end::Profile Personal Information-->
@@ -287,7 +287,8 @@
 
     <script>
         $(document).ready(function () {
-            $("#change_password").click(function () {
+            $("#change_password").click(function (event) {
+                event.preventDefault();
                 $("#content").load('/password');
             })
             $("#personal_information").click(function () {
