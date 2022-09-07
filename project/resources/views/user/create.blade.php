@@ -20,7 +20,8 @@
                 <div class="d-flex align-items-center">
                     <!--begin::Dropdown-->
                     <div class="btn-group ml-2">
-                        <button type="submit" class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">Cancel
+                        <button type="submit" class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
+                            Cancel
                         </button>
                         <button type="submit" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">Save
                             Changes
@@ -210,6 +211,16 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
+                                                <label class="col-form-label col-3 text-lg-right text-left">Date of
+                                                    Birth</label>
+                                                <div class="col-9">
+                                                    <input type="text" class="form-control form-control-lg form-control-solid" id="kt_datepicker_1" readonly="readonly"
+                                                           placeholder="Select date"/>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
                                                 <label class="col-form-label col-3 text-lg-right text-left">Contact
                                                     Phone</label>
                                                 <div class="col-9">
@@ -285,15 +296,16 @@
                                                     <label
                                                         class="col-form-label col-3 text-lg-right text-left">Username</label>
                                                     <div class="col-9">
-                                                            <input
-                                                                class="form-control form-control-lg form-control-solid"
-                                                                type="text" value="nick84"/>
+                                                        <input
+                                                            class="form-control form-control-lg form-control-solid"
+                                                            type="text" value="nick84"/>
                                                     </div>
                                                 </div>
                                                 <!--end::Group-->
                                                 <!--begin::Group-->
                                                 <div class="form-group row">
-                                                    <label for="password" class="col-form-label col-3 text-lg-right text-left">Password</label>
+                                                    <label for="password"
+                                                           class="col-form-label col-3 text-lg-right text-left">Password</label>
                                                     <div class="col-9">
                                                         <div class="input-group input-group-lg input-group-solid">
                                                             <div class="input-group-prepend">
@@ -303,14 +315,16 @@
                                                             </div>
                                                             <input type="password" name="password"
                                                                    class="form-control form-control-lg form-control-solid"
-                                                                   value="nick.watson@loop.com" />
+                                                                   value="nick.watson@loop.com"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--end::Group-->
                                                 <!--begin::Group-->
                                                 <div class="form-group row">
-                                                    <label for="password-confirmation" class="col-form-label col-3 text-lg-right text-left">Re-enter Password</label>
+                                                    <label for="password-confirmation"
+                                                           class="col-form-label col-3 text-lg-right text-left">Re-enter
+                                                        Password</label>
                                                     <div class="col-9">
                                                         <div class="input-group input-group-lg input-group-solid">
                                                             <div class="input-group-prepend">
@@ -320,7 +334,7 @@
                                                             </div>
                                                             <input type="password" name="password-confirmation"
                                                                    class="form-control form-control-lg form-control-solid"
-                                                                   value="nick.watson@loop.com" />
+                                                                   value="nick.watson@loop.com"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -589,4 +603,9 @@
         <!--end::Entry-->
     </form>
     <!--end::Content-->
+@endsection
+
+@section('script')
+    <script src="{{mix('js/user/user.js')}}"></script>
+    <script src="{{mix('js/user/date-picker.js')}}"></script>
 @endsection

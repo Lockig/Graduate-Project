@@ -1841,5 +1841,6 @@
     "/js/app.js": "/js/app.js?id=4842205073810fc5e4cf7408e2caa1c3",
     "/js/user/user.js": "/js/user/user.js?id=de814d19497f5ef454ce41af1f77d1e0",
     "/js/user/table.js": "/js/user/table.js?id=4d7eb82c0eb47d8daa43df6de15222a5",
-    "/js/user/profile.js": "/js/user/profile.js?id=b210b560b5be1a1f8ebd95631c8299c3"
+    "/js/user/profile.js": "/js/user/profile.js?id=b210b560b5be1a1f8ebd95631c8299c3",
+    "/js/user/date-picker.js": "/js/user/date-picker.js?id=ee3257e5568d7d067c53e72885ab3da3"
 }

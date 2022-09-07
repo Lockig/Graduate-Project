@@ -29,3 +29,7 @@ Route::get('/list', function () {
 });
 
 
+Route::get('/form', function () {
+    return view('user.form');
+});
+
