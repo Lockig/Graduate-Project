@@ -160,10 +160,11 @@
                                                 <label
                                                     class="col-form-label col-3 text-lg-right text-left">Avatar</label>
                                                 <div class="col-9">
-                                                    <div class="image-input image-input-empty image-input-outline"
-                                                         id="kt_user_edit_avatar"
-                                                         style="background-image: url(assets/media/users/blank.png)">
-                                                        <div class="image-input-wrapper"></div>
+                                                    <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
+                                                        <div class="image-input-wrapper"
+                                                             style="background-image: url({{asset('assets/media/users/100_3.jpg')}})">
+                                                        </div>
+
                                                         <label
                                                             class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                                             data-action="change" data-toggle="tooltip" title=""
@@ -173,18 +174,13 @@
                                                                    accept=".png, .jpg, .jpeg"/>
                                                             <input type="hidden" name="profile_avatar_remove"/>
                                                         </label>
+
                                                         <span
                                                             class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                                             data-action="cancel" data-toggle="tooltip"
                                                             title="Cancel avatar">
-																			<i class="ki ki-bold-close icon-xs text-muted"></i>
-																		</span>
-                                                        <span
-                                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                            data-action="remove" data-toggle="tooltip"
-                                                            title="Remove avatar">
-																			<i class="ki ki-bold-close icon-xs text-muted"></i>
-																		</span>
+                                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,7 +210,9 @@
                                                 <label class="col-form-label col-3 text-lg-right text-left">Date of
                                                     Birth</label>
                                                 <div class="col-9">
-                                                    <input type="text" class="form-control form-control-lg form-control-solid" id="kt_datepicker_1" readonly="readonly"
+                                                    <input type="text"
+                                                           class="form-control form-control-lg form-control-solid"
+                                                           id="kt_datepicker_1" readonly="readonly"
                                                            placeholder="Select date"/>
                                                 </div>
                                             </div>
@@ -606,6 +604,9 @@
 @endsection
 
 @section('script')
-    <script src="{{mix('js/user/user.js')}}"></script>
+    {{--    <script src="{{mix('js/user/user.js')}}"></script>--}}
     <script src="{{mix('js/user/date-picker.js')}}"></script>
+    <script>
+        var avatar3 = new KTImageInput('kt_image_3');
+    </script>
 @endsection
