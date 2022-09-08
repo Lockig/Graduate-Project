@@ -1,131 +1,7 @@
-/* -----------------------------------------------------------------------------
-  - Project: Biometric attendance system using NodeMCU
-  - Author:  https://www.youtube.com/ElectronicsTechHaIs
-  - Date:  27/4/2019
-   -----------------------------------------------------------------------------
-  This code created by Electronics Tech channel for
-  the Biometric attendance project with NodeMCU.
-  Please read the comments for a better understanding.
 
-  The video: https://youtu.be/CPWBc4OErgM
-   ---------------------------------------------------------------------------*/
-//*******************************libraries********************************
-//thêm thư viện adafruit io bus nx
-#include <WiFiClient.h>
-#include <SPI.h>
-#include <Wire.h>
-#include <ESP8266WiFi.h>
-#include <SoftwareSerial.h>
-#include <ESP8266WebServer.h>
-#include <ESP8266HTTPClient.h>
-#include <Adafruit_GFX.h>          //https://github.com/adafruit/Adafruit-GFX-Library
-#include <Adafruit_SSD1306.h>      //https://github.com/adafruit/Adafruit_SSD1306
-#include <Adafruit_Fingerprint.h>  //https://github.com/adafruit/Adafruit-Fingerprint-Sensor-Library
 
-#include <hex_code.h>
 //************************************************************************
-//Fingerprint scanner Pins
-#define Finger_Rx 14 //D5
-#define Finger_Tx 12 //D6
-// Declaration for SSD1306 display connected using software I2C
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_RESET     0 // Reset pin # (or -1 if sharing Arduino reset pin)
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-//************************************************************************
-SoftwareSerial mySerial(Finger_Rx, Finger_Tx);
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-//************************************************************************
-/* Set these to your desired credentials. */
-const char *ssid = "SSID";  //ENTER YOUR WIFI SETTINGS
-const char *password = "password";
-//************************************************************************
-String postData ; // post array that will be send to the website
-WiFiClient wifi;
-String link = "http://YourComputerIP/biometricattendance/getdata.php"; //computer IP or the server domain
-int FingerID = 0;     // The Fingerprint ID from the scanner
-uint8_t id;
 
-
-
-
-void setup() {
-
-  Serial.begin(9600);
-
-  //-----------initiate OLED display-------------
-
-  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
-  }
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  // you can delet these three lines if you don't want to get the Adfruit logo appear
-  display.display();
-  delay(2000); // Pause for 2 seconds
-  display.clearDisplay();
-
-  //---------------------------------------------
-
-  connectToWiFi();
-
-  //---------------------------------------------
-
-  // set the data rate for the sensor serial port
-  finger.begin(57600);
-  Serial.println("\n\nAdafruit finger detect test");
-
-  if (finger.verifyPassword()) {
-    Serial.println("Found fingerprint sensor!");
-    display.clearDisplay();
-    display.drawBitmap( 34, 0, FinPr_valid_bits, FinPr_valid_width, FinPr_valid_height, WHITE);
-    display.display();
-  } else {
-    Serial.println("Did not find fingerprint sensor :(");
-    display.clearDisplay();
-    display.drawBitmap( 32, 0, FinPr_failed_bits, FinPr_failed_width, FinPr_failed_height, WHITE);
-    display.display();
-    while (1) { delay(1); }
-  }
-  //---------------------------------------------
-
-  finger.getTemplateCount();
-  Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
-  Serial.println("Waiting for valid finger...");
-
-  //------------*test the connection*------------
-
-  //SendFingerprintID( FingerID );
-
-}
-//************************************************************************
-void loop() {
-
-  //check if there's a connection to WiFi or not
-  if(WiFi.status() != WL_CONNECTED){
-    connectToWiFi();
-  }
-  //---------------------------------------------
-  //If there no fingerprint has been scanned return -1 or -2 if there an error or 0 if there nothing, The ID start form 1 to 127
-  FingerID = getFingerprintID();  // Get the Fingerprint ID from the Scanner
-  delay(50);            //don't need to run this at full speed.
-
-  //---------------------------------------------
-
-  DisplayFingerprintID();
-
-  //---------------------------------------------
-
-  ChecktoAddID();
-
-  //---------------------------------------------
-
-  ChecktoDeleteID();
-
-  //---------------------------------------------
-}
 //************Display the fingerprint ID state on the OLED*************
 void DisplayFingerprintID(){
   //Fingerprint has been detected
@@ -574,6 +450,7 @@ void confirmAdding(){
 
   http.end();  //Close connection
 }
+
 //********************connect to the WiFi******************
 void connectToWiFi(){
     WiFi.mode(WIFI_OFF);        //Prevents reconnection issue (taking too long to connect)

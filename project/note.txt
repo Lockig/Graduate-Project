@@ -1,3 +1,4 @@
 - chạy npm run dev để gen ra asset trong public
 - chay storage link để gen ra ảnh trong public, storage
--
+- chay composer require laravel/ui
+- composer require laravel/sanctum

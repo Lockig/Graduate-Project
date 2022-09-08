@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('id')->foreign('user.id');
+            $table->integer('user_id')->foreign('user.id');
             $table->time('time_in');
             $table->time('time_out');
             $table->date('check_in_date');

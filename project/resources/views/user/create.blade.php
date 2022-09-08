@@ -2,7 +2,8 @@
 
 @section('content')
     <!--begin::Content-->
-    <form class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    @include('system_message');
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -16,51 +17,6 @@
                     <!--end::Separator-->
                 </div>
                 <!--end::Details-->
-                <!--begin::Toolbar-->
-                <div class="d-flex align-items-center">
-                    <!--begin::Dropdown-->
-                    <div class="btn-group ml-2">
-                        <button type="submit" class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
-                            Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">Save
-                            Changes
-                        </button>
-                        <button type="button"
-                                class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base dropdown-toggle dropdown-toggle-split"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right">
-                            <ul class="navi py-5">
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-writing"></i>
-														</span>
-                                        <span class="navi-text">Save &amp; continue</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-medical-records"></i>
-														</span>
-                                        <span class="navi-text">Save &amp; add new</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-hourglass-1"></i>
-														</span>
-                                        <span class="navi-text">Save &amp; exit</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--end::Dropdown-->
-                </div>
-                <!--end::Toolbar-->
             </div>
         </div>
         <!--end::Subheader-->
@@ -139,7 +95,8 @@
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body">
-                        <form class="form" id="kt_form">
+                        <form  method="post" action="{{route('users.store')}}"  class="form" id="kt_form">
+                            @csrf
                             <div class="tab-content">
                                 <!--begin::Tab-->
                                 <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
@@ -187,30 +144,30 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">First
+                                                <label for="first_name" class="col-form-label col-3 text-lg-right text-left">First
                                                     Name</label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg form-control-solid"
-                                                           type="text" value="Anna"/>
+                                                    <input name="first_name" class="form-control form-control-lg form-control-solid"
+                                                           type="text" placeholder="Knox"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Last
+                                                <label for="last_name" class="col-form-label col-3 text-lg-right text-left">Last
                                                     Name</label>
                                                 <div class="col-9">
-                                                    <input class="form-control form-control-lg form-control-solid"
-                                                           type="text" value="Krox"/>
+                                                    <input name="last_name" class="form-control form-control-lg form-control-solid"
+                                                           type="text" placeholder="Knox"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Date of
+                                                <label for="dob" class="col-form-label col-3 text-lg-right text-left">Date of
                                                     Birth</label>
                                                 <div class="col-9">
-                                                    <input type="text"
+                                                    <input name="dob" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            id="kt_datepicker_1" readonly="readonly"
                                                            placeholder="Select date"/>
@@ -219,7 +176,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Contact
+                                                <label for="mobile_phone" class="col-form-label col-3 text-lg-right text-left">Contact
                                                     Phone</label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
@@ -228,7 +185,7 @@
 																				<i class="la la-phone"></i>
 																			</span>
                                                         </div>
-                                                        <input type="text"
+                                                        <input name="mobile_phone" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                value="+45678967456" placeholder="Phone"/>
                                                     </div>
@@ -237,7 +194,7 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Email
+                                                <label for="email" class="col-form-label col-3 text-lg-right text-left">Email
                                                     Address</label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
@@ -246,7 +203,7 @@
 																				<i class="la la-at"></i>
 																			</span>
                                                         </div>
-                                                        <input type="text"
+                                                        <input name="email" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                value="anna.krox@loop.com" placeholder="Email"/>
                                                     </div>
@@ -269,6 +226,48 @@
                                                 </div>
                                             </div>
                                             <!--end::Group-->
+                                            <!--begin::Toolbar-->
+                                            <div class="d-flex">
+                                                <!--begin::Dropdown-->
+                                                <div class="btn-group ml-2">
+                                                    <button type="reset" class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">Save
+                                                        Changes
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right">
+                                                        <ul class="navi py-5">
+                                                            <li class="navi-item">
+                                                                <a href="#" class="navi-link">
+														<span class="navi-icon">
+															<i class="flaticon2-writing"></i>
+														</span>
+                                                                    <span class="navi-text">Save &amp; continue</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="navi-item">
+                                                                <a href="#" class="navi-link">
+														<span class="navi-icon">
+															<i class="flaticon2-medical-records"></i>
+														</span>
+                                                                    <span class="navi-text">Save &amp; add new</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="navi-item">
+                                                                <a href="#" class="navi-link">
+														<span class="navi-icon">
+															<i class="flaticon2-hourglass-1"></i>
+														</span>
+                                                                    <span class="navi-text">Save &amp; exit</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!--end::Dropdown-->
+                                            </div>
+                                            <!--end::Toolbar-->
                                         </div>
                                     </div>
                                     <!--end::Row-->
@@ -599,7 +598,7 @@
             <!--end::Container-->
         </div>
         <!--end::Entry-->
-    </form>
+    </div>
     <!--end::Content-->
 @endsection
 
