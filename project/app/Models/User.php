@@ -24,7 +24,8 @@ class User extends Authenticatable
         'dob',
         'email',
         'mobile_number',
-        'finger_print_id'
+        'finger_print_id',
+        'avatar'
     ];
 
     /**

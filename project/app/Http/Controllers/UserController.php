@@ -32,26 +32,29 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+        $profile_avatar = $request->file('profile_avatar')->store('images');
+
         DB::table('users')->insert([
-            'first_name'=>$request->first_name,
-            'last_name'=>$request->last_name,
-            'date_of_birth'=>Carbon::parse('m/d/Y',$request->dob)->format('Y-m-d') ,
-            'email'=>$request->email,
-            'mobile_number'=>$request->mobile_number
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d'),
+            'email' => $request->email,
+            'mobile_number' => $request->mobile_phone,
+            'avatar'=> $request->$profile_avatar
         ]);
-        return redirect()->back()->with('Success','Create user successfully');
+        return redirect()->back()->with('Success', 'Create user successfully');
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -62,7 +65,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -73,8 +76,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -85,7 +88,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

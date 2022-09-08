@@ -114,7 +114,7 @@
                                             <!--end::Row-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label
+                                                <label for="profile_avatar"
                                                     class="col-form-label col-3 text-lg-right text-left">Avatar</label>
                                                 <div class="col-9">
                                                     <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
@@ -127,7 +127,7 @@
                                                             data-action="change" data-toggle="tooltip" title=""
                                                             data-original-title="Change avatar">
                                                             <i class="fa fa-pen icon-sm text-muted"></i>
-                                                            <input type="file" name="profile_avatar"
+                                                            <input name="profile_avatar" type="file"
                                                                    accept=".png, .jpg, .jpeg"/>
                                                             <input type="hidden" name="profile_avatar_remove"/>
                                                         </label>
@@ -187,7 +187,7 @@
                                                         </div>
                                                         <input name="mobile_phone" type="text"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               value="+45678967456" placeholder="Phone"/>
+                                                               placeholder="Phone"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -206,22 +206,6 @@
                                                         <input name="email" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                value="anna.krox@loop.com" placeholder="Email"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Company
-                                                    Site</label>
-                                                <div class="col-9">
-                                                    <div class="input-group input-group-lg input-group-solid">
-                                                        <input type="text"
-                                                               class="form-control form-control-lg form-control-solid"
-                                                               placeholder="Username" value="loop"/>
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">.com</span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

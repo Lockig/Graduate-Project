@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('email')->unique();
             $table->string('mobile_number');
+            $table->string('avatar');
 //            $table->integer('fingerprint_id');
 //            $table->tinyInteger('fingerprint_select')->default('0');
 //            $table->unsignedTinyInteger('del_fingerprint_id');
