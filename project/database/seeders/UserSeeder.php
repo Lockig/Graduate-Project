@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AccountSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,13 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('accounts')->insert([
-            'user_id'=>'1',
-            'role_id'=>'1',
-            'password'=>'Minh@2001'
+        DB::table('users')->insert([
+            'first_name'=>'do',
+            'last_name'=>'minh',
+            'date_of_birth'=>'2001-01-01',
+            'email'=>'minhntt2001hn@gmail.com',
+            'mobile_number'=>'0904159596',
+            'avatar'=>''
         ]);
         //
     }

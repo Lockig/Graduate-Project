@@ -145,58 +145,65 @@
                                         <div class="form-group row">
                                             <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <div class="image-input image-input-outline" id="kt_profile_avatar"
-                                                     style="background-image: url(assets/media/users/blank.png)">
+                                                <div class="image-input image-input-outline image-input-circle"
+                                                     id="kt_image_3">
                                                     <div class="image-input-wrapper"
-                                                         style="background-image: url(assets/media/users/300_21.jpg)"></div>
+                                                         style="background-image: url({{asset('assets/media/users/100_3.jpg')}})">
+                                                    </div>
+
                                                     <label
                                                         class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                                         data-action="change" data-toggle="tooltip" title=""
                                                         data-original-title="Change avatar">
                                                         <i class="fa fa-pen icon-sm text-muted"></i>
-                                                        <input type="file" name="profile_avatar"
+                                                        <input name="profile_avatar" type="file"
                                                                accept=".png, .jpg, .jpeg"/>
                                                         <input type="hidden" name="profile_avatar_remove"/>
                                                     </label>
+
                                                     <span
                                                         class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                                         data-action="cancel" data-toggle="tooltip"
                                                         title="Cancel avatar">
                                                             <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                                    </span>
-                                                    <span
-                                                        class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                        data-action="remove" data-toggle="tooltip"
-                                                        title="Remove avatar">
-                                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                                    </span>
+                                                        </span>
                                                 </div>
-                                                <span
-                                                    class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">First Name</label>
+                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">First
+                                                Name</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="first_name" class="form-control form-control-lg form-control-solid"
+                                                <input name="first_name"
+                                                       class="form-control form-control-lg form-control-solid"
                                                        type="text"
                                                        value="Nick"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
+                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Last
+                                                Name</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="last_name" class="form-control form-control-lg form-control-solid"
+                                                <input name="last_name"
+                                                       class="form-control form-control-lg form-control-solid"
                                                        type="text"
                                                        value="Bold"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>
+                                            {{--                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>--}}
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="user_name" class="form-control form-control-lg form-control-solid"
-                                                       type="text"
-                                                       value="Bold"/>
+                                                {{--                                                <input name="user_name" class="form-control form-control-lg form-control-solid"--}}
+                                                {{--                                                       type="text"--}}
+                                                {{--                                                       value="Bold"/>--}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {{--                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>--}}
+                                            <div class="col-lg-9 col-xl-6">
+                                                {{--                                                <input name="user_name" class="form-control form-control-lg form-control-solid"--}}
+                                                {{--                                                       type="text"--}}
+                                                {{--                                                       value="Bold"/>--}}
                                             </div>
                                         </div>
                                         <div class="row">
@@ -206,7 +213,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="mobile_phone" class="col-xl-3 col-lg-3 col-form-label">Mobile Phone</label>
+                                            <label for="mobile_phone" class="col-xl-3 col-lg-3 col-form-label">Mobile
+                                                Phone</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">
@@ -221,7 +229,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="email" class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
+                                            <label for="email" class="col-xl-3 col-lg-3 col-form-label">Email
+                                                Address</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">
@@ -259,6 +268,7 @@
     <!--end::Page Scripts-->
 
     <script>
+        var avatar3 = new KTImageInput('kt_image_3');
         $(document).ready(function () {
             $("#change_password").click(function (event) {
                 event.preventDefault();

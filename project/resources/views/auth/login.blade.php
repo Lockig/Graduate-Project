@@ -28,7 +28,7 @@
 			<div class="form-group">
 				<div class="d-flex justify-content-between mt-n5">
 					<label for="password" class="font-size-h6 font-weight-bolder text-dark pt-5">{{ __('Password') }}</label>
-					<a href="{{ route('password.update') }}" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('Forgot Password ?')}}</a>
+					<a href="{{ route('password.reset') }}" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('Forgot Password ?')}}</a>
 				</div>
 				<input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" id="password" autocomplete="off" />
 			</div>

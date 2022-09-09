@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id('account_id');
-            $table->integer('user_id')->foreign('users.user_id');
-            $table->integer('role_id')->foreign('roles.role_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('role_id')->on('roles');
             $table->string('password');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

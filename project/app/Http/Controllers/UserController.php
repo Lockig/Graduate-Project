@@ -45,7 +45,7 @@ class UserController extends Controller
             'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d'),
             'email' => $request->email,
             'mobile_number' => $request->mobile_phone,
-            'avatar'=> $request->$profile_avatar
+            'avatar'=> $profile_avatar
         ]);
         return redirect()->back()->with('Success', 'Create user successfully');
         //
