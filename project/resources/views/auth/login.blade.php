@@ -4,7 +4,6 @@
 @section('content')
 <!--end::Head-->
 <!--begin::Body-->
-    @include('system_message')
 	<!--begin::Signin-->
 	<div class="login-form">
 		<!--begin::Form-->

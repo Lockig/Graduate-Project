@@ -109,6 +109,7 @@
       <path value="$PROJECT_DIR$/project/vendor/spatie/ignition" />
       <path value="$PROJECT_DIR$/project/vendor/spatie/backtrace" />
       <path value="$PROJECT_DIR$/project/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/project/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

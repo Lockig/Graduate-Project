@@ -1,14 +1,13 @@
-
-    <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
-        <!--begin::Brand-->
-        <div class="brand flex-column-auto" id="kt_brand">
-            <!--begin::Logo-->
-            <a href="index.html" class="brand-logo">
-                <img alt="Logo" src="assets/media/logos/logo-light.png"/>
-            </a>
-            <!--end::Logo-->
-            <!--begin::Toggle-->
-            <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
+    <!--begin::Brand-->
+    <div class="brand flex-column-auto" id="kt_brand">
+        <!--begin::Logo-->
+        <a href="index.html" class="brand-logo">
+            <img alt="Logo" src="assets/media/logos/logo-light.png"/>
+        </a>
+        <!--end::Logo-->
+        <!--begin::Toggle-->
+        <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
 							<span class="svg-icon svg-icon svg-icon-xl">
 								<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -27,19 +26,19 @@
 								</svg>
                                 <!--end::Svg Icon-->
 							</span>
-            </button>
-            <!--end::Toolbar-->
-        </div>
-        <!--end::Brand-->
-        <!--begin::Aside Menu-->
-        <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
-            <!--begin::Menu Container-->
-            <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
-                 data-menu-dropdown-timeout="500">
-                <!--begin::Menu Nav-->
-                <ul class="menu-nav">
-                    <li class="menu-item menu-item-active" aria-haspopup="true">
-                        <a href="#" class="menu-link">
+        </button>
+        <!--end::Toolbar-->
+    </div>
+    <!--end::Brand-->
+    <!--begin::Aside Menu-->
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+        <!--begin::Menu Container-->
+        <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
+             data-menu-dropdown-timeout="500">
+            <!--begin::Menu Nav-->
+            <ul class="menu-nav">
+                <li class="menu-item menu-item-active" aria-haspopup="true">
+                    <a href="#" class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -57,16 +56,16 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="menu-section">
-                        <h4 class="menu-text">Thông tin cá nhân </h4>
-                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                    </li>
-                    <li class="menu-item" aria-haspopup="true">
-                        <a href="/"
-                           class="menu-link">
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-section">
+                    <h4 class="menu-text">Thông tin cá nhân </h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                </li>
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="/"
+                       class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -84,16 +83,16 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Thông tin cá nhân</span>
-                        </a>
-                    </li>
-                    <li class="menu-section">
-                        <h4 class="menu-text">Điểm danh</h4>
-                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                    </li>
-                    <li class="menu-item" aria-haspopup="true">
-                        <a href="/attendance"
-                           class="menu-link">
+                        <span class="menu-text">Thông tin cá nhân</span>
+                    </a>
+                </li>
+                <li class="menu-section">
+                    <h4 class="menu-text">Điểm danh</h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                </li>
+                <li class="menu-item" aria-haspopup="true">
+                    <a href="/attendance"
+                       class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -111,12 +110,12 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Thông tin điểm danh</span>
-                        </a>
-                    </li>
-                    <li class="menu-item" aria-haspopup="true">
-                        <a target="_blank" href="/list"
-                           class="menu-link">
+                        <span class="menu-text">Thông tin điểm danh</span>
+                    </a>
+                </li>
+                <li class="menu-item" aria-haspopup="true">
+                    <a target="_blank" href="/list"
+                       class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -134,15 +133,15 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Tạo đơn xin nghỉ</span>
-                        </a>
-                    </li>
-                    <li class="menu-section">
-                        <h4 class="menu-text">Quản lý</h4>
-                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                    </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <span class="menu-text">Tạo đơn xin nghỉ</span>
+                    </a>
+                </li>
+                <li class="menu-section">
+                    <h4 class="menu-text">Quản lý</h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                </li>
+                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -160,42 +159,42 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Nhân viên</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                        <span class="menu-text">Nhân viên</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item menu-item-parent" aria-haspopup="true">
 												<span class="menu-link">
 													<span class="menu-text">General</span>
 												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="layout/general/fluid-content.html" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Tạo mới</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="layout/general/minimized-aside.html" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <!--end::Menu Nav-->
-            </div>
-            <!--end::Menu Container-->
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{route('users.create')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Tạo mới</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{ route('users.index') }}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Danh sách</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <!--end::Menu Nav-->
         </div>
-        <!--end::Aside Menu-->
+        <!--end::Menu Container-->
     </div>
-    <!--end::Aside-->
+    <!--end::Aside Menu-->
+</div>
+<!--end::Aside-->
 

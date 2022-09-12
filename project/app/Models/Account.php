@@ -12,8 +12,11 @@ class Account extends Model
 {
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
+    protected $primaryKey = 'account_id';
     protected $fillable = [
-        'user_id'
+        'user_id',
+        'password',
+        'role_id'
     ];
 
     protected $hidden = [
@@ -29,6 +32,12 @@ class Account extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id','user_id');
+    }
+    public function role(){
+        return $this->hasOne(Role::class);
+    }
 
 }

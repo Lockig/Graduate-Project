@@ -18,6 +18,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -46,4 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Account::class,'user_id','user_id');
+    }
+
 }

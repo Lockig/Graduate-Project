@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = User::all();
+        return view('user.admin.list_employee',compact(['users']));
         //
     }
 
@@ -26,6 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        return view('user.create');
         //
     }
 
@@ -35,18 +39,24 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        $profile_avatar = $request->file('profile_avatar')->store('images');
+        $credentials = $request->validated();
+        $profile_avatar = $credentials['profile_avatar']->store('images');
 
         DB::table('users')->insert([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'date_of_birth' => Carbon::createFromFormat('m/d/Y', $request->dob)->format('Y-m-d'),
-            'email' => $request->email,
-            'mobile_number' => $request->mobile_phone,
+            'first_name' => $credentials['first_name'],
+            'last_name' => $credentials['last_name'],
+            'date_of_birth' => Carbon::createFromFormat('m/d/Y', $credentials['dob'])->format('Y-m-d'),
+            'email' => $credentials['email'],
+            'mobile_number' => $credentials['mobile_phone'],
             'avatar'=> $profile_avatar
         ]);
+
+        DB::table('accounts')->insert([
+            ''
+        ]);
+
         return redirect()->back()->with('Success', 'Create user successfully');
         //
     }
