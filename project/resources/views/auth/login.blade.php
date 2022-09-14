@@ -12,9 +12,7 @@
 			@csrf
 			<div class="pb-5 pb-lg-15">
 				<h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
-				<div class="text-muted font-weight-bold font-size-h4">New Here?
-					<a href="{{ route('register') }}" class="text-primary font-weight-bolder">Create Account</a>
-				</div>
+				<h3 class="text-muted font-size-h4 font-size-h4-lg">Please fill in credentials to login</h3>
 			</div>
 			<!--begin::Title-->
 			<!--begin::Form group-->

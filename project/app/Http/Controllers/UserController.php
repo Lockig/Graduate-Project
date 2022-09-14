@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateUser;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Nette\Utils\Random;
 
-class UserController extends Controller
+class UserController extends Controller implements ShouldQueue
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user.admin.list_employee',compact(['users']));
+        return view('user.admin.list_employee', compact(['users']));
         //
     }
 
@@ -41,23 +46,41 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $credentials = $request->validated();
-        $profile_avatar = $credentials['profile_avatar']->store('images');
+//        try{
+            $credentials = $request->validated();
+            if($credentials['profile_avatar']){
+                $profile_avatar = $request->file('profile_avatar')->store('public');
+            }
+            $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
 
-        DB::table('users')->insert([
-            'first_name' => $credentials['first_name'],
-            'last_name' => $credentials['last_name'],
-            'date_of_birth' => Carbon::createFromFormat('m/d/Y', $credentials['dob'])->format('Y-m-d'),
-            'email' => $credentials['email'],
-            'mobile_number' => $credentials['mobile_phone'],
-            'avatar'=> $profile_avatar
-        ]);
+            DB::table('users')->insert([
+                'first_name' => $credentials['first_name'],
+                'last_name' => $credentials['last_name'],
+                'date_of_birth' => $date,
+                'email' => $credentials['email'],
+                'mobile_number' => $credentials['mobile_number'],
+                'avatar' => $profile_avatar ?? null
+            ]);
 
-        DB::table('accounts')->insert([
-            ''
-        ]);
+            $user_id = User::query()
+                ->select('user_id')
+                ->email($request)
+                ->pluck('user_id')->get('0');
 
-        return redirect()->back()->with('Success', 'Create user successfully');
+            DB::table('accounts')->insert([
+                'user_id'=>$user_id,
+                'role_id'=>2,
+                'password'=>Random::generate(5)
+            ]);
+
+            $user = User::find($user_id);
+            event(new CreateUser($user));
+            return redirect()->back()->with('Success', 'Create user successfully');
+//        }
+//        catch (Exception $error){
+//            return redirect()->back()->with('Fail',$error->getMessage());
+//        }
+
         //
     }
 
@@ -104,5 +127,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function export(){
+        return Excel::downlaod(new ExportFile,'users.xlsx');
     }
 }

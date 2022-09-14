@@ -36,19 +36,5 @@ class ResetPasswordController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
 
-    public function sendMail(Request $request)
-    {
-        $email = $request->input('email');
-        $check = User::query()->select('name')->where('email', 'like', '%' . $email . '%')->first();
-        if ($check != null) {
-            $details = [
-                'password' => Random::generate('10')
-            ];
-            Mail::to($email)->send(new ResetPasswordMail($details));
-            redirect()->back()->with('Success', 'Send reset mail successfully');
-            sleep(2000);
-            Auth::logout();
-        }
-        return view('users.login')->with('Warning', 'error');
-    }
+
 }

@@ -16,9 +16,16 @@ class AccountSeeder extends Seeder
     public function run()
     {
         DB::table('accounts')->insert([
-            'user_id'=>'1',
-            'role_id'=>'1',
-            'password'=>'Minh@2001'
+            [
+                'user_id' => '1',
+                'role_id' => '1',
+                'password' => 'Minh@2001'
+            ],
+            [
+                'user_id' => '2',
+                'role_id' => '2',
+                'password' => 'linh1234'
+            ]
         ]);
         //
     }

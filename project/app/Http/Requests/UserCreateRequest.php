@@ -24,12 +24,12 @@ class UserCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required|string',
-            'last_name'=>'required|string',
-            'date_of_birth'=>'date|date_format:m/d/Y',
-            'mobile_number'=>'string|max:10',
-            'email'=>'string|unique:users',
-            'avatar'=>'image|nullable|mimes:jpg,png,jpeg|max:10000'
+            'profile_avatar' => 'nullable',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'date_of_birth' => 'date|date_format:m/d/Y',
+            'mobile_number' => 'string|max:10',
+            'email' => 'unique:users',
             //
         ];
     }

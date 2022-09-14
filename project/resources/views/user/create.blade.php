@@ -95,7 +95,7 @@
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body">
-                        <form  method="post" action="{{route('users.store')}}"  class="form" id="kt_form">
+                        <form method="post" action="{{route('users.store')}}" class="form" id="kt_form" enctype="multipart/form-data">
                             @csrf
                             <div class="tab-content">
                                 <!--begin::Tab-->
@@ -115,9 +115,10 @@
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label for="profile_avatar"
-                                                    class="col-form-label col-3 text-lg-right text-left">Avatar</label>
+                                                       class="col-form-label col-3 text-lg-right text-left">Avatar</label>
                                                 <div class="col-9">
-                                                    <div class="image-input image-input-outline image-input-circle" id="kt_image_3">
+                                                    <div class="image-input image-input-outline image-input-circle"
+                                                         id="kt_image_3">
                                                         <div class="image-input-wrapper"
                                                              style="background-image: url({{asset('assets/media/users/100_3.jpg')}})">
                                                         </div>
@@ -144,30 +145,35 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="first_name" class="col-form-label col-3 text-lg-right text-left">First
+                                                <label for="first_name"
+                                                       class="col-form-label col-3 text-lg-right text-left">First
                                                     Name</label>
                                                 <div class="col-9">
-                                                    <input name="first_name" class="form-control form-control-lg form-control-solid"
+                                                    <input name="first_name"
+                                                           class="form-control form-control-lg form-control-solid"
                                                            type="text" placeholder="Knox"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="last_name" class="col-form-label col-3 text-lg-right text-left">Last
+                                                <label for="last_name"
+                                                       class="col-form-label col-3 text-lg-right text-left">Last
                                                     Name</label>
                                                 <div class="col-9">
-                                                    <input name="last_name" class="form-control form-control-lg form-control-solid"
+                                                    <input name="last_name"
+                                                           class="form-control form-control-lg form-control-solid"
                                                            type="text" placeholder="Knox"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="dob" class="col-form-label col-3 text-lg-right text-left">Date of
+                                                <label for="date_of_birth" class="col-form-label col-3 text-lg-right text-left">Date
+                                                    of
                                                     Birth</label>
                                                 <div class="col-9">
-                                                    <input name="dob" type="text"
+                                                    <input name="date_of_birth" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            id="kt_datepicker_1" readonly="readonly"
                                                            placeholder="Select date"/>
@@ -176,7 +182,8 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="mobile_phone" class="col-form-label col-3 text-lg-right text-left">Contact
+                                                <label for="mobile_number"
+                                                       class="col-form-label col-3 text-lg-right text-left">Contact
                                                     Phone</label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
@@ -185,7 +192,7 @@
 																				<i class="la la-phone"></i>
 																			</span>
                                                         </div>
-                                                        <input name="mobile_phone" type="text"
+                                                        <input name="mobile_number" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                placeholder="Phone"/>
                                                     </div>
@@ -203,9 +210,9 @@
 																				<i class="la la-at"></i>
 																			</span>
                                                         </div>
-                                                        <input name="email" type="text"
+                                                        <input name="email" type="email"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               value="anna.krox@loop.com" placeholder="Email"/>
+                                                               placeholder="Email"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,13 +221,17 @@
                                             <div class="d-flex">
                                                 <!--begin::Dropdown-->
                                                 <div class="btn-group ml-2">
-                                                    <button type="reset" class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
+                                                    <button type="reset"
+                                                            class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
                                                         Cancel
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">Save
+                                                    <button type="submit"
+                                                            class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+                                                        Save
                                                         Changes
                                                     </button>
-                                                    <div class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right">
+                                                    <div
+                                                        class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right">
                                                         <ul class="navi py-5">
                                                             <li class="navi-item">
                                                                 <a href="#" class="navi-link">
