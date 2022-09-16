@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ResetPasswordMail extends Mailable
+class ResetPasswordMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -30,8 +30,9 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
+        $details = $this->details;
         return $this->from('minhntt2001hn@gmail.com','Example')
                     ->subject('Reset password')
-                    ->view('mail');
+                    ->markdown('mail', compact(['details']));
     }
 }

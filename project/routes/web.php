@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/',[LoginController::class,'showLoginForm']);
-Route::get('/home',[LoginController::class,'showLoginForm']);
+Route::get('/',[UserController::class,'index'])->middleware('auth');
+Route::get('/home',[UserController::class,'index'])->middleware('auth');
 
 Route::get('/password-reset',[ForgotPasswordController::class,'showLinkRequestForm'])->name('password.reset');
 
@@ -21,11 +21,15 @@ Route::get('/log-out',[LoginController::class,'logout']);
 Route::post('/send-mail',[ForgotPasswordController::class,'sendResetLinkEmail'])->name('sendMail');
 
 
-Route::group(['prefix'=>'dashboard','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 //    get list of users information
     Route::get('/', [UserController::class, 'index'])->name('users.index');
 //    get create account form
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
+
+
+
+    Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
 //    get user by id
     Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
 //    get form edit user by id
@@ -37,5 +41,6 @@ Route::group(['prefix'=>'dashboard','middleware'=>'auth'],function(){
 //    delete account by id
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+
 
 

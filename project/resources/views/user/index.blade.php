@@ -26,8 +26,7 @@
                                         </div>
                                         <div>
                                             <a href="#"
-                                               class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">James
-                                                Jones</a>
+                                               class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</a>
                                             <div class="text-muted">Application Developer</div>
                                         </div>
                                     </div>
@@ -36,11 +35,11 @@
                                     <div class="py-9">
                                         <div class="d-flex align-items-center justify-content-between mb-2">
                                             <span class="font-weight-bold mr-2">Email:</span>
-                                            <a href="#" class="text-muted text-hover-primary">matt@fifestudios.com</a>
+                                            <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mb-2">
                                             <span class="font-weight-bold mr-2">Phone:</span>
-                                            <span class="text-muted">44(76)34254578</span>
+                                            <span class="text-muted">{{$user->mobile_number}}</span>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span class="font-weight-bold mr-2">Location:</span>
@@ -177,7 +176,7 @@
                                                 <input name="first_name"
                                                        class="form-control form-control-lg form-control-solid"
                                                        type="text"
-                                                       value="Nick"/>
+                                                       value="{{$user->first_name}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -187,7 +186,7 @@
                                                 <input name="last_name"
                                                        class="form-control form-control-lg form-control-solid"
                                                        type="text"
-                                                       value="Bold"/>
+                                                       value="{{$user->last_name}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -224,7 +223,7 @@
                                                     </div>
                                                     <input name="mobile_phone" type="text"
                                                            class="form-control form-control-lg form-control-solid"
-                                                           value="+35278953712" placeholder="Phone"/>
+                                                           value="{{$user->mobile_number}}" placeholder="Phone"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,7 +239,7 @@
                                                     </div>
                                                     <input name="email" type="text"
                                                            class="form-control form-control-lg form-control-solid"
-                                                           value="nick.bold@loop.com" placeholder="Email"/>
+                                                           value="{{$user->email}}" placeholder="Email"/>
                                                 </div>
                                             </div>
                                         </div>

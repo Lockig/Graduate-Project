@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
+        Schema::create('user_working_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('user_id')->on('users');
-            $table->time('time_in');
-            $table->time('time_out');
-            $table->date('check_in_date');
+            $table->date('join_date');
+            $table->integer('max_day_off')->default('0');
+            $table->integer('seniority');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('user_working_details');
     }
 };

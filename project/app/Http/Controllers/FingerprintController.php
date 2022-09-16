@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Account;
+use App\Models\Fingerprint;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class UserAccountController extends Controller
+class FingerprintController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,16 +36,23 @@ class UserAccountController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->get('finger_id')){
+            DB::table('fingerprints')->insert([
+                'user_id'=>$request->user_id,
+            ]);
+            echo "ok";
+        }else{
+            echo "Error:";
+        }
+        //
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
      */
-    public function show(Account $account)
+    public function show(Fingerprint $fingerprint)
     {
         //
     }
@@ -52,10 +60,8 @@ class UserAccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Account $account)
+    public function edit(Fingerprint $fingerprint)
     {
         //
     }
@@ -64,10 +70,8 @@ class UserAccountController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, Fingerprint $fingerprint)
     {
         //
     }
@@ -75,10 +79,8 @@ class UserAccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account)
+    public function destroy(Fingerprint $fingerprint)
     {
         //
     }

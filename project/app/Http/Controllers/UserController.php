@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
@@ -18,19 +19,17 @@ class UserController extends Controller implements ShouldQueue
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::all();
-        return view('user.admin.list_employee', compact(['users']));
+        $user = Auth::user();
+        return view('user.admin.list_employee',compact('user'));
         //
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -46,7 +45,6 @@ class UserController extends Controller implements ShouldQueue
      */
     public function store(UserCreateRequest $request)
     {
-//        try{
             $credentials = $request->validated();
             if($credentials['profile_avatar']){
                 $profile_avatar = $request->file('profile_avatar')->store('public');
@@ -65,7 +63,7 @@ class UserController extends Controller implements ShouldQueue
             $user_id = User::query()
                 ->select('user_id')
                 ->email($request)
-                ->pluck('user_id')->get('0');
+                ->value('user_id');
 
             DB::table('accounts')->insert([
                 'user_id'=>$user_id,
@@ -76,33 +74,32 @@ class UserController extends Controller implements ShouldQueue
             $user = User::find($user_id);
             event(new CreateUser($user));
             return redirect()->back()->with('Success', 'Create user successfully');
-//        }
-//        catch (Exception $error){
-//            return redirect()->back()->with('Fail',$error->getMessage());
-//        }
 
-        //
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
      */
     public function show(User $user)
     {
+        return view('user.index',compact('user'));
         //
     }
 
+    public function showAttendance()
+    {
+        return view('user.attendance');
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
+        return view('user.password');
         //
     }
 
@@ -115,17 +112,21 @@ class UserController extends Controller implements ShouldQueue
      */
     public function update(Request $request, User $user)
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::find($id);
+//        if($user && $user->account->role != 1){
+//            return
+//        }
+        return back()->with("Error","Something wrong");
         //
     }
 

@@ -37,7 +37,7 @@ class Account extends Model
         return $this->belongsTo(User::class,'user_id','user_id');
     }
     public function role(){
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
 }

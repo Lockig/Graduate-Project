@@ -53,7 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Account::class,'user_id','user_id');
     }
-
+    public function fingerprint(){
+        return $this->hasOne(Fingerprint::class);
+    }
     public function scopeEmail($query, $request){
         return $query->where('email','like','%'. $request->email .'%');
     }

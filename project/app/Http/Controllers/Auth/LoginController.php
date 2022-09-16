@@ -59,7 +59,7 @@ class LoginController extends Controller
                 Auth::login($user);
                 return redirect()->to(route('users.index'))->with('Success', 'Login successfully');
             }
-            return redirect()->back()->with('Warning', 'Wrong password');
+            return redirect()->back()->with('Fail', 'Wrong password');
         }
         return redirect()->back()->with('Fail', 'Check back your credentials');
 
