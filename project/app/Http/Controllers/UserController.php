@@ -23,7 +23,8 @@ class UserController extends Controller implements ShouldQueue
     public function index()
     {
         $user = Auth::user();
-        return view('user.admin.list_employee',compact('user'));
+        $role = $user->account->role_id;
+        return view('user.admin.list_employee',compact(['user','role']));
         //
     }
 
@@ -132,5 +133,10 @@ class UserController extends Controller implements ShouldQueue
 
     public function export(){
         return Excel::downlaod(new ExportFile,'users.xlsx');
+    }
+
+    public function info(){
+        $user = Auth::user();
+        return view('user.index',compact('user'));
     }
 }

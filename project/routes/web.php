@@ -27,7 +27,8 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 //    get create account form
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
 
-
+//    get user information
+    Route::get('/info',[UserController::class,'info'])->name('users.info');;
 
     Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
 //    get user by id
