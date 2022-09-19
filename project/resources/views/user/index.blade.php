@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
+    @include('system_message')
     <!--begin::Content-->
     <div id="content">
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -88,7 +89,8 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        <form method="" action="" class="flex-row-fluid ml-lg-8">
+                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8">
+                            @csrf
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
                                 <!--begin::Header-->

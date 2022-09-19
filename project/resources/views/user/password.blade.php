@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-
+    @include('system_message')
     <?php
         $user = \Illuminate\Support\Facades\Auth::user();
     ?>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div>
                                     <a href="#"
-                                       class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">J{{$user->first_name . ' ' .$user->last_name}}</a>
+                                       class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</a>
                                     <div class="text-muted">Application Developer</div>
                                 </div>
                             </div>

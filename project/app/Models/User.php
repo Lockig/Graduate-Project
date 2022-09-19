@@ -27,7 +27,7 @@ class User extends Authenticatable
         'dob',
         'email',
         'mobile_number',
-        'finger_print_id',
+        'fingerprint',
         'avatar'
     ];
 
@@ -49,6 +49,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function position(){
+        return $this->hasOne(Position::class,'position_id','position_id');
+    }
+
     public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Account::class,'user_id','user_id');

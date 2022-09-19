@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
+    @include('system_message')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
@@ -134,29 +135,29 @@
                         <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" method="post" action="{{route('users.info')}}">
+                    <form class="form" method="post" action="{{route('users.request',Auth::user()->user_id)}}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-lg-5 ml-lg-auto">
-                                    <label class="col-form-label text-left col-lg-3 col-sm-12">Từ ngày</label>
+                                    <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">Từ ngày</label>
                                     <div class="col-lg-9 col-md-12 col-sm-12">
-                                        <input type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
+                                        <input name="day_start" type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
                                                placeholder="Select date"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-5 ml-lg-auto">
-                                    <label class="col-form-label text-left col-lg-3 col-sm-12">Đến ngày</label>
+                                    <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Đến ngày</label>
                                     <div class="col-lg-9 col-md-12 col-sm-12">
-                                        <input type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
+                                        <input name="day_end" type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
                                                placeholder="Select date"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-form-label text-left col-lg-3 col-sm-12">Lý Do</label>
+                                <label for="content" class="col-form-label text-left col-lg-3 col-sm-12">Lý Do</label>
                                 <div class="col-lg-9 col-md-12 col-sm-12">
-                                    <textarea class="form-control" id="kt_autosize_1" rows="3"></textarea>
+                                    <textarea name="content" class="form-control" id="kt_autosize_1" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>

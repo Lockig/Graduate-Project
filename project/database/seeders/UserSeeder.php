@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
                 'date_of_birth' => '2001-01-01',
                 'email' => 'minhntt2001hn@gmail.com',
                 'mobile_number' => '0904159596',
-                'avatar' => ''
+                'avatar' => '',
+                'fingerprint'=>'1'
             ],
             [
                 'first_name' => 'nguyen',
@@ -30,7 +31,9 @@ class UserSeeder extends Seeder
                 'date_of_birth' => '2001-02-02',
                 'email' => 'linh@gmail.com',
                 'mobile_number' => '0904159595',
-                'avatar' => ''
+                'avatar' => '',
+                'fingerprint'=>'2'
+
             ],
         ]);
         //

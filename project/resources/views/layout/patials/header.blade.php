@@ -1737,6 +1737,9 @@
                                             </span>
 										</span>
                 </div>
+                <div>
+                    <a href="{{route('signOut')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Log Out</a>
+                </div>
             </div>
             <!--end::User-->
         </div>

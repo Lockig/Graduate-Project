@@ -19,7 +19,7 @@ class AccountSeeder extends Seeder
             [
                 'user_id' => '1',
                 'role_id' => '1',
-                'password' => 'Minh@2001'
+                'password' => 'minh2001'
             ],
             [
                 'user_id' => '2',

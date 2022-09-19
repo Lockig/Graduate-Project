@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\CreateUser;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Models\Account;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -62,7 +64,9 @@ class UserController extends Controller implements ShouldQueue
                 'date_of_birth' => $date,
                 'email' => $credentials['email'],
                 'mobile_number' => $credentials['mobile_number'],
-                'avatar' => $profile_avatar ?? null
+                'avatar' => $profile_avatar ?? null,
+                'fingerprint'=>'0'
+
             ]);
 
             $user_id = User::query()
@@ -115,8 +119,12 @@ class UserController extends Controller implements ShouldQueue
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request)
     {
+        $validated = $request->validated();
+        $user_id = Auth::user()->user_id;
+        dd($user_id);
+        User::find($user_id)->update([]);
 
     }
 
@@ -144,11 +152,29 @@ class UserController extends Controller implements ShouldQueue
         return view('user.index',compact('user'));
     }
 
-    public function infoUpdate(Request $request){
-        dd('--');
+    public function infoUpdate(UserCreateRequest $request){
+        dd('---');
+//        $validated = $request->validated();
+        $user_id=Auth::user()->user_id;
+        dd($user_id);
     }
     public function dayOffForm(){
         return view('user.form');
+    }
+    public function storeDayOffForm(Request $request, $id){
+        $validated = $request->validate([
+           'content'=>'required|string',
+            'day_start'=>'required|date',
+            'day_end'=>'required|date'
+        ]);
+
+        DB::table('day_off_requests')->insert([
+            'user_id'=>$id,
+            'day_start'=>Carbon::parse($validated['day_start'])->format('Y-m-d'),
+            'day_end'=>Carbon::parse($validated['day_end'])->format('Y-m-d'),
+            'content'=>$validated['content'],
+        ]);
+        return back()->with('Success','Tạo đơn xin nghỉ thành công');
     }
 
     public function updatePassword(Request $request, $id)

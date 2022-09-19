@@ -50,10 +50,9 @@ class LoginController extends Controller
         $user_id = User::query()
             ->select('user_id')
             ->where('email', 'like', '%' . $request->input('email') . '%')
-            ->pluck('user_id')->get('0');
-
+            ->value('user_id');
         if ($user_id != null) {
-            $password = User::find($user_id)->account->pluck('password')->get('0');
+            $password = User::find($user_id)->account->password;
             if ($password == $request->input('password')) {
                 $user = User::find($user_id);
                 Auth::login($user);
