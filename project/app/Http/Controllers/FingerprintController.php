@@ -36,9 +36,13 @@ class FingerprintController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->get('finger_id')){
+        $time_in =Carbon::now()->toDateTimeString();
+        dd($request);
+        if($request->fingerId){
+            dd($request->input('fingerId'));
             DB::table('fingerprints')->insert([
-                'user_id'=>$request->user_id,
+                'user_id'=>$request->input('fingerId'),
+                'time_in'=>$time_in,
             ]);
             echo "ok";
         }else{

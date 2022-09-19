@@ -7,10 +7,12 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
 use App\Models\User;
+use App\Notifications\RequestDayOff;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -174,6 +176,8 @@ class UserController extends Controller implements ShouldQueue
             'day_end'=>Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content'=>$validated['content'],
         ]);
+        $user = User::find($id);
+        event(new RequestDayOff);
         return back()->with('Success','Tạo đơn xin nghỉ thành công');
     }
 

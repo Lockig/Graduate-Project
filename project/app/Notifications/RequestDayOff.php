@@ -58,4 +58,10 @@ class RequestDayOff extends Notification
             //
         ];
     }
+
+    public function toDatabase($notifiable){
+        return [
+            'user_id' => $this->user_id,
+        ];
+    }
 }

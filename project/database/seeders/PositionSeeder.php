@@ -28,9 +28,6 @@ class PositionSeeder extends Seeder
         ],[
             'position_id'=>'4',
             'position_name'=>'AI '
-        ],[
-            'position_id'=>'5',
-            'position_name'=>'PHP Front-end Developer'
         ]]);
         //
     }
