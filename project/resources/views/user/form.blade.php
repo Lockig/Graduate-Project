@@ -134,7 +134,7 @@
                         <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" method="" action="">
+                    <form class="form" method="post" action="{{route('users.info')}}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group row">
@@ -181,9 +181,7 @@
 @endsection
 
 
-@section('script')
-    <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
-@endsection
+
 
 @section('script')
     <script src="{{asset('assets/js/pages/widgets.js')}}"></script>

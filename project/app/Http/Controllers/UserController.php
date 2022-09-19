@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
+use Vtiful\Kernel\Excel;
 
 class UserController extends Controller implements ShouldQueue
 {
@@ -23,8 +24,11 @@ class UserController extends Controller implements ShouldQueue
     public function index()
     {
         $user = Auth::user();
-        $role = $user->account->role_id;
-        return view('user.admin.list_employee',compact(['user','role']));
+        $role = $user->account->role->role_id;;
+        if($role == 1){
+            return view('user.admin.list_employee',compact(['user','role']));
+        }
+        return view('user.index',compact('user'));
         //
     }
 
@@ -47,7 +51,7 @@ class UserController extends Controller implements ShouldQueue
     public function store(UserCreateRequest $request)
     {
             $credentials = $request->validated();
-            if($credentials['profile_avatar']){
+            if($request->hasFile('profile_avatar')){
                 $profile_avatar = $request->file('profile_avatar')->store('public');
             }
             $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
@@ -74,7 +78,7 @@ class UserController extends Controller implements ShouldQueue
 
             $user = User::find($user_id);
             event(new CreateUser($user));
-            return redirect()->back()->with('Success', 'Create user successfully');
+            return redirect()->back()->with('Success', 'Create user successfully, tell user to check email for password');
 
     }
 
@@ -132,11 +136,26 @@ class UserController extends Controller implements ShouldQueue
     }
 
     public function export(){
-        return Excel::downlaod(new ExportFile,'users.xlsx');
+        return Excel::download(new ExportFile,'users.xlsx');
     }
 
-    public function info(){
+    public function info(Request $request){
         $user = Auth::user();
         return view('user.index',compact('user'));
+    }
+
+    public function infoUpdate(Request $request){
+        dd('--');
+    }
+    public function dayOffForm(){
+        return view('user.form');
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        $user_id = User::find($id);
+        $password = $user_id->account->password;
+        dd($password);
+
     }
 }

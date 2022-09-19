@@ -29,16 +29,22 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 
 //    get user information
     Route::get('/info',[UserController::class,'info'])->name('users.info');;
-
+    Route::post('/info',[UserController::class,'infoUpdate'])->name('users.info_update');;
+//    get details of user attendance
     Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
+
+//
+    Route::get('request',[UserController::class,'dayOffForm'])->name('users.day_off_form');
 //    get user by id
     Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
 //    get form edit user by id
     Route::get('/{user}/edit/', [UserController::class, 'edit'])->name('users.edit');
 //    save form create account
     Route::post('/', [UserController::class, 'store'])->name('users.store');
+//    send form request
+    Route::post('/{user}',[UserController::class,'send']);
 //    update account by id
-    Route::patch('/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::post('/{user}/password', [UserController::class, 'updatePassword'])->name('users.update_password');
 //    delete account by id
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });

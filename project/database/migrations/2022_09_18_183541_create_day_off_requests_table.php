@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
-            $table->id('position_id');
-            $table->string('position_name');
+        Schema::create('day_off_requests', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->references('user_id')->on('users');
+            $table->date('day_start');
+            $table->date('day_end');
+            $table->text('content');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('day_off_requests');
     }
 };

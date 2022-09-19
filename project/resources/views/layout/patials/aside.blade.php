@@ -140,7 +140,7 @@
                     </a>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a target="_blank" href="/list"
+                    <a href="{{route('users.day_off_form')}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -162,6 +162,9 @@
                         <span class="menu-text">Tạo đơn xin nghỉ</span>
                     </a>
                 </li>
+                @php
+                 $role = \Illuminate\Support\Facades\Auth::user()->account->role->role_id;
+                @endphp
                 @if($role == 1)
                 <li class="menu-section">
                     <h4 class="menu-text">Quản lý</h4>

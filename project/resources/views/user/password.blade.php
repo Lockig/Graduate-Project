@@ -2,6 +2,9 @@
 
 @section('content')
 
+    <?php
+        $user = \Illuminate\Support\Facades\Auth::user();
+    ?>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->
@@ -139,8 +142,7 @@
                                 </div>
                                 <div>
                                     <a href="#"
-                                       class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">James
-                                        Jones</a>
+                                       class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">J{{$user->first_name . ' ' .$user->last_name}}</a>
                                     <div class="text-muted">Application Developer</div>
                                 </div>
                             </div>
@@ -149,15 +151,15 @@
                             <div class="py-9">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Email:</span>
-                                    <a href="#" class="text-muted text-hover-primary">matt@fifestudios.com</a>
+                                    <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Phone:</span>
-                                    <span class="text-muted">44(76)34254578</span>
+                                    <span class="text-muted">{{$user->mobile_number}}</span>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <span class="font-weight-bold mr-2">Location:</span>
-                                    <span class="text-muted">Melbourne</span>
+                                    <span class="font-weight-bold mr-2">Date of birth:</span>
+                                    <span class="text-muted">{{$user->date_of_birth}}</span>
                                 </div>
                             </div>
                             <!--end::Contact-->
@@ -204,7 +206,9 @@
                 <!--begin::Content-->
                 <div class="flex-row-fluid ml-lg-8">
                     <!--begin::Card-->
-                    <div class="card card-custom card-stretch">
+                    <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                        @csrf
+                        @method('post')
                         <!--begin::Header-->
                         <div class="card-header py-3">
                             <div class="card-title align-items-start flex-column">
@@ -212,14 +216,13 @@
                                 <span class="text-muted font-weight-bold font-size-sm mt-1">Change your account password</span>
                             </div>
                             <div class="card-toolbar">
-                                <button type="reset" class="btn btn-success mr-2">Lưu thông tin</button>
+                                <button type="submit" class="btn btn-success mr-2">Lưu thông tin</button>
                                 <button type="reset" class="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
                         <!--end::Header-->
                         <!--begin::Form-->
-                        <form class="form">
-                            @csrf
+                        <div class="form">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
@@ -289,7 +292,7 @@
                         </form>
                         <!--end::Form-->
                     </div>
-                </div>
+                </form>
                 <!--end::Content-->
             </div>
             <!--end::Profile Change Password-->

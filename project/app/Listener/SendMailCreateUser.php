@@ -15,10 +15,8 @@ class SendMailCreateUser
      *
      * @return void
      */
-    public string $password;
-    public function __construct($password)
+    public function __construct()
     {
-        $this->password = $password;
         //
     }
 
@@ -31,7 +29,7 @@ class SendMailCreateUser
     public function handle(CreateUser $event)
     {
         Mail::to($event->user->email)
-            ->send(new ResetPasswordMail($password));
+            ->send(new ResetPasswordMail($event->user->account->password));
         //
     }
 }
