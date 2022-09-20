@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Events\CreateUser;
 use App\Events\RequestDayOff;
 use App\Listener\SendMailCreateUser;
+use App\Listeners\CreateUserWorkingDetails;
 use App\Listeners\SendDayOffNotification;
+use App\Notifications\RequestDayOffNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,9 +25,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         CreateUser::class=>[
+            CreateUserWorkingDetails::class,
             SendMailCreateUser::class
         ],
         RequestDayOff::class=>[
+            RequestDayOffNotification::class,
             SendDayOffNotification::class
         ]
     ];

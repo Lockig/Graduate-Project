@@ -21,17 +21,14 @@ class ForgotPasswordController extends Controller
         $this->validateEmail($request);
         $email = User::query()->email($request)->value('email');;
         $user_id = User::query()->email($request)->value('user_id');
-        dd($user_id);
         if ($user_id != null) {
             $random_password = Random::generate(5);
             $details = [
                 'password'=>$random_password
             ];
             Mail::to($email)->send(new ResetPasswordMail($details));
-            dd(Account::find($user_id));
-            $update = Account::find($user_id)->update($details);
-            redirect()->back()->with('Success', 'Send reset mail successfully');
-            sleep(1000);
+            Account::find($user_id)->update($details);
+            return redirect()->back()->with('Success', 'Send reset mail successfully');
         }
         return view('users.login')->with('Warning', 'error');
 

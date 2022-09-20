@@ -137,7 +137,7 @@
                                 <div
                                     class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
                                     <div class="symbol-label"
-                                         style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                                         style="background-image:url('{{asset(isset($user->avatar)?($user->avatar):'media/users/default.jpg')}}')"></div>
                                     <i class="symbol-badge bg-success"></i>
                                 </div>
                                 <div>
@@ -154,12 +154,16 @@
                                     <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="font-weight-bold mr-2">Phone:</span>
+                                    <span class="font-weight-bold mr-2">SĐT:</span>
                                     <span class="text-muted">{{$user->mobile_number}}</span>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <span class="font-weight-bold mr-2">Date of birth:</span>
+                                    <span class="font-weight-bold mr-2">Ngày sinh:</span>
                                     <span class="text-muted">{{$user->date_of_birth}}</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="font-weight-bold mr-2">Chức vụ:</span>
+                                    <span class="text-muted">Front End Dev</span>
                                 </div>
                             </div>
                             <!--end::Contact-->
@@ -192,7 +196,7 @@
                                                             <!--end::Svg Icon-->
                                                         </span>
                                                     </span>
-                                        <span class="navi-text font-size-lg">Change Password</span>
+                                        <span class="navi-text font-size-lg">Đổi mật khẩu</span>
                                     </a>
                                 </div>
                             </div>
@@ -225,22 +229,22 @@
                         <div class="form">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
+                                    <label for="current_password" class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input type="password" class="form-control form-control-lg form-control-solid mb-2" value="" placeholder="Current password" />
+                                        <input name="current_password" type="password" class="form-control form-control-lg form-control-solid mb-2" value="" placeholder="Current password" />
                                         <a href="#" class="text-sm font-weight-bold">Quên mật khẩu ?</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
+                                    <label for="new_password" class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="New password" />
+                                        <input name="new_password" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="New password" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
+                                    <label for="password_confirmation" class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="Verify password" />
+                                        <input name="password_confirmation" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="Verify password" />
                                     </div>
                                 </div>
                                 <div class="form-group row">

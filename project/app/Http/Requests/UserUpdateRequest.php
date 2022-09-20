@@ -29,7 +29,6 @@ class UserUpdateRequest extends FormRequest
             'last_name' => 'required|string',
             'date_of_birth' => 'date|date_format:m/d/Y',
             'mobile_number' => 'string|max:10',
-            'email' => 'unique:users',
             //
         ];
     }

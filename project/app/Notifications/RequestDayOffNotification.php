@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RequestDayOff extends Notification
+class RequestDayOffNotification extends Notification
 {
     use Queueable;
 
@@ -29,7 +29,7 @@ class RequestDayOff extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -56,12 +56,6 @@ class RequestDayOff extends Notification
     {
         return [
             //
-        ];
-    }
-
-    public function toDatabase($notifiable){
-        return [
-            'user_id' => $this->user_id,
         ];
     }
 }

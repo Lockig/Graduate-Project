@@ -22,7 +22,7 @@
                                         <div
                                             class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
                                             <div class="symbol-label"
-                                                 style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                                                 style="background-image:url('{{asset(isset($user->avatar)?($user->avatar):'media/users/default.jpg')}}')"></div>
                                             <i class="symbol-badge bg-success"></i>
                                         </div>
                                         <div>
@@ -39,11 +39,11 @@
                                             <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mb-2">
-                                            <span class="font-weight-bold mr-2">Phone:</span>
+                                            <span class="font-weight-bold mr-2">Số điện thoại:</span>
                                             <span class="text-muted">{{$user->mobile_number}}</span>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span class="font-weight-bold mr-2">Date of birth:</span>
+                                            <span class="font-weight-bold mr-2">Ngày sinh:</span>
                                             <span class="text-muted">{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}</span>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                     <!--begin::Nav-->
                                     <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                                         <div class="navi-item mb-2">
-                                            <a href="/change-password" id="change_password"
+                                            <a href="" id="change_password"
                                                class="navi-link py-4">
                                                     <span class="navi-icon mr-2">
                                                         <span class="svg-icon">
@@ -77,7 +77,7 @@
                                                             <!--end::Svg Icon-->
                                                         </span>
                                                     </span>
-                                                <span class="navi-text font-size-lg">Change Password</span>
+                                                <span class="navi-text font-size-lg">Thông tin cá nhân</span>
                                             </a>
                                         </div>
                                     </div>
@@ -89,15 +89,15 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8">
+                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8" enctype="multipart/form-data">
                             @csrf
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
                                 <!--begin::Header-->
                                 <div class="card-header py-3">
                                     <div class="card-title align-items-start flex-column">
-                                        <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
-                                        <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
+                                        <h3 class="card-label font-weight-bolder text-dark">Thông tin cá nhân</h3>
+                                        <span class="text-muted font-weight-bold font-size-sm mt-1">Cập nhật thông tin cá nhân</span>
                                     </div>
                                     <div class="card-toolbar">
                                         <button type="submit" class="btn btn-success mr-2">Lưu thông tin</button>
@@ -112,16 +112,16 @@
                                         <div class="row">
                                             <label class="col-xl-3"></label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <h5 class="font-weight-bold mb-6">Customer Info</h5>
+                                                <h5 class="font-weight-bold mb-6">Nhân viên</h5>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+                                            <label class="col-xl-3 col-lg-3 col-form-label">Ảnh đại diện</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="image-input image-input-outline image-input-circle"
                                                      id="kt_image_3">
                                                     <div class="image-input-wrapper"
-                                                         style="background-image: url({{asset('assets/media/users/100_3.jpg')}})">
+                                                         style="background-image: url({{asset(isset($user->avatar)?($user->avatar):'media/users/default.jpg')}})">
                                                     </div>
 
                                                     <label
@@ -144,8 +144,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">First
-                                                Name</label>
+                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">Họ
+                                                </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="first_name"
                                                        class="form-control form-control-lg form-control-solid"
@@ -154,8 +154,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Last
-                                                Name</label>
+                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Tên
+                                                </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="last_name"
                                                        class="form-control form-control-lg form-control-solid"
@@ -164,9 +164,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Date of Birth</label>
+                                            <label name="date_of_birth" for="last_name" class="col-xl-3 col-lg-3 col-form-label">Ngày sinh</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="last_name"
+                                                <input name="date_of_birth"
                                                        class="form-control form-control-lg form-control-solid"
                                                        type="text"
                                                        value="{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}"/>
@@ -195,8 +195,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="mobile_phone" class="col-xl-3 col-lg-3 col-form-label">Mobile
-                                                Phone</label>
+                                            <label for="mobile_number" class="col-xl-3 col-lg-3 col-form-label">Số điện thoại</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">
@@ -204,7 +203,7 @@
                                                             <i class="la la-phone"></i>
                                                         </span>
                                                     </div>
-                                                    <input name="mobile_phone" type="text"
+                                                    <input name="mobile_number" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            value="{{$user->mobile_number}}" placeholder="Phone"/>
                                                 </div>
@@ -212,7 +211,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="email" class="col-xl-3 col-lg-3 col-form-label">Email
-                                                Address</label>
+                                                </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">

@@ -29,7 +29,7 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 //    get user information
     Route::get('/info',[UserController::class,'info'])->name('users.info');;
 
-    Route::post('/info',[UserController::class,'infoUpdate'])->name('users.info_update');;
+    Route::post('/info',[UserController::class,'updateInfo'])->name('users.info_update');;
 //    get details of user attendance
     Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
 //    get day off request form
@@ -47,7 +47,8 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 //    update account by id
     Route::post('/{user}/password', [UserController::class, 'updatePassword'])->name('users.update_password');
     //    update account by id
-    Route::post('/{user}',[UserController::class,'update'])->name('users.update');
+//    Route::post('/{user}',[UserController::class,'update'])->name('users.update');
+    Route::post('/{user}/edit',[UserController::class,'update'])->name('users.update');
 
 //    delete account by id
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
