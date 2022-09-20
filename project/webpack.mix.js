@@ -38,6 +38,7 @@ mix.scripts([
 
 
 mix.scripts('resources/assets/js/pages/custom/user/add-user.js', 'public/js/user/user.js');
+mix.scripts('resources/assets/js/pages/widgets.js','public/js/widget.js');
 mix.scripts([
     // 'resources/assets/js/pages/custom/profile/profile.js',
     'resources/assets/js/pages/crud/ktdatatable/base/html-table.js',

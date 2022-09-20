@@ -52,6 +52,11 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 
 //    delete account by id
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+    Route::group(['prefix'=>'export'],function(){
+        Route::get('/list',[UserController::class,'exportList'])->name('users.export_list');
+    });
 });
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){

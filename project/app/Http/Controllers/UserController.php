@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CreateUser;
+use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
@@ -17,8 +18,9 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use Nette\Utils\Random;
-use Vtiful\Kernel\Excel;
 
 class UserController extends Controller implements ShouldQueue
 {
@@ -32,7 +34,7 @@ class UserController extends Controller implements ShouldQueue
         $role = $user->account->role->role_id;;
         $users = User::all();
         if ($role == 1) {
-            return view('user.admin.list_employee', compact(['user', 'role','users']));
+            return view('user.admin.list_employee', compact(['user', 'role', 'users']));
         }
         return view('user.index', compact('user'));
         //
@@ -140,17 +142,13 @@ class UserController extends Controller implements ShouldQueue
     public function destroy($id)
     {
         $user = User::find($id);
-//        if($user && $user->account->role != 1){
-//            return
-//        }
+        if($user && $user->account->role != 1){
+            User::destroy($id);
+        }
         return back()->with("Error", "Something wrong");
         //
     }
 
-    public function export()
-    {
-        return Excel::download(new ExportFile, 'users.xlsx');
-    }
 
     public function info(Request $request)
     {
@@ -220,5 +218,10 @@ class UserController extends Controller implements ShouldQueue
         }
         return back()->with('Fail', 'Wrong current password');
 
+    }
+
+    public function exportList(Request $request)
+    {
+        return (new UsersExport)->download('users.xlsx');
     }
 }

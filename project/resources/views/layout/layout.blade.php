@@ -127,9 +127,9 @@
 <!--end::Global Config-->
 
 <!--begin:Javascript-->
-<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
-<script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
-<script src="{{mix('js/app.js')}}"></script>
+{{--<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>--}}
+{{--<script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>--}}
+<script src="{{mix('js/auth.js')}}"></script>
 
 <!--end:Javascript-->
 <!--begin:Javascript-->

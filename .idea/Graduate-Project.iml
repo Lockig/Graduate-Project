@@ -119,6 +119,13 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/paragonie/sodium_compat" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/ezyang/htmlpurifier" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/myclabs/php-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/phpoffice/phpspreadsheet" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/maatwebsite/excel" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/markbaker/complex" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/markbaker/matrix" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/maennchen/zipstream-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
