@@ -130,7 +130,7 @@
 
     <!--end::Global Theme Bundle-->
     <!--begin::Page Scripts(used by this page)-->
-    <script src="{{mix('js/app.js')}}"></script>
+    <script src="{{mix('js/auth.js')}}"></script>
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

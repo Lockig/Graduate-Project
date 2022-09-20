@@ -116,6 +116,9 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/spatie/backtrace" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/pusher/pusher-php-server" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

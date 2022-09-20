@@ -28,6 +28,13 @@ mix.scripts([
     // "resources/assets/js/pages/widgets.js",
 ],'public/js/app.js').version();
 
+//js file
+mix.scripts([
+    "resources/assets/plugins/global/plugins.bundle.js",
+    "resources/assets/plugins/custom/prismjs/prismjs.bundle.js",
+    "resources/assets/js/scripts.bundle.js"
+],'public/js/auth.js').version();
+
 
 
 mix.scripts('resources/assets/js/pages/custom/user/add-user.js', 'public/js/user/user.js');

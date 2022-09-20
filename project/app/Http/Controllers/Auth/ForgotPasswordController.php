@@ -30,7 +30,7 @@ class ForgotPasswordController extends Controller
             Account::find($user_id)->update($details);
             return redirect()->back()->with('Success', 'Send reset mail successfully');
         }
-        return view('users.login')->with('Warning', 'error');
+        return view('auth.login')->with('Warning', 'error');
 
     }
 

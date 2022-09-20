@@ -30,8 +30,9 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         $role = $user->account->role->role_id;;
+        $users = User::all();
         if ($role == 1) {
-            return view('user.admin.list_employee', compact(['user', 'role']));
+            return view('user.admin.list_employee', compact(['user', 'role','users']));
         }
         return view('user.index', compact('user'));
         //

@@ -24,10 +24,6 @@ return new class extends Migration
             $table->foreignId('position_id')->references('position_id')->on('positions');
             $table->integer('fingerprint');
             $table->softDeletes();
-//            $table->integer('fingerprint_id');
-//            $table->tinyInteger('fingerprint_select')->default('0');
-//            $table->unsignedTinyInteger('del_fingerprint_id');
-//            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
