@@ -30,11 +30,10 @@ class UserController extends Controller implements ShouldQueue
         $user = Auth::user();
         $role = $user->account->role->role_id;;
         $users = User::query()->name($request)->paginate(5);
-        $userList = $user->paginate(5);
         if ($role == 1) {
-            return view('user.admin.list_employee', compact(['user', 'role', 'users', 'userList']));
+            return view('user.admin.list_employee', compact(['user', 'role', 'users']));
         }
-        return view('user.admin.list_employee', compact(['user', 'role', 'users', 'userList']));
+        return view('user.admin.list_employee', compact(['user', 'role', 'users']));
         return view('user.index', compact('user'));
     }
 
@@ -66,8 +65,6 @@ class UserController extends Controller implements ShouldQueue
             ->select('user_id')
             ->email($request)
             ->value('user_id');
-        Cache::put('command', 'register');
-        Cache::put('user_id', $user_id);
         DB::table('accounts')->insert([
             'user_id' => $user_id,
             'role_id' => 2,
@@ -77,7 +74,8 @@ class UserController extends Controller implements ShouldQueue
         $user = User::find($user_id);
 
         event(new CreateUser($user));
-        event(new CreateFingerprint($user));
+        Cache::put('command', 'register');
+        Cache::put('user_id', $user_id);
         return redirect()->back()->with('Success', 'Create user successfully, tell user to check email for password');
 
     }
@@ -93,9 +91,10 @@ class UserController extends Controller implements ShouldQueue
         return view('user.attendance');
     }
 
-    public function edit(User $user)
+    public function edit(User $user,Request $request)
     {
-        return view('user.password');
+        $users = User::find($request->id);
+        return view('user.password',compact('users'));
         //
     }
 
@@ -190,6 +189,7 @@ class UserController extends Controller implements ShouldQueue
 
     public function exportList(Request $request)
     {
-        return (new UsersExport)->download('users.xlsx');
+        $users = User::all();
+        return (new UsersExport($users))->download('users.xlsx');
     }
 }
