@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,22 +52,38 @@ class User extends Authenticatable
     ];
 
     protected $dispatchesEvents = [
-        'saved'=>CreateUser::class
+        'saved' => CreateUser::class
     ];
 
-    public function position(){
-        return $this->hasOne(Position::class,'position_id','position_id');
+    public function position()
+    {
+        return $this->hasOne(Position::class, 'position_id', 'position_id');
     }
 
     public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Account::class,'user_id','user_id');
+        return $this->hasOne(Account::class, 'user_id', 'user_id');
     }
-    public function fingerprint(){
+
+    public function fingerprint()
+    {
         return $this->hasOne(Fingerprint::class);
     }
-    public function scopeEmail($query, $request){
-        return $query->where('email','like','%'. $request->email .'%');
+
+    public function scopeEmail($query, $request)
+    {
+        if($request->has('email')){
+            return $query->where('email', 'like', '%' . $request->input('email') . '%');
+        }
+       return $query;
+    }
+
+    public function scopeName($query, $request)
+    {
+        if($request->has('last_name')){
+            return $query->where('last_name' , 'like', '%' . $request->input('last_name') . '%');
+        }
+       return $query;
     }
 
 }

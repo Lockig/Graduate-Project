@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateFingerprint;
 use App\Events\CreateUser;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
@@ -16,46 +17,32 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Maatwebsite\Excel\Facades\Excel;
 use Nette\Utils\Random;
 
 class UserController extends Controller implements ShouldQueue
 {
-    /**
-     * Display a listing of the resource.
-     *
-     */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $role = $user->account->role->role_id;;
-        $users = User::all();
+        $users = User::query()->name($request)->paginate(5);
+        $userList = $user->paginate(5);
         if ($role == 1) {
-            return view('user.admin.list_employee', compact(['user', 'role', 'users']));
+            return view('user.admin.list_employee', compact(['user', 'role', 'users', 'userList']));
         }
+        return view('user.admin.list_employee', compact(['user', 'role', 'users', 'userList']));
         return view('user.index', compact('user'));
-        //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     */
     public function create()
     {
         return view('user.create');
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(UserCreateRequest $request)
     {
         $credentials = $request->validated();
@@ -71,15 +58,16 @@ class UserController extends Controller implements ShouldQueue
             'email' => $credentials['email'],
             'mobile_number' => $credentials['mobile_number'],
             'avatar' => $profile_avatar ?? null,
-            'fingerprint' => '0'
-
+            'fingerprint' => '0',
+            'position_id' => '1'
         ]);
 
         $user_id = User::query()
             ->select('user_id')
             ->email($request)
             ->value('user_id');
-
+        Cache::put('command', 'register');
+        Cache::put('user_id', $user_id);
         DB::table('accounts')->insert([
             'user_id' => $user_id,
             'role_id' => 2,
@@ -87,16 +75,13 @@ class UserController extends Controller implements ShouldQueue
         ]);
 
         $user = User::find($user_id);
+
         event(new CreateUser($user));
+        event(new CreateFingerprint($user));
         return redirect()->back()->with('Success', 'Create user successfully, tell user to check email for password');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\User $user
-     */
     public function show(User $user)
     {
         return view('user.index', compact('user'));
@@ -108,24 +93,12 @@ class UserController extends Controller implements ShouldQueue
         return view('user.attendance');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\User $user
-     */
     public function edit(User $user)
     {
         return view('user.password');
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $user_id = Auth::user()->user_id;
@@ -134,15 +107,10 @@ class UserController extends Controller implements ShouldQueue
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $user
-     */
     public function destroy($id)
     {
         $user = User::find($id);
-        if($user && $user->account->role != 1){
+        if ($user && $user->account->role != 1) {
             User::destroy($id);
         }
         return back()->with("Error", "Something wrong");

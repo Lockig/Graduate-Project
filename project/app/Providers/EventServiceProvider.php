@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\CreateFingerprint;
 use App\Events\CreateUser;
 use App\Events\RequestDayOff;
 use App\Listener\SendMailCreateUser;
+use App\Listeners\CreateFingerprintListener;
 use App\Listeners\CreateUserWorkingDetails;
 use App\Listeners\SendDayOffNotification;
 use App\Notifications\RequestDayOffNotification;
@@ -31,6 +33,9 @@ class EventServiceProvider extends ServiceProvider
         RequestDayOff::class=>[
             RequestDayOffNotification::class,
             SendDayOffNotification::class
+        ],
+        CreateFingerprint::class=>[
+            CreateFingerprintListener::class
         ]
     ];
 

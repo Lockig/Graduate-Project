@@ -223,7 +223,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="input-icon">
-                                                <input name="search" type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" value="{{old("name")}}" />
+                                                <input name="last_name" type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" value="{{old("name")}}" />
                                                 <span>
                                                     <i class="flaticon2-search-1 text-muted"></i>
                                                 </span>
@@ -294,7 +294,7 @@
                                         <td class="pr-0">
                                             <div class="symbol symbol-50 symbol-light mt-1">
 																<span class="symbol-label">
-																	<img src="assets/media/svg/avatars/001-boy.svg"
+																	<img src="{{ asset( isset($user->avatar) ? ($user->avatar) : 'assets/media/users/default.jpg') }}"
                                                                          class="h-75 align-self-end" alt=""/>
 																</span>
                                             </div>
@@ -324,7 +324,7 @@
                                             </div>
                                         </td>
                                         <td class="pr-0 text-right">
-                                            <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                            <a href="#" data-toggle="tooltip" title="điểm danh" class="btn btn-icon btn-light btn-hover-primary btn-sm">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 																	<svg xmlns="http://www.w3.org/2000/svg"
@@ -345,7 +345,7 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
+                                            <a href="#" data-toggle="tooltip" title="thông tin" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
 																	<svg xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +368,7 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <a href="{{route('users.destroy',$user->user_id)}}" class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                            <a href="{{route('users.destroy',$user->user_id)}}"  data-toggle="tooltip" title="xóa" class="btn btn-icon btn-light btn-hover-primary btn-sm">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
 																	<svg xmlns="http://www.w3.org/2000/svg"
@@ -392,6 +392,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
+{{--                                {{$userList->onEachSide(3)->link()}}--}}
                                 </tbody>
                             </table>
                         </div>

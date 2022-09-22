@@ -884,7 +884,7 @@
                                                     <div class="symbol symbol-50 symbol-light">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/003-puzzle.svg"
+                                                                                        src="{{asset('media/svg/misc/003-puzzle.s')}}vg"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>
@@ -1008,7 +1008,7 @@
                                                     <div class="symbol symbol-50 symbol-light">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/005-bebo.svg"
+                                                                                        src="{{asset('media/svg/misc/005-bebo.svg')}}"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>
@@ -1133,7 +1133,7 @@
                                                     <div class="symbol symbol-50 symbol-light">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/014-kickstarter.svg"
+                                                                                        src="{{asset('media/svg/misc/014-kickstarter.svg')}}"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>
@@ -1258,7 +1258,7 @@
                                                     <div class="symbol symbol-50 symbol-light mr-1">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/006-plurk.svg"
+                                                                                        src="{{asset('media/svg/misc/006-plurk.svg')}}"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>
@@ -1383,7 +1383,7 @@
                                                     <div class="symbol symbol-50 symbol-light">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/015-telegram.svg"
+                                                                                        src="{{asset('media/svg/misc/015-telegram.svg')}}"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>
@@ -1531,7 +1531,7 @@
                                                     <div class="symbol symbol-50 symbol-light">
 																				<span class="symbol-label">
 																					<img
-                                                                                        src="assets/media/svg/misc/015-telegram.svg"
+                                                                                        src="{{asset('media/svg/misc/015-telegram.svg')}}"
                                                                                         class="h-50 align-self-center"
                                                                                         alt=""/>
 																				</span>

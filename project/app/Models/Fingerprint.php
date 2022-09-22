@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fingerprint extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'fingerprint_id',
-        'time_in'
     ];
 
     public function user(){

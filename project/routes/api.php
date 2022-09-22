@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/get-data', [FingerprintController::class,'store']);
+Route::post('/get-data', [FingerprintController::class,'store'])->name('store');
+Route::get('/get-data', [FingerprintController::class,'index'])->name('register');
 ;
