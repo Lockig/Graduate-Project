@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateFingerprint;
 use App\Events\CreateUser;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
 use App\Models\User;
-use App\Notifications\RequestDayOff;
 use App\Notifications\RequestDayOffNotification;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
@@ -20,7 +17,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Nette\Utils\Random;
 
 class UserController extends Controller implements ShouldQueue
@@ -34,7 +30,6 @@ class UserController extends Controller implements ShouldQueue
             return view('user.admin.list_employee', compact(['user', 'role', 'users']));
         }
         return view('user.admin.list_employee', compact(['user', 'role', 'users']));
-        return view('user.index', compact('user'));
     }
 
     public function create()
@@ -74,10 +69,8 @@ class UserController extends Controller implements ShouldQueue
         $user = User::find($user_id);
 
         event(new CreateUser($user));
-        Cache::put('command', 'register');
-        Cache::put('user_id', $user_id);
+        Cache::put(['command','user_id'],['register',$user_id]);
         return redirect()->back()->with('Success', 'Create user successfully, tell user to check email for password');
-
     }
 
     public function show(User $user)
@@ -86,15 +79,19 @@ class UserController extends Controller implements ShouldQueue
         //
     }
 
-    public function showAttendance()
+    public function showAttendance($id)
     {
-        return view('user.attendance');
+        $user = User::find($id);
+        $logs = DB::table('daily_logs')
+            ->where('user_id','=',$id)
+            ->get();
+        return view('user.attendance',compact(['user','logs']));
     }
 
-    public function edit(User $user,Request $request)
+    public function edit(User $user, Request $request)
     {
         $users = User::find($request->id);
-        return view('user.password',compact('users'));
+        return view('user.password', compact('users'));
         //
     }
 

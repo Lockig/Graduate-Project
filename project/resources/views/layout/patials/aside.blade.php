@@ -117,7 +117,7 @@
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.attendance')}}"
+                    <a href="{{route('users.attendance',$user->user_id)}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->

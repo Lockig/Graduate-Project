@@ -51,40 +51,41 @@ class FingerprintController extends Controller
      */
     public function store(Request $request)
     {
-        //get fingerprint and check to return login
         if ($request->has('fingerID')) {
             $check = Fingerprint::query()
                 ->select('user_id')
-                ->where('fingerprint_id', '==', $request->input('fingerID'))
+                ->where('fingerprint_id', '=', $request->input('fingerID'))
                 ->value('user_id');
-            echo $check;
-            if ($check != 0 ) {
+            if ($check) {
+                DB::table('daily_logs')->insert([
+                    'user_id' => $check,
+                    'time_in' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'date' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
                 echo 'login';
             } else {
-                echo 'no fingerprint found';
+                echo 'no user find';
             }
         }
 
-        //check to register
+//        check to register
         if ($request->has('check')) {
+            echo Cache::get('user_id');
             if (Cache::get('command') == 'register') {
-                echo Cache::get('user_id');
-
-                Cache::pull('command');
+                echo Cache::get('command') . Cache::get('user_id');
+//                Cache::pull('command');
             }
         }
-
-        //get fingerprint_id
-        if ($request->has('newFingerprintID')) {
+//
+//        get new fingerprint_id
+        if ($request->has('newFingerID')) {
             DB::table('fingerprints')->insert([
                 'user_id' => Cache::get('user_id'),
-                'fingerprint_id' => $request->input('newFingerprintID'),
+                'fingerprint_id' => $request->input('newFingerID'),
             ]);
             echo 'dang ky van tay thanh cong';
-            Cache::flush();
         }
 
-        echo Cache::get('command');
     }
 
     /**
