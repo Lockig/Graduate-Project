@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,13 +15,17 @@ class RequestDayOff implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public string $user_name;
+    public string $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
+        $this->user_name = $user->first_name . " " . $user->last_name;
+        $this->message = $user->first_name . " " . $user->last_name . " vừa tạo đơn xin nghỉ ! ";
         //
     }
 
@@ -31,6 +36,11 @@ class RequestDayOff implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return ['test'];
+    }
+
+    public function broadcastAs()
+    {
+        return 'hello';
     }
 }

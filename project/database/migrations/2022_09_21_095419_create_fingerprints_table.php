@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('fingerprints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('user_id')->on('users');
-            $table->integer('fingerprint_id')->default('0');
-            $table->integer('del_fingerprint_id')->default('0');
+            $table->integer('fingerprint_id');
+            $table->integer('add_fingerprint_id')->default('0');
         });
     }
 

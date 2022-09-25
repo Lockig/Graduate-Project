@@ -23,7 +23,6 @@ class UserSeeder extends Seeder
                 'email' => 'minhntt2001hn@gmail.com',
                 'mobile_number' => '0904159596',
                 'avatar' => '',
-                'fingerprint' => '1',
                 'position_id' => '1'
             ],
             [
@@ -33,7 +32,6 @@ class UserSeeder extends Seeder
                 'email' => 'linh@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
-                'fingerprint' => '2',
                 'position_id' => '2'
             ],
         ]);

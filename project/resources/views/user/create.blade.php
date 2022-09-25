@@ -10,7 +10,7 @@
                 <!--begin::Details-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
                     <!--begin::Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Create User</h5>
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo tài khoản</h5>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
@@ -59,35 +59,6 @@
                                     </a>
                                 </li>
                                 <!--end::Item-->
-                                <!--begin::Item-->
-                                <li class="nav-item mr-3">
-                                    <a class="nav-link" data-toggle="tab" href="#kt_user_edit_tab_2">
-														<span class="nav-icon">
-															<span class="svg-icon">
-																<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
-																<svg xmlns="http://www.w3.org/2000/svg"
-                                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                     width="24px" height="24px" viewBox="0 0 24 24"
-                                                                     version="1.1">
-																	<g stroke="none" stroke-width="1" fill="none"
-                                                                       fill-rule="evenodd">
-																		<polygon points="0 0 24 0 24 24 0 24"/>
-																		<path
-                                                                            d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z"
-                                                                            fill="#000000" fill-rule="nonzero"
-                                                                            opacity="0.3"/>
-																		<path
-                                                                            d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z"
-                                                                            fill="#000000" fill-rule="nonzero"/>
-																	</g>
-																</svg>
-                                                                <!--end::Svg Icon-->
-															</span>
-														</span>
-                                        <span class="nav-text font-size-lg">Account</span>
-                                    </a>
-                                </li>
-                                <!--end::Item-->
                             </ul>
                         </div>
                         <!--end::Toolbar-->
@@ -95,8 +66,10 @@
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body">
-                        <form method="post" action="{{route('users.store')}}" class="form" id="kt_form" enctype="multipart/form-data">
+                        <form method="post" action="{{route('admin.store')}}" class="form" id="kt_form"
+                              enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="tab-content">
                                 <!--begin::Tab-->
                                 <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
@@ -108,7 +81,7 @@
                                             <div class="row">
                                                 <label class="col-3"></label>
                                                 <div class="col-9">
-                                                    <h6 class="text-dark font-weight-bold mb-10">Customer Info:</h6>
+                                                    <h6 class="text-dark font-weight-bold mb-10">Thông tin:</h6>
                                                 </div>
                                             </div>
                                             <!--end::Row-->
@@ -146,45 +119,43 @@
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label for="first_name"
-                                                       class="col-form-label col-3 text-lg-right text-left">First
-                                                    Name</label>
+                                                       class="col-form-label col-3 text-lg-right text-left">Họ</label>
                                                 <div class="col-9">
                                                     <input name="first_name"
                                                            class="form-control form-control-lg form-control-solid"
-                                                           type="text" placeholder="Knox"/>
+                                                           type="text" placeholder="{{old('first_name')}}"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label for="last_name"
-                                                       class="col-form-label col-3 text-lg-right text-left">Last
-                                                    Name</label>
+                                                       class="col-form-label col-3 text-lg-right text-left">
+                                                    Tên</label>
                                                 <div class="col-9">
                                                     <input name="last_name"
                                                            class="form-control form-control-lg form-control-solid"
-                                                           type="text" placeholder="Knox"/>
+                                                           type="text" placeholder="{{old('last_name')}}"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="date_of_birth" class="col-form-label col-3 text-lg-right text-left">Date
-                                                    of
-                                                    Birth</label>
+                                                <label for="date_of_birth"
+                                                       class="col-form-label col-3 text-lg-right text-left">
+                                                    Ngày sinh</label>
                                                 <div class="col-9">
                                                     <input name="date_of_birth" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            id="kt_datepicker_1" readonly="readonly"
-                                                           placeholder="Select date"/>
+                                                           placeholder="Chọn"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label for="mobile_number"
-                                                       class="col-form-label col-3 text-lg-right text-left">Contact
-                                                    Phone</label>
+                                                       class="col-form-label col-3 text-lg-right text-left">SĐT</label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
                                                         <div class="input-group-prepend">
@@ -194,7 +165,7 @@
                                                         </div>
                                                         <input name="mobile_number" type="text"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               placeholder="Phone"/>
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -202,7 +173,7 @@
                                             <!--begin::Group-->
                                             <div class="form-group row">
                                                 <label for="email" class="col-form-label col-3 text-lg-right text-left">Email
-                                                    Address</label>
+                                                </label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
                                                         <div class="input-group-prepend">
@@ -212,7 +183,7 @@
                                                         </div>
                                                         <input name="email" type="email"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               placeholder="Email"/>
+                                                               placeholder="Email" required/>
                                                     </div>
                                                 </div>
                                             </div>

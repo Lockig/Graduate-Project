@@ -8,6 +8,7 @@
     <meta name="description"
           content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets."/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <link rel="canonical" href="https://keenthemes.com/metronic"/>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
@@ -16,6 +17,20 @@
     <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css"/>
     <!--end:CSS-->
     <link rel="shortcut icon" href="{{mix('media/logos/favicon.ico')}}"/>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('5c544b41379677430ff9', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('test');
+        channel.bind('hello', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -129,7 +144,7 @@
 <!--begin:Javascript-->
 {{--<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>--}}
 {{--<script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>--}}
-<script src="{{mix('js/auth.js')}}"></script>
+<script src="{{asset('js/auth.js')}}"></script>
 
 <!--end:Javascript-->
 <!--begin:Javascript-->

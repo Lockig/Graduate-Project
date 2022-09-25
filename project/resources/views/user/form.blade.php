@@ -1,4 +1,4 @@
-@extends('layout.layout')
+<@extends('layout.layout')
 
 @section('content')
     @include('system_message')
@@ -140,16 +140,20 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-lg-5 ml-lg-auto">
-                                    <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">Từ ngày</label>
+                                    <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">Từ
+                                        ngày</label>
                                     <div class="col-lg-9 col-md-12 col-sm-12">
-                                        <input name="day_start" type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
+                                        <input name="day_start" type="text" class="form-control" id="kt_datepicker_1"
+                                               readonly="readonly"
                                                placeholder="Select date"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-5 ml-lg-auto">
-                                    <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Đến ngày</label>
+                                    <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Đến
+                                        ngày</label>
                                     <div class="col-lg-9 col-md-12 col-sm-12">
-                                        <input name="day_end" type="text" class="form-control" id="kt_datepicker_1" readonly="readonly"
+                                        <input name="day_end" type="text" class="form-control" id="kt_datepicker_1"
+                                               readonly="readonly"
                                                placeholder="Select date"/>
                                     </div>
                                 </div>
@@ -157,7 +161,8 @@
                             <div class="form-group row">
                                 <label for="content" class="col-form-label text-left col-lg-3 col-sm-12">Lý Do</label>
                                 <div class="col-lg-9 col-md-12 col-sm-12">
-                                    <textarea name="content" class="form-control" id="kt_autosize_1" rows="3"></textarea>
+                                    <textarea name="content" class="form-control" id="kt_autosize_1"
+                                              rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -188,3 +193,4 @@
     <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
     <script src="{{mix('js/user/date-picker.js')}}"></script>
 @endsection
+>

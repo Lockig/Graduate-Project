@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CreateUser;
+use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -26,73 +27,27 @@ class UserController extends Controller implements ShouldQueue
         $user = Auth::user();
         $role = $user->account->role->role_id;;
         $users = User::query()->name($request)->paginate(5);
-        if ($role == 1) {
-            return view('user.admin.list_employee', compact(['user', 'role', 'users']));
-        }
-        return view('user.admin.list_employee', compact(['user', 'role', 'users']));
-    }
-
-    public function create()
-    {
-        return view('user.create');
-    }
-
-    public function store(UserCreateRequest $request)
-    {
-        $credentials = $request->validated();
-        if ($request->hasFile('profile_avatar')) {
-            $profile_avatar = $request->file('profile_avatar')->store('images');
-        }
-        $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
-
-        DB::table('users')->insert([
-            'first_name' => $credentials['first_name'],
-            'last_name' => $credentials['last_name'],
-            'date_of_birth' => $date,
-            'email' => $credentials['email'],
-            'mobile_number' => $credentials['mobile_number'],
-            'avatar' => $profile_avatar ?? null,
-            'fingerprint' => '0',
-            'position_id' => '1'
-        ]);
-
-        $user_id = User::query()
-            ->select('user_id')
-            ->email($request)
-            ->value('user_id');
-        DB::table('accounts')->insert([
-            'user_id' => $user_id,
-            'role_id' => 2,
-            'password' => Random::generate(5)
-        ]);
-
-        $user = User::find($user_id);
-
-        event(new CreateUser($user));
-        Cache::put(['command','user_id'],['register',$user_id]);
-        return redirect()->back()->with('Success', 'Create user successfully, tell user to check email for password');
+        return view('user.index', compact(['user', 'role', 'users']));
     }
 
     public function show(User $user)
     {
         return view('user.index', compact('user'));
-        //
     }
 
-    public function showAttendance($id)
+    public function showAttendance()
     {
-        $user = User::find($id);
+        $user = Auth::user();
         $logs = DB::table('daily_logs')
-            ->where('user_id','=',$id)
+            ->where('user_id', '=', $user->user_id)
             ->get();
-        return view('user.attendance',compact(['user','logs']));
+        return view('user.attendance', compact(['user', 'logs']));
     }
 
-    public function edit(User $user, Request $request)
+    public function edit()
     {
-        $users = User::find($request->id);
-        return view('user.password', compact('users'));
-        //
+        $user = Auth::user();
+        return view('user.password', compact('user'));
     }
 
     public function update(Request $request)
@@ -108,8 +63,9 @@ class UserController extends Controller implements ShouldQueue
         $user = User::find($id);
         if ($user && $user->account->role != 1) {
             User::destroy($id);
+            return back()->with("Success", "Delete user successfully");
         }
-        return back()->with("Error", "Something wrong");
+        return back()->with("Error", "Có lỗi xảy ra");
         //
     }
 
@@ -122,13 +78,12 @@ class UserController extends Controller implements ShouldQueue
 
     public function updateInfo(UserCreateRequest $request)
     {
+        $user = Auth::user();
         if ($request->hasFile('profile_avatar')) {
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        $user = Auth::user();
-        $user_id = Auth::user()->user_id;
-        User::find($user_id)->update([
+        User::find($user->user_id)->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
@@ -136,7 +91,7 @@ class UserController extends Controller implements ShouldQueue
             'email' => $validated['email'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
-        return back()->with("Success", "Update personal information successfully");
+        return back()->with("Success", "Cập nhật thông tin thành công");
     }
 
     public function dayOffForm()
@@ -144,43 +99,44 @@ class UserController extends Controller implements ShouldQueue
         return view('user.form');
     }
 
-    public function storeDayOffForm(Request $request, $id)
+    public function storeDayOffForm(Request $request)
     {
+        $user = Auth::user();
         $validated = $request->validate([
-            'content' => 'required|string',
+            'content' => 'required|string|max:200',
             'day_start' => 'required|date',
             'day_end' => 'required|date'
         ]);
 
         DB::table('day_off_requests')->insert([
-            'user_id' => $id,
+            'user_id' => $user->user_id,
             'day_start' => Carbon::parse($validated['day_start'])->format('Y-m-d'),
             'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content' => $validated['content'],
         ]);
-        $user = User::find($id);
-        event(new RequestDayOffNotification($user));
+//        event(new RequestDayOff($user));
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(Request $request)
     {
+        $user = Auth::user();
         $validated = $request->validate([
             'current_password' => 'required|string',
             'new_password' => 'required|string',
             'password_confirmation' => 'required|string'
         ]);
-        $user_id = User::find($id);
-        $password = $user_id->account->password;
+        $password = $user->account->password;
         if ($password == $validated['current_password']) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
                 $update = Account::query()
-                    ->where('user_id', $id)
+                    ->where('user_id', $user->user_id)
                     ->update(['password' => $validated['password_confirmation']]);
-                return back()->with("Success", "Update password successfully");
+                return back()->with("Success", "Cập nhật mật khẩu thành công");
             }
+            return back()->with("Fail", "Mật khẩu mới không trùng khớp");
         }
-        return back()->with('Fail', 'Wrong current password');
+        return back()->with('Fail', 'Mật khẩu cũ không đúng');
 
     }
 

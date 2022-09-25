@@ -27,9 +27,9 @@ class UserCreateRequest extends FormRequest
             'profile_avatar' => 'nullable',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'date_of_birth' => 'date|date_format:m/d/Y',
-            'mobile_number' => 'string|max:10',
-            'email'=>'required|string'
+            'date_of_birth' => 'nullable',
+            'mobile_number' => 'nullable',
+            'email' => 'required|string'
             //
         ];
     }

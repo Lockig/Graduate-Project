@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.edit',$user->user_id)}}"
+                    <a href="{{route('users.edit')}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -117,7 +117,7 @@
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.attendance',$user->user_id)}}"
+                    <a href="{{route('users.attendance')}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -140,7 +140,7 @@
                     </a>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.day_off_form',Auth::user()->user_id)}}"
+                    <a href="{{route('users.day_off_form')}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -163,7 +163,7 @@
                     </a>
                 </li>
                 @php
-                 $role = \Illuminate\Support\Facades\Auth::user()->account->role->role_id;
+                 $role = Auth::user()->account->role->role_id;
                 @endphp
                 @if($role == 1)
                 <li class="menu-section">
@@ -201,7 +201,7 @@
 												</span>
                             </li>
                             <li class="menu-item" aria-haspopup="true">
-                                <a href="{{route('users.create')}}" class="menu-link">
+                                <a href="{{route('admin.create')}}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -209,7 +209,7 @@
                                 </a>
                             </li>
                             <li class="menu-item" aria-haspopup="true">
-                                <a href="{{ route('users.index') }}" class="menu-link">
+                                <a href="{{ route('admin.index') }}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>

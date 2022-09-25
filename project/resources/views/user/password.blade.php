@@ -2,9 +2,6 @@
 
 @section('content')
     @include('system_message')
-    <?php
-        $user = \Illuminate\Support\Facades\Auth::user();
-    ?>
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <!--begin::Subheader-->
@@ -210,7 +207,11 @@
                 <!--begin::Content-->
                 <div class="flex-row-fluid ml-lg-8">
                     <!--begin::Card-->
-                    <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                    @if($user->account->role->role_id==1)
+                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                    @elseif($user->account->role->role_id==2)
+                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                    @endif
                         @csrf
                         @method('post')
                         <!--begin::Header-->

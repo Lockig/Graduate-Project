@@ -17,16 +17,12 @@ class PositionSeeder extends Seeder
     public function run()
     {
         DB::table('positions')->insert([[
-           'position_id'=>'1',
             'position_name'=>'Front-end Developer'
         ],[
-            'position_id'=>'2',
             'position_name'=>'PHP Back-end Developer'
         ],[
-            'position_id'=>'3',
             'position_name'=>'Ruby Developer'
         ],[
-            'position_id'=>'4',
             'position_name'=>'AI '
         ]]);
         //

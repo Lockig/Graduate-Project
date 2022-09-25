@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('mobile_number');
             $table->string('avatar');
             $table->foreignId('position_id')->references('position_id')->on('positions');
-            $table->integer('fingerprint');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

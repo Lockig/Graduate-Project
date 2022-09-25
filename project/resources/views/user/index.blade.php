@@ -27,7 +27,7 @@
                                         </div>
                                         <div>
                                             <div
-                                               class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</div>
+                                                class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</div>
                                             <div class="text-muted">Application Developer</div>
                                         </div>
                                     </div>
@@ -44,7 +44,8 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <span class="font-weight-bold mr-2">Ngày sinh:</span>
-                                            <span class="text-muted">{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}</span>
+                                            <span
+                                                class="text-muted">{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}</span>
                                         </div>
                                     </div>
                                     <!--end::Contact-->
@@ -89,7 +90,13 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8" enctype="multipart/form-data">
+                        @if($user->account->role->role_id==2)
+                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8"
+                              enctype="multipart/form-data">
+                        @elseif($user->account->role->role_id==1)
+                            <form method="post" action="{{route('admin.info_update')}}" class="flex-row-fluid ml-lg-8"
+                                  enctype="multipart/form-data">
+                        @endif
                             @csrf
                             <!--begin::Card-->
                             <div class="card card-custom card-stretch">
@@ -145,7 +152,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">Họ
-                                                </label>
+                                            </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="first_name"
                                                        class="form-control form-control-lg form-control-solid"
@@ -155,7 +162,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Tên
-                                                </label>
+                                            </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="last_name"
                                                        class="form-control form-control-lg form-control-solid"
@@ -164,7 +171,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label name="date_of_birth" for="last_name" class="col-xl-3 col-lg-3 col-form-label">Ngày sinh</label>
+                                            <label name="date_of_birth" for="last_name"
+                                                   class="col-xl-3 col-lg-3 col-form-label">Ngày sinh</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="date_of_birth"
                                                        class="form-control form-control-lg form-control-solid"
@@ -195,7 +203,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="mobile_number" class="col-xl-3 col-lg-3 col-form-label">Số điện thoại</label>
+                                            <label for="mobile_number" class="col-xl-3 col-lg-3 col-form-label">Số điện
+                                                thoại</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">
@@ -211,7 +220,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <label for="email" class="col-xl-3 col-lg-3 col-form-label">Email
-                                                </label>
+                                            </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <div class="input-group input-group-lg input-group-solid">
                                                     <div class="input-group-prepend">

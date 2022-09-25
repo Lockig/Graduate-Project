@@ -347,7 +347,7 @@
                                             </div>
                                         </td>
                                         <td class="pr-0 text-right">
-                                            <a href="#" data-toggle="tooltip" title="điểm danh"
+                                            <a href="{{route('admin.attendance',$user->user_id)}}" data-toggle="tooltip" title="điểm danh"
                                                class="btn btn-icon btn-light btn-hover-primary btn-sm">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
@@ -369,7 +369,8 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <a href="{{route('users.edit',$user->user_id)}}" data-toggle="tooltip" title="thông tin"
+                                            <a href="{{route('users.edit',$user->user_id)}}" data-toggle="tooltip"
+                                               title="thông tin"
                                                class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -393,7 +394,7 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <a href="{{route('users.destroy',$user->user_id)}}" data-toggle="tooltip"
+                                            <a href="{{route('admin.destroy',$user->user_id)}}" data-toggle="tooltip"
                                                title="xóa" class="btn btn-icon btn-light btn-hover-primary btn-sm">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
@@ -437,6 +438,6 @@
     <!--end::Content-->
 @endsection
 
-{{--@section('script')--}}
-{{--    <script src="{{asset('js/widgets.js')}}"></script>--}}
-{{--@endsection--}}
+@section('script')
+
+@endsection

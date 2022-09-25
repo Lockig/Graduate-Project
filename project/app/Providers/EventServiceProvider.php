@@ -30,10 +30,10 @@ class EventServiceProvider extends ServiceProvider
             CreateUserWorkingDetails::class,
             SendMailCreateUser::class
         ],
-        RequestDayOff::class=>[
-            RequestDayOffNotification::class,
-            SendDayOffNotification::class
-        ],
+//        RequestDayOff::class=>[
+//            RequestDayOffNotification::class,
+//            SendDayOffNotification::class
+//        ],
         CreateFingerprint::class=>[
             CreateFingerprintListener::class
         ]
