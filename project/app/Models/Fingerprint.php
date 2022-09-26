@@ -12,6 +12,7 @@ class Fingerprint extends Model
     protected $fillable = [
         'user_id',
         'fingerprint_id',
+        'add_fingerprint_id'
     ];
 
     public function user(){

@@ -27,7 +27,7 @@ class UserController extends Controller implements ShouldQueue
         $user = Auth::user();
         $role = $user->account->role->role_id;;
         $users = User::query()->name($request)->paginate(5);
-        return view('user.index', compact(['user', 'role', 'users']));
+        return view('user.dashboard', compact(['user', 'role', 'users']));
     }
 
     public function show(User $user)
@@ -35,12 +35,25 @@ class UserController extends Controller implements ShouldQueue
         return view('user.index', compact('user'));
     }
 
-    public function showAttendance()
+    public function showAttendance(Request $request)
     {
         $user = Auth::user();
-        $logs = DB::table('daily_logs')
-            ->where('user_id', '=', $user->user_id)
-            ->get();
+        if (!$request->has('request_date')) {
+            $logs = DB::table('daily_logs')
+                ->select('*')
+                ->where('user_id', '=', $user->user_id)
+                ->orderByDesc('date')
+                ->orderBy('time_in')
+                ->paginate(5);
+        } else {
+            $logs = DB::table('daily_logs')
+                ->select('*')
+                ->where('user_id', '=', $user->user_id)
+                ->where('date', '=', $request->input('request_date'))
+                ->orderByDesc('date')
+                ->orderBy('time_in')
+                ->paginate(5);
+        }
         return view('user.attendance', compact(['user', 'logs']));
     }
 
@@ -50,13 +63,6 @@ class UserController extends Controller implements ShouldQueue
         return view('user.password', compact('user'));
     }
 
-    public function update(Request $request)
-    {
-        $user_id = Auth::user()->user_id;
-        dd($user_id);
-        User::find($user_id)->update([]);
-
-    }
 
     public function destroy($id)
     {

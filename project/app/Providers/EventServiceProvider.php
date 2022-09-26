@@ -34,9 +34,6 @@ class EventServiceProvider extends ServiceProvider
 //            RequestDayOffNotification::class,
 //            SendDayOffNotification::class
 //        ],
-        CreateFingerprint::class=>[
-            CreateFingerprintListener::class
-        ]
     ];
 
     /**

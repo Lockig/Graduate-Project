@@ -31,6 +31,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/info', [UserController::class, 'updateInfo'])->name('users.info_update');
     Route::post('/password', [UserController::class, 'updatePassword'])->name('users.update_password');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
+    Route::post('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
     Route::group(['prefix' => 'export'], function () {
         Route::get('/list', [UserController::class, 'exportList'])->name('users.export_list');
     });

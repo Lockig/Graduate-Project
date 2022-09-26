@@ -25,8 +25,8 @@
             cluster: 'ap1'
         });
 
-        var channel = pusher.subscribe('test');
-        channel.bind('hello', function(data) {
+        var channel = pusher.subscribe('RequestDayOff');
+        channel.bind('RequestDayOff', function(data) {
             alert(JSON.stringify(data));
         });
     </script>

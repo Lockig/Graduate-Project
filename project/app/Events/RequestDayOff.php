@@ -36,11 +36,10 @@ class RequestDayOff implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['test'];
+        return new PrivateChannel('RequestDayOff');
     }
-
     public function broadcastAs()
     {
-        return 'hello';
+        return 'RequestDayOff';
     }
 }

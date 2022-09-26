@@ -23,7 +23,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::query()->paginate(1);
+        $users = User::query()->paginate(5);
         return view('user.admin.list_employee',compact('users'));
         //
     }
@@ -64,7 +64,8 @@ class AdminController extends Controller
         $user = User::find($user_id);
 
         event(new CreateUser($user));
-        Cache::put(['command', 'user_id'], ['register', $user_id]);
+        Cache::put('command','register');
+        Cache::put('user_id',$user_id);
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
     }
 
@@ -79,7 +80,7 @@ class AdminController extends Controller
         $user = User::find($id);
         $logs = DB::table('daily_logs')
             ->where('user_id', '=', $user->user_id)
-            ->get();
+            ->paginate(5);
         return view('user.attendance', compact(['user', 'logs']));
     }
 

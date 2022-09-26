@@ -26,7 +26,7 @@ class CreateUserWorkingDetails
      * @return void
      */
     public function handle($event)
-    {
+    {;
         DB::table('user_working_details')->insert([
             'user_id'=>$event->user->user_id,
             'join_date'=>Carbon::now(),
