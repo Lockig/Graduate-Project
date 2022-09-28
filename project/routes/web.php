@@ -22,8 +22,9 @@ Route::post('/send-mail', [ForgotPasswordController::class, 'sendResetLinkEmail'
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::get('/info', [UserController::class, 'info'])->name('users.info');
+    Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
     Route::get('/request', [UserController::class, 'dayOffForm'])->name('users.day_off_form');
-    Route::get('/password', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/password', [UserController::class, 'editPassword'])->name('users.editPassword');
     Route::get('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
     Route::get('/request', [UserController::class, 'dayOffForm'])->name('users.day_off_form');
 
@@ -60,7 +61,3 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     });
 });
 
-Route::get('test', function () {
-    event(new App\Events\RequestDayOff(Auth::user()));
-    return "Event has been sent!";
-});

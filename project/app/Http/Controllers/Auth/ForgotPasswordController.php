@@ -28,9 +28,9 @@ class ForgotPasswordController extends Controller
             ];
             Mail::to($email)->send(new ResetPasswordMail($details));
             Account::find($user_id)->update($details);
-            return redirect()->back()->with('Success', 'Send reset mail successfully');
+            return redirect()->back()->with('Success', 'Đã gửi mail reset pass thành công');
         }
-        return view('auth.login')->with('Warning', 'error');
+        return redirect('/login')->with('Warning', 'Email không đúng');
 
     }
 

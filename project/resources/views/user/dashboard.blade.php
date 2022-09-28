@@ -69,7 +69,7 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
+    <script src="{{asset('js/pages/widgets.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){

@@ -7,6 +7,7 @@ use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\Account;
+use App\Models\Position;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('user.create');
+        $positions = Position::all();
+        return view('user.create',compact('positions'));
     }
 
     public function store(UserCreateRequest $request)
@@ -40,7 +42,10 @@ class AdminController extends Controller
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
-
+        $position_id = Position::query()
+            -name($credentials['positions'])
+            ->value('position_id');
+        dd($position_id);
         DB::table('users')->insert([
             'first_name' => $credentials['first_name'],
             'last_name' => $credentials['last_name'],
@@ -48,7 +53,7 @@ class AdminController extends Controller
             'email' => $credentials['email'],
             'mobile_number' => $credentials['mobile_number'],
             'avatar' => $profile_avatar ?? null,
-            'position_id' => '1'
+            'position_id' => $position_id
         ]);
 
         $user_id = User::query()
@@ -102,7 +107,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if ( $user->account->role != 1) {
+        if ( $user->account->role->role_id != 1) {
             User::destroy($id);
             return back()->with("Success", "Xóa người dùng thành công");
         }

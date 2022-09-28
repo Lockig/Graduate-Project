@@ -15,7 +15,13 @@ class Position extends Model
         'position_name'
     ];
 
-    public function user(){
-        $this->belongsTo(User::class,'position_id','position_id');
+    public function user()
+    {
+        $this->belongsTo(User::class, 'position_id', 'position_id');
+    }
+
+    public function scopeName($query, $request)
+    {
+        return $query->where('position_name', 'like', '%' . $request . '%');
     }
 }

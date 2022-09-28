@@ -187,19 +187,19 @@
                                     <td class="pl-0">
                                         <a href="#"
                                            class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                            {{\Carbon\Carbon::parse($logs->first()->date)->format('d-m-Y')}}
+                                            {{isset($logs) ? \Carbon\Carbon::parse($logs->first()->date)->format('d-m-Y') : 0}}
                                         </a>
                                     </td>
                                     <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            {{\Carbon\Carbon::parse($logs->first()->time_in)->format('H:i:s')}}
+                                            {{isset($logs) ? \Carbon\Carbon::parse($logs->first()->time_in)->format('H:i:s') : 0}}
                                         </span>
                                     </td>
                                     <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                           {{\Carbon\Carbon::parse($logs->last()->time_in)->format('H:i:s')}}
+                                           {{isset($logs) ? \Carbon\Carbon::parse($logs->last()->time_in)->format('H:i:s') : 0 }}
                                         </span>
                                     </td>
                                     <td class="pr-0 text-right">

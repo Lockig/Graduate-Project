@@ -13,11 +13,11 @@ use App\Notifications\RequestDayOffNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Nette\Utils\Random;
 
 class UserController extends Controller implements ShouldQueue
@@ -57,7 +57,7 @@ class UserController extends Controller implements ShouldQueue
         return view('user.attendance', compact(['user', 'logs']));
     }
 
-    public function edit()
+    public function editPassword()
     {
         $user = Auth::user();
         return view('user.password', compact('user'));
@@ -79,7 +79,15 @@ class UserController extends Controller implements ShouldQueue
     public function info(Request $request)
     {
         $user = Auth::user();
-        return view('user.index', compact('user'));
+        $user_working_details = DB::table('user_working_details')
+            ->where('user_id','=',$user->user_id)
+            ->get();
+        return view('user.info', compact('user','user_working_details'));
+    }
+
+    public function editInfo(Request $request){
+        $user = Auth::user();
+        return view('user.index',compact('user'));
     }
 
     public function updateInfo(UserCreateRequest $request)
@@ -120,7 +128,13 @@ class UserController extends Controller implements ShouldQueue
             'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content' => $validated['content'],
         ]);
-//        event(new RequestDayOff($user));
+        $admin_id =  User::query()
+            ->select('users.user_id')
+            ->join('accounts','users.user_id','=','accounts.user_id')
+            ->join('roles','accounts.role_id','=','roles.role_id')
+            ->where('roles.role_id','=','1')->get();
+
+        Notification::send(User::find($admin_id), new RequestDayOffNotification(User::find($user->user_id)));
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
     }
 

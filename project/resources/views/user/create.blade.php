@@ -2,7 +2,7 @@
 
 @section('content')
     <!--begin::Content-->
-    @include('system_message');
+    @include('system_message')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -188,6 +188,20 @@
                                                 </div>
                                             </div>
                                             <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label for="position"
+                                                       class="col-form-label col-3 text-lg-right text-left">Vị
+                                                    trí</label>
+                                                <div class="col-9">
+                                                    <select name="positions" class="form-control form-control-lg form-control-solid">
+                                                        @foreach($positions as $position)
+                                                            <option value="{{$position->position_name}}" class="form-control form-control-lg form-control-solid">{{$position->position_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
                                             <!--begin::Toolbar-->
                                             <div class="d-flex">
                                                 <!--begin::Dropdown-->
@@ -300,6 +314,18 @@
                                                                    value="nick.watson@loop.com"/>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <!--end::Group-->
+                                                <!--begin::Group-->
+                                                <div class="form-group row">
+                                                    <label for="position"
+                                                           class="col-form-label col-3 text-lg-right text-left">Vị
+                                                        trí</label>
+                                                    <select name="position" class="col-9 form-control">
+                                                        @foreach($positions as $position)
+                                                            <option>$position->position_name</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <!--end::Group-->
                                             </div>

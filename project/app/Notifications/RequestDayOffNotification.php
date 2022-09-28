@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,14 +11,15 @@ use Illuminate\Notifications\Notification;
 class RequestDayOffNotification extends Notification
 {
     use Queueable;
-
+    public User $user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
+        $this->user = $user;
         //
     }
 
@@ -29,7 +31,7 @@ class RequestDayOffNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -55,6 +57,8 @@ class RequestDayOffNotification extends Notification
     public function toArray($notifiable)
     {
         return [
+            'user_name'=> $this->user->first_name . ' ' . $this->user->last_name,
+            'message' => 'has just create request day off form'
             //
         ];
     }
