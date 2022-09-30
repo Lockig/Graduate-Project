@@ -74,7 +74,9 @@ class FingerprintController extends Controller
         if ($request->has('check')) {
                 if (Cache::get('command') == 'register') {
                     echo Cache::get('command') . Cache::get('user_id');
-//
+                }
+                if(Cache::get('command')=='delete'){
+                    echo Cache::get('command') . Cache::get('user_id');
                 }
             }
 //

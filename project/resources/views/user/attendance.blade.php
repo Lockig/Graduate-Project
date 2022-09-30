@@ -165,53 +165,50 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                @php
-                                    $start_time = "08:00:00";
-                                    $end_time = "15:30:00";
-                                @endphp
-                                <tr>
-                                    <td class="pl-0">
-                                        <label class="">
-                                            <span>1</span>
-                                        </label>
-                                    </td>
-                                    <td class="pr-0">
-                                        <div class="symbol symbol-50 symbol-light mt-1">
+                                @foreach($logs as $log)
+                                    <tr>
+                                        <td class="pl-0">
+                                            <label class="">
+                                                <span>1</span>
+                                            </label>
+                                        </td>
+                                        <td class="pr-0">
+                                            <div class="symbol symbol-50 symbol-light mt-1">
 																<span class="symbol-label">
 																	<img src="assets/media/svg/avatars/001-boy.svg"
                                                                          class="h-75 align-self-end" alt=""/>
 																</span>
-                                        </div>
-                                    </td>
-                                    <td class="pl-0">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                            {{isset($logs) ? \Carbon\Carbon::parse($logs->first()->date)->format('d-m-Y') : 0}}
-                                        </a>
-                                    </td>
-                                    <td>
+                                            </div>
+                                        </td>
+                                        <td class="pl-0">
+                                            <a href="#"
+                                               class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                                {{\Carbon\Carbon::parse($log->date)->format('d-m-Y')}}
+                                            </a>
+                                        </td>
+                                        <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            {{isset($logs) ? \Carbon\Carbon::parse($logs->first()->time_in)->format('H:i:s') : 0}}
+                                            {{ \Carbon\Carbon::parse($log->time_in)->format('H:i:s')}}
                                         </span>
-                                    </td>
-                                    <td>
+                                        </td>
+                                        <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                           {{isset($logs) ? \Carbon\Carbon::parse($logs->last()->time_in)->format('H:i:s') : 0 }}
+                                           {{\Carbon\Carbon::parse($log->time_in)->format('H:i:s') }}
                                         </span>
-                                    </td>
-                                    <td class="pr-0 text-right">
-                                        @if($logs->first()->time_in >= $start_time && $logs->last()->time_in <= $end_time)
-                                            <span
-                                                class="text-danger font-weight-bolder font-size-lg">Đi muộn</span>
-                                        @else
-                                            <span
-                                                class="text-success font-weight-bolder font-size-lg">Đúng giờ</span>
-                                        @endif
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="pr-0 text-right">
+                                            @if($log->time_in >= $start_time && $log->time_in <= $end_time)
+                                                <span
+                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn</span>
+                                            @else
+                                                <span
+                                                    class="text-success font-weight-bolder font-size-lg">Đúng giờ</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">

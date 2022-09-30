@@ -6,6 +6,7 @@ use App\Events\CreateUser;
 use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
 use App\Models\Position;
 use App\Models\User;
@@ -25,14 +26,14 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::query()->paginate(5);
-        return view('user.admin.list_employee',compact('users'));
+        return view('user.admin.list_employee', compact('users'));
         //
     }
 
     public function create()
     {
         $positions = Position::all();
-        return view('user.create',compact('positions'));
+        return view('user.create', compact('positions'));
     }
 
     public function store(UserCreateRequest $request)
@@ -42,10 +43,8 @@ class AdminController extends Controller
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
-        $position_id = Position::query()
-            -name($credentials['positions'])
-            ->value('position_id');
-        dd($position_id);
+        $position_id = Position::query()->name($credentials['positions'])->value('position_id');
+
         DB::table('users')->insert([
             'first_name' => $credentials['first_name'],
             'last_name' => $credentials['last_name'],
@@ -56,10 +55,7 @@ class AdminController extends Controller
             'position_id' => $position_id
         ]);
 
-        $user_id = User::query()
-            ->select('user_id')
-            ->email($request)
-            ->value('user_id');
+        $user_id = User::query()->email($request)->value('user_id');
         DB::table('accounts')->insert([
             'user_id' => $user_id,
             'role_id' => 2,
@@ -69,8 +65,8 @@ class AdminController extends Controller
         $user = User::find($user_id);
 
         event(new CreateUser($user));
-        Cache::put('command','register');
-        Cache::put('user_id',$user_id);
+        Cache::put('command', 'register');
+        Cache::put('user_id', $user_id);
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
     }
 
@@ -96,18 +92,13 @@ class AdminController extends Controller
         //
     }
 
-    public function update(Request $request)
-    {
-        $user_id = Auth::user()->user_id;
-        dd($user_id);
-        User::find($user_id)->update([]);
-
-    }
 
     public function destroy($id)
     {
         $user = User::find($id);
-        if ( $user->account->role->role_id != 1) {
+        if ($user->account->role->role_id != 1) {
+            Cache::put('command', 'delete');
+            Cache::put('user_id', $id);
             User::destroy($id);
             return back()->with("Success", "Xóa người dùng thành công");
         }
@@ -122,7 +113,7 @@ class AdminController extends Controller
         return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserCreateRequest $request)
+    public function updateInfo(UserUpdateRequest $request)
     {
         $user = Auth::user();
         if ($request->hasFile('profile_avatar')) {
