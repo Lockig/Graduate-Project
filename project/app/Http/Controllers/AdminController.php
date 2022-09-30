@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
 
 class AdminController extends Controller
@@ -59,7 +60,7 @@ class AdminController extends Controller
         DB::table('accounts')->insert([
             'user_id' => $user_id,
             'role_id' => 2,
-            'password' => Random::generate(5)
+            'password' => Hash::make(Random::generate(5))
         ]);
 
         $user = User::find($user_id);
@@ -164,11 +165,11 @@ class AdminController extends Controller
             'password_confirmation' => 'required|string'
         ]);
         $password = $user_id->account->password;
-        if ($password == $validated['current_password']) {
+        if (Hash::check($validated['current_password'], $password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
                 $update = Account::query()
                     ->where('user_id', $id)
-                    ->update(['password' => $validated['password_confirmation']]);
+                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
                 return back()->with("Success", "Update password successfully");
             }
         }

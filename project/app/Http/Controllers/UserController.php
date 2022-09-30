@@ -141,23 +141,22 @@ class UserController extends Controller implements ShouldQueue
 
     public function updatePassword(Request $request)
     {
-        $user = Auth::user();
+        $user= Auth::user();
         $validated = $request->validate([
             'current_password' => 'required|string',
             'new_password' => 'required|string',
             'password_confirmation' => 'required|string'
         ]);
         $password = $user->account->password;
-        if ($password == $validated['current_password']) {
+        if (Hash::check($validated['current_password'], $password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
                 $update = Account::query()
                     ->where('user_id', $user->user_id)
-                    ->update(['password' => $validated['password_confirmation']]);
+                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
                 return back()->with("Success", "Cập nhật mật khẩu thành công");
             }
-            return back()->with("Fail", "Mật khẩu mới không trùng khớp");
         }
-        return back()->with('Fail', 'Mật khẩu cũ không đúng');
+        return back()->with('Fail', 'Mật khẩu cũ không chính xác');
 
     }
 

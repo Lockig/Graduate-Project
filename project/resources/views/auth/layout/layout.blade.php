@@ -37,14 +37,14 @@
                     </a>
                     <!-- end::Aside header -->
                     <!--begin::Aside Title-->
-                    <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">User Experience &amp; Interface Design
-                        <br />Strategy SaaS Solutions
+                    <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Time Attendance System For Small Business
+                        <br />Đỗ Lê Minh
                     </h3>
                     <!--end::Aside Title-->
                 </div>
                 <!--end::Aside Top-->
                 <!--begin::Aside Bottom-->
-                <div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-x-center" style="background-position-y: calc(100% + 5rem); background-image: url(media/svg/illustrations/login-visual-5.svg)"></div>
+                <div class="aside-img d-flex flex-row-fluid bgi-no-repeat bgi-position-x-center" style="background-position-y: calc(100% + 5rem); background-image: url({{asset('media/svg/illustrations/login-visual-5.svg')}})"></div>
                 <!--end::Aside Bottom-->
             </div>
             <!--begin::Aside-->

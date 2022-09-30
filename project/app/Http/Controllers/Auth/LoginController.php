@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -53,7 +54,7 @@ class LoginController extends Controller
             ->value('user_id');
         if ($user_id != null) {
             $password = User::find($user_id)->account->password;
-            if ($password == $request->input('password')) {
+            if (Hash::check($request->input('password'), $password)) {
                 $user = User::find($user_id);
                 Auth::login($user);
                 return redirect()->to(route('users.index'))->with('Success', 'Login successfully');
@@ -67,7 +68,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/')->with('Success','Log out successfully, please login to continue');
+        return redirect('/')->with('Success', 'Log out successfully, please login to continue');
     }
 
 }
