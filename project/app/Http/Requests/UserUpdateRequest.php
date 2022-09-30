@@ -24,11 +24,12 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_avatar' => 'required|file',
+            'profile_avatar' => 'file',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'date_of_birth' => 'date|date_format:m/d/Y',
             'mobile_number' => 'string|max:10',
+            'email' => 'required|string'
             //
         ];
     }

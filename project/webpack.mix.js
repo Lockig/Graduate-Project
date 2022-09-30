@@ -22,6 +22,8 @@ mix.styles('resources/assets/css/pages/login/login-3.css', 'public/css/auth/auth
 
 //js file
 mix.scripts([
+    "resources/assets/plugins/global/plugins.bundle.js",
+    "resources/assets/plugins/custom/prismjs/prismjs.bundle.js",
     "resources/assets/js/scripts.bundle.js",
     // "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
     // "resources/assets/plugins/custom/gmaps/gmaps.js",
@@ -35,7 +37,9 @@ mix.scripts([
     "resources/assets/js/scripts.bundle.js"
 ],'public/js/auth.js').version();
 
-
+mix.scripts([
+    "resources/assets/js/pages/features/calendar/external-events.js"
+],'public/js/external-events.js')
 
 mix.scripts('resources/assets/js/pages/custom/user/add-user.js', 'public/js/user/user.js');
 mix.scripts('resources/assets/js/pages/widgets.js','public/js/widget.js');

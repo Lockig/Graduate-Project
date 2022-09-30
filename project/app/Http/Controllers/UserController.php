@@ -25,7 +25,7 @@ class UserController extends Controller implements ShouldQueue
     public function index(Request $request)
     {
         $user = Auth::user();
-        $role = $user->account->role->role_id;;
+        $role = $user->account->role->role_id;
         $users = User::query()->name($request)->paginate(5);
         return view('user.dashboard', compact(['user', 'role', 'users']));
     }
@@ -42,8 +42,6 @@ class UserController extends Controller implements ShouldQueue
             $logs = DB::table('daily_logs')
                 ->select('*')
                 ->where('user_id', '=', $user->user_id)
-                ->orderByDesc('date')
-                ->orderBy('time_in')
                 ->paginate(5);
         } else {
             $logs = DB::table('daily_logs')
@@ -54,7 +52,9 @@ class UserController extends Controller implements ShouldQueue
                 ->orderBy('time_in')
                 ->paginate(5);
         }
-        return view('user.attendance', compact(['user', 'logs']));
+        $start_time = DB::table('check_times')->select('time_in')->where('id','=',1)->value('time_in');
+        $end_time = DB::table('check_times')->select('time_out')->where('id','=',1)->value('time_out');
+        return view('user.attendance', compact(['user', 'logs','start_time','end_time']));
     }
 
     public function editPassword()
@@ -80,17 +80,18 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         $user_working_details = DB::table('user_working_details')
-            ->where('user_id','=',$user->user_id)
+            ->where('user_id', '=', $user->user_id)
             ->get();
-        return view('user.info', compact('user','user_working_details'));
+        return view('user.info', compact('user', 'user_working_details'));
     }
 
-    public function editInfo(Request $request){
+    public function editInfo(Request $request)
+    {
         $user = Auth::user();
-        return view('user.index',compact('user'));
+        return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserCreateRequest $request)
+    public function updateInfo(UserUpdateRequest $request)
     {
         $user = Auth::user();
         if ($request->hasFile('profile_avatar')) {
@@ -128,11 +129,11 @@ class UserController extends Controller implements ShouldQueue
             'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content' => $validated['content'],
         ]);
-        $admin_id =  User::query()
+        $admin_id = User::query()
             ->select('users.user_id')
-            ->join('accounts','users.user_id','=','accounts.user_id')
-            ->join('roles','accounts.role_id','=','roles.role_id')
-            ->where('roles.role_id','=','1')->get();
+            ->join('accounts', 'users.user_id', '=', 'accounts.user_id')
+            ->join('roles', 'accounts.role_id', '=', 'roles.role_id')
+            ->where('roles.role_id', '=', '1')->get();
 
         Notification::send(User::find($admin_id), new RequestDayOffNotification(User::find($user->user_id)));
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');

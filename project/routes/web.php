@@ -61,3 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     });
 });
 
+
+Route::get('layout',function(){
+    return view('user.get_log_data');
+});

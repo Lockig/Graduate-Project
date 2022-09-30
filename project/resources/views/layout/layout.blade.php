@@ -128,7 +128,7 @@
 <!--end::Global Config-->
 
 <!--begin:Javascript-->
-<script src="{{mix('js/auth.js')}}"></script>
+<script src="{{mix('js/app.js')}}"></script>
 
 
 <!--end:Javascript-->
