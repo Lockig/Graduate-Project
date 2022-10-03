@@ -1436,7 +1436,8 @@
             <!--begin::Quick Actions-->
             <div class="dropdown">
                 <!--begin::Toggle-->
-                <div class="topbar-item" data-toggle="dropdown" id="quick_actions" data-offset="10px,0px"  aria-haspopup="true" aria-expanded="false">
+                <div class="topbar-item" data-toggle="dropdown" id="quick_actions" data-offset="10px,0px"
+                     aria-haspopup="true" aria-expanded="false">
                     <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
                         <span class="svg-icon svg-icon-xl svg-icon-primary">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Media/Equalizer.svg-->
@@ -1462,7 +1463,8 @@
                 <!--end::Toggle-->
                 <!--begin::Dropdown-->
                 <div
-                    class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg" aria-labelledby="quick_actions">
+                    class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg"
+                    aria-labelledby="quick_actions">
                     <!--begin:Header-->
                     <div
                         class="d-flex flex-column flex-center py-10 bgi-size-cover bgi-no-repeat rounded-top"
@@ -1495,7 +1497,8 @@
 														</svg>
                                                         <!--end::Svg Icon-->
 													</span>
-                                <span class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Accounting</span>
+                                <span
+                                    class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Accounting</span>
                                 <span class="d-block text-dark-50 font-size-lg">eCommerce</span>
                             </a>
                         </div>
@@ -1547,7 +1550,8 @@
 														</svg>
                                                         <!--end::Svg Icon-->
 													</span>
-                                <span class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Projects</span>
+                                <span
+                                    class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Projects</span>
                                 <span class="d-block text-dark-50 font-size-lg">Pending Tasks</span>
                             </a>
                         </div>
@@ -1573,7 +1577,8 @@
 														</svg>
                                                         <!--end::Svg Icon-->
 													</span>
-                                <span class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Customers</span>
+                                <span
+                                    class="d-block text-dark-75 font-weight-bold font-size-h6 mt-2 mb-1">Customers</span>
                                 <span class="d-block text-dark-50 font-size-lg">Latest cases</span>
                             </a>
                         </div>
@@ -1671,7 +1676,8 @@
                         <li class="navi-item">
                             <a href="#" class="navi-link">
 													<span class="symbol symbol-20 mr-3">
-														<img src="{{asset('media/svg/flags/226-united-states.svg')}}" alt=""/>
+														<img src="{{asset('media/svg/flags/226-united-states.svg')}}"
+                                                             alt=""/>
 													</span>
                                 <span class="navi-text">English</span>
                             </a>
@@ -1728,17 +1734,20 @@
                 <div
                     class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2"
                     id="kt_quick_user_toggle">
-                                <span
-                                    class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ucfirst(Auth::user()->first_name)}}</span>
-                    <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-											<span class="symbol-label font-size-h5 font-weight-bold">
-                                                {{ strtoupper(substr(Auth::user()->first_name,0,1)) }}
-                                            </span>
-										</span>
+                    <span
+                        class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,
+                    </span>
+                    <span
+                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ucfirst(Auth::user()->first_name)}}</span>
+                    <span class="symbol symbol-sm-30 symbol-25 symbol-light-success">
+                        <span class="symbol-label font-size-h5 font-weight-bold">
+                            {{ strtoupper(substr(Auth::user()->first_name,0,1)) }}
+                        </span>
+                    </span>
                 </div>
                 <div>
-                    <a href="{{route('signOut')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Log Out</a>
+                    <a href="{{route('signOut')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Log
+                        Out</a>
                 </div>
             </div>
             <!--end::User-->

@@ -17,23 +17,23 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Profile 1</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">Đổi mật khẩu</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Apps</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Profile</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Profile 1</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Change Password</a>
-                        </li>
-                    </ul>
+{{--                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">--}}
+{{--                        <li class="breadcrumb-item">--}}
+{{--                            <a href="" class="text-muted">Apps</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="breadcrumb-item">--}}
+{{--                            <a href="" class="text-muted">Profile</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="breadcrumb-item">--}}
+{{--                            <a href="" class="text-muted">Profile 1</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="breadcrumb-item">--}}
+{{--                            <a href="" class="text-muted">Change Password</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page Heading-->
@@ -140,7 +140,7 @@
                                 <div>
                                     <a href="#"
                                        class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</a>
-                                    <div class="text-muted">Application Developer</div>
+                                    <div class="text-muted">{{$user->position->position_name}}</div>
                                 </div>
                             </div>
                             <!--end::User-->
@@ -222,7 +222,7 @@
                             </div>
                             <div class="card-toolbar">
                                 <button type="submit" class="btn btn-success mr-2">Lưu thông tin</button>
-                                <button type="reset" class="btn btn-secondary">Cancel</button>
+                                <a href="{{route('users.index')}}" class="btn btn-secondary">Cancel</a>
                             </div>
                         </div>
                         <!--end::Header-->
@@ -233,7 +233,6 @@
                                     <label for="current_password" class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu cũ</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input name="current_password" type="password" class="form-control form-control-lg form-control-solid mb-2" value="" placeholder="Current password" />
-                                        <a href="#" class="text-sm font-weight-bold">Quên mật khẩu ?</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -52,9 +52,9 @@ class UserController extends Controller implements ShouldQueue
                 ->orderBy('time_in')
                 ->paginate(5);
         }
-        $start_time = DB::table('check_times')->select('time_in')->where('id','=',1)->value('time_in');
-        $end_time = DB::table('check_times')->select('time_out')->where('id','=',1)->value('time_out');
-        return view('user.attendance', compact(['user', 'logs','start_time','end_time']));
+        $start_time = DB::table('check_times')->select('time_in')->where('id', '=', 1)->value('time_in');
+        $end_time = DB::table('check_times')->select('time_out')->where('id', '=', 1)->value('time_out');
+        return view('user.attendance', compact(['user', 'logs', 'start_time', 'end_time']));
     }
 
     public function editPassword()
@@ -128,6 +128,7 @@ class UserController extends Controller implements ShouldQueue
             'day_start' => Carbon::parse($validated['day_start'])->format('Y-m-d'),
             'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content' => $validated['content'],
+            'stage' => "Chờ duyệt"
         ]);
         $admin_id = User::query()
             ->select('users.user_id')
@@ -141,7 +142,7 @@ class UserController extends Controller implements ShouldQueue
 
     public function updatePassword(Request $request)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         $validated = $request->validate([
             'current_password' => 'required|string',
             'new_password' => 'required|string',

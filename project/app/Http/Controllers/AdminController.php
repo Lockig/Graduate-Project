@@ -24,9 +24,9 @@ class AdminController extends Controller
      * Display a listing of the resource.
      *
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::query()->paginate(5);
+        $users = User::query()->name($request)->paginate(5);
         return view('user.admin.list_employee', compact('users'));
         //
     }
@@ -57,15 +57,16 @@ class AdminController extends Controller
         ]);
 
         $user_id = User::query()->email($request)->value('user_id');
+        $password = Random::generate(8);
         DB::table('accounts')->insert([
             'user_id' => $user_id,
             'role_id' => 2,
-            'password' => Hash::make(Random::generate(5))
+            'password' => Hash::make($password)
         ]);
 
         $user = User::find($user_id);
 
-        event(new CreateUser($user));
+        event(new CreateUser($user, $password));
         Cache::put('command', 'register');
         Cache::put('user_id', $user_id);
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
@@ -114,9 +115,9 @@ class AdminController extends Controller
         return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserUpdateRequest $request)
+    public function updateInfo(UserUpdateRequest $request,$id)
     {
-        $user = Auth::user();
+        $user = User::find($id);
         if ($request->hasFile('profile_avatar')) {
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
@@ -181,5 +182,9 @@ class AdminController extends Controller
     {
         $users = User::all();
         return (new UsersExport($users))->download('users.xlsx');
+    }
+
+    public function settings(){
+        return view('user.admin.settings');
     }
 }

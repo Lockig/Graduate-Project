@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->references('user_id')->on('users');
             $table->date('day_start');
             $table->date('day_end');
-            $table->text('content');
+            $table->string('content');
+            $table->string('stage');
             $table->softDeletes();
             $table->timestamps();
         });

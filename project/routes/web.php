@@ -43,12 +43,15 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-    Route::get('/{user}', [AdminController::class, 'show'])->name('admin.show')->middleware('auth');
-//    Route::get('{user}/request', [AdminController::class, 'dayOffForm'])->name('users.day_off_form');
+    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::get('/user/{user}', [AdminController::class, 'show'])->name('admin.show')->middleware('auth');
+    Route::get('/{user}/info',[AdminController::class,'info'])->name('admin.info');
+    //    Route::get('{user}/request', [AdminController::class, 'dayOffForm'])->name('users.day_off_form');
 //    Route::get('/{user}/password/', [AdminController::class, 'edit'])->name('users.edit');
 
     Route::put('/create', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/info', [AdminController::class, 'updateInfo'])->name('admin.info_update');
+    Route::post('/{user}/info', [AdminController::class, 'updateInfo'])->name('admin.info_update');
+    Route::post('/setting', [AdminController::class, 'time_setting'])->name('admin.time_setting');
     Route::post('/{user}/request', [AdminController::class, 'storeDayOffForm'])->name('admin.request');
     Route::post('/{user}', [AdminController::class, 'storeDayOffForm'])->name('admin.store_day_off_form');
     Route::post('/{user}/password', [AdminController::class, 'updatePassword'])->name('admin.update_password');
@@ -59,9 +62,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::group(['prefix' => 'export'], function () {
         Route::get('/list', [AdminController::class, 'exportList'])->name('admin.export_list');
     });
+
 });
 
 
-Route::get('layout',function(){
+Route::get('layout', function () {
     return view('user.get_log_data');
 });

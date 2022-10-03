@@ -52,13 +52,15 @@ class FingerprintController extends Controller
     public function store(Request $request)
     {
         if ($request->has('fingerID')) {
+            if ($request->input('fingerID') > 200) {
+                echo 'no user find';
+            }
             $check = Fingerprint::query()
                 ->select('user_id')
                 ->where('fingerprint_id', '=', $request->input('fingerID'))
                 ->where('add_fingerprint_id', '=', '1')
                 ->value('user_id');
             if ($check) {
-                echo 'insert data \n';
                 DB::table('daily_logs')->insert([
                     'user_id' => $check,
                     'time_in' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -72,27 +74,27 @@ class FingerprintController extends Controller
 
 //        check to register
         if ($request->has('check')) {
-                if (Cache::get('command') == 'register') {
-                    echo Cache::get('command') . Cache::get('user_id');
-                }
-                if(Cache::get('command')=='delete'){
-                    echo Cache::get('command') . Cache::get('user_id');
-                }
+            if (Cache::get('command') == 'register') {
+                echo Cache::get('command') . Cache::get('user_id');
             }
+            if (Cache::get('command') == 'delete') {
+                echo Cache::get('command') . Cache::get('user_id');
+            }
+        }
 //
 //        get new fingerprint_id
-            if ($request->has('newFingerID')) {
-                DB::table('fingerprints')
-                    ->insert([
-                        'user_id'=>Cache::get('user_id'),
-                        'fingerprint_id'=>$request->input('newFingerID'),
-                        'add_fingerprint_id'=>'1'
-                    ]);
-                echo 'dang ky van tay thanh cong';
-                Cache::flush();
-            }
-
+        if ($request->has('newFingerID')) {
+            DB::table('fingerprints')
+                ->insert([
+                    'user_id' => Cache::get('user_id'),
+                    'fingerprint_id' => $request->input('newFingerID'),
+                    'add_fingerprint_id' => '1'
+                ]);
+            echo 'dang ky van tay thanh cong';
+            Cache::flush();
         }
+
+    }
 
     /**
      * Display the specified resource.

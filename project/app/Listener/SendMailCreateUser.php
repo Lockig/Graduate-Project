@@ -28,8 +28,9 @@ class SendMailCreateUser
      */
     public function handle(CreateUser $event)
     {
+        $password = $event->password;
         $details = [
-            'password'=>$event->user->account->password
+            'password'=>$password
         ];
         Mail::to($event->user->email)
             ->send(new ResetPasswordMail($details));

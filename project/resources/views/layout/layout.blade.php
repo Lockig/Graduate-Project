@@ -51,13 +51,13 @@
 </div>
 <!--end::Main-->
 <!-- begin::User Panel-->
-@include('layout.patials.user_panel')
+{{--@include('layout.patials.user_panel')--}}
 <!-- end::User Panel-->
 <!--begin::Quick Cart-->
-@include('layout.patials.quick_cart')
+{{--@include('layout.patials.quick_cart')--}}
 <!--end::Quick Cart-->
 <!--begin::Quick Panel-->
-@include('layout.patials.quick_cart')
+{{--@include('layout.patials.quick_cart')--}}
 <!--end::Quick Panel-->
 <!--begin::Chat Panel-->
 {{--@include('layout.patials.chat_panel')--}}

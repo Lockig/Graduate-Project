@@ -258,11 +258,11 @@ $user = Auth::user();
 												</span>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.create')}}" class="menu-link">
+                                    <a href="{{route('admin.settings')}}" class="menu-link">
                                         <i class="menu-bullet menu-bullet-dot">
                                             <span></span>
                                         </i>
-                                        <span class="menu-text">Tạo mới</span>
+                                        <span class="menu-text">Thiết lập</span>
                                     </a>
                                 </li>
                                 <li class="menu-item" aria-haspopup="true">
