@@ -18,10 +18,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+
+use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Random;
 
 class UserController extends Controller implements ShouldQueue
 {
+
     public function index(Request $request)
     {
         $user = Auth::user();
@@ -94,7 +97,11 @@ class UserController extends Controller implements ShouldQueue
     public function updateInfo(UserUpdateRequest $request)
     {
         $user = Auth::user();
-        if ($request->hasFile('profile_avatar')) {
+        if ($request->has('profile_avatar')) {
+            $current_avatar = $user->avatar;
+            if($current_avatar != null){
+                Storage::delete($current_avatar);
+            }
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
@@ -103,42 +110,12 @@ class UserController extends Controller implements ShouldQueue
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
-            'email' => $validated['email'],
+//            'email' => $validated['email'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
         return back()->with("Success", "Cập nhật thông tin thành công");
     }
 
-    public function dayOffForm()
-    {
-        return view('user.form');
-    }
-
-    public function storeDayOffForm(Request $request)
-    {
-        $user = Auth::user();
-        $validated = $request->validate([
-            'content' => 'required|string|max:200',
-            'day_start' => 'required|date',
-            'day_end' => 'required|date'
-        ]);
-
-        DB::table('day_off_requests')->insert([
-            'user_id' => $user->user_id,
-            'day_start' => Carbon::parse($validated['day_start'])->format('Y-m-d'),
-            'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
-            'content' => $validated['content'],
-            'stage' => "Chờ duyệt"
-        ]);
-        $admin_id = User::query()
-            ->select('users.user_id')
-            ->join('accounts', 'users.user_id', '=', 'accounts.user_id')
-            ->join('roles', 'accounts.role_id', '=', 'roles.role_id')
-            ->where('roles.role_id', '=', '1')->get();
-
-        Notification::send(User::find($admin_id), new RequestDayOffNotification(User::find($user->user_id)));
-        return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
-    }
 
     public function updatePassword(Request $request)
     {
@@ -163,7 +140,6 @@ class UserController extends Controller implements ShouldQueue
 
     public function exportList(Request $request)
     {
-        $users = User::all();
-        return (new UsersExport($users))->download('users.xlsx');
+        return (new UsersExport($request->users))->download('users.xlsx');
     }
 }

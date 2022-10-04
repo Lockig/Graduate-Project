@@ -94,7 +94,7 @@
                         <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8"
                               enctype="multipart/form-data">
                         @elseif($user->account->role->role_id==1)
-                            <form method="post" action="{{route('admin.info_update')}}" class="flex-row-fluid ml-lg-8"
+                            <form method="post" action="{{route('admin.info_update',$user->user_id)}}" class="flex-row-fluid ml-lg-8"
                                   enctype="multipart/form-data">
                         @endif
                             @csrf
@@ -259,14 +259,5 @@
 
     <script>
         var avatar3 = new KTImageInput('kt_image_3');
-        $(document).ready(function () {
-            $("#change_password").click(function (event) {
-                event.preventDefault();
-                $("#content").load('/password');
-            })
-            $("#personal_information").click(function () {
-                $("#content").load('/');
-            })
-        });
     </script>
 @endsection

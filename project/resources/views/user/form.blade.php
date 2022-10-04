@@ -135,7 +135,7 @@
                         <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" method="post" action="{{route('users.request',Auth::user()->user_id)}}">
+                    <form class="form" method="post" action="{{route('users.storeForm',Auth::user()->user_id)}}">
                         @csrf
                         <div class="card-body">
                             <div class="form-group row">

@@ -208,9 +208,9 @@
                 <div class="flex-row-fluid ml-lg-8">
                     <!--begin::Card-->
                     @if($user->account->role->role_id==1)
-                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.updatePassword',$user)}}">
                     @elseif($user->account->role->role_id==2)
-                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.update_password',$user)}}">
+                        <form class="card card-custom card-stretch"  method="post" action="{{route('users.updatePassword',$user)}}">
                     @endif
                         @csrf
                         @method('post')

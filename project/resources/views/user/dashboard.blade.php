@@ -178,7 +178,7 @@
         var array = [];
 
         var KTCalendarBasic = function(data) {
-
+            console.log(data);
             return {
                 //main function to initiate the module
                 init: function(data) {
@@ -220,7 +220,7 @@
                         editable: true,
                         eventLimit: true, // allow "more" link when too many events
                         navLinks: true,
-                        events: data,
+                        events: [],
 
                         eventRender: function(info) {
                             var element = $(info.el);

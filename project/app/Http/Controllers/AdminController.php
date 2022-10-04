@@ -11,11 +11,13 @@ use App\Models\Account;
 use App\Models\Position;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Random;
 
 class AdminController extends Controller
@@ -115,7 +117,7 @@ class AdminController extends Controller
         return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserUpdateRequest $request,$id)
+    public function updateInfo(UserUpdateRequest $request, $id): RedirectResponse
     {
         $user = User::find($id);
         if ($request->hasFile('profile_avatar')) {
@@ -133,12 +135,8 @@ class AdminController extends Controller
         return back()->with("Success", "Update personal information successfully");
     }
 
-    public function dayOffForm()
-    {
-        return view('user.form');
-    }
 
-    public function storeDayOffForm(Request $request, $id)
+    public function storeDayOffForm(Request $request, $id): RedirectResponse
     {
         $user = User::find($id);
         $validated = $request->validate([
@@ -157,7 +155,7 @@ class AdminController extends Controller
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(Request $request, $id): RedirectResponse
     {
         $user_id = Auth::user()->user_id;
         $validated = $request->validate([
@@ -180,11 +178,20 @@ class AdminController extends Controller
 
     public function exportList(Request $request)
     {
-        $users = User::all();
-        return (new UsersExport($users))->download('users.xlsx');
+        return (new UsersExport($request))->download('users.xlsx');
     }
 
-    public function settings(){
+    public function settings()
+    {
         return view('user.admin.settings');
+    }
+
+    public function timeSetting(Request $request)
+    {
+        DB::table('check_times')->update([
+            'time_in' => $request->time_start,
+            'time_out' => $request->time_end
+        ]);
+        return back()->with('Success','Cài đặt thời gian thành công');
     }
 }
