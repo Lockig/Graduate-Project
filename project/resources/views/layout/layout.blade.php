@@ -57,16 +57,16 @@
 {{--@include('layout.patials.quick_cart')--}}
 <!--end::Quick Cart-->
 <!--begin::Quick Panel-->
-{{--@include('layout.patials.quick_cart')--}}
+{{--@include('layout.patials.quick_panel')--}}
 <!--end::Quick Panel-->
 <!--begin::Chat Panel-->
-{{--@include('layout.patials.chat_panel')--}}
+@include('layout.patials.chat_panel')
 <!--end::Chat Panel-->
 <!--begin::Scrolltop-->
 @include('layout.patials.scroll_top')
 <!--end::Scrolltop-->
 <!--begin::Sticky Toolbar-->
-{{--@include('layout.patials.sticky_toolbar')--}}
+@include('layout.patials.sticky_toolbar')
 <!--end::Sticky Toolbar-->
 <!--begin::Demo Panel-->
 @include('layout.patials.demo_panel')
@@ -128,9 +128,12 @@
 <!--end::Global Config-->
 
 <!--begin:Javascript-->
-<script src="{{mix('js/app.js')}}"></script>
-
-
+{{--<script src="{{asset('js/app.js')}}"></script>--}}
+<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
+<script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
+<script src="{{asset('js/scripts.js')}}"></script>
+<script src="{{asset('plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+<script src="{{asset('js/widget.js')}}"></script>
 <!--end:Javascript-->
 <!--begin:Javascript-->
 @yield('script')

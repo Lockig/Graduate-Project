@@ -30,7 +30,7 @@ class UserCreateRequest extends FormRequest
             'date_of_birth' => 'nullable',
             'mobile_number' => 'nullable',
             'email' => 'required|string',
-            'positions'=>'required'
+            'role'=>'required'
             //
         ];
     }

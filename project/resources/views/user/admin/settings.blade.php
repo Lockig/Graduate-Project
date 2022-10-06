@@ -92,29 +92,76 @@
                                     <table class="table table-head-custom table-vertical-center"
                                            id="kt_advance_table_widget_1">
                                         <thead>
-                                            <tr class="text-left">
-                                                <th class="pl-0" style="width: 20px">STT</th>
-                                                <th class="pr-0" style="width: 100px">Họ tên</th>
-                                                <th class="pr-0 text-right" style="min-width: 100px">Tình trạng</th>
-                                            </tr>
+                                        <tr class="text-left">
+                                            <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pl-0" style="width: 100px">Họ tên</th>
+                                            <th class="pl-0" style="width: 100px">Từ ngày</th>
+                                            <th class="pl-0" style="width: 100px">Tới ngày</th>
+                                            <th class="pl-0" style="width: 100px">Lý do</th>
+                                            <th class="pl-0" style="width: 100px">Trạng thái</th>
+                                            <th class="pl-0 text-right" style="width: 100px">Tình trạng</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($list_requests as $list_request)
                                             <tr>
                                                 <td class="pl-0">1</td>
                                                 <td class="pl-0">
-                                                    <a href="#" class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">Đỗ Lê Minh</a>
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->user_id}}</a>
                                                 </td>
-                                                <td class="pr-0 text-right">
-                                                    <a href="#" data-toggle="tooltip" title class="btn btn-icon btn-light btn-hover-primary btn-sm" data-original-title="duyệt">
-                                                        <span><i class="flaticon2-check-mark"></i></span>
-                                                    </a>
-                                                    <a href="#" data-toggle="tooltip" title class="btn btn-icon btn-light btn-hover-primary btn-sm" data-original-title="từ chối">
-                                                        <span><i class="flaticon2-checking"></i></span>
-                                                    </a>
+                                                <td class="pl-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->day_start}}</a>
+                                                </td>
+                                                <td class="pl-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->day_end}}</a>
+                                                </td>
+                                                <td class="pl-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->content}}</a>
+                                                </td>
+                                                <td class="pl-0">
+                                                    @if($list_request->stage='Chờ duyệt')
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->stage}}</a>
+                                                    @elseif($list_request->stage="Đã duyệt")
+                                                        <a href="#"
+                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->stage}}</a>
+                                                    @else
+                                                        <a href="#"
+                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">{{$list_request->stage}}</a>
+                                                    @endif
+                                                </td>
+                                                <td class="pr-0 text-right d-flex justify-content-end">
+                                                    <form method="post" id="accept"
+                                                          action="{{route('admin.requestUpdate',$list_request->id)}}"
+                                                          class="mr-1">
+                                                        @csrf
+                                                        <button type="submit" data-toggle="tooltip" title
+                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                                                                data-original-title="duyệt">
+                                                            <span><i
+                                                                    class="flaticon2-check-mark text-success"></i></span>
+                                                        </button>
+                                                    </form>
+                                                    <form method="post"
+                                                          action="{{route('admin.requestDelete',$list_request->id)}}">
+                                                        @csrf
+                                                        <button type="submit" data-toggle="tooltip" title
+                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                                                                data-original-title="từ chối">
+                                                            <span><i
+                                                                    class="flaticon2-delete text-danger"></i></span>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
+                                    {!! $list_requests->links() !!}
                                 </div>
                             </div>
                         </div>

@@ -14,6 +14,19 @@
                         <!--begin::Page Title-->
                         <h5 class="text-muted font-weight-bold my-1 mr-5">DANH SÁCH NHÂN VIÊN</h5>
                         <!--end::Page Title-->
+                        <!--begin::Breadcrumb-->
+                        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                            <li class="breadcrumb-item">
+                                <a href="" class="text-muted">Quản lý</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="" class="text-muted">Nhân viên</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="" class="text-muted">Danh sách</a>
+                            </li>
+                        </ul>
+                        <!--end::Breadcrumb-->
                     </div>
                     <!--end::Page Heading-->
                 </div>
@@ -298,7 +311,7 @@
                                 <tbody>
                                 @foreach($users as $user)
                                     <tr>
-                                        <td class="pl-0">
+                                        <td class="pr-0">
                                             <label class="checkbox checkbox-lg checkbox-inline">
                                                 {{$loop->index + 1}}
                                             </label>
@@ -312,7 +325,7 @@
 																</span>
                                             </div>
                                         </td>
-                                        <td class="pl-0">
+                                        <td class="pr-0">
                                             <a href="#"
                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{$user->first_name . ' '. $user->last_name}}
                                             </a>

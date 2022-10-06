@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('day_off_requests', function (Blueprint $table) {
+        Schema::create('course_accounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->references('course_id')->on('courses');
             $table->foreignId('account_id')->references('account_id')->on('accounts');
-            $table->date('day_start');
-            $table->date('day_end');
-            $table->string('content');
-            $table->string('stage');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('day_off_requests');
+        Schema::dropIfExists('course_accounts');
     }
 };

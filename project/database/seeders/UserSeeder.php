@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'email' => 'minhntt2001hn@gmail.com',
                 'mobile_number' => '0904159596',
                 'avatar' => '',
-                'position_id' => '1'
+                'fingerprint'=>'1'
             ],
             [
                 'first_name' => 'nguyen',
@@ -32,7 +32,16 @@ class UserSeeder extends Seeder
                 'email' => 'linh@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
-                'position_id' => '2'
+                'fingerprint' => '2'
+            ],
+            [
+                'first_name' => 'do',
+                'last_name' => 'bao nhi',
+                'date_of_birth' => '2001-02-02',
+                'email' => 'nhi@gmail.com',
+                'mobile_number' => '0904159595',
+                'avatar' => '',
+                'fingerprint' => '3'
             ],
         ]);
         //

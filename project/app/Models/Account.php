@@ -36,8 +36,13 @@ class Account extends Model
     {
         return $this->belongsTo(User::class,'user_id','user_id');
     }
-    public function role(){
+    public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(Role::class,'role_id','role_id');
+    }
+    public function courses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Course::class);
     }
 
 }

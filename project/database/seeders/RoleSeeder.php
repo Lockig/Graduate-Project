@@ -20,7 +20,10 @@ class RoleSeeder extends Seeder
                 'role_name' => 'admin'
             ],
             [
-                'role_name' => 'user'
+                'role_name' => 'teacher'
+            ],
+            [
+                'role_name' => 'student'
             ]
         ]);
         //

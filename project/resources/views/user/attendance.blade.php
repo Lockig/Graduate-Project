@@ -14,6 +14,16 @@
                         <!--begin::Page Title-->
                         <h5 class="text-muted font-weight-bold my-1 mr-5">ĐIỂM DANH</h5>
                         <!--end::Page Title-->
+                        <!--begin::Breadcrumb-->
+                        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                            <li class="breadcrumb-item">
+                                <a href="" class="text-muted">Điểm danh</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="" class="text-muted">Thông tin điểm danh</a>
+                            </li>
+                        </ul>
+                        <!--end::Breadcrumb-->
                     </div>
                     <!--end::Page Heading-->
                 </div>

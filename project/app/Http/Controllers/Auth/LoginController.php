@@ -57,7 +57,11 @@ class LoginController extends Controller
             if (Hash::check($request->input('password'), $password)) {
                 $user = User::find($user_id);
                 Auth::login($user);
-                return redirect()->to(route('users.index'))->with('Success', 'Login successfully');
+                return match ($user->account->role->role_id) {
+                    1 => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản admin thành công'),
+                    2 => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản giáo viên thành công'),
+                    default => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản học viên thành công'),
+                };
             }
             return redirect()->back()->with('Fail', 'Wrong password');
         }

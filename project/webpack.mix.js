@@ -25,9 +25,7 @@ mix.scripts([
     "resources/assets/plugins/global/plugins.bundle.js",
     "resources/assets/plugins/custom/prismjs/prismjs.bundle.js",
     "resources/assets/js/scripts.bundle.js",
-    // "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
-    // "resources/assets/plugins/custom/gmaps/gmaps.js",
-    // "resources/assets/js/pages/widgets.js",
+    "resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"
 ],'public/js/app.js').version();
 
 //js file
@@ -36,6 +34,10 @@ mix.scripts([
     "resources/assets/plugins/custom/prismjs/prismjs.bundle.js",
     "resources/assets/js/scripts.bundle.js"
 ],'public/js/auth.js').version();
+
+mix.scripts([
+    "resources/assets/js/scripts.bundle.js"
+],'public/js/scripts.js').version();
 
 mix.scripts([
     "resources/assets/js/pages/features/calendar/external-events.js"

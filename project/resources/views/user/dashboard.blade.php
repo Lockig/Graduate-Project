@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
+    @include('system_message')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
@@ -11,20 +12,20 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Profile 3</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">Dashboard</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
-                        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Apps</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Profile</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Profile 3</a>
-                            </li>
-                        </ul>
+{{--                        <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">--}}
+{{--                            <li class="breadcrumb-item">--}}
+{{--                                <a href="" class="text-muted">Apps</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="breadcrumb-item">--}}
+{{--                                <a href="" class="text-muted">Profile</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="breadcrumb-item">--}}
+{{--                                <a href="" class="text-muted">Profile 3</a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
                         <!--end::Breadcrumb-->
                     </div>
                     <!--end::Page Heading-->

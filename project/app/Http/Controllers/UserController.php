@@ -41,7 +41,7 @@ class UserController extends Controller implements ShouldQueue
     public function showAttendance(Request $request)
     {
         $user = Auth::user();
-        if (!$request->has('request_date')) {
+        if ($request->input('request_date') == '') {
             $logs = DB::table('daily_logs')
                 ->select('*')
                 ->where('user_id', '=', $user->user_id)

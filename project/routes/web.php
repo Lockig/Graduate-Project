@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\RequestDayOffController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ Route::get('/log-out', [LoginController::class, 'logout'])->name('signOut');
 Route::post('/send-mail', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('sendMail');
 
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'student', 'middleware' => 'auth'], function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::get('/info', [UserController::class, 'info'])->name('users.info');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
@@ -33,7 +34,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/info', [UserController::class, 'updateInfo'])->name('users.info_update');
     Route::post('/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
-    Route::post('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
+//    Route::post('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
     Route::group(['prefix' => 'export'], function () {
         Route::get('/list', [UserController::class, 'exportList'])->name('users.export_list');
     });
@@ -41,9 +42,18 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
+Route::group(['prefix'=>'teacher','middleware'=>'auth'],function(){
+    Route::get('/index',[TeacherController::class,'index'])->name('teacher.index');
+    Route::get('/index/create',[TeacherController::class,'create'])->name('teacher.create');
+    Route::get('/{student}',[TeacherController::class,'show'])->name('teachers.show');
+    Route::post('/{student}',[TeacherController::class,'store'])->name('teacher.store');
+});
+
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::get('/user/{user}', [AdminController::class, 'show'])->name('admin.show')->middleware('auth');
     Route::get('/{user}/info', [AdminController::class, 'info'])->name('admin.info');
@@ -53,7 +63,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::put('/create', [AdminController::class, 'store'])->name('admin.store');
     Route::post('/{user}/info', [AdminController::class, 'updateInfo'])->name('admin.info_update');
     Route::post('/settings/time', [AdminController::class, 'timeSetting'])->name('admin.time_setting');
-    Route::post('/{user}/request', [AdminController::class, 'storeDayOffForm'])->name('admin.request');
+    Route::post('/{user}/request', [RequestDayOffController::class, 'update'])->name('admin.requestUpdate');
+    Route::post('/{user}/request/delete', [RequestDayOffController::class, 'destroy'])->name('admin.requestDelete');
     Route::post('/{user}', [AdminController::class, 'storeDayOffForm'])->name('admin.store_day_off_form');
     Route::post('/{user}/password', [AdminController::class, 'updatePassword'])->name('admin.update_password');
     Route::post('/{user}/edit', [AdminController::class, 'update'])->name('admin.update');
@@ -65,9 +76,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
         Route::get('/list', [AdminController::class, 'exportList'])->name('admin.export_list');
     });
 
+
+    Route::get('/create/course',[\App\Models\Course::class,'']);
 });
 
 
 Route::get('layout', function () {
-    return view('user.get_log_data');
+    return view('layout.layout');
 });

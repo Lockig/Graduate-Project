@@ -26,6 +26,11 @@ class AccountSeeder extends Seeder
                 'user_id' => '2',
                 'role_id' => '2',
                 'password' => Hash::make('linh1234')
+            ],
+            [
+                'user_id'=>'3',
+                'role_id'=>'3',
+                'password'=> Hash::make('123456')
             ]
         ]);
         //

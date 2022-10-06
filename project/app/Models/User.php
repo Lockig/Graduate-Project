@@ -55,19 +55,11 @@ class User extends Authenticatable
         'saved' => CreateUser::class
     ];
 
-    public function position()
-    {
-        return $this->hasOne(Position::class, 'position_id', 'position_id');
-    }
+
 
     public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Account::class, 'user_id', 'user_id');
-    }
-
-    public function fingerprint()
-    {
-        return $this->hasOne(Fingerprint::class);
     }
 
     public function scopeEmail($query, $request)

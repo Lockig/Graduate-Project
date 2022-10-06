@@ -9,6 +9,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
 use App\Models\Position;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -35,8 +36,8 @@ class AdminController extends Controller
 
     public function create()
     {
-        $positions = Position::all();
-        return view('user.create', compact('positions'));
+        $roles = Role::all();
+        return view('user.create', compact(['roles']));
     }
 
     public function store(UserCreateRequest $request)
@@ -46,8 +47,6 @@ class AdminController extends Controller
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
-        $position_id = Position::query()->name($credentials['positions'])->value('position_id');
-
         DB::table('users')->insert([
             'first_name' => $credentials['first_name'],
             'last_name' => $credentials['last_name'],
@@ -55,14 +54,14 @@ class AdminController extends Controller
             'email' => $credentials['email'],
             'mobile_number' => $credentials['mobile_number'],
             'avatar' => $profile_avatar ?? null,
-            'position_id' => $position_id
+            'fingerprint'=>'0'
         ]);
 
         $user_id = User::query()->email($request)->value('user_id');
         $password = Random::generate(8);
         DB::table('accounts')->insert([
             'user_id' => $user_id,
-            'role_id' => 2,
+            'role_id' => $request->role,
             'password' => Hash::make($password)
         ]);
 
@@ -183,7 +182,10 @@ class AdminController extends Controller
 
     public function settings()
     {
-        return view('user.admin.settings');
+        $list_requests = DB::table('day_off_requests')
+            ->where('stage','like','%'.'Chờ duyệt'.'%')
+            ->paginate(5);
+        return view('user.admin.settings',compact('list_requests'));
     }
 
     public function timeSetting(Request $request)

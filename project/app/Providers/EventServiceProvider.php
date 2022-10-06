@@ -27,7 +27,6 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         CreateUser::class=>[
-            CreateUserWorkingDetails::class,
             SendMailCreateUser::class
         ],
 //        RequestDayOff::class=>[

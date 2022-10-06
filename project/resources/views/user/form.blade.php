@@ -12,21 +12,15 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Autosize</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">Tạo đơn xin nghỉ</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Crud</a>
+                                <a href="" class="text-muted">Điểm danh</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Forms &amp; Controls</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Form Widgets 2</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Autosize</a>
+                                <a href="" class="text-muted">Tạo đơn xin nghỉ</a>
                             </li>
                         </ul>
                         <!--end::Breadcrumb-->
@@ -129,60 +123,130 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container">
-                <!--begin::Card-->
-                <div class="card card-custom">
-                    <div class="card-header d-flex justify-content-center">
-                        <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
-                    </div>
-                    <!--begin::Form-->
-                    <form class="form" method="post" action="{{route('users.storeForm',Auth::user()->user_id)}}">
-                        @csrf
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-lg-10 ml-lg-auto">
-                                    <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">Từ
-                                        ngày</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-6">
-                                        <input name="day_start" type="text" class="form-control" id="kt_datepicker_1"
-                                               readonly="readonly"
-                                               placeholder="Select date"/>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <!--begin::Card-->
+                        <div class="card card-custom">
+                            <div class="card-header d-flex justify-content-center">
+                                <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-lg-10 ml-lg-auto">
-                                    <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Tới
-                                        ngày</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-6">
-                                        <input name="day_end" type="text" class="form-control" id="kt_datepicker_1"
-                                               readonly="readonly"
-                                               placeholder="Select date"/>
+                            <!--begin::Form-->
+                            <form class="form" method="post" action="{{route('users.storeForm')}}">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <div class="col-lg-10 ml-lg-auto">
+                                            <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">Từ
+                                                ngày</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-6">
+                                                <input name="day_start" type="text" class="form-control"
+                                                       id="kt_datepicker_1"
+                                                       readonly="readonly"
+                                                       placeholder="Select date"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-10 ml-lg-auto">
-                                    <label for="content" class="col-form-label text-left col-lg-3 col-sm-12">Lý
-                                        Do</label>
-                                    <div class="col-lg-10 col-md-10 col-sm-6">
+                                    <div class="form-group row">
+                                        <div class="col-lg-10 ml-lg-auto">
+                                            <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Tới
+                                                ngày</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-6">
+                                                <input name="day_end" type="text" class="form-control"
+                                                       id="kt_datepicker_1"
+                                                       readonly="readonly"
+                                                       placeholder="Select date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-10 ml-lg-auto">
+                                            <label for="content" class="col-form-label text-left col-lg-3 col-sm-12">Lý
+                                                Do</label>
+                                            <div class="col-lg-10 col-md-10 col-sm-6">
                                     <textarea name="content" class="form-control" id="kt_autosize_1"
                                               rows="3"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="card-footer">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto d-flex flex-row justify-content-center">
+                                            <button type="submit" class="btn btn-success mr-2">Submit</button>
+                                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--end::Form-->
                         </div>
-                        <div class="card-footer">
-                            <div class="form-group row">
-                                <div class="col-lg-12 ml-lg-auto d-flex flex-row justify-content-center">
-                                    <button type="submit" class="btn btn-success mr-2">Submit</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                        <!--end::Card-->
+                    </div>
+                    <div class="col-7">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">DANH SÁCH ĐƠN XIN NGHỈ</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-head-custom table-vertical-center"
+                                           id="kt_advance_table_widget_1">
+                                        <thead>
+                                        <tr class="text-left">
+                                            <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pr-0" style="width: 100px">Từ ngày</th>
+                                            <th class="pr-0" style="width: 100px">Đến ngày</th>
+                                            <th class="pr-0" style="width: 100px">Số ngày</th>
+                                            <th class="pr-0" style="width: 100px">Lý do</th>
+                                            <th class="pr-0 text-right" style="min-width: 50px">Tình trạng</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($list as $item)
+                                            <tr>
+                                                <td class="pr-0">{{$loop->index +1 }}</td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($item->day_start)->format('d-m-Y')}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($item->day_end)->format('d-m-Y')}}</a>
+                                                </td>
+                                                <td class="pr-0 text-left">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($item->day_start)->diffInDays(\Carbon\Carbon::parse($item->day_end))}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->content}}</a>
+                                                </td>
+                                                <td class="pr-0 text-right">
+                                                    @if($item->stage='Chờ duyệt')
+                                                        <a href="#"
+                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>
+                                                    @elseif($item->stage='Đã duyệt')
+                                                        <a href="#"
+                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>
+                                                    @else
+                                                        <a href="#"
+                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    {!! $list->links() !!}
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <!--end::Form-->
+                        <!--end::Card-->
+                    </div>
                 </div>
-                <!--end::Card-->
             </div>
             <!--end::Container-->
         </div>

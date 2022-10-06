@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->references('user_id')->on('users');
-            $table->time('time_in');
-            $table->time('time_out');
-            $table->date('check_in_date');
-            $table->softDeletes();
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id('course_id');
+            $table->string('course_name');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->time('start_time');
+            $table->time('end_time');
+            $table->string('course_description');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('courses');
     }
 };

@@ -12,6 +12,19 @@
                     <!--begin::Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo tài khoản</h5>
                     <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Quản lý</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Nhân viên</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Tạo mới tài khoản</a>
+                        </li>
+                    </ul>
+                    <!--end::Breadcrumb-->
                     <!--begin::Separator-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
                     <!--end::Separator-->
@@ -81,7 +94,7 @@
                                             <div class="row">
                                                 <label class="col-3"></label>
                                                 <div class="col-9">
-                                                    <h6 class="text-dark font-weight-bold mb-10">Thông tin:</h6>
+                                                    <h6 class="text-dark font-weight-bold mb-10">Thông tin</h6>
                                                 </div>
                                             </div>
                                             <!--end::Row-->
@@ -148,7 +161,7 @@
                                                     <input name="date_of_birth" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            id="kt_datepicker_1" readonly="readonly"
-                                                           placeholder="Chọn"/>
+                                                           placeholder="{{old('date_of_birth')}}"/>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
@@ -165,6 +178,7 @@
                                                         </div>
                                                         <input name="mobile_number" type="text"
                                                                class="form-control form-control-lg form-control-solid"
+                                                               value="{{old('mobile_number')}}"
                                                         />
                                                     </div>
                                                 </div>
@@ -183,6 +197,7 @@
                                                         </div>
                                                         <input name="email" type="email"
                                                                class="form-control form-control-lg form-control-solid"
+                                                               value="{{old('email')}}"
                                                                placeholder="Email" required/>
                                                     </div>
                                                 </div>
@@ -190,13 +205,15 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="position"
+                                                <label for="role"
                                                        class="col-form-label col-3 text-lg-right text-left">Vị
                                                     trí</label>
                                                 <div class="col-9">
-                                                    <select name="positions" class="form-control form-control-lg form-control-solid">
-                                                        @foreach($positions as $position)
-                                                            <option value="{{$position->position_name}}" class="form-control form-control-lg form-control-solid">{{$position->position_name}}</option>
+                                                    <select name="role"
+                                                            class="form-control form-control-lg form-control-solid">
+                                                        @foreach($roles as $role)
+                                                            <option value="{{$role->role_id}}"
+                                                                    class="form-control form-control-lg form-control-solid">{{$role->role_name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -252,6 +269,7 @@
                                     </div>
                                     <!--end::Row-->
                                 </div>
+                        </form>
                                 <!--end::Tab-->
                                 <!--begin::Tab-->
                                 <div class="tab-pane px-7" id="kt_user_edit_tab_2" role="tabpanel">
@@ -316,272 +334,13 @@
                                                     </div>
                                                 </div>
                                                 <!--end::Group-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label for="position"
-                                                           class="col-form-label col-3 text-lg-right text-left">Vị
-                                                        trí</label>
-                                                    <select name="position" class="col-9 form-control">
-                                                        @foreach($positions as $position)
-                                                            <option>$position->position_name</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <!--end::Group-->
                                             </div>
                                         </div>
                                     </div>
                                     <!--end::Row-->
                                 </div>
                                 <!--end::Tab-->
-                                <!--begin::Tab-->
-                                <div class="tab-pane px-7" id="kt_user_edit_tab_3" role="tabpanel">
-                                    <!--begin::Body-->
-                                    <div class="card-body">
-                                        <!--begin::Row-->
-                                        <div class="row">
-                                            <div class="col-xl-2"></div>
-                                            <div class="col-xl-7">
-                                                <!--begin::Row-->
-                                                <div class="row mb-5">
-                                                    <label class="col-3"></label>
-                                                    <div class="col-9">
-                                                        <div
-                                                            class="alert alert-custom alert-light-danger fade show py-4"
-                                                            role="alert">
-                                                            <div class="alert-icon">
-                                                                <i class="flaticon-warning"></i>
-                                                            </div>
-                                                            <div class="alert-text font-weight-bold">Configure user
-                                                                passwords to expire periodically.
-                                                                <br/>Users will need warning that their passwords are
-                                                                going to expire, or they might inadvertently get locked
-                                                                out of the system!
-                                                            </div>
-                                                            <div class="alert-close">
-                                                                <button type="button" class="close" data-dismiss="alert"
-                                                                        aria-label="Close">
-																					<span aria-hidden="true">
-																						<i class="la la-close"></i>
-																					</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end::Row-->
-                                                <!--begin::Row-->
-                                                <div class="row">
-                                                    <label class="col-3"></label>
-                                                    <div class="col-9">
-                                                        <h6 class="text-dark font-weight-bold mb-10">Change Or Recover
-                                                            Your Password:</h6>
-                                                    </div>
-                                                </div>
-                                                <!--end::Row-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left">Current
-                                                        Password</label>
-                                                    <div class="col-9">
-                                                        <input
-                                                            class="form-control form-control-lg form-control-solid mb-1"
-                                                            type="text" value="Current password"/>
-                                                        <a href="#" class="font-weight-bold font-size-sm">Forgot
-                                                            password ?</a>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left">New
-                                                        Password</label>
-                                                    <div class="col-9">
-                                                        <input class="form-control form-control-lg form-control-solid"
-                                                               type="text" value="New password"/>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left">Verify
-                                                        Password</label>
-                                                    <div class="col-9">
-                                                        <input class="form-control form-control-lg form-control-solid"
-                                                               type="text" value="Verify password"/>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                            </div>
-                                        </div>
-                                        <!--end::Row-->
-                                    </div>
-                                    <!--end::Body-->
-                                    <!--begin::Footer-->
-                                    <div class="card-footer pb-0">
-                                        <div class="row">
-                                            <div class="col-xl-2"></div>
-                                            <div class="col-xl-7">
-                                                <div class="row">
-                                                    <div class="col-3"></div>
-                                                    <div class="col-9">
-                                                        <a href="#" class="btn btn-light-primary font-weight-bold">Save
-                                                            changes</a>
-                                                        <a href="#" class="btn btn-clean font-weight-bold">Cancel</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end::Footer-->
-                                </div>
-                                <!--end::Tab-->
-                                <!--begin::Tab-->
-                                <div class="tab-pane px-7" id="kt_user_edit_tab_4" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-xl-2"></div>
-                                        <div class="col-xl-8">
-                                            <div class="my-2">
-                                                <div class="row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                                    <div class="col-9">
-                                                        <h6 class="text-dark font-weight-bold mb-7">Setup Email
-                                                            Notification:</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row mb-2">
-                                                    <label class="col-form-label col-3 text-lg-right text-left">Email
-                                                        Notification</label>
-                                                    <div class="col-3">
-																		<span class="switch">
-																			<label>
-																				<input type="checkbox" checked="checked"
-                                                                                       name="select"/>
-																				<span></span>
-																			</label>
-																		</span>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left">Send
-                                                        Copy To Personal Email</label>
-                                                    <div class="col-3">
-																		<span class="switch">
-																			<label>
-																				<input type="checkbox" name="select"/>
-																				<span></span>
-																			</label>
-																		</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                                <div class="col-9">
-                                                    <h6 class="text-dark font-weight-bold mb-7">Activity Related
-                                                        Emails:</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed mb-10"></div>
-                                    <div class="row">
-                                        <div class="col-xl-2"></div>
-                                        <div class="col-xl-8">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">When To
-                                                    Email</label>
-                                                <div class="col-9">
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox"/>
-                                                            <span></span>You have new notifications.</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox"/>
-                                                            <span></span>You're sent a direct message</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox" checked="checked"/>
-                                                            <span></span>Someone adds you as a connection</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">When To
-                                                    Escalate Emails</label>
-                                                <div class="col-9">
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox"/>
-                                                            <span></span>Upon new order</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox"/>
-                                                            <span></span>New membership approval</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox"/>
-                                                            <span></span>Member registration</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed mb-10"></div>
-                                    <div class="row">
-                                        <div class="col-xl-2"></div>
-                                        <div class="col-xl-8">
-                                            <div class="row">
-                                                <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                                <div class="col-9">
-                                                    <h6 class="text-dark font-weight-bold mb-7">Updates From
-                                                        Keenthemes:</h6>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-3 text-lg-right text-left">Email You
-                                                    With</label>
-                                                <div class="col-9">
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox"/>
-                                                            <span></span>News about Metronic product and feature updates</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox"/>
-                                                            <span></span>Tips on getting more out of Keen</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox" checked="checked"/>
-                                                            <span></span>Things you missed since you last logged into
-                                                            Keen</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox" checked="checked"/>
-                                                            <span></span>News about Metronic on partner products and
-                                                            other services</label>
-                                                    </div>
-                                                    <div class="checkbox-inline mb-2">
-                                                        <label class="checkbox checkbox-success">
-                                                            <input type="checkbox" checked="checked"/>
-                                                            <span></span>Tips on Metronic business products</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Tab-->
                             </div>
-                        </form>
                     </div>
                     <!--begin::Card body-->
                 </div>
@@ -591,6 +350,7 @@
         </div>
         <!--end::Entry-->
     </div>
+
     <!--end::Content-->
 @endsection
 

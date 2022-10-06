@@ -20,20 +20,14 @@
                     <h5 class="text-dark font-weight-bold my-1 mr-5">Đổi mật khẩu</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
-{{--                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">--}}
-{{--                        <li class="breadcrumb-item">--}}
-{{--                            <a href="" class="text-muted">Apps</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="breadcrumb-item">--}}
-{{--                            <a href="" class="text-muted">Profile</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="breadcrumb-item">--}}
-{{--                            <a href="" class="text-muted">Profile 1</a>--}}
-{{--                        </li>--}}
-{{--                        <li class="breadcrumb-item">--}}
-{{--                            <a href="" class="text-muted">Change Password</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Thông tin cá nhân</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Đổi mật khẩu</a>
+                        </li>
+                    </ul>
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page Heading-->
@@ -218,11 +212,10 @@
                         <div class="card-header py-3">
                             <div class="card-title align-items-start flex-column">
                                 <h3 class="card-label font-weight-bolder text-dark">Đổi mật khẩu</h3>
-                                <span class="text-muted font-weight-bold font-size-sm mt-1">Change your account password</span>
                             </div>
                             <div class="card-toolbar">
                                 <button type="submit" class="btn btn-success mr-2">Lưu thông tin</button>
-                                <a href="{{route('users.index')}}" class="btn btn-secondary">Cancel</a>
+                                <a href="{{route('users.index')}}" class="btn btn-secondary">Hủy</a>
                             </div>
                         </div>
                         <!--end::Header-->
@@ -236,13 +229,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="new_password" class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
+                                    <label for="new_password" class="col-xl-3 col-lg-3 col-form-label text-alert">Mật khẩu mới</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input name="new_password" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="New password" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="password_confirmation" class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
+                                    <label for="password_confirmation" class="col-xl-3 col-lg-3 col-form-label text-alert">Nhập lại mật khẩu</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input name="password_confirmation" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="Verify password" />
                                     </div>

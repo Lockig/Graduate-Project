@@ -63,7 +63,7 @@ $user = Auth::user();
                     </a>
                 </li>
                 <li class="menu-section">
-                    <h4 class="menu-text">Thông tin cá nhân </h4>
+                    <h4 class="menu-text">THÔNG TIN CÁ NHÂN</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
@@ -159,13 +159,13 @@ $user = Auth::user();
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                        <span class="menu-text">Tạo đơn xin nghỉ</span>
+                        <span class="menu-text">Đơn xin nghỉ</span>
                     </a>
                 </li>
                 @php
                     $role = Auth::user()->account->role->role_id;
                 @endphp
-                @if($role == 1)
+                @if($role == 1 || $role==2)
                     <li class="menu-section">
                         <h4 class="menu-text">Quản lý</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -189,7 +189,7 @@ $user = Auth::user();
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Nhân viên</span>
+                            <span class="menu-text">Giáo viên</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">

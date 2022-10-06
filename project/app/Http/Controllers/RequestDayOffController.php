@@ -6,6 +6,7 @@ use App\Events\RequestDayOff;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RequestDayOffController extends Controller
@@ -17,8 +18,10 @@ class RequestDayOffController extends Controller
      */
     public function index()
     {
-        $list = DB::table('day_off_requests')->get();
-        dd($list);
+        $list_requests = DB::table('day_off_requests')
+            ->where('stage', 'like', '%' . 'Chờ duyệt' . '%')
+            ->paginate(5);
+        return view('user.admin.settings', compact('list_requests'));
         //
     }
 
@@ -28,7 +31,10 @@ class RequestDayOffController extends Controller
      */
     public function create()
     {
-        return view('user.form');
+        $list = DB::table('day_off_requests')
+            ->where('user_id', '=', Auth::user()->user_id)
+            ->paginate(5);
+        return view('user.form', compact('list'));
     }
 
     /**
@@ -36,9 +42,9 @@ class RequestDayOffController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
-        $user = User::find($id);
+        $user = Auth::user();
         $validated = $request->validate([
             'content' => 'required|string',
             'day_start' => 'required|date',
@@ -46,10 +52,11 @@ class RequestDayOffController extends Controller
         ]);
 
         DB::table('day_off_requests')->insert([
-            'user_id' => $id,
+            'user_id' => $user->user_id,
             'day_start' => Carbon::parse($validated['day_start'])->format('Y-m-d'),
             'day_end' => Carbon::parse($validated['day_end'])->format('Y-m-d'),
             'content' => $validated['content'],
+            'stage' => 'Chờ duyệt'
         ]);
         RequestDayOff::dispatch($user);
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
@@ -84,8 +91,10 @@ class RequestDayOffController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
+        DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Đã duyệt']);
+        return back()->with('Success', 'Đã duyệt đơn xin nghỉ');
         //
     }
 
@@ -95,8 +104,10 @@ class RequestDayOffController extends Controller
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Từ chối']);
+        return back()->with('Success', 'Đã từ chối đơn xin nghỉ');
         //
     }
 }
