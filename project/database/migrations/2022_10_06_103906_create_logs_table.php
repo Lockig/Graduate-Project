@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->references('account_id')->on('accounts');
-            $table->time('time_in');
-            $table->time('time_out');
-            $table->date('check_in_date');
+            $table->foreignId('user_id')->references('user_id')->on('users');
+            $table->date('time_in');
             $table->softDeletes();
             $table->timestamps();
         });

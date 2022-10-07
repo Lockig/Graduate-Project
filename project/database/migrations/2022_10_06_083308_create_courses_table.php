@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->string('course_description');
-            $table->string('status');
+            $table->string('course_status');
             $table->timestamps();
         });
     }

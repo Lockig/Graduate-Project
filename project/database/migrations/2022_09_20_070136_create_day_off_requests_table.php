@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('day_off_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->references('account_id')->on('accounts');
+            $table->foreignId('user_id')->references('user_id')->on('users');
             $table->date('day_start');
             $table->date('day_end');
             $table->string('content');

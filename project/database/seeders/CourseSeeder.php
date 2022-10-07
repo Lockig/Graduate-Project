@@ -24,7 +24,7 @@ class CourseSeeder extends Seeder
             'start_time'=>'18:00:00',
             'end_time'=>'20:00:00',
             'course_description'=>'Khóa học Toán cấp tốc cho học sinh lớp 10',
-            'status'=>'Đang diễn ra'
+            'course_status'=>'Đang diễn ra'
         ],[
             'course_id'=>'2',
             'course_name'=>'Văn 10 3-5h chiều T2,T4',
@@ -33,7 +33,7 @@ class CourseSeeder extends Seeder
             'start_time'=>'15:00:00',
             'end_time'=>'27:00:00',
             'course_description'=>'Khóa học Văn cấp tốc cho học sinh lớp 10',
-            'status'=>'Đang diễn ra'
+            'course_status'=>'Đang diễn ra'
         ]]);
 
         DB::table('course_accounts')->insert([[
