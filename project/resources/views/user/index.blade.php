@@ -8,7 +8,7 @@
             <!--begin::Entry-->
             <div class="d-flex flex-column-fluid">
                 <!--begin::Container-->
-                <div class="container">
+                <div class="container ">
                     <!--begin::Profile Personal Information-->
                     <div class="d-flex flex-row">
                         <!--begin::Aside-->
@@ -90,16 +90,11 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        @if($user->account->role->role_id==2)
-                        <form method="post" action="{{route('users.info_update')}}" class="flex-row-fluid ml-lg-8"
+                        <form method="post" action="{{route('users.updateInfo')}}" class="flex-row-fluid ml-lg-8"
                               enctype="multipart/form-data">
-                        @elseif($user->account->role->role_id==1)
-                            <form method="post" action="{{route('admin.info_update',$user->user_id)}}" class="flex-row-fluid ml-lg-8"
-                                  enctype="multipart/form-data">
-                        @endif
                             @csrf
                             <!--begin::Card-->
-                            <div class="card card-custom card-stretch">
+                            <div class="card card-custom col-12 card-stretch">
                                 <!--begin::Header-->
                                 <div class="card-header py-3">
                                     <div class="card-title align-items-start flex-column">

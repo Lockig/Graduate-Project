@@ -30,7 +30,11 @@ class UserController extends Controller implements ShouldQueue
         $user = Auth::user();
         $role = $user->account->role->role_id;
         $users = User::query()->name($request)->paginate(5);
-        return view('user.dashboard', compact(['user', 'role', 'users']));
+        $courses = DB::table('courses')
+            ->join('course_accounts','courses.course_id','=','course_accounts.course_id')
+            ->where('account_id','=',$user->account->account_id)
+            ->get();
+        return view('user.dashboard', compact(['user', 'role', 'users','courses']));
     }
 
     public function show(User $user)
@@ -42,12 +46,12 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         if ($request->input('request_date') == '') {
-            $logs = DB::table('daily_logs')
+            $logs = DB::table('logs')
                 ->select('*')
                 ->where('user_id', '=', $user->user_id)
                 ->paginate(5);
         } else {
-            $logs = DB::table('daily_logs')
+            $logs = DB::table('logs')
                 ->select('*')
                 ->where('user_id', '=', $user->user_id)
                 ->where('date', '=', $request->input('request_date'))
@@ -82,10 +86,7 @@ class UserController extends Controller implements ShouldQueue
     public function info(Request $request)
     {
         $user = Auth::user();
-        $user_working_details = DB::table('user_working_details')
-            ->where('user_id', '=', $user->user_id)
-            ->get();
-        return view('user.info', compact('user', 'user_working_details'));
+        return view('user.info', compact('user'));
     }
 
     public function editInfo(Request $request)
@@ -98,9 +99,8 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         if ($request->has('profile_avatar')) {
-            $current_avatar = $user->avatar;
-            if($current_avatar != null){
-                Storage::delete($current_avatar);
+            if($user->avatar != ""){
+                Storage::delete($user->avatar);
             }
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
@@ -110,7 +110,6 @@ class UserController extends Controller implements ShouldQueue
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
-//            'email' => $validated['email'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
         return back()->with("Success", "Cập nhật thông tin thành công");

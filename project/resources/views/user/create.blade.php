@@ -269,6 +269,7 @@
                                     </div>
                                     <!--end::Row-->
                                 </div>
+                            </div>
                         </form>
                                 <!--end::Tab-->
                                 <!--begin::Tab-->

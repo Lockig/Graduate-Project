@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('mobile_number');
             $table->string('avatar');
+            $table->string('address');
             $table->integer('fingerprint')->default('0');
             $table->softDeletes();
             $table->rememberToken();

@@ -24,20 +24,25 @@ Route::post('/send-mail', [ForgotPasswordController::class, 'sendResetLinkEmail'
 
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
-    // hiển thị danh sách các khóa học của học sinh
-    Route::get('/', [UserController::class, 'index'])->name('users.index');
-
+//  display user dashboard
+    Route::get('/dashboard', [UserController::class, 'index'])->name('users.index');
+//  display user information
     Route::get('/info', [UserController::class, 'info'])->name('users.info');
+//  display user information edit form
     Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
+//    display user request day off form
     Route::get('/request', [RequestDayOffController::class, 'create'])->name('users.createForm');
+//    display user password edit form
     Route::get('/password', [UserController::class, 'editPassword'])->name('users.editPassword');
+//    display user attendance record
     Route::get('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
 
+    Route::post('/info', [UserController::class, 'updateInfo'])->name('users.updateInfo');
     Route::post('/request', [RequestDayOffController::class, 'store'])->name('users.storeForm');
-    Route::post('/info', [UserController::class, 'updateInfo'])->name('users.info_update');
+
     Route::post('/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
-//    Route::post('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
+
     Route::group(['prefix' => 'export'], function () {
         Route::get('/list', [UserController::class, 'exportList'])->name('users.export_list');
     });
@@ -45,11 +50,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
-Route::group(['prefix'=>'teacher','middleware'=>'auth'],function(){
-    Route::get('/',[TeacherController::class,'index'])->name('teacher.index');
-    Route::get('/create',[TeacherController::class,'create'])->name('teacher.create');
-    Route::get('/{student}',[TeacherController::class,'show'])->name('teachers.show');
-    Route::post('/{student}',[TeacherController::class,'store'])->name('teacher.store');
+Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
+    Route::get('/', [TeacherController::class, 'index'])->name('teacher.index');
+    Route::get('/create', [TeacherController::class, 'create'])->name('teacher.create');
+    Route::get('/{student}', [TeacherController::class, 'show'])->name('teachers.show');
+    Route::post('/{student}', [TeacherController::class, 'store'])->name('teacher.store');
 });
 
 
@@ -64,7 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 //    Route::get('/{user}/password/', [AdminController::class, 'edit'])->name('users.edit');
 
     Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/create/course',[CourseController::class,'store'])->name('admin.storeCourse');
+    Route::post('/create/course', [CourseController::class, 'store'])->name('admin.storeCourse');
     Route::post('/{user}/info', [AdminController::class, 'updateInfo'])->name('admin.info_update');
     Route::post('/settings/time', [AdminController::class, 'timeSetting'])->name('admin.time_setting');
     Route::post('/{user}/request', [RequestDayOffController::class, 'update'])->name('admin.requestUpdate');
@@ -89,13 +94,13 @@ Route::get('layout', function () {
 });
 
 
-
-Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
-//    dashboard chứa danh sách các khóa học
-    Route::get('/',[UserController::class,'index'])->name('user.index');
-//    route chứa thông tin cá nhân
-    Route::get('/info',[UserController::class,'show'])->name('user.show');
-//    route chứa thông tin điểm danh cá nhân
-    Route::get('/attendance',[UserController::class,'attendance'])->name('user.attendance');
 //
-});
+//Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
+////    dashboard chứa danh sách các khóa học
+//    Route::get('/',[UserController::class,'index'])->name('user.index');
+////    route chứa thông tin cá nhân
+//    Route::get('/info',[UserController::class,'show'])->name('user.show');
+////    route chứa thông tin điểm danh cá nhân
+//    Route::get('/attendance',[UserController::class,'attendance'])->name('user.attendance');
+////
+//});

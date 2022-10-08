@@ -63,16 +63,16 @@ class LoginController extends Controller
                     default => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản học viên thành công'),
                 };
             }
-            return redirect()->back()->with('Fail', 'Wrong password');
+            return redirect()->back()->with('Fail', 'Sai mật khẩu');
         }
-        return redirect()->back()->with('Fail', 'Check back your credentials');
+        return redirect()->back()->with('Fail', 'Kiểm tra lại thông tin đăng nhập');
 
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/')->with('Success', 'Log out successfully, please login to continue');
+        return redirect('/')->with('Success', 'Đăng xuất thành công');
     }
 
 }

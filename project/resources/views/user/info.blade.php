@@ -35,15 +35,16 @@
             <!--begin::Container-->
             <div class="container">
                 <!--begin::Card-->
-                <div class="card card-custom gutter-b">
+                <div class="card card-custom gutter-b col-8 align-center">
                     <div class="card-body">
                         <!--begin::Details-->
                         <div class="d-flex mb-9">
                             <!--begin: Pic-->
                             <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
                                 <div class="symbol symbol-50 symbol-lg-120">
-                                    <img src="{{asset(isset($user->avatar)?($user->avatar):"media/users/default.jpg")}}"
-                                         alt="image"/>
+                                    <img
+                                        src="{{asset(($user->avatar != "")?($user->avatar):'media/users/default.jpg')}}"
+                                        alt="image"/>
                                 </div>
                                 <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
                                     <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
@@ -54,9 +55,9 @@
                             <div class="flex-grow-1">
                                 <!--begin::Title-->
                                 <div class="d-flex justify-content-between flex-wrap mt-1">
-                                    <div class="d-flex mr-3">
+                                    <div class="d-flex mr-3 align-items-baseline">
                                         <a href="#"
-                                           class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ucwords($user->first_name) . ' ' . ucwords($user->last_name)}}</a>
+                                           class="align-items-baseline text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ucwords($user->first_name) . ' ' . ucwords($user->last_name)}}</a>
                                         <a href="#">
                                             <i class="flaticon2-correct text-success font-size-h5"></i>
                                         </a>
@@ -68,101 +69,59 @@
                                            class="btn btn-sm btn-info font-weight-bolder text-uppercase">Password</a>
                                     </div>
                                 </div>
-                                <!--end::Title-->
-                                <!--begin::Content-->
-                                <div class="d-flex flex-wrap justify-content-between mt-1">
-                                    <div class="d-flex flex-column flex-grow-1 pr-8">
-                                        <div class="d-flex flex-wrap mb-4">
-                                            <a href="#"
-                                               class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{$user->email}}
-                                            </a>
-                                            <a href="#"
-                                               class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>{{$user->position->position_name}}
-                                            </a>
-                                            <a href="#"
-                                               class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                <i class="flaticon2-phone mr-2 font-size-lg"></i>{{$user->mobile_number}}
-                                            </a>
-                                            <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
-                                                <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{Carbon\Carbon::parse($user->date_of_birth)->format('d-m-Y')}}
-                                            </a>
-                                        </div>
-                                        <span class="font-weight-bold text-dark-50">I distinguish three main text objectives could be merely to inform people.</span>
-                                        <span class="font-weight-bold text-dark-50">A second could be persuade people.You want people to bay objective</span>
-                                    </div>
-                                </div>
-                                <!--end::Content-->
                             </div>
                             <!--end::Info-->
                         </div>
                         <!--end::Details-->
                         <div class="separator separator-solid"></div>
-                        <!--begin::Items-->
-                        <div class="d-flex align-items-center flex-wrap mt-8">
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-												<span class="mr-4">
-													<i class="flaticon-piggy-bank display-4 text-muted font-weight-bold"></i>
-												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Thâm niên</span>
-                                    <span class="font-weight-bolder font-size-h5 text-dark-50">
-													{{$user_working_details['0']->seniority}} năm</span>
-                                </div>
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-												<span class="mr-4">
-													<i class="flaticon-confetti display-4 text-muted font-weight-bold"></i>
-												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Ngày gia nhập</span>
-                                    <span class="font-weight-bolder font-size-h5">
-													{{\Carbon\Carbon::parse($user_working_details['0']->join_date)->format('d-m-Y')}}</span>
-                                </div>
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-												<span class="mr-4">
-													<i class="flaticon-pie-chart display-4 text-muted font-weight-bold"></i>
-												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Ngày nghỉ tối đa</span>
-                                    <span class="font-weight-bolder font-size-h5">
-												{{$user_working_details['0']->max_day_off}}</span>
-                                </div>
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-												<span class="mr-4">
-													<i class="flaticon-file-2 display-4 text-muted font-weight-bold"></i>
-												</span>
-                                <div class="d-flex flex-column flex-lg-fill">
-                                    <span class="text-dark-75 font-weight-bolder font-size-sm">Ngày nghỉ còn lại</span>
-                                    <span class="font-weight-bolder font-size-h5">
-												{{$user_working_details['0']->day_off}}</span>
-                                </div>
-                            </div>
-                            <!--end::Item-->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap">
+                                <tbody>
+                                <tr>
+                                    <td class="col-1">Họ:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark-75">{{$user->first_name}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Tên:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark">{{$user->last_name}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Ngày sinh:</td>
+                                    <td class="col-5">
+                                        <span
+                                            class="text-dark">{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Email:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark">{{$user->email}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Số điện thoại:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark">{{$user->mobile_number}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!--begin::Items-->
                     </div>
                 </div>
                 <!--end::Card-->
+                <!--end::Container-->
             </div>
-            <!--end::Container-->
+            <!--end::Entry-->
         </div>
-        <!--end::Entry-->
-    </div>
-    <!--end::Content-->
+        <!--end::Content-->
 
-@endsection
+        @endsection
 
-@section('script')
-    <script src="{{asset('js/widget.js')}}"></script>
+        @section('script')
+            <script src="{{asset('js/widget.js')}}"></script>
 @endsection

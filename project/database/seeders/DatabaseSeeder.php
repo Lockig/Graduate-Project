@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Http\Controllers\UserController;
 use App\Models\Position;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AccountSeeder::class,
             CourseSeeder::class,
+            LogSeeder::class,
             PenaltySeeder::class
         ]);
 
