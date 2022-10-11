@@ -35,7 +35,7 @@
             <!--begin::Container-->
             <div class="container">
                 <!--begin::Card-->
-                <div class="card card-custom gutter-b col-8 align-center">
+                <div class="card card-custom gutter-b col-10 align-center">
                     <div class="card-body">
                         <!--begin::Details-->
                         <div class="d-flex mb-9">
@@ -55,14 +55,25 @@
                             <div class="flex-grow-1">
                                 <!--begin::Title-->
                                 <div class="d-flex justify-content-between flex-wrap mt-1">
-                                    <div class="d-flex mr-3 align-items-baseline">
-                                        <a href="#"
-                                           class="align-items-baseline text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ucwords($user->first_name) . ' ' . ucwords($user->last_name)}}</a>
-                                        <a href="#">
-                                            <i class="flaticon2-correct text-success font-size-h5"></i>
-                                        </a>
+                                    <div class="d-flex mr-3 flex-column flex-3">
+                                        <div>
+                                            <a href="#"
+                                               class="align-items-baseline text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{ucwords($user->first_name) . ' ' . ucwords($user->last_name)}}</a>
+                                            <a href="#">
+                                                <i class="flaticon2-correct text-success font-size-h5"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-muted text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                elit. Ut molestie lacus varius, accumsan leo vel, dignissim nisl. Morbi
+                                                nunc sapien, accumsan sed metus in, molestie commodo sem. Nam maximus
+                                                leo sit amet nunc dignissim mollis. Mauris ante metus, facilisis et nunc
+                                                sit amet, laoreet pharetra nisl. Praesent vehicula, felis eu egestas
+                                                rhoncus, dolor tellus bibendum arcu, sed iaculis nisl eros ac leo. Sed
+                                                et arcu id augue scelerisque elementum. Duis at efficitur risus.</h6>
+                                        </div>
                                     </div>
-                                    <div class="my-lg-0 my-3">
+                                    <div class="my-lg-0 my-3 flex-grow-1">
                                         <a href="{{route('users.editInfo')}}"
                                            class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Edit</a>
                                         <a href="{{route('users.editPassword')}}"
@@ -80,13 +91,13 @@
                                 <tr>
                                     <td class="col-1">Họ:</td>
                                     <td class="col-5">
-                                        <span class="text-dark-75">{{$user->first_name}}</span>
+                                        <span class="text-dark-75">{{ucwords($user->first_name)}}</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-1">Tên:</td>
                                     <td class="col-5">
-                                        <span class="text-dark">{{$user->last_name}}</span>
+                                        <span class="text-dark">{{ucwords($user->last_name)}}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -106,6 +117,18 @@
                                     <td class="col-1">Số điện thoại:</td>
                                     <td class="col-5">
                                         <span class="text-dark">{{$user->mobile_number}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Địa chỉ:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark">{{$user->address}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-1">Vị trí:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark">{{ucwords($user->role)}}</span>
                                     </td>
                                 </tr>
                                 </tbody>

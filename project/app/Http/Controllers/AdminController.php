@@ -8,10 +8,12 @@ use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
+use App\Models\Course;
 use App\Models\Position;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Promise\Coroutine;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,15 +31,18 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        $student_count = User::query()->where('role','like','%'.'student'.'%')->count('id');
+        $teacher_count = User::query()->where('role','like','%'.'teacher'.'%')->count('id');
+        $course_count = Course::query()->count('course_id');
+        $courses = Course::all();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.list_employee', compact('users'));
+        return view('user.admin.dashboard', compact(['courses', 'users','student_count','teacher_count','course_count']));
         //
     }
 
     public function create()
     {
-        $roles = Role::all();
-        return view('user.create', compact(['roles']));
+        return view('user.create');
     }
 
     public function store(UserCreateRequest $request)
@@ -46,6 +51,7 @@ class AdminController extends Controller
         if ($request->hasFile('profile_avatar')) {
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
+        $password = Random::generate(8);
         $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
         DB::table('users')->insert([
             'first_name' => $credentials['first_name'],
@@ -54,16 +60,13 @@ class AdminController extends Controller
             'email' => $credentials['email'],
             'mobile_number' => $credentials['mobile_number'],
             'avatar' => $profile_avatar ?? null,
-            'fingerprint'=>'0'
+            'password' => Hash::make($password),
+            'address' => $credentials['address'] ?? '',
+            'role' => $credentials['role'],
+            'fingerprint' => '0'
         ]);
 
-        $user_id = User::query()->email($request)->value('user_id');
-        $password = Random::generate(8);
-        DB::table('accounts')->insert([
-            'user_id' => $user_id,
-            'role_id' => $request->role,
-            'password' => Hash::make($password)
-        ]);
+        $user_id = User::query()->email($request)->value('id');
 
         $user = User::find($user_id);
 
@@ -75,7 +78,8 @@ class AdminController extends Controller
 
     public function show(User $user)
     {
-        return view('user.index', compact('user'));
+        $courses = Course::query()->paginate(5);
+        return view('user.admin.list_course',compact(['courses']));
         //
     }
 
@@ -183,9 +187,9 @@ class AdminController extends Controller
     public function settings()
     {
         $list_requests = DB::table('day_off_requests')
-            ->where('stage','like','%'.'Chờ duyệt'.'%')
+            ->where('stage', 'like', '%' . 'Chờ duyệt' . '%')
             ->paginate(5);
-        return view('user.admin.settings',compact('list_requests'));
+        return view('user.admin.settings', compact('list_requests'));
     }
 
     public function timeSetting(Request $request)
@@ -194,6 +198,6 @@ class AdminController extends Controller
             'time_in' => $request->time_start,
             'time_out' => $request->time_end
         ]);
-        return back()->with('Success','Cài đặt thời gian thành công');
+        return back()->with('Success', 'Cài đặt thời gian thành công');
     }
 }

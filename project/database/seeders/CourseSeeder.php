@@ -16,9 +16,11 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        Course::query()->insert([[
+        DB::table('courses')->insert([[
             'course_id'=>'1',
-            'course_name'=>'Toán 10 6-8h tối T2,T4',
+            'subject_id'=>'1',
+            'teacher_id'=>'2',
+            'course_name'=>'Toán 10 ',
             'start_date'=>'2022-01-01',
             'end_date'=>'2022-04-01',
             'start_time'=>'18:00:00',
@@ -27,7 +29,9 @@ class CourseSeeder extends Seeder
             'course_status'=>'Đang diễn ra'
         ],[
             'course_id'=>'2',
-            'course_name'=>'Văn 10 3-5h chiều T2,T4',
+            'subject_id'=>'2',
+            'teacher_id'=>'2',
+            'course_name'=>'Văn 10',
             'start_date'=>'2022-05-01',
             'end_date'=>'2022-09-01',
             'start_time'=>'15:00:00',
@@ -36,18 +40,27 @@ class CourseSeeder extends Seeder
             'course_status'=>'Đang diễn ra'
         ]]);
 
-        DB::table('course_accounts')->insert([[
+        DB::table('course_members')->insert([[
             'course_id'=>'1',
-            'account_id'=>'2'
+            'student_id'=>'1'
         ],[
             'course_id'=>'1',
-            'account_id'=>'3'
+            'student_id'=>'2'
+        ],[
+            'course_id'=>'1',
+            'student_id'=>'3'
         ],[
             'course_id'=>'2',
-            'account_id'=>'2'
+            'student_id'=>'3'
         ],[
             'course_id'=>'2',
-            'account_id'=>'3'
+            'student_id'=>'4'
+        ],[
+            'course_id'=>'2',
+            'student_id'=>'5'
+        ],[
+            'course_id'=>'2',
+            'student_id'=>'1'
         ]]);
         //
     }

@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id('role_id');
-            $table->string('role_name');
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id('course_id');
+            $table->foreignId('teacher_id')->references('id')->on('users');
+            $table->string('course_name');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('course_description');
+            $table->string('course_status');
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('courses');
     }
 };

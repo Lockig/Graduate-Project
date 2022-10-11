@@ -23,6 +23,9 @@ class UserSeeder extends Seeder
                 'email' => 'minhntt2001hn@gmail.com',
                 'mobile_number' => '0904159596',
                 'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=>'1',
+                'role'=>'admin',
                 'fingerprint'=>'0'
             ],
             [
@@ -32,6 +35,9 @@ class UserSeeder extends Seeder
                 'email' => 'linh@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=>'1',
+                'role'=>'teacher',
                 'fingerprint' => '0'
             ],
             [
@@ -41,6 +47,33 @@ class UserSeeder extends Seeder
                 'email' => 'minhntt2001hn2@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=>'1',
+                'role'=>'student',
+                'fingerprint' => '0'
+            ],
+            [
+                'first_name' => 'do',
+                'last_name' => 'le minh',
+                'date_of_birth' => '2001-02-02',
+                'email' => 'minhntt2001hn2@gmail.com',
+                'mobile_number' => '0904159595',
+                'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=>'1',
+                'role'=>'student',
+                'fingerprint' => '0'
+            ],
+            [
+                'first_name' => 'do',
+                'last_name' => 'le minh',
+                'date_of_birth' => '2001-02-02',
+                'email' => 'minhntt2001hn2@gmail.com',
+                'mobile_number' => '0904159595',
+                'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=>'1',
+                'role'=>'student',
                 'fingerprint' => '0'
             ],
         ]);

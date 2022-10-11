@@ -1738,15 +1738,17 @@
                         class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,
                     </span>
                     <span
-                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ucfirst(Auth::user()->first_name)}}</span>
+                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">#</span>
+{{--                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ucfirst(Auth::user()->first_name)}}</span>--}}
                     <span class="symbol symbol-sm-30 symbol-25 symbol-light-success">
                         <span class="symbol-label font-size-h5 font-weight-bold">
-                            {{ strtoupper(substr(Auth::user()->first_name,0,1)) }}
+                         #
+{{--                            {{ strtoupper(substr(Auth::user()->first_name,0,1)) }}--}}
                         </span>
                     </span>
                 </div>
                 <div>
-                    <a href="{{route('signOut')}}" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Log
+                    <a href="/logout" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Log
                         Out</a>
                 </div>
             </div>

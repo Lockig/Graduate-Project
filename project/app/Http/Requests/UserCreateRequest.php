@@ -30,6 +30,7 @@ class UserCreateRequest extends FormRequest
             'date_of_birth' => 'nullable',
             'mobile_number' => 'nullable',
             'email' => 'required|string',
+            'address'=>'string',
             'role'=>'required'
             //
         ];

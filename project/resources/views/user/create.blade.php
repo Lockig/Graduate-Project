@@ -211,10 +211,12 @@
                                                 <div class="col-9">
                                                     <select name="role"
                                                             class="form-control form-control-lg form-control-solid">
-                                                        @foreach($roles as $role)
-                                                            <option value="{{$role->role_id}}"
-                                                                    class="form-control form-control-lg form-control-solid">{{$role->role_name}}</option>
-                                                        @endforeach
+                                                            <option value="student"
+                                                                    class="form-control form-control-lg form-control-solid">student</option>
+                                                            <option value="teacher"
+                                                                    class="form-control form-control-lg form-control-solid">teacher</option>
+                                                            <option value="admin"
+                                                                    class="form-control form-control-lg form-control-solid">admin</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -272,75 +274,6 @@
                             </div>
                         </form>
                                 <!--end::Tab-->
-                                <!--begin::Tab-->
-                                <div class="tab-pane px-7" id="kt_user_edit_tab_2" role="tabpanel">
-                                    <!--begin::Row-->
-                                    <div class="row">
-                                        <div class="col-xl-2"></div>
-                                        <div class="col-xl-7">
-                                            <div class="my-2">
-                                                <!--begin::Row-->
-                                                <div class="row">
-                                                    <label class="col-form-label col-3 text-lg-right text-left"></label>
-                                                    <div class="col-9">
-                                                        <h6 class="text-dark font-weight-bold mb-10">Account:</h6>
-                                                    </div>
-                                                </div>
-                                                <!--end::Row-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label
-                                                        class="col-form-label col-3 text-lg-right text-left">Username</label>
-                                                    <div class="col-9">
-                                                        <input
-                                                            class="form-control form-control-lg form-control-solid"
-                                                            type="text" value="nick84"/>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label for="password"
-                                                           class="col-form-label col-3 text-lg-right text-left">Password</label>
-                                                    <div class="col-9">
-                                                        <div class="input-group input-group-lg input-group-solid">
-                                                            <div class="input-group-prepend">
-																				<span class="input-group-text">
-																					<i class="la la-pass"></i>
-																				</span>
-                                                            </div>
-                                                            <input type="password" name="password"
-                                                                   class="form-control form-control-lg form-control-solid"
-                                                                   value="nick.watson@loop.com"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                                <!--begin::Group-->
-                                                <div class="form-group row">
-                                                    <label for="password-confirmation"
-                                                           class="col-form-label col-3 text-lg-right text-left">Re-enter
-                                                        Password</label>
-                                                    <div class="col-9">
-                                                        <div class="input-group input-group-lg input-group-solid">
-                                                            <div class="input-group-prepend">
-																				<span class="input-group-text">
-																					<i class="la la-pass"></i>
-																				</span>
-                                                            </div>
-                                                            <input type="password" name="password-confirmation"
-                                                                   class="form-control form-control-lg form-control-solid"
-                                                                   value="nick.watson@loop.com"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end::Group-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end::Row-->
-                                </div>
-                                <!--end::Tab-->
                             </div>
                     </div>
                     <!--begin::Card body-->
@@ -350,7 +283,7 @@
             <!--end::Container-->
         </div>
         <!--end::Entry-->
-    </div>
+
 
     <!--end::Content-->
 @endsection

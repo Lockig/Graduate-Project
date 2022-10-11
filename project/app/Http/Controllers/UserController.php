@@ -27,19 +27,28 @@ class UserController extends Controller implements ShouldQueue
 
     public function index(Request $request)
     {
+        if (Auth::user()->role == 'student') {
+            return view();
+        } elseif (Auth::user()->role == 'teacher') {
+
+        } else {
+
+        }
         $user = Auth::user();
-        $role = $user->account->role->role_id;
-        $users = User::query()->name($request)->paginate(5);
-        $courses = DB::table('courses')
-            ->join('course_accounts','courses.course_id','=','course_accounts.course_id')
-            ->where('account_id','=',$user->account->account_id)
-            ->get();
-        return view('user.dashboard', compact(['user', 'role', 'users','courses']));
+        dd('hello');
+//        $role = $user->account->role->role_id;
+//        $users = User::query()->name($request)->paginate(5);
+//        $courses = DB::table('courses')
+//            ->join('course_accounts','courses.course_id','=','course_accounts.course_id')
+//            ->where('account_id','=',$user->account->account_id)
+//            ->get();
+//        return view('user.dashboard', compact(['user', 'role', 'users','courses']));
     }
 
     public function show(User $user)
     {
-        return view('user.index', compact('user'));
+        $user = Auth::user();
+        return view('user.info', compact('user'));
     }
 
     public function showAttendance(Request $request)
@@ -64,14 +73,14 @@ class UserController extends Controller implements ShouldQueue
         return view('user.attendance', compact(['user', 'logs', 'start_time', 'end_time']));
     }
 
-    public function editPassword()
+    public function editPassword(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
         return view('user.password', compact('user'));
     }
 
 
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = User::find($id);
         if ($user && $user->account->role != 1) {
@@ -83,40 +92,41 @@ class UserController extends Controller implements ShouldQueue
     }
 
 
-    public function info(Request $request)
+    public function info(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
         return view('user.info', compact('user'));
     }
 
-    public function editInfo(Request $request)
+    public function editInfo(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = Auth::user();
         return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserUpdateRequest $request)
+    public function updateInfo(UserUpdateRequest $request): \Illuminate\Http\RedirectResponse
     {
         $user = Auth::user();
         if ($request->has('profile_avatar')) {
-            if($user->avatar != ""){
+            if ($user->avatar != "") {
                 Storage::delete($user->avatar);
             }
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        User::find($user->user_id)->update([
+        User::find($user->id)->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
+            'address' => $validated['address'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
         return back()->with("Success", "Cập nhật thông tin thành công");
     }
 
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = Auth::user();
         $validated = $request->validate([
@@ -124,12 +134,14 @@ class UserController extends Controller implements ShouldQueue
             'new_password' => 'required|string',
             'password_confirmation' => 'required|string'
         ]);
-        $password = $user->account->password;
-        if (Hash::check($validated['current_password'], $password)) {
+        $password = $user->password;
+        if(strcmp($validated['current_password'],$password) == 0){
+//        if (Hash::check($validated['current_password'], $password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
-                $update = Account::query()
-                    ->where('user_id', $user->user_id)
-                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
+                $update = User::query()
+                    ->where('id', $user->id)
+                    ->update(['password'=>$validated['password_confirmation']]);
+//                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
                 return back()->with("Success", "Cập nhật mật khẩu thành công");
             }
         }

@@ -7,7 +7,7 @@
     <!--begin::Signin-->
     <div class="login-form">
         <!--begin::Form-->
-        <form class="form" id="kt_login_singin_form" action="{{ route('login') }}" method="POST">
+        <form class="form" id="kt_login_singin_form" action="/login" method="POST">
             <!--begin::Title-->
             @csrf
             <div class="pb-5 pb-lg-15">
@@ -17,8 +17,8 @@
             <!--begin::Title-->
             <!--begin::Form group-->
             <div class="form-group">
-                <label for="email" class="font-size-h6 font-weight-bolder text-dark">{{__('Email Address') }}</label>
-                <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="email" name="email" id="email"
+                <label for="email" class="font-size-h6 font-weight-bolder text-dark">{{__('Email') }}</label>
+                <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="email" name="email"
                        autocomplete="off" value="{{ old('email') }}"/>
             </div>
             <!--end::Form group-->
@@ -27,7 +27,8 @@
                 <div class="d-flex justify-content-between mt-n5">
                     <label for="password"
                            class="font-size-h6 font-weight-bolder text-dark pt-5">{{ __('Password') }}</label>
-                    <a href="{{ route('password.reset') }}"
+                    <a href="#"
+                    {{--                    <a href="{{ route('password.reset') }}"--}}
                        class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('Forgot Password ?')}}</a>
                 </div>
                 <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password"

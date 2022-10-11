@@ -1,6 +1,3 @@
-<?php
-$user = Auth::user();
-?>
 <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
     <!--begin::Brand-->
     <div class="brand flex-column-auto" id="kt_brand">
@@ -41,7 +38,7 @@ $user = Auth::user();
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
                 <li class="menu-item menu-item-active" aria-haspopup="true">
-                    <a href="{{route('users.index')}}" class="menu-link">
+                    <a href="#" class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +64,7 @@ $user = Auth::user();
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.info')}}"
+                    <a href="{{route('users.show')}}"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -117,7 +114,7 @@ $user = Auth::user();
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.attendance')}}"
+                    <a href="#"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -140,7 +137,7 @@ $user = Auth::user();
                     </a>
                 </li>
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.createForm')}}"
+                    <a href="#"
                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
@@ -162,16 +159,14 @@ $user = Auth::user();
                         <span class="menu-text">Đơn xin nghỉ</span>
                     </a>
                 </li>
-                @php
-                    $role = Auth::user()->account->role->role_id;
-                @endphp
-                @if($role == 1 || $role==2)
-                    <li class="menu-section">
-                        <h4 class="menu-text">Quản lý lớp học</h4>
-                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                    </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                @if(\Illuminate\Support\Facades\Auth::user()->role == 'teacher' || \Illuminate\Support\Facades\Auth::user()->role =='admin')
+
+                <li class="menu-section">
+                    <h4 class="menu-text">Quản lý lớp học</h4>
+                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                </li>
+                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -189,46 +184,46 @@ $user = Auth::user();
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Giáo viên</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                        <span class="menu-text">Giáo viên</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item menu-item-parent" aria-haspopup="true">
 												<span class="menu-link">
 													<span class="menu-text">General</span>
 												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.create')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Tạo mới</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Bảng lương</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{route('admin.create')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Tạo mới</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="#" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Danh sách</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="#" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Bảng lương</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -246,46 +241,43 @@ $user = Auth::user();
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Phần cứng</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                        <span class="menu-text">Phần cứng</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item menu-item-parent" aria-haspopup="true">
 												<span class="menu-link">
 													<span class="menu-text">General</span>
 												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.settings')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Thiết lập</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Bảng lương</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                            </li>
+                            <li class="menu-item" aria-haspopup="#" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Thiết lập</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="#" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Danh sách</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="#" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Bảng lương</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -303,45 +295,45 @@ $user = Auth::user();
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Lớp học</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                        <span class="menu-text">Lớp học</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item menu-item-parent" aria-haspopup="true">
 												<span class="menu-link">
 													<span class="menu-text">General</span>
 												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.settings')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách lớp</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{ route('admin.index') }}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Bảng lương</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endif
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{route('admin.createCourse')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Tạo lớp</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{route('admin.listCourse')}}" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Danh sách</span>
+                                </a>
+                            </li>
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="#" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Bảng lương</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                                @endif
             </ul>
             <!--end::Menu Nav-->
         </div>

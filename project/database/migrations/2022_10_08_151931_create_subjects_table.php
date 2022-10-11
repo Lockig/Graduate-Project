@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->references('user_id')->on('users');
-            $table->date('time_in');
-            $table->softDeletes();
+        Schema::create('subjects', function (Blueprint $table) {
+            $table->id('subject_id');
+            $table->string('subject_name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('subjects');
     }
 };

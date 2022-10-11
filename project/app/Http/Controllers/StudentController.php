@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class TeacherController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        return view('layout.layout');
         //
     }
 
@@ -41,21 +42,22 @@ class TeacherController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Teacher  $teacher
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Student  $student
      */
-    public function show(Teacher $teacher)
+    public function show(Student $student)
     {
+        $user = Auth::user();
+        return view('user.info',compact('user'));
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Teacher  $teacher
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Teacher $teacher)
+    public function edit(Student $student)
     {
         //
     }
@@ -64,10 +66,10 @@ class TeacherController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Teacher  $teacher
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, Student $student)
     {
         //
     }
@@ -75,10 +77,10 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Teacher  $teacher
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Student $student)
     {
         //
     }

@@ -176,6 +176,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
+                                            <label for="address" class="col-xl-3 col-lg-3 col-form-label">Địa chỉ
+                                            </label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <input name="address"
+                                                       class="form-control form-control-lg form-control-solid"
+                                                       type="text"
+                                                       value="{{$user->address}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             {{--                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>--}}
                                             <div class="col-lg-9 col-xl-6">
                                                 {{--                                                <input name="user_name" class="form-control form-control-lg form-control-solid"--}}

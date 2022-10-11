@@ -20,7 +20,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $primaryKey = 'user_id';
 
     protected $fillable = [
         'first_name',
@@ -28,6 +27,8 @@ class User extends Authenticatable
         'dob',
         'email',
         'mobile_number',
+        'address',
+        'role',
         'fingerprint',
         'avatar'
     ];
@@ -57,10 +58,10 @@ class User extends Authenticatable
 
 
 
-    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(Account::class, 'user_id', 'user_id');
-    }
+//    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
+//    {
+//        return $this->hasOne(Account::class, 'user_id', 'user_id');
+//    }
 
     public function scopeEmail($query, $request)
     {
@@ -68,6 +69,14 @@ class User extends Authenticatable
             return $query->where('email', 'like', '%' . $request->input('email') . '%');
         }
        return $query;
+    }
+
+    public function scopePassword($query, $request)
+    {
+        if($request->has('password')){
+            return $query->where('password', 'like', '%' . $request->input('password') . '%');
+        }
+        return $query;
     }
 
     public function scopeName($query, $request)

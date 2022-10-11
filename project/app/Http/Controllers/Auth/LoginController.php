@@ -44,35 +44,42 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    public function showLoginForm()
     {
-        $this->validateLogin($request);
+        return view('auth.login');
+    }
 
-        $user_id = User::query()
-            ->select('user_id')
-            ->where('email', 'like', '%' . $request->input('email') . '%')
-            ->value('user_id');
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role == 'admin') {
+            return redirect()->route('admin.index')->with('Success', 'Đăng nhập admin thành công');
+        } elseif ($user->role == 'teacher') {
+            return redirect()->route('teachers.index')->with('Success', 'Đăng nhập giáo viên thành công');
+        } else {
+            return redirect()->route('users.index')->with('Success', 'Đăng nhập học sinh thành công');
+        }
+        //
+    }
+
+    public function login(Request $request)
+    {
+        $user_id = User::email($request)->value('id');
         if ($user_id != null) {
-            $password = User::find($user_id)->account->password;
-            if (Hash::check($request->input('password'), $password)) {
-                $user = User::find($user_id);
-                Auth::login($user);
-                return match ($user->account->role->role_id) {
-                    1 => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản admin thành công'),
-                    2 => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản giáo viên thành công'),
-                    default => redirect()->to(route('users.index'))->with('Success', 'Đăng nhập tài khoản học viên thành công'),
-                };
+            $password = User::find($user_id)->password;
+            if(strcmp($request->password,$password) == 0){
+//            if (Hash::check($request->password,$password)) {
+                Auth::loginUsingId($user_id);
+                $this->authenticated($request, Auth::user());
             }
-            return redirect()->back()->with('Fail', 'Sai mật khẩu');
+            return redirect()->back()->with('Fail', 'Mật khẩu không đúng');
         }
         return redirect()->back()->with('Fail', 'Kiểm tra lại thông tin đăng nhập');
-
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/')->with('Success', 'Đăng xuất thành công');
+        return redirect('/login')->with('Success', 'Đăng xuất thành công');
     }
 
 }

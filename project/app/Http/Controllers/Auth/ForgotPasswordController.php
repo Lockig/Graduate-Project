@@ -27,7 +27,7 @@ class ForgotPasswordController extends Controller
             $details = [
                 'password' => $random_password
             ];
-            Mail::to($email)->send(new ResetPasswordMail($details));
+//            Mail::to($email)->send(new ResetPasswordMail($details));
             Account::find($user_id)->update([
                 'password' => Hash::make($details['password'])
             ]);

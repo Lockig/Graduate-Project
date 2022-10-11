@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id('account_id');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
-            $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id')->references('role_id')->on('roles');
-            $table->string('password');
+        Schema::create('attendances', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('schedule_id')->references('id')->on('course_schedules');
+            $table->date('time_in');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('logs');
     }
 };
