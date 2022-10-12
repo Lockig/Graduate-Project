@@ -55,14 +55,14 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         if ($request->input('request_date') == '') {
-            $logs = DB::table('logs')
+            $logs = DB::table('day_off_requests')
                 ->select('*')
                 ->where('user_id', '=', $user->user_id)
                 ->paginate(5);
         } else {
-            $logs = DB::table('logs')
+            $logs = DB::table('day_off_requests')
                 ->select('*')
-                ->where('user_id', '=', $user->user_id)
+                ->where('student_id', '=', $user->user_id)
                 ->where('date', '=', $request->input('request_date'))
                 ->orderByDesc('date')
                 ->orderBy('time_in')
@@ -152,5 +152,9 @@ class UserController extends Controller implements ShouldQueue
     public function exportList(Request $request)
     {
         return (new UsersExport($request->users))->download('users.xlsx');
+    }
+
+    public function requestDayOff(){
+        
     }
 }

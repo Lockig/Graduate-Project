@@ -127,7 +127,7 @@
             <!--begin::Container-->
             <div class="container">
                 <!--begin::Advance Table Widget 1-->
-                <div class="card card-custom gutter-b">
+                <div id="form" class="card card-custom gutter-b">
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <div class="card-title align-items-start flex-column">
@@ -256,9 +256,29 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="input-icon">
-                                                <input name="last_name" type="text" class="form-control"
-                                                       placeholder="Search..." id="kt_datatable_search_query"
-                                                       value="{{old("name")}}"/>
+                                                <input name="course_name" type="text" class="form-control"
+                                                       placeholder="Tên lớp..." id="kt_datatable_search_query"
+                                                       value="{{old("course_name")}}"/>
+                                                <span>
+                                                    <i class="flaticon2-search-1 text-muted"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="input-icon">
+                                                <input name="teacher" type="text" class="form-control"
+                                                       placeholder="Tên giáo viên..." id="kt_datatable_search_query"
+                                                       value="{{old("teacher")}}"/>
+                                                <span>
+                                                    <i class="flaticon2-search-1 text-muted"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 my-2 my-md-0">
+                                            <div class="input-icon">
+                                                <input name="status" type="text" class="form-control"
+                                                       placeholder="Tình trạng..." id="kt_datatable_search_query"
+                                                       value="{{old("status")}}"/>
                                                 <span>
                                                     <i class="flaticon2-search-1 text-muted"></i>
                                                 </span>
@@ -418,7 +438,7 @@
 																</span>
                                             </a>
                                             <form class="btn btn-icon btn-light btn-hover-primary btn-sm" method="post"
-                                                  action="#"
+                                                  action="{{route('admin.deleteCourse',$course)}}"
                                                   data-toggle="tooltip"
                                                   title="xóa">
                                                 @csrf
@@ -467,5 +487,12 @@
 @endsection
 
 @section('script')
-
+    <script>
+        function getListStudent(){
+            $.ajax({
+                type: 'POST',
+                url: '',
+            })
+        }
+    </script>
 @endsection

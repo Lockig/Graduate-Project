@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Exception;
 
 class CourseController extends Controller
 {
@@ -33,7 +34,7 @@ class CourseController extends Controller
         $courses = Course::paginate(5);
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->get();
-        return view('user.admin.course', compact(['courses', 'teachers','students']));
+        return view('user.admin.course', compact(['courses', 'teachers', 'students']));
         //
     }
 
@@ -65,7 +66,7 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Course $course
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
@@ -76,7 +77,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Course $course
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
@@ -88,7 +89,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Course $course
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Course $course)
@@ -99,11 +100,16 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Course $course
-     * @return \Illuminate\Http\Response
+     * @param Course $course
      */
     public function destroy(Course $course)
     {
+        DB::table('course_schedules')->where('course_id', '=', $course->course_id)->delete();
+        DB::table('course_students')->where('course_id', '=', $course->course_id)->delete();
+        Course::query()
+            ->where('course_id', '=', $course->course_id)
+            ->delete();
+        return back()->with('Success', 'Xóa lớp học thành công');
         //
     }
 }

@@ -21,14 +21,14 @@ class ForgotPasswordController extends Controller
     {
         $this->validateEmail($request);
         $email = User::query()->email($request)->value('email');;
-        $user_id = User::query()->email($request)->value('user_id');
+        $user_id = User::query()->email($request)->value('id');
         if ($user_id != null) {
             $random_password = Random::generate(8);
             $details = [
                 'password' => $random_password
             ];
-//            Mail::to($email)->send(new ResetPasswordMail($details));
-            Account::find($user_id)->update([
+            Mail::to($email)->send(new ResetPasswordMail($details));
+            User::find($user_id)->update([
                 'password' => Hash::make($details['password'])
             ]);
             return redirect('/login')->with('Success', 'Đã gửi mail reset pass thành công');

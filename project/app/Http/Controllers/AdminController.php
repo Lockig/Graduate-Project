@@ -31,12 +31,12 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $student_count = User::query()->where('role','like','%'.'student'.'%')->count('id');
-        $teacher_count = User::query()->where('role','like','%'.'teacher'.'%')->count('id');
+        $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
+        $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
         $courses = Course::all();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users','student_count','teacher_count','course_count']));
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count']));
         //
     }
 
@@ -76,10 +76,14 @@ class AdminController extends Controller
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
     }
 
-    public function show(User $user)
+    public function show(Request $request)
     {
-        $courses = Course::query()->paginate(5);
-        return view('user.admin.list_course',compact(['courses']));
+        $courses = Course::query()
+            ->name($request)
+            ->teacher($request)
+            ->status($request)
+            ->paginate(5);
+        return view('user.admin.list_course', compact(['courses']));
         //
     }
 

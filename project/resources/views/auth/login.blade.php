@@ -27,7 +27,7 @@
                 <div class="d-flex justify-content-between mt-n5">
                     <label for="password"
                            class="font-size-h6 font-weight-bolder text-dark pt-5">{{ __('Password') }}</label>
-                    <a href="#"
+                    <a href="/password-reset"
                     {{--                    <a href="{{ route('password.reset') }}"--}}
                        class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">{{__('Forgot Password ?')}}</a>
                 </div>

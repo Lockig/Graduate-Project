@@ -18,7 +18,7 @@ Auth::routes();
 
 //Route::get('/', [UserController::class, 'index'])->middleware('auth');
 //Route::get('/home', [UserController::class, 'index'])->middleware('auth');
-//Route::get('/password-reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+Route::get('/password-reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
 Route::get('/logout', [LoginController::class, 'logout'])->name('signOut');
 Route::get('/', function () {
     if (Auth::user()->role == 'admin') {
@@ -30,7 +30,7 @@ Route::get('/', function () {
     }
 });
 ////route for mailing
-//Route::post('/send-mail', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('sendMail');
+Route::post('/send-mail', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('sendMail');
 
 //
 //Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
@@ -109,9 +109,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/info', [UserController::class, 'show'])->name('users.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('users.editPassword');
-
+    Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
     Route::post('/edit', [UserController::class, 'updateInfo'])->name('users.updateInfo');
     Route::post('/edit/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+    Route::get('/request',[UserController::class,'requestDayOff'])->name('users.request');
 });
 
 Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
@@ -119,6 +120,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/info', [UserController::class, 'show'])->name('teachers.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('teachers.edit');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('teachers.editPassword');
+
 
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 });
@@ -137,4 +139,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/create/course', [CourseController::class, 'store'])->name('admin.storeCourse');
+    Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
 });
