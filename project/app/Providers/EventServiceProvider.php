@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Events\CreateFingerprint;
-use App\Events\CreateUser;
+use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
-use App\Listener\SendMailCreateUser;
+use App\Listener\SendMailResetPassword;
 use App\Listeners\CreateFingerprintListener;
 use App\Listeners\CreateUserWorkingDetails;
 use App\Listeners\SendDayOffNotification;
@@ -26,8 +26,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        CreateUser::class=>[
-            SendMailCreateUser::class
+        ResetPassword::class=>[
+            SendMailResetPassword::class
         ],
 //        RequestDayOff::class=>[
 //            RequestDayOffNotification::class,

@@ -131,7 +131,7 @@
                                 <h3 class="card-title text-uppercase">Đơn xin nghỉ</h3>
                             </div>
                             <!--begin::Form-->
-                            <form class="form" method="post" action="{{route('users.storeForm')}}">
+                            <form class="form" method="post" action="{{route('users.storeRequest')}}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group row">
@@ -197,6 +197,7 @@
                                         <thead>
                                         <tr class="text-left">
                                             <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pr-0" style="width: 100px">Tên lớp</th>
                                             <th class="pr-0" style="width: 100px">Từ ngày</th>
                                             <th class="pr-0" style="width: 100px">Đến ngày</th>
                                             <th class="pr-0" style="width: 100px">Số ngày</th>
@@ -208,6 +209,10 @@
                                         @foreach($list as $item)
                                             <tr>
                                                 <td class="pr-0">{{$loop->index +1 }}</td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($item->course_id)->course_name}}</a>
+                                                </td>
                                                 <td class="pr-0">
                                                     <a href="#"
                                                        class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($item->day_start)->format('d-m-Y')}}</a>

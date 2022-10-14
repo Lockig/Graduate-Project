@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -24,9 +25,21 @@ class UserSeeder extends Seeder
                 'mobile_number' => '0904159596',
                 'avatar' => '',
                 'address'=>'Ha Noi',
-                'password'=>'1',
+                'password'=> Hash::make('1'),
                 'role'=>'admin',
                 'fingerprint'=>'0'
+            ],
+            [
+                'first_name' => 'nguyen',
+                'last_name' => 'tuan trung',
+                'date_of_birth' => '2001-02-02',
+                'email' => 'minhntt2001hn5@gmail.com',
+                'mobile_number' => '0904159595',
+                'avatar' => '',
+                'address'=>'Ha Noi',
+                'password'=> Hash::make('1'),
+                'role'=>'teacher',
+                'fingerprint' => '0'
             ],
             [
                 'first_name' => 'nguyen',
@@ -36,7 +49,7 @@ class UserSeeder extends Seeder
                 'mobile_number' => '0904159595',
                 'avatar' => '',
                 'address'=>'Ha Noi',
-                'password'=>'1',
+                'password'=> Hash::make('1'),
                 'role'=>'teacher',
                 'fingerprint' => '0'
             ],
@@ -48,7 +61,7 @@ class UserSeeder extends Seeder
                 'mobile_number' => '0904159595',
                 'avatar' => '',
                 'address'=>'Ha Noi',
-                'password'=>'1',
+                'password'=> Hash::make('1'),
                 'role'=>'student',
                 'fingerprint' => '0'
             ],
@@ -56,11 +69,11 @@ class UserSeeder extends Seeder
                 'first_name' => 'do',
                 'last_name' => 'le minh',
                 'date_of_birth' => '2001-02-02',
-                'email' => 'minhntt2001hn2@gmail.com',
+                'email' => 'minhntt2001hn3@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
                 'address'=>'Ha Noi',
-                'password'=>'1',
+                'password'=> Hash::make('1'),
                 'role'=>'student',
                 'fingerprint' => '0'
             ],
@@ -68,11 +81,11 @@ class UserSeeder extends Seeder
                 'first_name' => 'do',
                 'last_name' => 'le minh',
                 'date_of_birth' => '2001-02-02',
-                'email' => 'minhntt2001hn2@gmail.com',
+                'email' => 'minhntt2001hn4@gmail.com',
                 'mobile_number' => '0904159595',
                 'avatar' => '',
                 'address'=>'Ha Noi',
-                'password'=>'1',
+                'password'=> Hash::make('1'),
                 'role'=>'student',
                 'fingerprint' => '0'
             ],

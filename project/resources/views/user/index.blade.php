@@ -120,6 +120,7 @@
                         <form method="post" action="{{route('users.updateInfo')}}" class="flex-row-fluid ml-lg-8"
                               enctype="multipart/form-data">
                             @csrf
+                            @method('POST')
                             <!--begin::Card-->
                             <div class="card card-custom col-12 card-stretch">
                                 <!--begin::Header-->

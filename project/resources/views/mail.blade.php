@@ -1,5 +1,5 @@
 @component('mail::message')
-    Your reset password is {{$details['password']}}
+    Your reset password is {{$details}}
     <br>
 
 

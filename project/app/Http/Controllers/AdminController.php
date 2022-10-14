@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateUser;
+use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
@@ -34,6 +34,10 @@ class AdminController extends Controller
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
+        $today_course = Course::query()
+            ->join('course_schedules','courses.course_id','=','course_schedules.course_id')
+            ->join('course_students','course.course_id','=','course_students.course_id')
+            ->where('course.course_id','=',Auth::user()->id);
         $courses = Course::all();
         $users = User::query()->name($request)->paginate(5);
         return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count']));
@@ -45,7 +49,7 @@ class AdminController extends Controller
         return view('user.create');
     }
 
-    public function store(UserCreateRequest $request)
+    public function store(UserCreateRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
         if ($request->hasFile('profile_avatar')) {
@@ -70,7 +74,7 @@ class AdminController extends Controller
 
         $user = User::find($user_id);
 
-        event(new CreateUser($user, $password));
+        event(new ResetPassword($user,$password));
         Cache::put('command', 'register');
         Cache::put('user_id', $user_id);
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');

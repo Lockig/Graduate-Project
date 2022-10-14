@@ -2,13 +2,15 @@
 
 namespace App\Listener;
 
-use App\Events\CreateUser;
+use App\Events\ResetPassword;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
-class SendMailCreateUser
+class SendMailResetPassword implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -23,17 +25,16 @@ class SendMailCreateUser
     /**
      * Handle the event.
      *
-     * @param  \App\Events\CreateUser  $event
+     * @param  \App\Events\ResetPassword  $event
      * @return void
      */
-    public function handle(CreateUser $event)
+    public function handle(ResetPassword $event)
     {
-        $password = $event->password;
-        $details = [
-            'password'=>$password
-        ];
         Mail::to($event->user->email)
-            ->send(new ResetPasswordMail($details));
+            ->send(new ResetPasswordMail($event->details));
+//        $event->user->update([
+//            'password'=>Hash::make($event->user->password)
+//        ]);
         //
     }
 }

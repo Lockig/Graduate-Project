@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CreateUser;
+use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Notifications\RequestDayOffNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -98,13 +99,13 @@ class UserController extends Controller implements ShouldQueue
         return view('user.info', compact('user'));
     }
 
-    public function editInfo(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function editInfo(Request $request)
     {
         $user = Auth::user();
         return view('user.index', compact('user'));
     }
 
-    public function updateInfo(UserUpdateRequest $request): \Illuminate\Http\RedirectResponse
+    public function updateInfo(UserUpdateRequest $request): RedirectResponse
     {
         $user = Auth::user();
         if ($request->has('profile_avatar')) {
@@ -126,7 +127,7 @@ class UserController extends Controller implements ShouldQueue
     }
 
 
-    public function updatePassword(Request $request): \Illuminate\Http\RedirectResponse
+    public function updatePassword(Request $request): RedirectResponse
     {
         $user = Auth::user();
         $validated = $request->validate([
@@ -135,13 +136,12 @@ class UserController extends Controller implements ShouldQueue
             'password_confirmation' => 'required|string'
         ]);
         $password = $user->password;
-        if(strcmp($validated['current_password'],$password) == 0){
-//        if (Hash::check($validated['current_password'], $password)) {
+//        if(strcmp($validated['current_password'],$password) == 0){
+        if (Hash::check($validated['current_password'], $password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
                 $update = User::query()
                     ->where('id', $user->id)
-                    ->update(['password'=>$validated['password_confirmation']]);
-//                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
+                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
                 return back()->with("Success", "Cập nhật mật khẩu thành công");
             }
         }
@@ -154,7 +154,15 @@ class UserController extends Controller implements ShouldQueue
         return (new UsersExport($request->users))->download('users.xlsx');
     }
 
-    public function requestDayOff(){
-        
+    public function requestDayOff(Request $request)
+    {
+        $list = DB::table('day_off_requests')->paginate(3);
+        $courses = DB::table('course_students')->where('student_id', '=', Auth::user()->id)->get();
+        return view('user.request', compact('list'));
+    }
+
+    public function storeRequestDayOff(Request $request)
+    {
+
     }
 }

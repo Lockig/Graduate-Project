@@ -26,11 +26,7 @@ class FingerprintController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('Get_Fingerid')) {
-            echo "xin chào" . Cache::get('user_id');
-        } else {
-            echo 'loi';
-        }
+
     }
 
     /**
@@ -55,7 +51,7 @@ class FingerprintController extends Controller
             if ($request->input('fingerID') > 200) {
                 echo 'no user find';
             }
-            $check = Fingerprint::query()
+            $check = User::query()
                 ->select('user_id')
                 ->where('fingerprint_id', '=', $request->input('fingerID'))
                 ->where('add_fingerprint_id', '=', '1')

@@ -205,6 +205,25 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
+                                                <label for="address" class="col-form-label col-3 text-lg-right text-left">Địa chỉ
+                                                </label>
+                                                <div class="col-9">
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+																			<span class="input-group-text">
+																				<i class="la la-at"></i>
+																			</span>
+                                                        </div>
+                                                        <input name="address" type="text"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               value="{{old('address')}}"
+                                                               placeholder="Địa chỉ" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
                                                 <label for="role"
                                                        class="col-form-label col-3 text-lg-right text-left">Vị
                                                     trí</label>

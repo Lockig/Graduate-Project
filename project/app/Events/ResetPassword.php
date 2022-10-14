@@ -11,21 +11,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CreateUser
+class ResetPassword
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+
+    public $details;
     public $user;
-    public $password;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user,$password)
+    public function __construct($user,$details)
     {
         $this->user = $user;
-        $this->password = $password;
+        $this->details = $details;
         //
     }
 

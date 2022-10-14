@@ -283,9 +283,9 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Timetable</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">Maths is coming
-															<span class="text-primary">7 mins</span></span>
+                                    <span class="card-label font-weight-bolder text-dark">Thời khóa biểu</span>
+                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">Môn học trong hôm nay
+                                    </span>
                                 </h3>
                                 <div class="card-toolbar">
                                     <ul class="nav nav-pills nav-pills-sm nav-dark-75">

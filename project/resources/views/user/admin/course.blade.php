@@ -123,8 +123,8 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container">
-                <div class="row">
-                    <div class="col-4 ">
+                <div class="row mb-3">
+                    <div class="col-4">
                         <!--begin::Card-->
                         <div class="card card-custom">
                             <div class="card-header d-flex justify-content-center">
@@ -140,7 +140,7 @@
                                                    class="col-form-label text-left col-lg-5 col-sm-12">Tên
                                                 lớp</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="course_name" type="text" class="form-control"
+                                                <input name="course_name" type="text" class="form-control" value="{{old('course_name')}}"
                                                 />
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                                         class="form-control">
                                                     @foreach($teachers as $teacher)
                                                         <option
-                                                            value="  {{$teacher->id}}"
+                                                            value="{{$teacher->id}}"
                                                             class="form-control form-control-lg form-control-solid">
                                                             {{$teacher->id}}
                                                         </option>
@@ -189,20 +189,147 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="course_description"
-                                                   class="col-form-label text-left col-lg-3 col-sm-12">Thông tin</label>
+                                            <label for="hour" class="col-form-label text-left col-lg-12 col-sm-12">Thời lượng</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input type="text" name="course_description" class="form-control"/>
+                                                <input name="hour" type="text" class="form-control" placeholder="Nhập số giờ"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="content" class="col-form-label text-left col-lg-3 col-sm-12">Lý
-                                                Do</label>
+                                            <label for="course_description"
+                                                   class="col-form-label text-left col-lg-12 col-sm-12">Thông tin</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                    <textarea name="content" class="form-control" id="kt_autosize_1"
-                                              rows="3"></textarea>
+                                                <input value="{{old('course_description')}}" type="text" name="course_description" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto d-flex flex-row justify-content-center">
+                                            <button type="submit" class="btn btn-success mr-2">Tạo</button>
+                                            <button type="reset" class="btn btn-secondary">Hủy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <div class="col-8">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label text-uppercase">DANH SÁCH lớp học</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-head-custom table-vertical-center"
+                                           id="kt_advance_table_widget_1">
+                                        <thead>
+                                        <tr class="text-left">
+                                            <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pr-0" style="width: 100px">Tên</th>
+                                            <th class="pr-0" style="width: 100px">Ngày bắt đầu</th>
+                                            <th class="pr-0" style="width: 100px">Ngày kết thúc</th>
+                                            <th class="pr-0" style="width: 100px">Giáo viên</th>
+                                            <th class="pr-0" style="width: 100px">Thông tin</th>
+                                            <th class="pr-0 text-right" style="min-width: 50px">Trạng thái</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($courses as $course)
+                                            <tr>
+                                                <td class="pr-0">{{$loop->index +1 }}</td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->start_date}}</a>
+                                                </td>
+                                                <td class="pr-0 text-left">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->end_date}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</a>
+                                                </td>
+                                                <td class="pr-0 text-right">
+                                                    <a href="#"
+                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->status}}</a>
+                                                    {{--                                                    @if($item->stage='Chờ duyệt')--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @elseif($item->stage='Đã duyệt')--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @else--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @endif--}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    {!! $courses->links() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom">
+                            <div class="card-header d-flex justify-content-center">
+                                <h3 class="card-title text-uppercase">TẠO LỊCH HỌC</h3>
+                            </div>
+                            <!--begin::Form-->
+                            <form class="form" method="post" action="{{route('admin.storeCourseSchedule')}}">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
+                                            <label for="role"
+                                                   class="col-lg-12 ml-lg-auto">Tên lớp</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <select name="course_name"
+                                                        class="form-control">
+                                                    @foreach($courses as $course)
+                                                        <option
+                                                            value="{{$course->course_name}}"
+                                                            class="form-control form-control-lg form-control-solid">
+                                                            {{$course->course_name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
+                                            <label for="start_time" class="col-form-label text-left col-lg-12 col-sm-12">Chọn giờ cố định 1</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <div class="input-group date" id="kt_datetimepicker_2" data-target-input="nearest">
+                                                    <input name="start_time" type="text" class="form-control datetimepicker-input" placeholder="Chọn giờ" data-target="#kt_datetimepicker_2" >
+                                                    <div class="input-group-append" data-target="#kt_datetimepicker_2" data-toggle="datetimepicker">
+                                                        <span class="input-group-text"><i class="ki ki-calendar"></i></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -306,5 +433,6 @@
 @section('script')
     <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
     <script src="{{mix('js/user/date-picker.js')}}"></script>
+    <script src="{{mix('js/datetimepicker.js')}}"></script>
 @endsection
 >

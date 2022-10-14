@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
+use Symfony\Component\Console\Helper\Table;
 
 class CourseController extends Controller
 {
@@ -62,6 +63,32 @@ class CourseController extends Controller
         ]);
         return redirect()->back()->with('Success', 'Tạo khóa học thành công');
     }
+
+    public function storeCourseSchedule(Request $request)
+    {
+
+        $course_id = Course::query()->name($request)->value('course_id');
+        $duration = Course::query()->name($request)->value('course_hour');
+        $start_date = Carbon::parse(Course::find($course_id)->start_date)->format('Y-m-d H:i:s');
+        $end_date = Carbon::parse(Course::find($course_id)->end_date)->format('Y-m-d H:i:s');
+        $input_time = Carbon::parse($request->input('start_time'))->format('Y-m-d h:i:s');
+
+        if ($input_time < $start_date || $input_time > $end_date) {
+            return redirect()->back()->with('Fail', 'Giờ nhập vào không được phép');
+        }
+        while ($input_time < $end_date) {
+
+            DB::table('course_schedules')->insert([
+                'course_id' => $course_id,
+                'start_at' => $input_time,
+                'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
+            ]);
+
+            $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
+        }
+        return redirect()->back()->with('Success', 'Thêm lịch học thành công');
+    }
+
 
     /**
      * Display the specified resource.

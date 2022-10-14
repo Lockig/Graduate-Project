@@ -25,8 +25,10 @@ Route::get('/', function () {
         return redirect()->route('admin.index')->with('Success', 'Đăng nhập là admin');
     } elseif (Auth::user()->role == 'teacher') {
         return redirect()->route('teachers.index')->with('Success', 'Đăng nhập là giáo viên');
-    } else {
+    } elseif (Auth::user()->role == 'student') {
         return redirect()->route('users.index')->with('Success', 'Đăng nhập là học sinh');
+    } else {
+        return redirect()->back()->with('Fail', 'Có lỗi xảy ra');
     }
 });
 ////route for mailing
@@ -109,10 +111,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/info', [UserController::class, 'show'])->name('users.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('users.editPassword');
-    Route::get('/attendance',[UserController::class,'showAttendance'])->name('users.attendance');
+    Route::get('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
     Route::post('/edit', [UserController::class, 'updateInfo'])->name('users.updateInfo');
     Route::post('/edit/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-    Route::get('/request',[UserController::class,'requestDayOff'])->name('users.request');
+    Route::post('/request', [UserController::class, 'storeRequestDayOff'])->name('users.storeRequest');
+    Route::get('/request', [UserController::class, 'requestDayOff'])->name('users.request');
 });
 
 Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
@@ -134,10 +137,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/info', [UserController::class, 'show'])->name('admin.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('admin.edit');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('admin.editPassword');
-    Route::get('/list/course',[AdminController::class,'show'])->name('admin.listCourse');
+    Route::get('/course/list', [AdminController::class, 'show'])->name('admin.listCourse');
 
 
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-    Route::post('/create/course', [CourseController::class, 'store'])->name('admin.storeCourse');
+    Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
+    Route::post('/course/schedule', [CourseController::class, 'storeCourseSchedule'])->name('admin.storeCourseSchedule');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
 });

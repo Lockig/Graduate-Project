@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('course_name');
             $table->date('start_date');
             $table->date('end_date');
+            $table->float('course_hour');
             $table->string('course_description');
             $table->string('course_status');
             $table->timestamps();

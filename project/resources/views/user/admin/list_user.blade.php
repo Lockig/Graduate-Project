@@ -12,7 +12,7 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-muted font-weight-bold my-1 mr-5">DANH SÁCH NHÂN VIÊN</h5>
+                        <h5 class="text-muted font-weight-bold my-1 mr-5">DANH SÁCH NGƯỜI DÙNG</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -131,7 +131,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <div class="card-title align-items-start flex-column">
-                            <h3 class="align-self-baseline text-muted">DANH SÁCH NHÂN VIÊN</h3>
+                            <h3 class="align-self-baseline text-muted text-uppercase">DANH SÁCH NGƯỜI DÙNG</h3>
                         </div>
                         <div class="card-toolbar">
                             <!--begin::Dropdown-->
@@ -181,7 +181,7 @@
                                             </a>
                                         </li>
                                         <li class="navi-item">
-                                            <a  href="{{route('users.export_list',$users)}}" class="navi-link">
+                                            <a  href="#" class="navi-link">
 																<span class="navi-icon">
 																	<i class="la la-file-excel-o"></i>
 																</span>
@@ -211,7 +211,7 @@
                             </div>
                             <!--end::Dropdown-->
                             <!--begin::Button-->
-                            <a href="{{route('users.create')}}" class="btn btn-primary font-weight-bolder mr-2">
+                            <a href="#" class="btn btn-primary font-weight-bolder mr-2">
 											<span class="svg-icon svg-icon-md">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 												<svg xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@
 												</svg>
                                                 <!--end::Svg Icon-->
 											</span>New Record</a>
-                            <a href="{{route('users.export_list')}}" class="btn btn-primary font-weight-bolder">
+                            <a href="#" class="btn btn-primary font-weight-bolder">
 											<span class="svg-icon svg-icon-md">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 												<svg xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +250,7 @@
                     <!--begin::Body-->
                     <div class="card-body py-0">
                         <!--begin::Form-->
-                        <form method="get" action="{{route('admin.index')}}" class="mb-7">
+                        <form method="get" action="#" class="mb-7">
                             <div class="row align-items-center">
                                 <div class="col-lg-9 col-xl-8">
                                     <div class="row align-items-center">
