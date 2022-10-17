@@ -177,7 +177,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="day_end" class="col-form-label text-left col-lg-3 col-sm-12">Tới
+                                            <label for="day_end" class="col-form-label text-left col-lg-12 col-sm-12">Tới
                                                 ngày</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
                                                 <input name="day_end" type="text" class="form-control"
@@ -220,7 +220,7 @@
                     </div>
                     <div class="col-8">
                         <!--begin::Card-->
-                        <div class="card card-custom gutter-b">
+                        <div class="card card-custom gutter-b card-stretch">
                             <div class="card-header">
                                 <div class="card-title">
                                     <h3 class="card-label text-uppercase">DANH SÁCH lớp học</h3>
@@ -349,10 +349,10 @@
                     </div>
                     <div class="col-8">
                         <!--begin::Card-->
-                        <div class="card card-custom gutter-b">
+                        <div class="card card-custom card-stretch gutter-b">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <h3 class="card-label text-uppercase">DANH SÁCH lớp học</h3>
+                                    <h3 class="card-label text-uppercase">Lịch học</h3>
                                 </div>
                             </div>
                             <div class="card-body">

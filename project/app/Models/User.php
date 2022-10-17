@@ -57,23 +57,26 @@ class User extends Authenticatable
     ];
 
 
-
 //    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
 //    {
 //        return $this->hasOne(Account::class, 'user_id', 'user_id');
 //    }
+    public function course()
+    {
+        $this->hasMany(Course::class);
+    }
 
     public function scopeEmail($query, $request)
     {
-        if($request->has('email')){
+        if ($request->has('email')) {
             return $query->where('email', 'like', '%' . $request->input('email') . '%');
         }
-       return $query;
+        return $query;
     }
 
     public function scopePassword($query, $request)
     {
-        if($request->has('password')){
+        if ($request->has('password')) {
             return $query->where('password', 'like', '%' . $request->input('password') . '%');
         }
         return $query;
@@ -81,10 +84,10 @@ class User extends Authenticatable
 
     public function scopeName($query, $request)
     {
-        if($request->has('last_name')){
-            return $query->where('last_name' , 'like', '%' . $request->input('last_name') . '%');
+        if ($request->has('last_name')) {
+            return $query->where('last_name', 'like', '%' . $request->input('last_name') . '%');
         }
-       return $query;
+        return $query;
     }
 
 }

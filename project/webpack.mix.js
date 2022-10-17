@@ -51,6 +51,8 @@ mix.scripts([
 ], 'public/js/user/table.js').version();
 
 //js user profile
+'resources/assets/js/pages/crud/ktdatatable/base/html-table.js',
+mix.scripts('resources/assets/js/pages/crud/ktdatatable/base/html-table.js','public/js/list-user.js').version();
 mix.scripts('resources/assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js','public/js/datetimepicker.js').version()
 mix.scripts('resources/assets/js/pages/custom/profile/profile.js','public/js/user/profile.js').version();
 mix.scripts('resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js','public/js/user/date-picker.js').version();

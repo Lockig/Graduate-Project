@@ -1738,12 +1738,11 @@
                         class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,
                     </span>
                     <span
-                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">#</span>
+                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{explode(' ',\Illuminate\Support\Facades\Auth::user()->first_name)['0'] }}</span>
 {{--                        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ucfirst(Auth::user()->first_name)}}</span>--}}
                     <span class="symbol symbol-sm-30 symbol-25 symbol-light-success">
                         <span class="symbol-label font-size-h5 font-weight-bold">
-                         #
-{{--                            {{ strtoupper(substr(Auth::user()->first_name,0,1)) }}--}}
+                         {{substr(explode(' ',\Illuminate\Support\Facades\Auth::user()->first_name)['0'],0,2) }}
                         </span>
                     </span>
                 </div>

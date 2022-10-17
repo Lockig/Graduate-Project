@@ -138,6 +138,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/edit', [UserController::class, 'editInfo'])->name('admin.edit');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('admin.editPassword');
     Route::get('/course/list', [AdminController::class, 'show'])->name('admin.listCourse');
+    Route::get('/course/{course}',[CourseController::class,'show'])->name('admin.coursesDetails');
 
 
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

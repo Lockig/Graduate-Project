@@ -250,9 +250,10 @@
                     <!--begin::Body-->
                     <div class="card-body py-0">
                         <!--begin::Form-->
-                        <form method="get" action="{{route('admin.index')}}" class="mb-7">
+                        <form method="get" action="{{route('admin.listCourse')}}" class="mb-7">
+                            @csrf
                             <div class="row align-items-center">
-                                <div class="col-lg-9 col-xl-8">
+                                <div class="col-lg-12 col-xl-8">
                                     <div class="row align-items-center">
                                         <div class="col-md-4 my-2 my-md-0">
                                             <div class="input-icon">
@@ -304,7 +305,7 @@
                                         {{--                                                </select>--}}
                                         {{--                                            </div>--}}
                                         {{--                                        </div>--}}
-                                        <div class="col-md-4 my-2 my-md-0">
+                                        <div class="col-md-6 my-2 my-md-0 mx-2">
                                             <button class="btn btn-light-primary px-6 font-weight-bold">Search</button>
                                             <button name="export" class="btn btn-light-primary px-6 font-weight-bold">
                                                 Export
@@ -412,7 +413,7 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <a href="#" data-toggle="tooltip"
+                                            <a href="{{route('admin.coursesDetails',$course)}}" data-toggle="tooltip"
                                                title="thông tin"
                                                class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
 																<span class="svg-icon svg-icon-md svg-icon-primary">

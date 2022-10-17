@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Schedule;
 use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
@@ -17,12 +18,13 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        Course::query()->where('');
+        $courses = Course::paginate(5);
+        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
+        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->get();
+        return view('user.admin.course', compact(['courses', 'teachers', 'students']));
         //
     }
 
@@ -94,10 +96,20 @@ class CourseController extends Controller
      * Display the specified resource.
      *
      * @param Course $course
-     * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
     {
+        $course = Course::find($course->course_id);
+        $course_schedule = DB::table('course_schedules')
+            ->where('course_id','=',$course->course_id)
+            ->get();
+        $students = DB::table('course_students')
+            ->join('courses','courses.course_id','=','course_students.course_id')
+            ->join('users','users.id','=','course_students.student_id')
+            ->where('courses.course_id','=',$course->course_id)
+            ->where('users.role','like','%student%')
+            ->paginate(5);
+        return view('user.admin.course_details',compact(['course','course_schedule','students']));
         //
     }
 
