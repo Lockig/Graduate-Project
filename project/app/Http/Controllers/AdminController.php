@@ -82,14 +82,10 @@ class AdminController extends Controller
 
     public function show(Request $request)
     {
-
-        $courses = Course::query()
-            ->name($request)
-//            ->teacher($request)
-            ->status($request)
-            ->paginate(5);
-        return view('user.admin.list_course', compact(['courses']));
-        //
+        $courses = Course::query()->name($request)->status($request)->paginate(5);
+        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
+        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        return view('user.admin.list_course', compact(['courses','teachers','students']));
     }
 
     public function showAttendance($id)

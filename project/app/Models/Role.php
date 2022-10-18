@@ -16,10 +16,7 @@ class Role extends Model
         'role_name'
     ];
 
-    public function account()
-    {
-        $this->hasMany(Account::class, 'role_id', 'role_id');
-    }
+
 
     public function scopeId($query, Request $request)
     {

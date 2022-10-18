@@ -64,7 +64,8 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <h6 class="text-muted text-sm-left">Lorem ipsum dolor sit amet, consectetur adipiscing
+                                            <h6 class="text-muted font-size-h6-sm">Lorem ipsum dolor sit amet,
+                                                consectetur adipiscing
                                                 elit. Ut molestie lacus varius, accumsan leo vel, dignissim nisl. Morbi
                                                 nunc sapien, accumsan sed metus in, molestie commodo sem. Nam maximus
                                                 leo sit amet nunc dignissim mollis. Mauris ante metus, facilisis et nunc
@@ -75,9 +76,9 @@
                                     </div>
                                     <div class="my-lg-0 my-3 flex-grow-1">
                                         <a href="{{route('users.editInfo')}}"
-                                           class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Edit</a>
+                                           class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Sửa</a>
                                         <a href="{{route('users.editPassword')}}"
-                                           class="btn btn-sm btn-info font-weight-bolder text-uppercase">Password</a>
+                                           class="btn btn-sm btn-info font-weight-bolder text-uppercase">Mật khẩu</a>
                                     </div>
                                 </div>
                             </div>

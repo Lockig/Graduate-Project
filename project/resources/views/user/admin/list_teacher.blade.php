@@ -218,7 +218,7 @@
                 <div class="card card-custom gutter-b table-responsive">
                     <div class="card-header">
                         <div class="card-title">
-                            <h3 class="text-uppercase">Danh sách học sinh</h3>
+                            <h3 class="text-uppercase">Danh sách giáo viên</h3>
                         </div>
                     </div>
                     <div class="card-body">
@@ -237,7 +237,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($students as $student)
+                            @foreach($teachers as $teacher)
                                 <tr>
                                     <td class="pr-0">
                                         <label class="checkbox checkbox-lg checkbox-inline">
@@ -246,26 +246,26 @@
                                     </td>
                                     <td class="pr-0">
                                         <div class="symbol symbol-40 symbol-circle symbol-sm">
-                                            <img src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}" alt="image">
+                                            <img src="{{asset(($teacher->avatar != "")?($teacher->avatar):'media/users/default.jpg')}}" alt="image">
                                         </div>
                                     </td>
                                     <td class="pr-0">
                                         <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst($student->first_name) . ' ' . ucfirst($student->last_name)}}
+                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst($teacher->first_name) . ' ' . ucfirst($teacher->last_name)}}
                                         </a>
                                     </td>
                                     <td class="pr-0">
                                             <span
-                                                class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($student->date_of_birth)->format('d-m-Y') }}
+                                                class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($teacher->date_of_birth)->format('d-m-Y') }}
                                             </span>
                                     </td>
                                     <td>
                                            <span
-                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->email}}</span>
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$teacher->email}}</span>
                                     </td>
                                     <td>
                                            <span
-                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->mobile_number}}</span>
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$teacher->mobile_number}}</span>
                                     </td>
                                     <td class="pr-0 text-right">
                                         <form method="post" action="#" data-toggle="tooltip"
@@ -378,7 +378,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            {!! $students->links() !!}
+                            {!! $teachers->links() !!}
                         </div>
                     </div>
                 </div>

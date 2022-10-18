@@ -48,16 +48,17 @@ class FingerprintController extends Controller
     public function store(Request $request)
     {
         if ($request->has('fingerID')) {
-            if ($request->input('fingerID') > 200) {
+            if ($request->input('fingerID') >= 200) {
                 echo 'no user find';
             }
             $check = User::query()
                 ->select('user_id')
                 ->where('fingerprint_id', '=', $request->input('fingerID'))
-                ->where('add_fingerprint_id', '=', '1')
                 ->value('user_id');
+            $current_time = Carbon::now();
+            $check_time = DB::table('course_schedules')->where('start_at');
             if ($check) {
-                DB::table('daily_logs')->insert([
+                DB::table('attendances')->insert([
                     'user_id' => $check,
                     'time_in' => Carbon::now()->format('Y-m-d H:i:s'),
                     'date' => Carbon::now()->format('Y-m-d H:i:s'),

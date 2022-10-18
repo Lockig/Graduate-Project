@@ -56,7 +56,7 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-text text-uppercase">Bảng tin</span>
                     </a>
                 </li>
                 <li class="menu-section">
@@ -184,13 +184,13 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Giáo viên</span>
+                            <span class="menu-text">Người dùng</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                <li class="menu-item menu-item-parent" aria-haspopup="true" data-menu-toggle="hover">
 												<span class="menu-link">
 													<span class="menu-text">General</span>
 												</span>
@@ -203,27 +203,41 @@
                                         <span class="menu-text">Tạo mới</span>
                                     </a>
                                 </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="#" class="menu-link">
+                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                    <a href="#" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-dot">
                                             <span></span>
                                         </i>
                                         <span class="menu-text">Danh sách</span>
+                                        <i class="menu-arrow"></i>
                                     </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="#" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Bảng lương</span>
-                                    </a>
+                                    <div class="menu-submenu">
+                                        <i class="menu-arrow"></i>
+                                        <ul class="menu-subnav">
+                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                                <a href="{{route('admin.listStudent')}}" class="menu-link menu-toggle">
+                                                    <i class="menu-bullet menu-bullet-dot">
+                                                        <span></span>
+                                                    </i>
+                                                    <span class="menu-text">Học sinh</span>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                                <a href="{{route('admin.listTeacher')}}" class="menu-link menu-toggle">
+                                                    <i class="menu-bullet menu-bullet-dot">
+                                                        <span></span>
+                                                    </i>
+                                                    <span class="menu-text">Giáo viên</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="#" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"

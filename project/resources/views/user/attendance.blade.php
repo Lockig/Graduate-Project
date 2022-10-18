@@ -28,94 +28,6 @@
                     <!--end::Page Heading-->
                 </div>
                 <!--end::Info-->
-                <!--begin::Toolbar-->
-                <div class="d-flex align-items-center">
-                    <!--begin::Actions-->
-                    <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">Actions</a>
-                    <!--end::Actions-->
-                    <!--begin::Dropdown-->
-                    <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions"
-                         data-placement="left">
-                        <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-											<span class="svg-icon svg-icon-success svg-icon-2x">
-												<!--begin::Svg Icon | path:assets/media/svg/icons/Files/File-plus.svg-->
-												<svg xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                     height="24px" viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<polygon points="0 0 24 0 24 24 0 24"/>
-														<path
-                                                            d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                            fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-														<path
-                                                            d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z"
-                                                            fill="#000000"/>
-													</g>
-												</svg>
-                                                <!--end::Svg Icon-->
-											</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right p-0 m-0">
-                            <!--begin::Navigation-->
-                            <ul class="navi navi-hover">
-                                <li class="navi-header font-weight-bold py-4">
-                                    <span class="font-size-lg">Choose Label:</span>
-                                    <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip"
-                                       data-placement="right" title="Click to learn more..."></i>
-                                </li>
-                                <li class="navi-separator mb-3 opacity-70"></li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-text">
-															<span
-                                                                class="label label-xl label-inline label-light-success">Customer</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-text">
-															<span
-                                                                class="label label-xl label-inline label-light-danger">Partner</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-text">
-															<span
-                                                                class="label label-xl label-inline label-light-warning">Suplier</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-text">
-															<span
-                                                                class="label label-xl label-inline label-light-primary">Member</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-text">
-															<span class="label label-xl label-inline label-light-dark">Staff</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-separator mt-3 opacity-70"></li>
-                                <li class="navi-footer py-4">
-                                    <a class="btn btn-clean font-weight-bold btn-sm" href="#">
-                                        <i class="ki ki-plus icon-sm"></i>Add new</a>
-                                </li>
-                            </ul>
-                            <!--end::Navigation-->
-                        </div>
-                    </div>
-                    <!--end::Dropdown-->
-                </div>
-                <!--end::Toolbar-->
             </div>
         </div>
         <!--end::Subheader-->
@@ -167,25 +79,25 @@
                                     <th class="pl-0" style="width: 20px">
                                         STT
                                     </th>
-                                    <th class="pr-0" style="width: 50px">Ngày</th>
+                                    <th class="pr-0" style="width: 50px">Lớp</th>
                                     <th style="min-width: 200px"></th>
+                                    <th style="min-width: 150px">Buổi</th>
                                     <th style="min-width: 150px">Giờ vào</th>
-                                    <th style="min-width: 150px">Giờ ra</th>
                                     <th class="pr-0 text-right" style="min-width: 150px">Ghi chú</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($logs as $log)
+                                @foreach($records as $record)
                                     <tr>
                                         <td class="pl-0">
                                             <label class="">
-                                                <span>1</span>
+                                                <span>{{$loop->index +1}}</span>
                                             </label>
                                         </td>
                                         <td class="pr-0">
                                             <div class="symbol symbol-50 symbol-light mt-1">
 																<span class="symbol-label">
-																	<img src="assets/media/svg/avatars/001-boy.svg"
+																	<img src="{{asset('media/svg/avatars/001-boy.svg')}}"
                                                                          class="h-75 align-self-end" alt=""/>
 																</span>
                                             </div>
@@ -193,36 +105,33 @@
                                         <td class="pl-0">
                                             <a href="#"
                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                {{\Carbon\Carbon::parse($log->date)->format('d-m-Y')}}
+                                                {{\App\Models\Course::find(\App\Models\Schedule::find($record->schedule_id)->course_id)->course_name}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                        <td class="pl-0">
+                                            <a href="#"
+                                               class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                                {{\Carbon\Carbon::parse($record->time_in)->format('d-m-Y')}}
                                             </a>
                                         </td>
                                         <td>
                                         <span
                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            {{ \Carbon\Carbon::parse($log->time_in)->format('H:i:s')}}
-                                        </span>
-                                        </td>
-                                        <td>
-                                        <span
-                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                           {{\Carbon\Carbon::parse($log->time_in)->format('H:i:s') }}
+                                            {{ \Carbon\Carbon::parse($record->time_in)->format('H:i:s')}}
                                         </span>
                                         </td>
                                         <td class="pr-0 text-right">
-                                            @if($log->time_in >= $start_time && $log->time_in <= $end_time)
+
                                                 <span
                                                     class="text-danger font-weight-bolder font-size-lg">Đi muộn</span>
-                                            @else
-                                                <span
-                                                    class="text-success font-weight-bolder font-size-lg">Đúng giờ</span>
-                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">
-                                {!! $logs->links() !!}
+                                {!! $records->links() !!}
                             </div>
                         </div>
                         <!--end::Table-->

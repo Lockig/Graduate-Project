@@ -116,6 +116,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/edit/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/request', [UserController::class, 'storeRequestDayOff'])->name('users.storeRequest');
     Route::get('/request', [UserController::class, 'requestDayOff'])->name('users.request');
+    Route::get('/course/{course}',[CourseController::class,'show'])->name('users.coursesDetails');
 });
 
 Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
@@ -141,8 +142,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/course/{course}',[CourseController::class,'show'])->name('admin.coursesDetails');
 
 
+    Route::get('/list/student',[UserController::class,'listStudent'])->name('admin.listStudent');
+    Route::get('/list/teacher',[UserController::class,'listTeacher'])->name('admin.listTeacher');
+
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
     Route::post('/course/schedule', [CourseController::class, 'storeCourseSchedule'])->name('admin.storeCourseSchedule');
+    Route::post('/course/student', [CourseController::class, 'storeCourseStudent'])->name('admin.storeCourseStudent');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
 });

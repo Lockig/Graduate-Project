@@ -55,7 +55,7 @@
                                         <div>
                                             <div
                                                 class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{$user->first_name . ' ' .$user->last_name}}</div>
-                                            <div class="text-muted">Application Developer</div>
+                                            <div class="text-success">{{ucwords($user->role)}}</div>
                                         </div>
                                     </div>
                                     <!--end::User-->

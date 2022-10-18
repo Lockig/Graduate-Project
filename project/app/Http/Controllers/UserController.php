@@ -8,6 +8,7 @@ use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Account;
+use App\Models\Course;
 use App\Models\User;
 use App\Notifications\RequestDayOffNotification;
 use Carbon\Carbon;
@@ -55,23 +56,8 @@ class UserController extends Controller implements ShouldQueue
     public function showAttendance(Request $request)
     {
         $user = Auth::user();
-        if ($request->input('request_date') == '') {
-            $logs = DB::table('day_off_requests')
-                ->select('*')
-                ->where('user_id', '=', $user->user_id)
-                ->paginate(5);
-        } else {
-            $logs = DB::table('day_off_requests')
-                ->select('*')
-                ->where('student_id', '=', $user->user_id)
-                ->where('date', '=', $request->input('request_date'))
-                ->orderByDesc('date')
-                ->orderBy('time_in')
-                ->paginate(5);
-        }
-        $start_time = DB::table('check_times')->select('time_in')->where('id', '=', 1)->value('time_in');
-        $end_time = DB::table('check_times')->select('time_out')->where('id', '=', 1)->value('time_out');
-        return view('user.attendance', compact(['user', 'logs', 'start_time', 'end_time']));
+        $records = DB::table('attendances')->where('user_id','=',$user->id)->paginate(5);
+        return view('user.attendance',compact('records','user'));
     }
 
     public function editPassword(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -164,5 +150,17 @@ class UserController extends Controller implements ShouldQueue
     public function storeRequestDayOff(Request $request)
     {
 
+    }
+
+
+    public function listStudent(Request $request){
+
+        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        return view('user.admin.list_student',compact('students'));
+    }
+    public function listTeacher(Request $request){
+
+        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
+        return view('user.admin.list_teacher',compact('teachers'));
     }
 }

@@ -419,6 +419,131 @@
                         <!--end::Card-->
                     </div>
                 </div>
+
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom">
+                            <div class="card-header d-flex justify-content-center">
+                                <h3 class="card-title text-uppercase">Thêm học sinh vào lớp học</h3>
+                            </div>
+                            <!--begin::Form-->
+                            <form class="form" method="post" action="{{route('admin.storeCourseStudent')}}">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
+                                            <label for="student_id"
+                                                   class="col-form-label text-left col-lg-12 col-sm-12">Mã học sinh</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <input value="{{old('student_id')}}" type="text" name="student_id" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
+                                            <label for="course_name"
+                                                   class="col-lg-12 ml-lg-auto">Tên lớp</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <select name="course_name"
+                                                        class="form-control">
+                                                    @foreach($courses as $course)
+                                                        <option
+                                                            value="{{$course->course_name}}"
+                                                            class="form-control form-control-lg form-control-solid">
+                                                            {{$course->course_name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto d-flex flex-row justify-content-center">
+                                            <button type="submit" class="btn btn-success mr-2">Tạo</button>
+                                            <button type="reset" class="btn btn-secondary">Hủy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <div class="col-8">
+                        <!--begin::Card-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label text-uppercase">Lịch học</h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-head-custom table-vertical-center"
+                                           id="kt_advance_table_widget_1">
+                                        <thead>
+                                        <tr class="text-left">
+                                            <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pr-0" style="width: 100px">Tên</th>
+                                            <th class="pr-0" style="width: 100px">Ngày bắt đầu</th>
+                                            <th class="pr-0" style="width: 100px">Ngày kết thúc</th>
+                                            <th class="pr-0" style="width: 100px">Giáo viên</th>
+                                            <th class="pr-0" style="width: 100px">Thông tin</th>
+                                            <th class="pr-0 text-right" style="min-width: 50px">Trạng thái</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($courses as $course)
+                                            <tr>
+                                                <td class="pr-0">{{$loop->index +1 }}</td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->start_date}}</a>
+                                                </td>
+                                                <td class="pr-0 text-left">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->end_date}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</a>
+                                                </td>
+                                                <td class="pr-0 text-right">
+                                                    <a href="#"
+                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->status}}</a>
+                                                    {{--                                                    @if($item->stage='Chờ duyệt')--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @elseif($item->stage='Đã duyệt')--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @else--}}
+                                                    {{--                                                        <a href="#"--}}
+                                                    {{--                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
+                                                    {{--                                                    @endif--}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    {!! $courses->links() !!}
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                </div>
             </div>
             <!--end::Container-->
         </div>

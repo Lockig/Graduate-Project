@@ -52,15 +52,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dispatchesEvents = [
-        'saved' => ResetPassword::class
-    ];
 
 
-//    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
-//    {
-//        return $this->hasOne(Account::class, 'user_id', 'user_id');
-//    }
     public function course()
     {
         $this->hasMany(Course::class);
@@ -89,5 +82,6 @@ class User extends Authenticatable
         }
         return $query;
     }
+
 
 }

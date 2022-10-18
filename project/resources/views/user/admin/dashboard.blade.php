@@ -126,6 +126,7 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container">
+                @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
                 <div class="row">
                     <div class="col-xl-4 col-sm-6 col-12">
                         <div class="card card-custom card-stretch gutter-b">
@@ -173,6 +174,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 <div class="row">
                     <!--begin::List Classes-->
                     <div class="col-xxl-4">
@@ -204,17 +206,17 @@
                                                         <div class="symbol symbol-50 symbol-light mr-2">
 																						<span class="symbol-label">
 																							<img
-                                                                                                src="assets/media/svg/misc/005-bebo.svg"
+                                                                                                src="{{asset('media/svg/misc/005-bebo.svg')}}"
                                                                                                 class="h-50 align-self-center"
                                                                                                 alt=""/>
 																						</span>
                                                         </div>
                                                     </th>
                                                     <td class="py-6 pl-0">
-                                                        <a href="#"
+                                                        <a href="{{route('users.coursesDetails',$course)}}"
                                                            class="text-dark font-weight-bolder text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
                                                         <span
-                                                            class="text-muted font-weight-bold d-block">Best Customers</span>
+                                                            class="text-muted font-weight-bold d-block">Giáo viên {{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' '.ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex flex-column w-100 mr-2">
@@ -222,7 +224,7 @@
                                                                 class="d-flex align-items-center justify-content-between mb-2">
                                                                 <span
                                                                     class="text-muted mr-2 font-size-sm font-weight-bold">71%</span>
-                                                                <span class="text-muted font-size-sm font-weight-bold">Progress</span>
+                                                                <span class="text-muted font-size-sm font-weight-bold">Tiến độ</span>
                                                             </div>
                                                             <div class="progress progress-xs w-100">
                                                                 <div class="progress-bar bg-danger" role="progressbar"
@@ -232,7 +234,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-right pr-0">
-                                                        <a href="#" class="btn btn-icon btn-light btn-sm">
+                                                        <a href="{{route('users.coursesDetails',$course)}}" class="btn btn-icon btn-light btn-sm">
 																						<span
                                                                                             class="svg-icon svg-icon-md svg-icon-success">
 																							<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->

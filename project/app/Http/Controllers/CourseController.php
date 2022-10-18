@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use MongoDB\Driver\Session;
 use PHPUnit\Exception;
 use Symfony\Component\Console\Helper\Table;
 
@@ -91,6 +92,23 @@ class CourseController extends Controller
         return redirect()->back()->with('Success', 'Thêm lịch học thành công');
     }
 
+    public function storeCourseStudent(Request $request)
+    {
+        $validated = $request->validate([
+            'student_id' => 'required|string',
+            'course_name' => 'required'
+        ]);
+        $student_id = User::find($validated['student_id'])['id'];
+        if($student_id){
+            $course_id = Course::query()->name($request)->value('course_id');
+            DB::table('course_students')->insert([
+                'student_id' => $student_id,
+                'course_id'=>$course_id
+            ]);
+            return redirect()->back()->with('Success', 'Thêm lịch học thành công');
+        }
+        return redirect()->back()->with('Fail', 'Mã học sinh không đúng');
+    }
 
     /**
      * Display the specified resource.
@@ -101,15 +119,15 @@ class CourseController extends Controller
     {
         $course = Course::find($course->course_id);
         $course_schedule = DB::table('course_schedules')
-            ->where('course_id','=',$course->course_id)
+            ->where('course_id', '=', $course->course_id)
             ->get();
         $students = DB::table('course_students')
-            ->join('courses','courses.course_id','=','course_students.course_id')
-            ->join('users','users.id','=','course_students.student_id')
-            ->where('courses.course_id','=',$course->course_id)
-            ->where('users.role','like','%student%')
+            ->join('courses', 'courses.course_id', '=', 'course_students.course_id')
+            ->join('users', 'users.id', '=', 'course_students.student_id')
+            ->where('courses.course_id', '=', $course->course_id)
+            ->where('users.role', 'like', '%student%')
             ->paginate(5);
-        return view('user.admin.course_details',compact(['course','course_schedule','students']));
+        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students']));
         //
     }
 

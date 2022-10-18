@@ -60,7 +60,7 @@
 {{--@include('layout.patials.quick_panel')--}}
 <!--end::Quick Panel-->
 <!--begin::Chat Panel-->
-@include('layout.patials.chat_panel')
+{{--@include('layout.patials.chat_panel')--}}
 <!--end::Chat Panel-->
 <!--begin::Scrolltop-->
 @include('layout.patials.scroll_top')
