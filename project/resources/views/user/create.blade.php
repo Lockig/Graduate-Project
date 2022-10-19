@@ -18,7 +18,7 @@
                             <a href="" class="text-muted">Quản lý</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Nhân viên</a>
+                            <a href="" class="text-muted">Người dùng</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="" class="text-muted">Tạo mới tài khoản</a>

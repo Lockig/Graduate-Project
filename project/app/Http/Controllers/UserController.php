@@ -56,8 +56,12 @@ class UserController extends Controller implements ShouldQueue
     public function showAttendance(Request $request)
     {
         $user = Auth::user();
-        $records = DB::table('attendances')->where('user_id','=',$user->id)->paginate(5);
-        return view('user.attendance',compact('records','user'));
+        $courses = Course::query()
+            ->join('course_students','courses.course_id','=','course_students.course_id')
+            ->where( 'course_students.student_id', '=', $user->id)
+            ->get();
+        $records = DB::table('attendances')->where('user_id', '=', $user->id)->paginate(5);
+        return view('user.attendance', compact('records', 'user','courses'));
     }
 
     public function editPassword(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -153,14 +157,17 @@ class UserController extends Controller implements ShouldQueue
     }
 
 
-    public function listStudent(Request $request){
+    public function listStudent(Request $request)
+    {
 
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        return view('user.admin.list_student',compact('students'));
+        return view('user.admin.list_student', compact('students'));
     }
-    public function listTeacher(Request $request){
+
+    public function listTeacher(Request $request)
+    {
 
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        return view('user.admin.list_teacher',compact('teachers'));
+        return view('user.admin.list_teacher', compact('teachers'));
     }
 }

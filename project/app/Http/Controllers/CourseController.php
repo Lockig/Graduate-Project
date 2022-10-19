@@ -99,11 +99,11 @@ class CourseController extends Controller
             'course_name' => 'required'
         ]);
         $student_id = User::find($validated['student_id'])['id'];
-        if($student_id){
+        if ($student_id) {
             $course_id = Course::query()->name($request)->value('course_id');
             DB::table('course_students')->insert([
                 'student_id' => $student_id,
-                'course_id'=>$course_id
+                'course_id' => $course_id
             ]);
             return redirect()->back()->with('Success', 'Thêm lịch học thành công');
         }
@@ -118,16 +118,15 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         $course = Course::find($course->course_id);
-        $course_schedule = DB::table('course_schedules')
-            ->where('course_id', '=', $course->course_id)
-            ->get();
+        $course_schedule = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->get();
+        $student_count = DB::table('course_students')->where('course_id', '=', $course->course_id)->count();
         $students = DB::table('course_students')
             ->join('courses', 'courses.course_id', '=', 'course_students.course_id')
             ->join('users', 'users.id', '=', 'course_students.student_id')
             ->where('courses.course_id', '=', $course->course_id)
             ->where('users.role', 'like', '%student%')
             ->paginate(5);
-        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students']));
+        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count']));
         //
     }
 

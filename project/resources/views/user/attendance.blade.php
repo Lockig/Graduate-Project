@@ -12,7 +12,7 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-muted font-weight-bold my-1 mr-5">ĐIỂM DANH</h5>
+                        <h5 class="font-weight-bold my-1 mr-5">ĐIỂM DANH</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -54,11 +54,15 @@
                                     <div class="row align-items-center">
                                         <div class="col-md-5 my-2 my-md-0">
                                             <div for="request_date" class="form-group row d-flex align-items-center">
-                                                <label for="example-date-input"
-                                                       class="mr-3 mb-0 d-none d-md-block">Date</label>
-                                                <input name="request_date" class="form-control" type="date"
-                                                       value="{{old('request_date')}}"
-                                                       id="example-date-input"/>
+                                                <label for="course_name"
+                                                       class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
+                                                <select name="course_name" class="form_control">
+                                                    @foreach($courses as $course)
+                                                        <option value="{{$course->course_name}}" class="form-control">
+                                                         {{$course->course_name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-5 col-xl-3 mt-5 mt-lg-0">

@@ -17,6 +17,7 @@
     <!--end:CSS-->
     <link rel="shortcut icon" href="{{mix('media/logos/favicon.ico')}}"/>
 
+    @yield('css')
 </head>
 <!--end::Head-->
 <!--begin::Body-->

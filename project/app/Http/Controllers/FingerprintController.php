@@ -52,16 +52,20 @@ class FingerprintController extends Controller
                 echo 'no user find';
             }
             $check = User::query()
-                ->select('user_id')
-                ->where('fingerprint_id', '=', $request->input('fingerID'))
-                ->value('user_id');
-            $current_time = Carbon::now();
-            $check_time = DB::table('course_schedules')->where('start_at');
+                ->fingerprint($request)
+                ->value('id');
             if ($check) {
+                $current_time = Carbon::parse(Carbon::now())->format('Y-m-d');
+                $check_time = DB::table('course_schedules')
+                    ->join('course_students', 'course_students.course_id', '=', 'course_schedules.course_id')
+                    ->where('course_students.student_id', '=', $check)
+                    ->where('course_schedules.start_at', '>', $current_time)
+                    ->get();
+                dd($check_time);
                 DB::table('attendances')->insert([
                     'user_id' => $check,
-                    'time_in' => Carbon::now()->format('Y-m-d H:i:s'),
-                    'date' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'schedule_id' => '2',
+                    'time_in' => $current_time->format('Y-m-d H:i:s'),
                 ]);
                 echo 'login';
             } else {
@@ -71,21 +75,19 @@ class FingerprintController extends Controller
 
 //        check to register
         if ($request->has('check')) {
-            if (Cache::get('command') == 'register') {
-                echo Cache::get('command') . Cache::get('user_id');
-            }
-            if (Cache::get('command') == 'delete') {
-                echo Cache::get('command') . Cache::get('user_id');
+                if (Cache::get('command') == 'register') {
+                    echo Cache::get('command') . Cache::get('user_id');
+                }
+                if (Cache::get('command') == 'delete') {
+                    echo Cache::get('command') . Cache::get('user_id');
             }
         }
 //
 //        get new fingerprint_id
         if ($request->has('newFingerID')) {
-            DB::table('fingerprints')
-                ->insert([
-                    'user_id' => Cache::get('user_id'),
-                    'fingerprint_id' => $request->input('newFingerID'),
-                    'add_fingerprint_id' => '1'
+            DB::table('users')->where('id', '=', Cache::get('user_id'))
+                ->update([
+                    'fingerprint' => $request->input('newFingerID'),
                 ]);
             echo 'dang ky van tay thanh cong';
             Cache::flush();

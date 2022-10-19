@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Events\ResetPassword;
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,7 +54,6 @@ class User extends Authenticatable
     ];
 
 
-
     public function course()
     {
         $this->hasMany(Course::class);
@@ -83,5 +83,12 @@ class User extends Authenticatable
         return $query;
     }
 
+    public function scopeFingerprint($query, $request)
+    {
+        if ($request->has('fingerID')) {
+            return $query->where('fingerprint', '=', $request->input('fingerID'));
+        }
+        return $query;
+    }
 
 }

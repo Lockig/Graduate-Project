@@ -10,204 +10,29 @@
                 <!--begin::Details-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
                     <!--begin::Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Projects</h5>
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5 text-uppercase">lỚP HỌC</h5>
                     <!--end::Title-->
                     <!--begin::Separator-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
                     <!--end::Separator-->
-                    <!--begin::Search Form-->
-                    <div class="d-flex align-items-center" id="kt_subheader_search">
-                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">690 Total</span>
-                        <form class="ml-5">
-                            <div class="input-group input-group-sm input-group-solid" style="max-width: 175px">
-                                <input type="text" class="form-control" id="kt_subheader_search_form"
-                                       placeholder="Search..."/>
-                                <div class="input-group-append">
-													<span class="input-group-text">
-														<span class="svg-icon">
-															<!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
-															<svg xmlns="http://www.w3.org/2000/svg"
-                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
-																<g stroke="none" stroke-width="1" fill="none"
-                                                                   fill-rule="evenodd">
-																	<rect x="0" y="0" width="24" height="24"/>
-																	<path
-                                                                        d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                                                        fill="#000000" fill-rule="nonzero"
-                                                                        opacity="0.3"/>
-																	<path
-                                                                        d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                                                        fill="#000000" fill-rule="nonzero"/>
-																</g>
-															</svg>
-                                                            <!--end::Svg Icon-->
-														</span>
-                                                        <!--<i class="flaticon2-search-1 icon-sm"></i>-->
-													</span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!--end::Search Form-->
-                    <!--begin::Group Actions-->
-                    <div class="d-flex- align-items-center flex-wrap mr-2 d-none" id="kt_subheader_group_actions">
-                        <div class="text-dark-50 font-weight-bold">
-                            <span id="kt_subheader_group_selected_rows">23</span>Selected:
-                        </div>
-                        <div class="d-flex ml-6">
-                            <div class="dropdown mr-2" id="kt_subheader_group_actions_status_change">
-                                <button type="button"
-                                        class="btn btn-light-primary font-weight-bolder btn-sm dropdown-toggle"
-                                        data-toggle="dropdown">Update Status
-                                </button>
-                                <div class="dropdown-menu p-0 m-0 dropdown-menu-sm">
-                                    <ul class="navi navi-hover pt-3 pb-4">
-                                        <li class="navi-header font-weight-bolder text-uppercase text-primary font-size-lg pb-0">
-                                            Change status to:
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" data-toggle="status-change" data-status="1">
-																<span class="navi-text">
-																	<span
-                                                                        class="label label-light-success label-inline font-weight-bold">Approved</span>
-																</span>
-                                            </a>
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" data-toggle="status-change" data-status="2">
-																<span class="navi-text">
-																	<span
-                                                                        class="label label-light-danger label-inline font-weight-bold">Rejected</span>
-																</span>
-                                            </a>
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" data-toggle="status-change" data-status="3">
-																<span class="navi-text">
-																	<span
-                                                                        class="label label-light-warning label-inline font-weight-bold">Pending</span>
-																</span>
-                                            </a>
-                                        </li>
-                                        <li class="navi-item">
-                                            <a href="#" class="navi-link" data-toggle="status-change" data-status="4">
-																<span class="navi-text">
-																	<span
-                                                                        class="label label-light-info label-inline font-weight-bold">On Hold</span>
-																</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn btn-light-success font-weight-bolder btn-sm mr-2"
-                                    id="kt_subheader_group_actions_fetch" data-toggle="modal"
-                                    data-target="#kt_datatable_records_fetch_modal">Fetch Selected
-                            </button>
-                            <button class="btn btn-light-danger font-weight-bolder btn-sm mr-2"
-                                    id="kt_subheader_group_actions_delete_all">Delete All
-                            </button>
-                        </div>
-                    </div>
-                    <!--end::Group Actions-->
+                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Lớp học</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Danh sách</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">{{$course->course_name}}</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Thông tin</a>
+                        </li>
+                    </ul>
+                    <!--end::Breadcrumb-->
                 </div>
                 <!--end::Details-->
-                <!--begin::Toolbar-->
-                <div class="d-flex align-items-center">
-                    <!--begin::Button-->
-                    <a href="#" class=""></a>
-                    <!--end::Button-->
-                    <!--begin::Button-->
-                    <a href="custom/apps/projects/add-project.html" class="btn btn-light-primary font-weight-bold ml-2">Edit
-                        Project</a>
-                    <!--end::Button-->
-                    <!--begin::Dropdown-->
-                    <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip" title="Quick actions"
-                         data-placement="left">
-                        <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-											<span class="svg-icon svg-icon-success svg-icon-2x">
-												<!--begin::Svg Icon | path:assets/media/svg/icons/Files/File-plus.svg-->
-												<svg xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                     height="24px" viewBox="0 0 24 24" version="1.1">
-													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-														<polygon points="0 0 24 0 24 24 0 24"/>
-														<path
-                                                            d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z"
-                                                            fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-														<path
-                                                            d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z"
-                                                            fill="#000000"/>
-													</g>
-												</svg>
-                                                <!--end::Svg Icon-->
-											</span>
-                        </a>
-                        <div class="dropdown-menu p-0 m-0 dropdown-menu-md dropdown-menu-right">
-                            <!--begin::Naviigation-->
-                            <ul class="navi">
-                                <li class="navi-header font-weight-bold py-5">
-                                    <span class="font-size-lg">Add New:</span>
-                                    <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip"
-                                       data-placement="right" title="Click to learn more..."></i>
-                                </li>
-                                <li class="navi-separator mb-3 opacity-70"></li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-shopping-cart-1"></i>
-														</span>
-                                        <span class="navi-text">Order</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="navi-icon flaticon2-calendar-8"></i>
-														</span>
-                                        <span class="navi-text">Members</span>
-                                        <span class="navi-label">
-															<span
-                                                                class="label label-light-danger label-rounded font-weight-bold">3</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="navi-icon flaticon2-telegram-logo"></i>
-														</span>
-                                        <span class="navi-text">Project</span>
-                                    </a>
-                                </li>
-                                <li class="navi-item">
-                                    <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="navi-icon flaticon2-new-email"></i>
-														</span>
-                                        <span class="navi-text">Record</span>
-                                        <span class="navi-label">
-															<span
-                                                                class="label label-light-success label-rounded font-weight-bold">5</span>
-														</span>
-                                    </a>
-                                </li>
-                                <li class="navi-separator mt-3 opacity-70"></li>
-                                <li class="navi-footer pt-5 pb-4">
-                                    <a class="btn btn-light-primary font-weight-bolder btn-sm" href="#">More options</a>
-                                    <a class="btn btn-clean font-weight-bold btn-sm d-none" href="#"
-                                       data-toggle="tooltip" data-placement="right" title="Click to learn more...">Learn
-                                        more</a>
-                                </li>
-                            </ul>
-                            <!--end::Naviigation-->
-                        </div>
-                    </div>
-                    <!--end::Dropdown-->
-                </div>
-                <!--end::Toolbar-->
+                <!--begin::Breadcrumb-->
             </div>
         </div>
         <!--end::Subheader-->
@@ -375,6 +200,18 @@
 													<i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
 												</span>
                                 <div class="d-flex flex-column text-dark-75">
+                                    <span class="font-weight-bolder font-size-sm">Thành viên</span>
+                                    <span class="font-weight-bolder font-size-h5">
+                                        {{$student_count . ' học sinh'}}</span>
+                                </div>
+                            </div>
+                            <!--end: Item-->
+                            <!--begin: Item-->
+                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+												<span class="mr-4">
+													<i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
+												</span>
+                                <div class="d-flex flex-column text-dark-75">
                                     <span class="font-weight-bolder font-size-sm">Trạng thái</span>
                                     <span class="font-weight-bolder font-size-h5">
                                         {{ucfirst($course->course_status)}}</span>
@@ -419,7 +256,9 @@
                                     </td>
                                     <td class="pr-0">
                                         <div class="symbol symbol-40 symbol-circle symbol-sm">
-                                            <img src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}" alt="image">
+                                            <img
+                                                src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}"
+                                                alt="image">
                                         </div>
                                     </td>
                                     <td class="pr-0">
@@ -557,917 +396,21 @@
                 </div>
                 <!--end::Table-->
                 <!--end::Row-->
+       
+
                 <!--begin::Row-->
                 <div class="row">
                     <div class="col-lg-12">
-                        <!--begin::Advance Table Widget 3-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
+                        <div class="card card-custom gutter-b">
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">New Arrivals</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span>
+                                    <span class="card-label font-weight-bolder text-dark">Thời khóa biểu</span>
                                 </h3>
-                                <div class="card-toolbar">
-                                    <a href="#" class="btn btn-success font-weight-bolder font-size-sm">
-													<span class="svg-icon svg-icon-md svg-icon-white">
-														<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Add-user.svg-->
-														<svg xmlns="http://www.w3.org/2000/svg"
-                                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                             height="24px" viewBox="0 0 24 24" version="1.1">
-															<g stroke="none" stroke-width="1" fill="none"
-                                                               fill-rule="evenodd">
-																<polygon points="0 0 24 0 24 24 0 24"/>
-																<path
-                                                                    d="M18,8 L16,8 C15.4477153,8 15,7.55228475 15,7 C15,6.44771525 15.4477153,6 16,6 L18,6 L18,4 C18,3.44771525 18.4477153,3 19,3 C19.5522847,3 20,3.44771525 20,4 L20,6 L22,6 C22.5522847,6 23,6.44771525 23,7 C23,7.55228475 22.5522847,8 22,8 L20,8 L20,10 C20,10.5522847 19.5522847,11 19,11 C18.4477153,11 18,10.5522847 18,10 L18,8 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z"
-                                                                    fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-																<path
-                                                                    d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z"
-                                                                    fill="#000000" fill-rule="nonzero"/>
-															</g>
-														</svg>
-                                                        <!--end::Svg Icon-->
-													</span>Add New Member</a>
-                                </div>
                             </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body pt-0 pb-3">
-                                <!--begin::Table-->
-                                <div class="table-responsive">
-                                    <table
-                                        class="table table-head-custom table-head-bg table-borderless table-vertical-center">
-                                        <thead>
-                                        <tr class="text-uppercase">
-                                            <th style="min-width: 250px" class="pl-7">
-                                                <span class="text-dark-75">products</span>
-                                            </th>
-                                            <th style="min-width: 100px">pruce</th>
-                                            <th style="min-width: 100px">deposit</th>
-                                            <th style="min-width: 150px">agent</th>
-                                            <th style="min-width: 130px">status</th>
-                                            <th style="min-width: 120px"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="pl-0 py-8">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                        <div class="symbol-label"
-                                                             style="background-image: url('assets/media/stock-600x400/img-26.jpg')"></div>
-                                                    </div>
-                                                    <div>
-                                                        <a href="#"
-                                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">Sant
-                                                            Extreanet Solution</a>
-                                                        <span class="text-muted font-weight-bold d-block">HTML, JS, ReactJS</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$2,790</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="text-dark-75 font-weight-bolder d-block font-size-lg">$520</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">Bradly Beal</span>
-                                                <span class="text-muted font-weight-bold">Insurance</span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="label label-lg label-light-primary label-inline">Approved</span>
-                                            </td>
-                                            <td class="text-right pr-0">
-                                                <a href="#"
-                                                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/General/Bookmark.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<rect x="0" y="0" width="24"
-                                                                                          height="24"/>
-																					<path
-                                                                                        d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z"
-                                                                                        fill="#000000"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                                <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<polygon
-                                                                                        points="0 0 24 0 24 24 0 24"/>
-																					<rect fill="#000000" opacity="0.3"
-                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                          x="11" y="5" width="2"
-                                                                                          height="14" rx="1"/>
-																					<path
-                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                        fill="#000000"
-                                                                                        fill-rule="nonzero"
-                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pl-0 py-0">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                        <div class="symbol-label"
-                                                             style="background-image: url('assets/media/stock-600x400/img-3.jpg')"></div>
-                                                    </div>
-                                                    <div>
-                                                        <a href="#"
-                                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">Telegram
-                                                            Development</a>
-                                                        <span class="text-muted font-weight-bold d-block">C#, ASP.NET, MS SQL</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$4,600</span>
-                                                <span class="text-muted font-weight-bold">Pending</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$1,600</span>
-                                                <span class="text-muted font-weight-bold">Rejected</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">Chris Thompson</span>
-                                                <span class="text-muted font-weight-bold">NBA Player</span>
-                                            </td>
-                                            <td>
-                                                <span class="label label-lg label-light-warning label-inline">In Progress</span>
-                                            </td>
-                                            <td class="text-right pr-0">
-                                                <a href="#"
-                                                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/General/Bookmark.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<rect x="0" y="0" width="24"
-                                                                                          height="24"/>
-																					<path
-                                                                                        d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z"
-                                                                                        fill="#000000"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                                <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<polygon
-                                                                                        points="0 0 24 0 24 24 0 24"/>
-																					<rect fill="#000000" opacity="0.3"
-                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                          x="11" y="5" width="2"
-                                                                                          height="14" rx="1"/>
-																					<path
-                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                        fill="#000000"
-                                                                                        fill-rule="nonzero"
-                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pl-0 py-8">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                        <div class="symbol-label"
-                                                             style="background-image: url('assets/media/stock-600x400/img-5.jpg')"></div>
-                                                    </div>
-                                                    <div>
-                                                        <a href="#"
-                                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">Payroll
-                                                            Application</a>
-                                                        <span class="text-muted font-weight-bold d-block">PHP, Laravel, VueJS</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$23,800</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$6,700</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">Zoey McGee</span>
-                                                <span class="text-muted font-weight-bold">Ruby Developer</span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="label label-lg label-light-success label-inline">Success</span>
-                                            </td>
-                                            <td class="text-right pr-0">
-                                                <a href="#"
-                                                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/General/Bookmark.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<rect x="0" y="0" width="24"
-                                                                                          height="24"/>
-																					<path
-                                                                                        d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z"
-                                                                                        fill="#000000"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                                <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<polygon
-                                                                                        points="0 0 24 0 24 24 0 24"/>
-																					<rect fill="#000000" opacity="0.3"
-                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                          x="11" y="5" width="2"
-                                                                                          height="14" rx="1"/>
-																					<path
-                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                        fill="#000000"
-                                                                                        fill-rule="nonzero"
-                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pl-0 py-0">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                        <div class="symbol-label"
-                                                             style="background-image: url('assets/media/stock-600x400/img-18.jpg')"></div>
-                                                    </div>
-                                                    <div>
-                                                        <a href="#"
-                                                           class="text-dark font-weight-bolder text-hover-primary mb-1 font-size-lg">HR
-                                                            Management System</a>
-                                                        <span class="text-muted font-weight-bold d-block">Python, PostgreSQL, ReactJS</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$57,000</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">$14,000</span>
-                                                <span class="text-muted font-weight-bold">Paid</span>
-                                            </td>
-                                            <td>
-                                                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">Brandon Ingram</span>
-                                                <span class="text-muted font-weight-bold">NBA Player</span>
-                                            </td>
-                                            <td>
-                                                <span
-                                                    class="label label-lg label-light-danger label-inline">Rejected</span>
-                                            </td>
-                                            <td class="text-right pr-0">
-                                                <a href="#"
-                                                   class="btn btn-icon btn-light btn-hover-primary btn-sm mr-3">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/General/Bookmark.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<rect x="0" y="0" width="24"
-                                                                                          height="24"/>
-																					<path
-                                                                                        d="M8,4 L16,4 C17.1045695,4 18,4.8954305 18,6 L18,17.726765 C18,18.2790497 17.5522847,18.726765 17,18.726765 C16.7498083,18.726765 16.5087052,18.6329798 16.3242754,18.4639191 L12.6757246,15.1194142 C12.2934034,14.7689531 11.7065966,14.7689531 11.3242754,15.1194142 L7.67572463,18.4639191 C7.26860564,18.8371115 6.63603827,18.8096086 6.26284586,18.4024896 C6.09378519,18.2180598 6,17.9769566 6,17.726765 L6,6 C6,4.8954305 6.8954305,4 8,4 Z"
-                                                                                        fill="#000000"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                                <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
-																		<span
-                                                                            class="svg-icon svg-icon-md svg-icon-primary">
-																			<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																			<svg xmlns="http://www.w3.org/2000/svg"
-                                                                                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                 width="24px" height="24px"
-                                                                                 viewBox="0 0 24 24" version="1.1">
-																				<g stroke="none" stroke-width="1"
-                                                                                   fill="none" fill-rule="evenodd">
-																					<polygon
-                                                                                        points="0 0 24 0 24 24 0 24"/>
-																					<rect fill="#000000" opacity="0.3"
-                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                          x="11" y="5" width="2"
-                                                                                          height="14" rx="1"/>
-																					<path
-                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                        fill="#000000"
-                                                                                        fill-rule="nonzero"
-                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																				</g>
-																			</svg>
-                                                                            <!--end::Svg Icon-->
-																		</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--end::Table-->
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::Advance Table Widget 3-->
-                    </div>
-                    <div class="col-lg-12">
-                        <!--begin::Charts Widget 3-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header h-auto border-0">
-                                <div class="card-title py-5">
-                                    <h3 class="card-label">
-                                        <span class="d-block text-dark font-weight-bolder">Recent Orders</span>
-                                        <span
-                                            class="d-block text-muted mt-2 font-size-sm">More than 500+ new orders</span>
-                                    </h3>
-                                </div>
-                                <div class="card-toolbar">
-                                    <ul class="nav nav-pills nav-pills-sm nav-dark-75" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link py-2 px-4" data-toggle="tab"
-                                               href="#kt_charts_widget_2_chart_tab_1">
-                                                <span class="nav-text font-size-sm">Month</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link py-2 px-4" data-toggle="tab"
-                                               href="#kt_charts_widget_2_chart_tab_2">
-                                                <span class="nav-text font-size-sm">Week</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link py-2 px-4 active" data-toggle="tab"
-                                               href="#kt_charts_widget_2_chart_tab_3">
-                                                <span class="nav-text font-size-sm">Day</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
                             <div class="card-body">
-                                <div id="kt_charts_widget_3_chart"></div>
+                                <div id="kt_calendar"></div>
                             </div>
-                            <!--end::Body-->
                         </div>
-                        <!--end::Charts Widget 3-->
-                    </div>
-                </div>
-                <!--end::Row-->
-                <!--begin::Row-->
-                <div class="row">
-                    <div class="col-lg-4">
-                        <!--begin::List Widget 14-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header border-0">
-                                <h3 class="card-title font-weight-bolder text-dark">Market Leaders</h3>
-                                <div class="card-toolbar">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ki ki-bold-more-ver"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <!--begin::Navigation-->
-                                            <ul class="navi navi-hover">
-                                                <li class="navi-header font-weight-bold py-4">
-                                                    <span class="font-size-lg">Choose Label:</span>
-                                                    <i class="flaticon2-information icon-md text-muted"
-                                                       data-toggle="tooltip" data-placement="right"
-                                                       title="Click to learn more..."></i>
-                                                </li>
-                                                <li class="navi-separator mb-3 opacity-70"></li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-text">
-																			<span
-                                                                                class="label label-xl label-inline label-light-success">Customer</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-text">
-																			<span
-                                                                                class="label label-xl label-inline label-light-danger">Partner</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-text">
-																			<span
-                                                                                class="label label-xl label-inline label-light-warning">Suplier</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-text">
-																			<span
-                                                                                class="label label-xl label-inline label-light-primary">Member</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-text">
-																			<span
-                                                                                class="label label-xl label-inline label-light-dark">Staff</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
-                                                <li class="navi-footer py-4">
-                                                    <a class="btn btn-clean font-weight-bold btn-sm" href="#">
-                                                        <i class="ki ki-plus icon-sm"></i>Add new</a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Navigation-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body pt-2">
-                                <!--begin::Item-->
-                                <div class="d-flex flex-wrap align-items-center mb-10">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
-                                        <div class="symbol-label"
-                                             style="background-image: url('assets/media/stock-600x400/img-17.jpg')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Cup
-                                            &amp; Green</a>
-                                        <span class="text-muted font-weight-bold font-size-sm my-1">Local, clean &amp; environmental</span>
-                                        <span class="text-muted font-weight-bold font-size-sm">Created by:
-														<span class="text-primary font-weight-bold">CoreAd</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex align-items-center py-lg-0 py-2">
-                                        <div class="d-flex flex-column text-right">
-                                            <span class="text-dark-75 font-weight-bolder font-size-h4">24,900</span>
-                                            <span class="text-muted font-size-sm font-weight-bolder">votes</span>
-                                        </div>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Item-->
-                                <!--begin: Item-->
-                                <div class="d-flex flex-wrap align-items-center mb-10">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
-                                        <div class="symbol-label"
-                                             style="background-image: url('assets/media/stock-600x400/img-10.jpg')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Yellow
-                                            Background</a>
-                                        <span class="text-muted font-weight-bold font-size-sm my-1">Strong abstract concept</span>
-                                        <span class="text-muted font-weight-bold font-size-sm">Created by:
-														<span
-                                                            class="text-primary font-weight-bold">KeenThemes</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex align-items-center py-lg-0 py-2">
-                                        <div class="d-flex flex-column text-right">
-                                            <span class="text-dark-75 font-weight-bolder font-size-h4">70,380</span>
-                                            <span class="text-muted font-weight-bolder font-size-sm">votes</span>
-                                        </div>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end: Item-->
-                                <!--begin::Item-->
-                                <div class="d-flex flex-wrap align-items-center mb-10">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
-                                        <div class="symbol-label"
-                                             style="background-image: url('assets/media/stock-600x400/img-1.jpg')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 pr-3">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Nike
-                                            &amp; Blue</a>
-                                        <span
-                                            class="text-muted font-weight-bold font-size-sm my-1">Footwear overalls</span>
-                                        <span class="text-muted font-weight-bold font-size-sm">Created by:
-														<span class="text-primary font-weight-bold">Invision Inc.</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex align-items-center py-lg-0 py-2">
-                                        <div class="d-flex flex-column text-right">
-                                            <span class="text-dark-75 font-size-h4 font-weight-bolder">7,200</span>
-                                            <span class="text-muted font-size-sm font-weight-bolder">votes</span>
-                                        </div>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="d-flex flex-wrap align-items-center mb-10">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
-                                        <div class="symbol-label"
-                                             style="background-image: url('assets/media/stock-600x400/img-9.jpg')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Desserts
-                                            platter</a>
-                                        <span class="text-muted font-size-sm font-weight-bold my-1">Food trends &amp; reviews</span>
-                                        <span class="text-muted font-size-sm font-weight-bold">Created by:
-														<span class="text-primary font-weight-bold">Figma Studio</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex align-items-center py-lg-0 py-2">
-                                        <div class="d-flex flex-column text-right">
-                                            <span class="text-dark-75 font-size-h4 font-weight-bolder">36,450</span>
-                                            <span class="text-muted font-size-sm font-weight-bolder">votes</span>
-                                        </div>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="d-flex flex-wrap align-items-center">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-60 symbol-2by3 flex-shrink-0 mr-4">
-                                        <div class="symbol-label"
-                                             style="background-image: url('assets/media/stock-600x400/img-12.jpg')"></div>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pr-3">
-                                        <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">Cup
-                                            &amp; Green</a>
-                                        <span class="text-muted font-weight-bold font-size-sm my-1">Local, clean &amp; environmental</span>
-                                        <span class="text-muted font-weight-bold font-size-sm">Created by:
-														<span class="text-primary font-weight-bold">CoreAd</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex align-items-center py-lg-0 py-2">
-                                        <div class="d-flex flex-column text-right">
-                                            <span class="text-dark-75 font-weight-bolder font-size-h4">23,900</span>
-                                            <span class="text-muted font-size-sm font-weight-bolder">votes</span>
-                                        </div>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Item-->
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::List Widget 14-->
-                    </div>
-                    <div class="col-lg-4">
-                        <!--begin::Charts Widget 1-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header h-auto border-0">
-                                <!--begin::Title-->
-                                <div class="card-title py-5">
-                                    <h3 class="card-label">
-                                        <span class="d-block text-dark font-weight-bolder">Recent Stats</span>
-                                        <span
-                                            class="d-block text-muted mt-2 font-size-sm">More than 400+ new members</span>
-                                    </h3>
-                                </div>
-                                <!--end::Title-->
-                                <!--begin::Toolbar-->
-                                <div class="card-toolbar">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ki ki-bold-more-hor"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <!--begin::Naviigation-->
-                                            <ul class="navi">
-                                                <li class="navi-header font-weight-bold py-5">
-                                                    <span class="font-size-lg">Add New:</span>
-                                                    <i class="flaticon2-information icon-md text-muted"
-                                                       data-toggle="tooltip" data-placement="right"
-                                                       title="Click to learn more..."></i>
-                                                </li>
-                                                <li class="navi-separator mb-3 opacity-70"></li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-shopping-cart-1"></i>
-																		</span>
-                                                        <span class="navi-text">Order</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="navi-icon flaticon2-calendar-8"></i>
-																		</span>
-                                                        <span class="navi-text">Members</span>
-                                                        <span class="navi-label">
-																			<span
-                                                                                class="label label-light-danger label-rounded font-weight-bold">3</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="navi-icon flaticon2-telegram-logo"></i>
-																		</span>
-                                                        <span class="navi-text">Project</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="navi-icon flaticon2-new-email"></i>
-																		</span>
-                                                        <span class="navi-text">Record</span>
-                                                        <span class="navi-label">
-																			<span
-                                                                                class="label label-light-success label-rounded font-weight-bold">5</span>
-																		</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
-                                                <li class="navi-footer pt-5 pb-4">
-                                                    <a class="btn btn-light-primary font-weight-bolder btn-sm" href="#">More
-                                                        options</a>
-                                                    <a class="btn btn-clean font-weight-bold btn-sm d-none" href="#"
-                                                       data-toggle="tooltip" data-placement="right"
-                                                       title="Click to learn more...">Learn more</a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Naviigation-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Toolbar-->
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Chart-->
-                                <div id="kt_charts_widget_1_chart"></div>
-                                <!--end::Chart-->
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::Charts Widget 1-->
-                    </div>
-                    <div class="col-lg-4">
-                        <!--begin::List Widget 8-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header border-0">
-                                <h3 class="card-title font-weight-bolder text-dark">Trends</h3>
-                                <div class="card-toolbar">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ki ki-bold-more-ver"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                            <!--begin::Navigation-->
-                                            <ul class="navi navi-hover">
-                                                <li class="navi-header pb-1">
-                                                    <span
-                                                        class="text-primary text-uppercase font-weight-bold font-size-sm">Add new:</span>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-shopping-cart-1"></i>
-																		</span>
-                                                        <span class="navi-text">Order</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-calendar-8"></i>
-																		</span>
-                                                        <span class="navi-text">Event</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-graph-1"></i>
-																		</span>
-                                                        <span class="navi-text">Report</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-rocket-1"></i>
-																		</span>
-                                                        <span class="navi-text">Post</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																		<span class="navi-icon">
-																			<i class="flaticon2-writing"></i>
-																		</span>
-                                                        <span class="navi-text">File</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Navigation-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body pt-0">
-                                <!--begin::Item-->
-                                <div class="mb-10">
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-45 symbol-light mr-5">
-															<span class="symbol-label">
-																<img src="assets/media/svg/misc/006-plurk.svg"
-                                                                     class="h-50 align-self-center" alt=""/>
-															</span>
-                                        </div>
-                                        <!--end::Symbol-->
-                                        <!--begin::Text-->
-                                        <div class="d-flex flex-column flex-grow-1">
-                                            <a href="#"
-                                               class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">Top
-                                                Authors</a>
-                                            <span class="text-muted font-weight-bold">5 day ago</span>
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Section-->
-                                    <!--begin::Desc-->
-                                    <p class="text-dark-50 m-0 pt-5 font-weight-normal">A brief write up about the top
-                                        Authors that fits within this section</p>
-                                    <!--end::Desc-->
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="mb-10">
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-45 symbol-light mr-5">
-															<span class="symbol-label">
-																<img src="assets/media/svg/misc/015-telegram.svg"
-                                                                     class="h-50 align-self-center" alt=""/>
-															</span>
-                                        </div>
-                                        <!--end::Symbol-->
-                                        <!--begin::Text-->
-                                        <div class="d-flex flex-column flex-grow-1">
-                                            <a href="#"
-                                               class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">Popular
-                                                Authors</a>
-                                            <span class="text-muted font-weight-bold">5 day ago</span>
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Section-->
-                                    <!--begin::Desc-->
-                                    <p class="text-dark-50 m-0 pt-5 font-weight-normal">A brief write up about the
-                                        Popular Authors that fits within this section</p>
-                                    <!--end::Desc-->
-                                </div>
-                                <!--end::Item-->
-                                <!--begin::Item-->
-                                <div class="">
-                                    <!--begin::Section-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-45 symbol-light mr-5">
-															<span class="symbol-label">
-																<img src="assets/media/svg/misc/014-kickstarter.svg"
-                                                                     class="h-50 align-self-center" alt=""/>
-															</span>
-                                        </div>
-                                        <!--end::Symbol-->
-                                        <!--begin::Text-->
-                                        <div class="d-flex flex-column flex-grow-1">
-                                            <a href="#"
-                                               class="font-weight-bold text-dark-75 text-hover-primary font-size-lg mb-1">New
-                                                Users</a>
-                                            <span class="text-muted font-weight-bold">5 day ago</span>
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Section-->
-                                    <!--begin::Desc-->
-                                    <p class="text-dark-50 m-0 pt-5 font-weight-normal">A brief write up about the New
-                                        Users that fits within this section</p>
-                                    <!--end::Desc-->
-                                </div>
-                                <!--end::Item-->
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end: Card-->
-                        <!--end::List Widget 8-->
                     </div>
                 </div>
                 <!--end::Row-->
@@ -1481,6 +424,99 @@
 @endsection
 
 
-@section('script')
 
+@section('script')
+    <script src="{{asset('plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+    <script src="{{asset('js/external-events.js')}}"></script>
+    <script>
+        {{--const data = <?php--}}
+        {{--    $logs = \Illuminate\Support\Facades\DB::table('daily_logs')->select()--}}
+        {{--        ->where('user_id','=',\Illuminate\Support\Facades\Auth::user()->user_id)--}}
+        {{--        ->get();--}}
+        {{--    echo(json_encode($logs));--}}
+        {{--    ?>;--}}
+
+        {{--console.log(data);--}}
+        var array = [];
+
+        var KTCalendarBasic = function (data) {
+            console.log(data);
+            return {
+                //main function to initiate the module
+                init: function (data) {
+                    var todayDate = moment().startOf('day');
+                    var YM = todayDate.format('YYYY-MM');
+                    var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
+                    var TODAY = todayDate.format('YYYY-MM-DD');
+                    var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
+
+                    var calendarEl = document.getElementById('kt_calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
+                        themeSystem: 'bootstrap',
+
+                        isRTL: KTUtil.isRTL(),
+
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+
+                        height: 800,
+                        contentHeight: 780,
+                        aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio
+
+                        nowIndicator: true,
+                        now: TODAY + 'T09:25:00', // just for demo
+
+                        views: {
+                            dayGridMonth: {buttonText: 'month'},
+                            timeGridWeek: {buttonText: 'week'},
+                            timeGridDay: {buttonText: 'day'}
+                        },
+
+                        defaultView: 'dayGridMonth',
+                        defaultDate: TODAY,
+
+                        editable: true,
+                        eventLimit: true, // allow "more" link when too many events
+                        navLinks: true,
+                        events: [
+                            @foreach($course_schedule as $item)
+                            {
+                                'title':'{{ $course->course_name }}',
+                                'start':'{{ \Carbon\Carbon::parse($item->start_at)->format('Y-m-d h:i:s') }}',
+                                'end':'{{ \Carbon\Carbon::parse($item->end_at)->format('Y-m-d h:i:s') }}'
+                            },
+                            @endforeach
+                        ],
+                        eventColor:'lightblue',
+
+                        eventRender: function (info) {
+                            var element = $(info.el);
+
+                            if (info.event.extendedProps && info.event.extendedProps.description) {
+                                if (element.hasClass('fc-day-grid-event')) {
+                                    element.data('content', info.event.extendedProps.description);
+                                    element.data('placement', 'top');
+                                    KTApp.initPopover(element);
+                                } else if (element.hasClass('fc-time-grid-event')) {
+                                    element.find('.fc-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>');
+                                } else if (element.find('.fc-list-item-title').lenght !== 0) {
+                                    element.find('.fc-list-item-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>');
+                                }
+                            }
+                        }
+                    });
+
+                    calendar.render();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            KTCalendarBasic.init();
+        });
+    </script>
 @endsection
