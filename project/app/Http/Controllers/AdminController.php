@@ -41,7 +41,7 @@ class AdminController extends Controller
         $courses = Course::all();
         $course_schedule = DB::table('course_schedules')
             ->join('course_students','course_schedules.course_id','=','course_students.course_id')
-            ->where('student_id','=',Auth::user()->id)
+//            ->where('student_id','=',Auth::user()->id)
             ->get();
         $users = User::query()->name($request)->paginate(5);
         return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count','course_schedule']));

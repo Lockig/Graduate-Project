@@ -64,7 +64,7 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <h6 class="text-muted font-size-h6-sm">Lorem ipsum dolor sit amet,
+                                            <h6 class="text-muted font-size-sm">Lorem ipsum dolor sit amet,
                                                 consectetur adipiscing
                                                 elit. Ut molestie lacus varius, accumsan leo vel, dignissim nisl. Morbi
                                                 nunc sapien, accumsan sed metus in, molestie commodo sem. Nam maximus
@@ -74,11 +74,21 @@
                                                 et arcu id augue scelerisque elementum. Duis at efficitur risus.</h6>
                                         </div>
                                     </div>
+
                                     <div class="my-lg-0 my-3 flex-grow-1">
-                                        <a href="{{route('users.editInfo')}}"
-                                           class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Sửa</a>
-                                        <a href="{{route('users.editPassword')}}"
-                                           class="btn btn-sm btn-info font-weight-bolder text-uppercase">Mật khẩu</a>
+                                        @if($user->id == \Illuminate\Support\Facades\Auth::user()->id)
+                                            <a href="{{route('users.editInfo')}}"
+                                               class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Sửa</a>
+                                            <a href="{{route('users.editPassword')}}"
+                                               class="btn btn-sm btn-info font-weight-bolder text-uppercase">Mật
+                                                khẩu</a>
+                                        @else
+                                            <a href="{{route('users.editInfos',$user->id)}}"
+                                               class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Sửa</a>
+                                            <a href="{{route('users.editPasswords',$user->id)}}"
+                                               class="btn btn-sm btn-info font-weight-bolder text-uppercase">Mật
+                                                khẩu</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +99,12 @@
                         <div class="table-responsive">
                             <table class="table text-nowrap">
                                 <tbody>
+                                <tr>
+                                    <td class="col-1">ID:</td>
+                                    <td class="col-5">
+                                        <span class="text-dark-75">{{$user->id}}</span>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td class="col-1">Họ:</td>
                                     <td class="col-5">
@@ -138,9 +154,6 @@
                     </div>
                 </div>
                 <!--end::Card-->
-                @if(\Illuminate\Support\Facades\Auth::user->role = 'teacher')
-
-                @endif
                 <!--end::Container-->
             </div>
             <!--end::Entry-->

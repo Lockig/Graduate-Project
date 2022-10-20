@@ -23,33 +23,33 @@ use Illuminate\Support\Facades\Notification;
 
 use Illuminate\Support\Facades\Storage;
 use Nette\Utils\Random;
+use PhpParser\Node\Stmt\Return_;
 
 class UserController extends Controller implements ShouldQueue
 {
 
     public function index(Request $request)
     {
-        if (Auth::user()->role == 'student') {
-            return view();
-        } elseif (Auth::user()->role == 'teacher') {
-
-        } else {
-
-        }
-        $user = Auth::user();
-        dd('hello');
-//        $role = $user->account->role->role_id;
-//        $users = User::query()->name($request)->paginate(5);
-//        $courses = DB::table('courses')
-//            ->join('course_accounts','courses.course_id','=','course_accounts.course_id')
-//            ->where('account_id','=',$user->account->account_id)
-//            ->get();
-//        return view('user.dashboard', compact(['user', 'role', 'users','courses']));
+        $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
+        $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
+        $course_count = Course::query()->count('course_id');
+        $courses = Course::query()
+            ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
+            ->where('course_students.student_id', '=', Auth::user()->id)
+            ->get();
+        $query = DB::table('course_schedules')
+            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+            ->where('student_id', '=', Auth::user()->id);
+        $course_schedule = $query->get();
+        $today_courses = $query->whereDate('start_at', Carbon::today())->get();
+        $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
+        $users = User::query()->name($request)->paginate(5);
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
     }
 
     public function show(User $user)
     {
-        $user = Auth::user();
+        $user = User::find($user->id);
         return view('user.info', compact('user'));
     }
 
@@ -57,11 +57,11 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = Auth::user();
         $courses = Course::query()
-            ->join('course_students','courses.course_id','=','course_students.course_id')
-            ->where( 'course_students.student_id', '=', $user->id)
+            ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
+            ->where('course_students.student_id', '=', $user->id)
             ->get();
         $records = DB::table('attendances')->where('user_id', '=', $user->id)->paginate(5);
-        return view('user.attendance', compact('records', 'user','courses'));
+        return view('user.attendance', compact('records', 'user', 'courses'));
     }
 
     public function editPassword(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -74,7 +74,7 @@ class UserController extends Controller implements ShouldQueue
     public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = User::find($id);
-        if ($user && $user->account->role != 1) {
+        if ($user && $user->role != 'admin') {
             User::destroy($id);
             return back()->with("Success", "Delete user successfully");
         }
@@ -92,6 +92,12 @@ class UserController extends Controller implements ShouldQueue
     public function editInfo(Request $request)
     {
         $user = Auth::user();
+        return view('user.index', compact('user'));
+    }
+
+    public function editInfos($id)
+    {
+        $user = User::find($id);
         return view('user.index', compact('user'));
     }
 
@@ -159,15 +165,78 @@ class UserController extends Controller implements ShouldQueue
 
     public function listStudent(Request $request)
     {
-
-        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        return view('user.admin.list_student', compact('students'));
+        if ($request->has('last_name')) {
+            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        } else {
+            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        }
+        if (!$request->has('export')) {
+            $request->flashOnly('last_name');
+            return view('user.admin.list_student', compact('students'));
+        } else {
+            return (new UsersExport($students))->download('users.xlsx');
+        }
     }
 
     public function listTeacher(Request $request)
     {
+        if ($request->has('last_name')) {
+            $teachers = User::query()->name($request)->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
+        } else {
+            $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
+        }
+        if (!$request->has('export')) {
+            $request->flashOnly('last_name');
+            return view('user.admin.list_teacher', compact('teachers'));
+        } else {
+            return (new UsersExport($teachers))->download('users.xlsx');
+        }
+    }
 
-        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        return view('user.admin.list_teacher', compact('teachers'));
+    public
+    function updateInfos(UserUpdateRequest $request, $id): RedirectResponse
+    {
+        $user = User::find($id);
+        if ($request->has('profile_avatar')) {
+            if ($user->avatar != "") {
+                Storage::delete($user->avatar);
+            }
+            $profile_avatar = $request->file('profile_avatar')->store('images');
+        }
+        $validated = $request->validated();
+        User::find($user->id)->update([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
+            'mobile_number' => $validated['mobile_number'],
+            'address' => $validated['address'],
+            'avatar' => $profile_avatar ?? $user->avatar
+        ]);
+        return back()->with("Success", "Cập nhật thông tin thành công");
+    }
+
+
+    public
+    function updatePasswords(Request $request, $id): RedirectResponse
+    {
+        $user = User::find($id);
+        $password = $user->password;
+
+        $validated = $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|string',
+            'password_confirmation' => 'required|string'
+        ]);
+
+        if (Hash::check($validated['current_password'], $password)) {
+            if ($validated['new_password'] == $validated['password_confirmation']) {
+                $update = User::query()
+                    ->where('id', $user->id)
+                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
+                return back()->with("Success", "Cập nhật mật khẩu thành công");
+            }
+        }
+        return back()->with('Fail', 'Mật khẩu cũ không chính xác');
+
     }
 }

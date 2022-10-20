@@ -55,19 +55,20 @@ class FingerprintController extends Controller
                 ->fingerprint($request)
                 ->value('id');
             if ($check) {
-                $current_time = Carbon::parse(Carbon::now())->format('Y-m-d');
-                $check_time = DB::table('course_schedules')
-                    ->join('course_students', 'course_students.course_id', '=', 'course_schedules.course_id')
-                    ->where('course_students.student_id', '=', $check)
-                    ->where('course_schedules.start_at', '>', $current_time)
-                    ->get();
-                dd($check_time);
-                DB::table('attendances')->insert([
-                    'user_id' => $check,
-                    'schedule_id' => '2',
-                    'time_in' => $current_time->format('Y-m-d H:i:s'),
-                ]);
-                echo 'login';
+                $current_time = Carbon::now();
+                $schedule_id = DB::table('course_schedules')
+                    ->where('start_at','<',$current_time)
+                    ->where('end_at','>',$current_time)
+                    ->value('id');
+                if($schedule_id){
+                    DB::table('attendances')->insert([
+                        'user_id' => $check,
+                        'schedule_id' => $schedule_id,
+                        'time_in' => $current_time->format('Y-m-d H:i:s'),
+                    ]);
+                }
+
+                echo 'hello '. User::find($check)->last_name;
             } else {
                 echo 'no user find';
             }

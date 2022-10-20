@@ -130,11 +130,11 @@
 
 <!--begin:Javascript-->
 {{--<script src="{{asset('js/app.js')}}"></script>--}}
-<script src="{{asset('plugins/global/plugins.bundle.js')}}"></script>
-<script src="{{asset('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
-<script src="{{asset('js/scripts.js')}}"></script>
-<script src="{{asset('plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
-<script src="{{asset('js/widget.js')}}"></script>
+<script src="{{mix('plugins/global/plugins.bundle.js')}}"></script>
+<script src="{{mix('plugins/custom/prismjs/prismjs.bundle.js')}}"></script>
+<script src="{{mix('js/scripts.js')}}"></script>
+<script src="{{mix('plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
+<script src="{{mix('js/widget.js')}}"></script>
 <!--end:Javascript-->
 <!--begin:Javascript-->
 @yield('script')

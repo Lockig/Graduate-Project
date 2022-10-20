@@ -35,10 +35,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $courses = Course::paginate(5);
+        $courses = Course::paginate(5,['*'],'course');
+        $course_schedules = DB::table('course_schedules')->paginate(10,['*'],'schedule');
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->get();
-        return view('user.admin.course', compact(['courses', 'teachers', 'students']));
+        return view('user.admin.course', compact(['courses', 'teachers', 'students','course_schedules']));
         //
     }
 
@@ -98,11 +99,11 @@ class CourseController extends Controller
             'student_id' => 'required|string',
             'course_name' => 'required'
         ]);
-        $student_id = User::find($validated['student_id'])['id'];
+        $student_id = User::find($validated['student_id']);
         if ($student_id) {
             $course_id = Course::query()->name($request)->value('course_id');
             DB::table('course_students')->insert([
-                'student_id' => $student_id,
+                'student_id' => $student_id->id,
                 'course_id' => $course_id
             ]);
             return redirect()->back()->with('Success', 'Thêm lịch học thành công');

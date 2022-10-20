@@ -2,39 +2,45 @@
 
 namespace App\Exports;
 
+use Illuminate\Contracts\View\View;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class UsersExport implements FromCollection, WithCustomStartCell, ShouldQueue,WithHeadings
+class UsersExport implements FromCollection, WithCustomStartCell, ShouldQueue, WithHeadings
 {
     use Exportable;
+
     /**
-    *
-    */
-    protected $user;
-    public function __construct($user)
+     *
+     */
+    private $users;
+
+    public function __construct($users)
     {
-        $this->user = $user;
+        $this->users = $users;
     }
 
     public function collection()
     {
-        return $this->user;
+        return $this->users;
     }
 
     public function startCell(): string
     {
         return 'B2';
     }
+
     public function query()
     {
         return User::query();
     }
+
     public function headings(): array
     {
         return [

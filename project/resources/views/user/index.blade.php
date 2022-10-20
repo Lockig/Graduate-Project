@@ -2,6 +2,7 @@
 
 @section('content')
     @include('system_message')
+
     <!--begin::Content-->
     <div id="content">
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -117,7 +118,13 @@
                         </div>
                         <!--end::Aside-->
                         <!--begin::Content-->
-                        <form method="post" action="{{route('users.updateInfo')}}" class="flex-row-fluid ml-lg-8"
+                        <form method="post"
+                              @if($user->id == \Illuminate\Support\Facades\Auth::user()->id)
+                                    action="{{route('users.updateInfo')}}"
+                              @else
+                                  action="{{route('users.updateInfos',$user)}}"
+                              @endif
+                              class="flex-row-fluid ml-lg-8"
                               enctype="multipart/form-data">
                             @csrf
                             @method('POST')

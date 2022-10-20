@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Nette\Utils\Random;
 
 class ForgotPasswordController extends Controller
@@ -36,7 +37,7 @@ class ForgotPasswordController extends Controller
             Mail::to($email)
                 ->send(new ResetPasswordMail($random_password));
 
-
+            Session::put('email',$email);
             return redirect('/login')->with('Success', 'Đã gửi mail reset pass thành công');
         }
         return redirect()->back()->with('Warning', 'Email không đúng');

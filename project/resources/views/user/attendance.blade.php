@@ -51,12 +51,12 @@
                             @csrf
                             <div class="row align-items-center">
                                 <div class="col-lg-10 col-xl-9 ml-4">
-                                    <div class="row align-items-center">
+                                    <div class="row align-items-end">
                                         <div class="col-md-5 my-2 my-md-0">
-                                            <div for="request_date" class="form-group row d-flex align-items-center">
+                                            <div  class="row d-flex align-items-center">
                                                 <label for="course_name"
                                                        class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
-                                                <select name="course_name" class="form_control">
+                                                <select name="course_name" class="form-control">
                                                     @foreach($courses as $course)
                                                         <option value="{{$course->course_name}}" class="form-control">
                                                          {{$course->course_name}}
@@ -84,7 +84,7 @@
                                         STT
                                     </th>
                                     <th class="pr-0" style="width: 50px">Lớp</th>
-                                    <th style="min-width: 200px"></th>
+                                    <th style="min-width: 100px"></th>
                                     <th style="min-width: 150px">Buổi</th>
                                     <th style="min-width: 150px">Giờ vào</th>
                                     <th class="pr-0 text-right" style="min-width: 150px">Ghi chú</th>
@@ -112,7 +112,6 @@
                                                 {{\App\Models\Course::find(\App\Models\Schedule::find($record->schedule_id)->course_id)->course_name}}
                                             </a>
                                         </td>
-                                        <td>
                                         <td class="pl-0">
                                             <a href="#"
                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
