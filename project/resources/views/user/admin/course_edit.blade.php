@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
+
 @section('content')
-    <!--begin::Content-->
     @include('system_message')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
@@ -10,7 +10,7 @@
                 <!--begin::Details-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
                     <!--begin::Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo tài khoản</h5>
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Chỉnh sửa khóa học</h5>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -18,10 +18,13 @@
                             <a href="" class="text-muted">Quản lý</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Người dùng</a>
+                            <a href="" class="text-muted">Lớp học</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Tạo mới tài khoản</a>
+                            <a href="" class="text-muted">Danh sách</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Chỉnh sửa khóa học</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -68,7 +71,7 @@
                                                                 <!--end::Svg Icon-->
 															</span>
 														</span>
-                                        <span class="nav-text font-size-lg">Tạo mới người dùng</span>
+                                        <span class="nav-text font-size-lg">Thông tin khóa học</span>
                                     </a>
                                 </li>
                                 <!--end::Item-->
@@ -79,10 +82,10 @@
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body">
-                        <form method="post" action="{{route('admin.store')}}" class="form" id="kt_form"
+                        <form method="post" action="{{route('admin.updateCourse',$course)}}" class="form" id="kt_form"
                               enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            @method('POST')
                             <div class="tab-content">
                                 <!--begin::Tab-->
                                 <div class="tab-pane show active px-7" id="kt_user_edit_tab_1" role="tabpanel">
@@ -100,85 +103,98 @@
                                             <!--end::Row-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="profile_avatar"
-                                                       class="col-form-label col-3 text-lg-right text-left">Avatar</label>
+                                                <label for="course_name"
+                                                       class="col-form-label col-3 text-lg-right text-left">Tên
+                                                    lớp</label>
                                                 <div class="col-9">
-                                                    <div class="image-input image-input-outline image-input-circle"
-                                                         id="kt_image_3">
-                                                        <div class="image-input-wrapper"
-                                                             style="background-image: url({{asset('assets/media/users/100_3.jpg')}})">
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-school"></i>
+                                                    </span>
                                                         </div>
-
-                                                        <label
-                                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                            data-action="change" data-toggle="tooltip" title=""
-                                                            data-original-title="Change avatar">
-                                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                                            <input name="profile_avatar" type="file"
-                                                                   accept=".png, .jpg, .jpeg"/>
-                                                            <input type="hidden" name="profile_avatar_remove"/>
-                                                        </label>
-
-                                                        <span
-                                                            class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                                            data-action="cancel" data-toggle="tooltip"
-                                                            title="Cancel avatar">
-                                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                                        </span>
+                                                        <input name="course_name"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               type="text" value="{{$course->course_name}}"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="first_name"
-                                                       class="col-form-label col-3 text-lg-right text-left">Họ</label>
-                                                <div class="col-9">
-                                                    <input name="first_name"
-                                                           class="form-control form-control-lg form-control-solid"
-                                                           type="text" placeholder="{{old('first_name')}}"/>
-                                                </div>
-                                            </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <label for="last_name"
+                                                <label for="teacher_name"
                                                        class="col-form-label col-3 text-lg-right text-left">
-                                                    Tên</label>
+                                                    Mã giáo viên</label>
                                                 <div class="col-9">
-                                                    <input name="last_name"
-                                                           class="form-control form-control-lg form-control-solid"
-                                                           type="text" placeholder="{{old('last_name')}}"/>
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-person-booth"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input name="teacher_id"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               type="text"
+                                                               value="{{$course->teacher_id}}"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="date_of_birth"
+                                                <label for="start_at"
                                                        class="col-form-label col-3 text-lg-right text-left">
-                                                    Ngày sinh</label>
+                                                    Ngày bắt đầu</label>
                                                 <div class="col-9">
-                                                    <input name="date_of_birth" type="text"
-                                                           class="form-control form-control-lg form-control-solid"
-                                                           id="kt_datepicker_1" readonly="readonly"
-                                                           placeholder="{{old('date_of_birth')}}"/>
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-calendar"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input name="start_at" type="text"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               id="kt_datepicker_1" readonly="readonly"
+                                                               value="{{\Carbon\Carbon::parse($course->start_at)->format('d-m-Y')}}"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="mobile_number"
-                                                       class="col-form-label col-3 text-lg-right text-left">SĐT</label>
+                                                <label for="end_at"
+                                                       class="col-form-label col-3 text-lg-right text-left">
+                                                    Ngày kết thúc</label>
+                                                <div class="col-9">
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-calendar"></i>
+                                                    </span>
+                                                        </div>
+                                                        <input name="end_at" type="text"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               id="kt_datepicker_1" readonly="readonly"
+                                                               value="{{\Carbon\Carbon::parse($course->end_at)->format('d-m-Y')}}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Group-->
+                                            <!--begin::Group-->
+                                            <div class="form-group row">
+                                                <label for="duration"
+                                                       class="col-form-label col-3 text-lg-right text-left">Thời
+                                                    lượng</label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
                                                         <div class="input-group-prepend">
 																			<span class="input-group-text">
-																				<i class="la la-phone"></i>
+																				<i class="la la-clock"></i>
 																			</span>
                                                         </div>
-                                                        <input name="mobile_number" type="text"
+                                                        <input name="duration" type="text"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               value="{{old('mobile_number')}}"
+                                                               value="{{$course->course_hour}}"
                                                         />
                                                     </div>
                                                 </div>
@@ -186,102 +202,36 @@
                                             <!--end::Group-->
                                             <!--begin::Group-->
                                             <div class="form-group row">
-                                                <label for="email" class="col-form-label col-3 text-lg-right text-left">Email
+                                                <label for="course_description"
+                                                       class="col-form-label col-3 text-lg-right text-left">Thông tin
                                                 </label>
                                                 <div class="col-9">
                                                     <div class="input-group input-group-lg input-group-solid">
                                                         <div class="input-group-prepend">
 																			<span class="input-group-text">
-																				<i class="la la-at"></i>
+																				<i class="la la-file-text"></i>
 																			</span>
                                                         </div>
-                                                        <input name="email" type="email"
+                                                        <input name="course_description" type="text"
                                                                class="form-control form-control-lg form-control-solid"
-                                                               value="{{old('email')}}"
-                                                               placeholder="Email" required/>
+                                                               value="{{$course->course_description}}"
+                                                               required/>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <label for="address" class="col-form-label col-3 text-lg-right text-left">Địa chỉ
-                                                </label>
-                                                <div class="col-9">
-                                                    <div class="input-group input-group-lg input-group-solid">
-                                                        <div class="input-group-prepend">
-																			<span class="input-group-text">
-																				<i class="la la-at"></i>
-																			</span>
-                                                        </div>
-                                                        <input name="address" type="text"
-                                                               class="form-control form-control-lg form-control-solid"
-                                                               value="{{old('address')}}"
-                                                               placeholder="Địa chỉ" required/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Group-->
-                                            <!--begin::Group-->
-                                            <div class="form-group row">
-                                                <label for="role"
-                                                       class="col-form-label col-3 text-lg-right text-left">Vị
-                                                    trí</label>
-                                                <div class="col-9">
-                                                    <select name="role"
-                                                            class="form-control form-control-lg form-control-solid">
-                                                            <option value="student"
-                                                                    class="form-control form-control-lg form-control-solid">student</option>
-                                                            <option value="teacher"
-                                                                    class="form-control form-control-lg form-control-solid">teacher</option>
-                                                            <option value="admin"
-                                                                    class="form-control form-control-lg form-control-solid">admin</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <!--end::Group-->
                                             <!--begin::Toolbar-->
-                                            <div class="d-flex">
+                                            <div class="d-flex justify-content-center">
                                                 <!--begin::Dropdown-->
                                                 <div class="btn-group ml-2">
-                                                    <button type="reset"
-                                                            class="btn btn-secondary font-weight-bold btn-sm px-3 font-size-base">
-                                                        Cancel
-                                                    </button>
+                                                    <a href="{{route('admin.listCourse')}}"
+                                                       class="btn btn-secondary font-weight-bold btn-sm px-10 font-size-base">
+                                                        Hủy
+                                                    </a>
                                                     <button type="submit"
-                                                            class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-                                                        Save
-                                                        Changes
+                                                            class="btn btn-primary font-weight-bold px-10 font-size-base">
+                                                        Lưu
                                                     </button>
-                                                    <div
-                                                        class="dropdown-menu dropdown-menu-sm p-0 m-0 dropdown-menu-right">
-                                                        <ul class="navi py-5">
-                                                            <li class="navi-item">
-                                                                <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-writing"></i>
-														</span>
-                                                                    <span class="navi-text">Save &amp; continue</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="navi-item">
-                                                                <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-medical-records"></i>
-														</span>
-                                                                    <span class="navi-text">Save &amp; add new</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="navi-item">
-                                                                <a href="#" class="navi-link">
-														<span class="navi-icon">
-															<i class="flaticon2-hourglass-1"></i>
-														</span>
-                                                                    <span class="navi-text">Save &amp; exit</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
                                                 </div>
                                                 <!--end::Dropdown-->
                                             </div>
@@ -292,25 +242,19 @@
                                 </div>
                             </div>
                         </form>
-                                <!--end::Tab-->
-                            </div>
+                        <!--end::Tab-->
                     </div>
-                    <!--begin::Card body-->
                 </div>
-                <!--end::Card-->
+                <!--begin::Card body-->
             </div>
-            <!--end::Container-->
+            <!--end::Card-->
         </div>
-        <!--end::Entry-->
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
 
-
-    <!--end::Content-->
 @endsection
 
 @section('script')
-    {{--    <script src="{{mix('js/user/user.js')}}"></script>--}}
     <script src="{{mix('js/user/date-picker.js')}}"></script>
-    <script>
-        var avatar3 = new KTImageInput('kt_image_3');
-    </script>
 @endsection

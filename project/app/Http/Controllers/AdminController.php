@@ -34,18 +34,14 @@ class AdminController extends Controller
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
-        $today_course = Course::query()
-            ->join('course_schedules','courses.course_id','=','course_schedules.course_id')
-            ->join('course_students','courses.course_id','=','course_students.course_id')
-            ->where('course.course_id','=',Auth::user()->id);
+        $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
+        $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
         $courses = Course::all();
         $course_schedule = DB::table('course_schedules')
-            ->join('course_students','course_schedules.course_id','=','course_students.course_id')
-//            ->where('student_id','=',Auth::user()->id)
+            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
             ->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count','course_schedule']));
-        //
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule','today_courses','tomorrow_courses']));
     }
 
     public function create()
@@ -78,7 +74,7 @@ class AdminController extends Controller
 
         $user = User::find($user_id);
 
-        event(new ResetPassword($user,$password));
+        event(new ResetPassword($user, $password));
         Cache::put('command', 'register');
         Cache::put('user_id', $user_id);
         return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
@@ -89,7 +85,7 @@ class AdminController extends Controller
         $courses = Course::query()->name($request)->status($request)->paginate(5);
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        return view('user.admin.list_course', compact(['courses','teachers','students']));
+        return view('user.admin.list_course', compact(['courses', 'teachers', 'students']));
     }
 
     public function showAttendance($id)

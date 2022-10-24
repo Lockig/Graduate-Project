@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,17 +21,17 @@ class TeacherController extends Controller
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
-        $today_course = Course::query()
-            ->join('course_schedules','courses.course_id','=','course_schedules.course_id')
-            ->join('course_students','courses.course_id','=','course_students.course_id')
-            ->where('course.course_id','=',Auth::user()->id);
-        $courses = Course::all();
-        $course_schedule = DB::table('course_schedules')
-            ->join('course_students','course_schedules.course_id','=','course_students.course_id')
-            ->where('student_id','=',Auth::user()->id)
+        $courses = Course::query()
+            ->where('teacher_id','=',Auth::user()->id)
             ->get();
+        $query = DB::table('course_schedules')
+            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+            ->where('student_id', '=', Auth::user()->id);
+        $course_schedule = $query->get();
+        $today_courses = $query->whereDate('start_at', Carbon::today())->get();
+        $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count','course_schedule']));
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
     }
 
     /**

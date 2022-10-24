@@ -92,13 +92,13 @@ class UserController extends Controller implements ShouldQueue
     public function editInfo(Request $request)
     {
         $user = Auth::user();
-        return view('user.index', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     public function editInfos($id)
     {
         $user = User::find($id);
-        return view('user.index', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     public function updateInfo(UserUpdateRequest $request): RedirectResponse

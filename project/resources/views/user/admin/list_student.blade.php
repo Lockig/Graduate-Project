@@ -203,7 +203,7 @@
                                               title="xóa">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
+                                            <button type="button" data-toggle="modal" data-target="#deleteModal"
                                                     class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -223,6 +223,27 @@
                                                 </svg>
                                                 <!--end::Svg Icon-->
                                             </button>
+                                            <!--Modal-->
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i aria-hidden="true" class="ki ki-close"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Bạn có chắc muốn xóa chứ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary font-weight-bold">Save changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--endModal-->
                                         </form>
                                     </td>
                                 </tr>

@@ -120,7 +120,7 @@
                         <!--begin::Content-->
                         <form method="post"
                               @if($user->id == \Illuminate\Support\Facades\Auth::user()->id)
-                                    action="{{route('users.updateInfo')}}"
+                                  action="{{route('users.updateInfo')}}"
                               @else
                                   action="{{route('users.updateInfos',$user)}}"
                               @endif
@@ -211,35 +211,17 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="address" class="col-xl-3 col-lg-3 col-form-label">Địa chỉ
-                                            </label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="address"
-                                                       class="form-control form-control-lg form-control-solid"
-                                                       type="text"
-                                                       value="{{$user->address}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            {{--                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>--}}
                                             <div class="col-lg-9 col-xl-6">
-                                                {{--                                                <input name="user_name" class="form-control form-control-lg form-control-solid"--}}
-                                                {{--                                                       type="text"--}}
-                                                {{--                                                       value="Bold"/>--}}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            {{--                                            <label for="user_name" class="col-xl-3 col-lg-3 col-form-label">User Name</label>--}}
-                                            <div class="col-lg-9 col-xl-6">
-                                                {{--                                                <input name="user_name" class="form-control form-control-lg form-control-solid"--}}
-                                                {{--                                                       type="text"--}}
-                                                {{--                                                       value="Bold"/>--}}
                                             </div>
                                         </div>
                                         <div class="row">
                                             <label class="col-xl-3"></label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <h5 class="font-weight-bold mt-10 mb-6">Contact Info</h5>
+                                                <h5 class="font-weight-bold mt-10 mb-6">Thông tin liên lạc</h5>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -271,6 +253,23 @@
                                                     <input name="email" type="text"
                                                            class="form-control form-control-lg form-control-solid"
                                                            value="{{$user->email}}" placeholder="Email"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="address" class="col-xl-3 col-lg-3 col-form-label">Địa chỉ
+                                            </label>
+                                            <div class="col-lg-9 col-xl-6">
+                                                <div class="input-group input-group-lg input-group-solid">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="la la-address-book"></i>
+                                                        </span>
+                                                    </div>
+                                                <input name="address"
+                                                       class="form-control form-control-lg form-control-solid"
+                                                       type="text"
+                                                       value="{{$user->address}}"/>
                                                 </div>
                                             </div>
                                         </div>

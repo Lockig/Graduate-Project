@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Course;
 use App\Models\Schedule;
 use App\Models\Teacher;
@@ -35,11 +37,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $courses = Course::paginate(5,['*'],'course');
-        $course_schedules = DB::table('course_schedules')->paginate(10,['*'],'schedule');
+        $courses = Course::paginate(5, ['*'], 'course');
+        $course_schedules = DB::table('course_schedules')->orderBy('start_at')->paginate(10, ['*'], 'schedule');
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->get();
-        return view('user.admin.course', compact(['courses', 'teachers', 'students','course_schedules']));
+        return view('user.admin.course', compact(['courses', 'teachers', 'students', 'course_schedules']));
         //
     }
 
@@ -70,7 +72,10 @@ class CourseController extends Controller
 
     public function storeCourseSchedule(Request $request)
     {
-
+        $request->validate([
+            'course_name' => 'required|string',
+            'start_time' => 'required',
+        ]);
         $course_id = Course::query()->name($request)->value('course_id');
         $duration = Course::query()->name($request)->value('course_hour');
         $start_date = Carbon::parse(Course::find($course_id)->start_date)->format('Y-m-d H:i:s');
@@ -87,8 +92,11 @@ class CourseController extends Controller
                 'start_at' => $input_time,
                 'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
             ]);
-
-            $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
+            if ($request->has('auto_create')) {
+                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
+            } else {
+                break;
+            }
         }
         return redirect()->back()->with('Success', 'Thêm lịch học thành công');
     }
@@ -118,6 +126,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $total_period = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->count('course_id');
+        $learned_period = DB::table('course_schedules')->where('start_at', '<', Carbon::now())->count('course_id');
+
         $course = Course::find($course->course_id);
         $course_schedule = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->get();
         $student_count = DB::table('course_students')->where('course_id', '=', $course->course_id)->count();
@@ -127,7 +138,7 @@ class CourseController extends Controller
             ->where('courses.course_id', '=', $course->course_id)
             ->where('users.role', 'like', '%student%')
             ->paginate(5);
-        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count']));
+        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count', 'total_period', 'learned_period']));
         //
     }
 
@@ -135,23 +146,34 @@ class CourseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Course $course
-     * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
     {
+        return view('user.admin.course_edit', compact('course'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Course $course
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course)
     {
-        //
+        $data = $request->validated();
+        $teacher_id = DB::table('users')->where('id', '=', $data['teacher_id'])->where('role','=','teacher')->value('id');
+        if ($teacher_id != null) {
+            $course->update([
+                'course_name' => $data['course_name'],
+                'teacher_id' => $teacher_id,
+                'start_at' => $data['start_at'],
+                'end_at' => $data['end_at'],
+                'course_hour' => $data['duration'],
+                'course_description' => $data['course_description']
+            ]);
+            return redirect()->route('admin.listCourse')->with('Success', 'Cập nhật thông tin lớp học thành công!');
+        }
+        return back()->with('Fail', 'Mã giáo viên không đúng!');
+
     }
 
     /**
@@ -169,4 +191,20 @@ class CourseController extends Controller
         return back()->with('Success', 'Xóa lớp học thành công');
         //
     }
+
+    public function listCourse(Request $request)
+    {
+        if ($request->has('last_name')) {
+            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        } else {
+            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        }
+        if (!$request->has('export')) {
+            $request->flashOnly('last_name');
+            return view('user.admin.list_student', compact('students'));
+        } else {
+            return (new UsersExport($students))->download('users.xlsx');
+        }
+    }
+
 }

@@ -246,16 +246,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="start_time_2" class="col-form-label text-left col-lg-12 col-sm-12">Chọn giờ cố định 1</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <div class="input-group date" id="kt_datetimepicker_2 start" data-target-input="nearest">
-                                                    <input name="start_time" type="text" class="form-control datetimepicker-input" placeholder="Chọn giờ" data-target="#kt_datetimepicker_2" >
-                                                    <div class="input-group-append" data-target="#kt_datetimepicker_2" data-toggle="datetimepicker">
-                                                        <span class="input-group-text"><i class="ki ki-calendar"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-lg-12 ml-lg-auto pl-8">
+                                            <label class="checkbox">
+                                                <input type="checkbox" checked="checked" name="auto_create"/>
+                                                       <span></span>
+                                                Tạo tự động (+7 ngày)
+                                            </label>
+
                                         </div>
                                     </div>
                                 </div>
@@ -307,11 +304,11 @@
                                                 </td>
                                                 <td class="pr-0">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('h:i:s')}}</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('h:i')}}</a>
                                                 </td>
                                                 <td class="pr-0 text-left">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('h:i:s')}}</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('h:i')}}</a>
                                                 </td>
                                             </tr>
                                         @endforeach

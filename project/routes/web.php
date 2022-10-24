@@ -85,8 +85,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('admin.editPassword');
     Route::get('/course/list', [AdminController::class, 'show'])->name('admin.listCourse');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('admin.coursesDetails');
-
-    Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');
+    Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('admin.editCourse');
+    Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
 
     Route::get('/list/student', [UserController::class, 'listStudent'])->name('admin.listStudent');
     Route::get('/list/teacher', [UserController::class, 'listTeacher'])->name('admin.listTeacher');
