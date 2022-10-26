@@ -129,7 +129,7 @@
                                                         <a href="{{route('users.coursesDetails',$course)}}"
                                                            class="text-dark font-weight-bolder text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
                                                         <span
-                                                            class="text-muted font-weight-bold d-block">Giáo viên {{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' '.ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
+                                                            class="text-muted font-weight-bold d-block">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' '.ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex flex-column w-100 mr-2">
@@ -232,7 +232,6 @@
                                                     <th class="p-0 w-50px"></th>
                                                     <th class="p-0 min-w-130px min-w-lg-100px w-100"></th>
                                                     <th class="p-0 min-w-105px"></th>
-                                                    <th class="p-0 min-w-50px"></th>
                                                 </tr>
                                                 </thead>
                                                 <!--end::Thead-->
@@ -290,42 +289,6 @@
                                                             <span
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
                                                         </td>
-                                                        <td class="text-right pr-0">
-                                                            <a href="#" class="btn btn-icon btn-light btn-sm">
-																						<span
-                                                                                            class="svg-icon svg-icon-md svg-icon-success">
-																							<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																							<svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                                width="24px"
-                                                                                                height="24px"
-                                                                                                viewBox="0 0 24 24"
-                                                                                                version="1.1">
-																								<g stroke="none"
-                                                                                                   stroke-width="1"
-                                                                                                   fill="none"
-                                                                                                   fill-rule="evenodd">
-																									<polygon
-                                                                                                        points="0 0 24 0 24 24 0 24"/>
-																									<rect fill="#000000"
-                                                                                                          opacity="0.3"
-                                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                                          x="11" y="5"
-                                                                                                          width="2"
-                                                                                                          height="14"
-                                                                                                          rx="1"/>
-																									<path
-                                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                                        fill="#000000"
-                                                                                                        fill-rule="nonzero"
-                                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																								</g>
-																							</svg>
-                                                                                            <!--end::Svg Icon-->
-																						</span>
-                                                            </a>
-                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
@@ -347,7 +310,6 @@
                                                     <th class="p-0 w-50px"></th>
                                                     <th class="p-0 min-w-130px min-w-lg-100px w-100"></th>
                                                     <th class="p-0 min-w-105px"></th>
-                                                    <th class="p-0 min-w-50px"></th>
                                                 </tr>
                                                 </thead>
                                                 <!--end::Thead-->
@@ -404,42 +366,6 @@
                                                             class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($course->start_at)->format('h:i') . '-' . \Carbon\Carbon::parse($course->end_at)->format('h:i') }}</span>
                                                             <span
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
-                                                        </td>
-                                                        <td class="text-right pr-0">
-                                                            <a href="#" class="btn btn-icon btn-light btn-sm">
-																						<span
-                                                                                            class="svg-icon svg-icon-md svg-icon-success">
-																							<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
-																							<svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                                                width="24px"
-                                                                                                height="24px"
-                                                                                                viewBox="0 0 24 24"
-                                                                                                version="1.1">
-																								<g stroke="none"
-                                                                                                   stroke-width="1"
-                                                                                                   fill="none"
-                                                                                                   fill-rule="evenodd">
-																									<polygon
-                                                                                                        points="0 0 24 0 24 24 0 24"/>
-																									<rect fill="#000000"
-                                                                                                          opacity="0.3"
-                                                                                                          transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000)"
-                                                                                                          x="11" y="5"
-                                                                                                          width="2"
-                                                                                                          height="14"
-                                                                                                          rx="1"/>
-																									<path
-                                                                                                        d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z"
-                                                                                                        fill="#000000"
-                                                                                                        fill-rule="nonzero"
-                                                                                                        transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997)"/>
-																								</g>
-																							</svg>
-                                                                                            <!--end::Svg Icon-->
-																						</span>
-                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -1454,34 +1380,9 @@
 @endsection
 
 @section('script')
-    {{--    <script src="{{asset('js/pages/widgets.js')}}"></script>--}}
-
-    {{--    <script type="text/javascript">--}}
-    {{--        $(document).ready(function () {--}}
-    {{--            function showCurrentTime() {--}}
-    {{--                var today = new Date();--}}
-    {{--                var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();--}}
-    {{--                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();--}}
-    {{--                var dateTime = date + ' ' + time;--}}
-    {{--                document.getElementById('current_time').innerHTML = dateTime--}}
-    {{--            }--}}
-
-    {{--            setInterval(showCurrentTime, 1000);--}}
-    {{--        })--}}
-    {{--    </script>--}}
     <script src="{{asset('plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
     <script src="{{asset('js/external-events.js')}}"></script>
     <script>
-        {{--const data = <?php--}}
-        {{--    $logs = \Illuminate\Support\Facades\DB::table('daily_logs')->select()--}}
-        {{--        ->where('user_id','=',\Illuminate\Support\Facades\Auth::user()->user_id)--}}
-        {{--        ->get();--}}
-        {{--    echo(json_encode($logs));--}}
-        {{--    ?>;--}}
-
-        {{--console.log(data);--}}
-        var array = [];
-
         var KTCalendarBasic = function (data) {
             console.log(data);
             return {
@@ -1529,11 +1430,20 @@
                             {
                                 'title': '{{\App\Models\Course::find($item->course_id)->course_name}}',
                                 'start': '{{\Carbon\Carbon::parse($item->start_at)->format('Y-m-d h:i:s')}}',
-                                'end': '{{\Carbon\Carbon::parse($item->end_at)->format('Y-m-d h:i:s')}}'
+                                'end': '{{\Carbon\Carbon::parse($item->end_at)->format('Y-m-d h:i:s')}}',
+{{--                                @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')--}}
+{{--                                'url': '{{route('admin.listAttendance',$item)}}'--}}
+{{--                                @endif--}}
                             },
                             @endforeach
                         ],
 
+                        eventClick: function (event) {
+                            if(event.url){
+                                window.open(event.url);
+                                return false;
+                            }
+                        },
                         eventRender: function (info) {
                             var element = $(info.el);
 

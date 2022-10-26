@@ -187,7 +187,7 @@
                                                 <input name="first_name"
                                                        class="form-control form-control-lg form-control-solid"
                                                        type="text"
-                                                       value="{{$user->first_name}}"/>
+                                                       value="{{ucwords($user->first_name)}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -197,7 +197,7 @@
                                                 <input name="last_name"
                                                        class="form-control form-control-lg form-control-solid"
                                                        type="text"
-                                                       value="{{$user->last_name}}"/>
+                                                       value="{{ucwords($user->last_name)}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">

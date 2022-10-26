@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserAttendanceController extends Controller
 {
@@ -41,11 +42,20 @@ class UserAttendanceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($course,Request $request)
     {
+        if($request->input('schedule_id')){
+            $records = DB::table('attendances')
+                ->where('schedule_id','=',$request->input('schedule_id'))
+                ->get();
+        }
+        else{
+            $records = DB::table('attendances')
+                ->where('schedule_id','=',$request->input('schedule_id'))
+                ->get();
+        }
+        return redirect()->back(compact('records'));
         //
     }
 

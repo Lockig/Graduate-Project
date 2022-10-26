@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FingerprintController;
 use App\Http\Controllers\RequestDayOffController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
@@ -85,11 +86,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('admin.editPassword');
     Route::get('/course/list', [AdminController::class, 'show'])->name('admin.listCourse');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('admin.coursesDetails');
+    Route::get('/course/{course}/attendance', [\App\Http\Controllers\UserAttendanceController::class, 'show'])->name('admin.listAttendance');
     Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('admin.editCourse');
     Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
 
     Route::get('/list/student', [UserController::class, 'listStudent'])->name('admin.listStudent');
     Route::get('/list/teacher', [UserController::class, 'listTeacher'])->name('admin.listTeacher');
+
+    Route::get('/settings',[AdminController::class,'settings'])->name('admin.settings');
+    Route::post('/settings/fingerprint',[FingerprintController::class,'update'])->name('admin.fingerprintSetting');
+
 
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
@@ -97,4 +103,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/course/student', [CourseController::class, 'storeCourseStudent'])->name('admin.storeCourseStudent');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
     Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');
+
 });

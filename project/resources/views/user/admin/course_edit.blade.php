@@ -155,7 +155,7 @@
                                                         <input name="start_at" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                id="kt_datepicker_1" readonly="readonly"
-                                                               value="{{\Carbon\Carbon::parse($course->start_at)->format('d-m-Y')}}"/>
+                                                               value="{{\Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,7 +175,7 @@
                                                         <input name="end_at" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                id="kt_datepicker_1" readonly="readonly"
-                                                               value="{{\Carbon\Carbon::parse($course->end_at)->format('d-m-Y')}}"/>
+                                                               value="{{\Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -215,6 +215,24 @@
                                                         <input name="course_description" type="text"
                                                                class="form-control form-control-lg form-control-solid"
                                                                value="{{$course->course_description}}"
+                                                               required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="course_status"
+                                                       class="col-form-label col-3 text-lg-right text-left">Tình trạng
+                                                </label>
+                                                <div class="col-9">
+                                                    <div class="input-group input-group-lg input-group-solid">
+                                                        <div class="input-group-prepend">
+																			<span class="input-group-text">
+																				<i class="la la-file-text"></i>
+																			</span>
+                                                        </div>
+                                                        <input name="course_status" type="text"
+                                                               class="form-control form-control-lg form-control-solid"
+                                                               value="{{$course->course_status}}"
                                                                required/>
                                                     </div>
                                                 </div>

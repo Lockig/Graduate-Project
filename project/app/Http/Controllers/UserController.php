@@ -7,7 +7,6 @@ use App\Events\RequestDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\Account;
 use App\Models\Course;
 use App\Models\User;
 use App\Notifications\RequestDayOffNotification;
@@ -22,8 +21,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
 use Illuminate\Support\Facades\Storage;
-use Nette\Utils\Random;
-use PhpParser\Node\Stmt\Return_;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller implements ShouldQueue
 {
@@ -60,7 +58,7 @@ class UserController extends Controller implements ShouldQueue
             ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
             ->where('course_students.student_id', '=', $user->id)
             ->get();
-        $records = DB::table('attendances')->where('user_id', '=', $user->id)->paginate(5);
+        $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in','desc')->paginate(5);
         return view('user.attendance', compact('records', 'user', 'courses'));
     }
 
@@ -174,7 +172,8 @@ class UserController extends Controller implements ShouldQueue
             $request->flashOnly('last_name');
             return view('user.admin.list_student', compact('students'));
         } else {
-            return (new UsersExport($students))->download('users.xlsx');
+//            return (new UsersExport($students))->download('users.xlsx');
+            return Excel::download(new UsersExport($students),'student_list.xlsx');
         }
     }
 
@@ -189,7 +188,7 @@ class UserController extends Controller implements ShouldQueue
             $request->flashOnly('last_name');
             return view('user.admin.list_teacher', compact('teachers'));
         } else {
-            return (new UsersExport($teachers))->download('users.xlsx');
+            return Excel::download(new UsersExport($teachers),'teacher_list.xlsx');
         }
     }
 

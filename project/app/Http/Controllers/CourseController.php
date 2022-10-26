@@ -57,6 +57,7 @@ class CourseController extends Controller
             'teacher' => 'required|string',
             'day_start' => 'required|date',
             'day_end' => 'required|date',
+            'duration' => 'required',
             'course_description' => 'required'
         ]);
         DB::table('courses')->insert([
@@ -64,6 +65,7 @@ class CourseController extends Controller
             'course_name' => $credentials['course_name'],
             'start_date' => Carbon::parse($credentials['day_start'])->format('Y-m-d'),
             'end_date' => Carbon::parse($credentials['day_end'])->format('Y-m-d'),
+            'course_hour' => $credentials['duration'],
             'course_description' => $credentials['course_description'],
             'course_status' => 'Bắt đầu'
         ]);
@@ -80,8 +82,8 @@ class CourseController extends Controller
         $duration = Course::query()->name($request)->value('course_hour');
         $start_date = Carbon::parse(Course::find($course_id)->start_date)->format('Y-m-d H:i:s');
         $end_date = Carbon::parse(Course::find($course_id)->end_date)->format('Y-m-d H:i:s');
-        $input_time = Carbon::parse($request->input('start_time'))->format('Y-m-d h:i:s');
-
+        $input_time = Carbon::parse($request->input('start_time'))->format('Y-m-d H:i:s');
+//        dd($input_time . ' ' . $start_date . ' ' . $end_date);
         if ($input_time < $start_date || $input_time > $end_date) {
             return redirect()->back()->with('Fail', 'Giờ nhập vào không được phép');
         }
@@ -114,7 +116,7 @@ class CourseController extends Controller
                 'student_id' => $student_id->id,
                 'course_id' => $course_id
             ]);
-            return redirect()->back()->with('Success', 'Thêm lịch học thành công');
+            return redirect()->back()->with('Success', 'Thêm học sinh vào lớp thành công');
         }
         return redirect()->back()->with('Fail', 'Mã học sinh không đúng');
     }
@@ -124,13 +126,24 @@ class CourseController extends Controller
      *
      * @param Course $course
      */
-    public function show(Course $course)
+    public function show(Course $course,Request $request)
     {
+
         $total_period = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->count('course_id');
-        $learned_period = DB::table('course_schedules')->where('start_at', '<', Carbon::now())->count('course_id');
+        $learned_period = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->where('start_at', '<', Carbon::now())->count('course_id');
 
         $course = Course::find($course->course_id);
-        $course_schedule = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->get();
+        $course_schedule = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->orderByDesc('start_at')->get();
+        if(isset($request->schedule_id)){
+            $attendances = DB::table('attendances')
+                ->join('course_schedules','attendances.schedule_id','=','course_schedules.id')
+                ->where('course_schedules.start_at','=',$request->input('schedule_id'))
+                ->where('course_schedules.course_id','=',$course->course_id)->paginate(5,['*'],'attendance');
+        }else{
+            $attendances = DB::table('attendances')
+                ->join('course_schedules','attendances.schedule_id','=','course_schedules.id')
+                ->where('course_schedules.course_id','=',$course->course_id)->paginate(5,['*'],'attendance');
+        }
         $student_count = DB::table('course_students')->where('course_id', '=', $course->course_id)->count();
         $students = DB::table('course_students')
             ->join('courses', 'courses.course_id', '=', 'course_students.course_id')
@@ -138,7 +151,7 @@ class CourseController extends Controller
             ->where('courses.course_id', '=', $course->course_id)
             ->where('users.role', 'like', '%student%')
             ->paginate(5);
-        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count', 'total_period', 'learned_period']));
+        return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count', 'total_period', 'learned_period','attendances']));
         //
     }
 
@@ -160,7 +173,7 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course)
     {
         $data = $request->validated();
-        $teacher_id = DB::table('users')->where('id', '=', $data['teacher_id'])->where('role','=','teacher')->value('id');
+        $teacher_id = DB::table('users')->where('id', '=', $data['teacher_id'])->where('role', '=', 'teacher')->value('id');
         if ($teacher_id != null) {
             $course->update([
                 'course_name' => $data['course_name'],
@@ -168,7 +181,8 @@ class CourseController extends Controller
                 'start_at' => $data['start_at'],
                 'end_at' => $data['end_at'],
                 'course_hour' => $data['duration'],
-                'course_description' => $data['course_description']
+                'course_description' => $data['course_description'],
+                'course_status'=>$data['course_status']
             ]);
             return redirect()->route('admin.listCourse')->with('Success', 'Cập nhật thông tin lớp học thành công!');
         }

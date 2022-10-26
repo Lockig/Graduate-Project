@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fingerprint;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,52 +47,54 @@ class FingerprintController extends Controller
     public function store(Request $request)
     {
         if ($request->has('fingerID')) {
-            if ($request->input('fingerID') >= 200) {
-                echo 'no user find';
-            }
-            $check = User::query()
-                ->fingerprint($request)
-                ->value('id');
-            if ($check) {
-                $current_time = Carbon::now();
-                $schedule_id = DB::table('course_schedules')
-                    ->where('start_at','<',$current_time)
-                    ->where('end_at','>',$current_time)
+            if ($request->input('fingerID') < 254) {
+                $check = User::query()
+                    ->fingerprint($request)
                     ->value('id');
-                if($schedule_id){
-                    DB::table('attendances')->insert([
-                        'user_id' => $check,
-                        'schedule_id' => $schedule_id,
-                        'time_in' => $current_time->format('Y-m-d H:i:s'),
-                    ]);
+                if ($check) {
+                    $current_time = Carbon::now();
+                    $schedule_id = DB::table('course_schedules')
+                        ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+                        ->where('course_students.student_id', '=', $check)
+                        ->where('course_schedules.start_at', '<', $current_time)
+                        ->where('course_schedules.end_at', '>', $current_time)
+                        ->value('course_schedules.id');
+                    if ($schedule_id) {
+                        DB::table('attendances')->insert([
+                            'user_id' => $check,
+                            'schedule_id' => $schedule_id,
+                            'time_in' => $current_time->format('Y-m-d H:i:s'),
+                        ]);
+                    }
+                    echo 'hello ' . User::find($check)->last_name;
+                } else {
+                    echo 'no user find';
                 }
-
-                echo 'hello '. User::find($check)->last_name;
             } else {
-                echo 'no user find';
+                echo 'Waiting for finger!';
             }
+
         }
 
 //        check to register
         if ($request->has('check')) {
-                if (Cache::get('command') == 'register') {
-                    echo Cache::get('command') . Cache::get('user_id');
-                }
-                if (Cache::get('command') == 'delete') {
-                    echo Cache::get('command') . Cache::get('user_id');
+            if (Cache::get('command') == 'register') {
+                echo Cache::get('command') . Cache::get('user_id');
+            }
+            if (Cache::get('command') == 'delete') {
+                echo Cache::get('command') . Cache::get('user_id');
             }
         }
-//
+
 //        get new fingerprint_id
         if ($request->has('newFingerID')) {
             DB::table('users')->where('id', '=', Cache::get('user_id'))
                 ->update([
                     'fingerprint' => $request->input('newFingerID'),
                 ]);
-            echo 'dang ky van tay thanh cong';
+            echo 'new finger registered';
             Cache::flush();
         }
-
     }
 
     /**
@@ -119,8 +120,30 @@ class FingerprintController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function update(Request $request, Fingerprint $fingerprint)
+    public function update(Request $request)
     {
+        $id = User::query()->where('id','=',$request->user_id)->value('id');
+        if ($id != null) {
+            switch ($request->input('action')):
+                case 'create':
+                    Cache::put('user_id', $request->user_id);
+                    Cache::put('command','register');
+                    return back()->with('Success','Thêm vân tay thành công!');
+                case 'update':
+                    Cache::put('command','delete');
+                    Cache::put('user_id',$request->user_id);
+                    break;
+                case 'delete':
+                    Cache::put('command', 'delete');
+                    Cache::put('user_id',$request->user_id);
+                    return back()->with('Success','Xóa vân tay thành công!');
+                default:
+                    return back()->with('Fail','Chưa chọn hành động');
+            endswitch;
+        } else {
+            return back()->with('Fail', 'Sai ID');
+        }
+
         //
     }
 

@@ -53,13 +53,13 @@
                                 <div class="col-lg-10 col-xl-9 ml-4">
                                     <div class="row align-items-end">
                                         <div class="col-md-5 my-2 my-md-0">
-                                            <div  class="row d-flex align-items-center">
+                                            <div class="row d-flex align-items-center">
                                                 <label for="course_name"
                                                        class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
                                                 <select name="course_name" class="form-control">
                                                     @foreach($courses as $course)
                                                         <option value="{{$course->course_name}}" class="form-control">
-                                                         {{$course->course_name}}
+                                                            {{$course->course_name}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -85,7 +85,8 @@
                                     </th>
                                     <th class="pr-0" style="width: 50px">Lớp</th>
                                     <th style="min-width: 100px"></th>
-                                    <th style="min-width: 150px">Buổi</th>
+                                    <th class="text-left" style="min-width: 150px">Buổi</th>
+                                    <th style="min-width: 150px">Giờ bắt đầu</th>
                                     <th style="min-width: 150px">Giờ vào</th>
                                     <th class="pr-0 text-right" style="min-width: 150px">Ghi chú</th>
                                 </tr>
@@ -101,8 +102,9 @@
                                         <td class="pr-0">
                                             <div class="symbol symbol-50 symbol-light mt-1">
 																<span class="symbol-label">
-																	<img src="{{asset('media/svg/avatars/001-boy.svg')}}"
-                                                                         class="h-75 align-self-end" alt=""/>
+																	<img
+                                                                        src="{{asset('media/svg/avatars/001-boy.svg')}}"
+                                                                        class="h-75 align-self-end" alt=""/>
 																</span>
                                             </div>
                                         </td>
@@ -115,19 +117,32 @@
                                         <td class="pl-0">
                                             <a href="#"
                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                {{\Carbon\Carbon::parse($record->time_in)->format('d-m-Y')}}
+                                                {{\Carbon\Carbon::parse($record->time_in)->format('d/m/Y')}}
                                             </a>
                                         </td>
                                         <td>
+                                            <span
+                                               class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                                {{\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)->format('h:i:s')}}
+                                            </span>
+                                        </td>
+                                        <td>
                                         <span
-                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                            {{ \Carbon\Carbon::parse($record->time_in)->format('H:i:s')}}
+                                            class="text-dark-75 font-weight-bolder text-hover-primary d-block font-size-lg">
+                                            {{\Carbon\Carbon::parse($record->time_in)->format('H:i:s')}}
                                         </span>
                                         </td>
                                         <td class="pr-0 text-right">
-
+                                            @if(\Carbon\Carbon::parse($record->time_in)->diffInMinutes(\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)) <=5 )
                                                 <span
-                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn</span>
+                                                    class="text-success font-weight-bolder font-size-lg">Đúng giờ</span>
+                                            @elseif(\Carbon\Carbon::parse($record->time_in)->diffInMinutes(\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)) <=10)
+                                                <span
+                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn < 10p</span>
+                                            @else
+                                                <span
+                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn > 10p</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

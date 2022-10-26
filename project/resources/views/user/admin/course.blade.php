@@ -83,6 +83,7 @@
                                                 <input name="day_start" type="text" class="form-control"
                                                        id="kt_datepicker_1"
                                                        readonly="readonly"
+                                                       value="{{old('day_start')}}"
                                                   />
                                             </div>
                                         </div>
@@ -95,15 +96,16 @@
                                                 <input name="day_end" type="text" class="form-control"
                                                        id="kt_datepicker_1"
                                                        readonly="readonly"
+                                                       value="{{old('day_end')}}"
                                                   />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="hour" class="col-form-label text-left col-lg-12 col-sm-12">Thời lượng</label>
+                                            <label for="duration" class="col-form-label text-left col-lg-12 col-sm-12">Thời lượng</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="hour" type="text" class="form-control" placeholder="Nhập số giờ"/>
+                                                <input name="duration" type="text" class="form-control" placeholder="Nhập số giờ"/>
                                             </div>
                                         </div>
                                     </div>
@@ -162,24 +164,24 @@
                                                        class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
                                                 </td>
                                                 <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->start_date}}</a>
+                                                    <span href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
                                                 </td>
                                                 <td class="pr-0 text-left">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->end_date}}</a>
+                                                    <span href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
                                                 </td>
                                                 <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
+                                                    <span href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
                                                 </td>
                                                 <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</a>
+                                                    <span href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</span>
                                                 </td>
                                                 <td class="pr-0 text-right">
-                                                    <a href="#"
-                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->status}}</a>
+                                                    <span href="#"
+                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->status}}</span>
                                                     {{--                                                    @if($item->stage='Chờ duyệt')--}}
                                                     {{--                                                        <a href="#"--}}
                                                     {{--                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
@@ -206,7 +208,7 @@
                 <div class="row mb-2">
                     <div class="col-4">
                         <!--begin::Card-->
-                        <div class="card card-custom">
+                        <div class="card card-custom card-stretch">
                             <div class="card-header d-flex justify-content-center">
                                 <h3 class="card-title text-uppercase">TẠO LỊCH HỌC</h3>
                             </div>

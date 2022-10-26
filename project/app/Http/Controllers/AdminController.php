@@ -38,7 +38,7 @@ class AdminController extends Controller
         $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
         $courses = Course::all();
         $course_schedule = DB::table('course_schedules')
-            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+//            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
             ->get();
         $users = User::query()->name($request)->paginate(5);
         return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule','today_courses','tomorrow_courses']));
@@ -191,10 +191,12 @@ class AdminController extends Controller
 
     public function settings()
     {
-        $list_requests = DB::table('day_off_requests')
-            ->where('stage', 'like', '%' . 'Chờ duyệt' . '%')
-            ->paginate(5);
-        return view('user.admin.settings', compact('list_requests'));
+        $list_requests=User::all();
+//        $list_requests = DB::table('day_off_requests')
+//            ->where('stage', 'like', '%' . 'Chờ duyệt' . '%')
+//            ->paginate(5);
+        $fingerprints = User::query()->paginate(10,['*'],'fingerprint');
+        return view('user.admin.settings', compact('list_requests','fingerprints'));
     }
 
     public function timeSetting(Request $request)

@@ -319,7 +319,7 @@
 												</span>
                                 </li>
                                 <li class="menu-item" aria-haspopup="#">
-                                    <a class="menu-link">
+                                    <a href="{{route('admin.settings')}}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
