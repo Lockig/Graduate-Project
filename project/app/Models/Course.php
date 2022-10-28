@@ -47,7 +47,6 @@ class Course extends Model
         }
         return $query;
     }
-
     public function scopeTeacher($query, Request $request)
     {
         if ($request->has('teacher')) {

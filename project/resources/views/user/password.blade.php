@@ -66,17 +66,44 @@
                                 <!--end::User-->
                                 <!--begin::Contact-->
                                 <div class="py-9">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="font-weight-bold mr-2">Email:</span>
-                                        <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
+                                    <div
+                                        class="d-flex flex-column align-items-start justify-content-between mx-2 mb-2">
+                                        <div class="row">
+                                            <span class="font-weight-bold mr-2">Email:</span>
+                                        </div>
+                                        <div class="row">
+                                            <a href="#" class="text-muted text-hover-primary">{{$user->email}}</a>
+                                        </div>
+
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <span class="font-weight-bold mr-2">SĐT:</span>
-                                        <span class="text-muted">{{$user->mobile_number}}</span>
+                                    <div
+                                        class="d-flex flex-column align-items-start justify-content-between mx-2 mb-2">
+                                        <div class="row">
+                                            <span class="font-weight-bold mr-2">Số điện thoại:</span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="text-muted">{{$user->mobile_number}}</span>
+                                        </div>
+
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <span class="font-weight-bold mr-2">Ngày sinh:</span>
-                                        <span class="text-muted">{{$user->date_of_birth}}</span>
+                                    <div class="d-flex flex-column align-items-start justify-content-between mx-2">
+                                        <div class="row">
+                                            <span class="font-weight-bold mr-2">Ngày sinh:</span>
+                                        </div>
+                                        <div class="row">
+                                                  <span
+                                                      class="text-muted">{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start justify-content-between mx-2">
+                                        <div class="row">
+                                            <span class="font-weight-bold mr-2">Địa chỉ:</span>
+                                        </div>
+                                        <div class="row">
+                                                 <span
+                                                     class="text-muted">{{$user->address}}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!--end::Contact-->

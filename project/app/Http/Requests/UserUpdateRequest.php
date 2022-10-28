@@ -27,7 +27,7 @@ class UserUpdateRequest extends FormRequest
             'profile_avatar' => 'file',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'date_of_birth' => 'date|date_format:m/d/Y',
+            'date_of_birth' => 'required|date|date_format:m/d/Y',
             'mobile_number' => 'string|max:10',
             'email' => 'required|string',
             'address'=>'required|string'

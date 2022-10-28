@@ -72,8 +72,12 @@ class UserController extends Controller implements ShouldQueue
     public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = User::find($id);
+        dd($user);
         if ($user && $user->role != 'admin') {
-            User::destroy($id);
+            $attendance = DB::table('attendances')->where('user_id','=',$id)->delete();
+            $course_student = DB::table('course_students')->delete(['student_id'=>$id]);
+            dd($course_student);
+            User::find($id)->delete();
             return back()->with("Success", "Delete user successfully");
         }
         return back()->with("Error", "Có lỗi xảy ra");
@@ -104,7 +108,7 @@ class UserController extends Controller implements ShouldQueue
         $user = Auth::user();
         if ($request->has('profile_avatar')) {
             if ($user->avatar != "") {
-                Storage::delete($user->avatar);
+                Storage::delete('app/' . $user->avatar);
             }
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
@@ -148,7 +152,7 @@ class UserController extends Controller implements ShouldQueue
         return (new UsersExport($request->users))->download('users.xlsx');
     }
 
-    public function requestDayOff(Request $request)
+    public function requestDayOff(Request $request,Course $course)
     {
         $list = DB::table('day_off_requests')->paginate(3);
         $courses = DB::table('course_students')->where('student_id', '=', Auth::user()->id)->get();
@@ -161,38 +165,8 @@ class UserController extends Controller implements ShouldQueue
     }
 
 
-    public function listStudent(Request $request)
-    {
-        if ($request->has('last_name')) {
-            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        } else {
-            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        }
-        if (!$request->has('export')) {
-            $request->flashOnly('last_name');
-            return view('user.admin.list_student', compact('students'));
-        } else {
-//            return (new UsersExport($students))->download('users.xlsx');
-            return Excel::download(new UsersExport($students),'student_list.xlsx');
-        }
-    }
 
-    public function listTeacher(Request $request)
-    {
-        if ($request->has('last_name')) {
-            $teachers = User::query()->name($request)->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        } else {
-            $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        }
-        if (!$request->has('export')) {
-            $request->flashOnly('last_name');
-            return view('user.admin.list_teacher', compact('teachers'));
-        } else {
-            return Excel::download(new UsersExport($teachers),'teacher_list.xlsx');
-        }
-    }
 
-    public
     function updateInfos(UserUpdateRequest $request, $id): RedirectResponse
     {
         $user = User::find($id);

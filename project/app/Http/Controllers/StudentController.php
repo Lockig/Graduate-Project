@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Student;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -16,10 +19,20 @@ class StudentController extends Controller
      * Display a listing of the resource.
      *
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('layout.layout');
-        //
+        if ($request->has('last_name')) {
+            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+        } else {
+            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+        }
+        if (!$request->has('export')) {
+            $request->flashOnly('last_name');
+            return view('user.admin.list_student', compact('students'));
+        } else {
+//            return (new UsersExport($students))->download('users.xlsx');
+            return Excel::download(new UsersExport($students),'student_list.xlsx');
+        }
     }
 
     /**
@@ -55,6 +68,12 @@ class StudentController extends Controller
         //
     }
 
+    public function listCourse(){
+        $courses = DB::table('courses')
+            ->join('course_students','course_students.course_id','=','courses.course_id')
+            ->where('student_id','=',Auth::user()->id)->paginate(5);
+        return view('user.admin.list_course',compact('courses'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -102,5 +121,21 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function listStudent(Request $request)
+    {
+        if ($request->has('last_name')) {
+            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+        } else {
+            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+        }
+        if (!$request->has('export')) {
+            $request->flashOnly('last_name');
+            return view('user.admin.list_student', compact('students'));
+        } else {
+//            return (new UsersExport($students))->download('users.xlsx');
+            return Excel::download(new UsersExport($students),'student_list.xlsx');
+        }
     }
 }

@@ -65,7 +65,6 @@ class LoginController extends Controller
         $user_id = User::email($request)->value('id');
         if ($user_id != null) {
             $password = User::find($user_id)->password;
-//            if(strcmp($request->password,$password) == 0){
             if (Hash::check($request->password,$password)) {
                 Auth::loginUsingId($user_id);
                 $this->authenticated($request, Auth::user());

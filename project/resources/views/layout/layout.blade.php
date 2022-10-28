@@ -137,6 +137,12 @@
 <script src="{{mix('js/widget.js')}}"></script>
 <!--end:Javascript-->
 <!--begin:Javascript-->
+<script>
+    function update(){
+        $('#clock').html(moment().format('D/M/Y H:mm:ss'));
+    }
+    setInterval(update,1000);
+</script>
 @yield('script')
 <!--end:Javascript-->
 

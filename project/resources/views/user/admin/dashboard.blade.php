@@ -114,6 +114,10 @@
                                             </thead>
                                             <tbody>
                                             @foreach($courses as $course)
+                                                @php
+                                                    $total_period = \Illuminate\Support\Facades\DB::table('course_schedules')->where('course_id', '=', $course->course_id)->count('course_id');
+                                                    $learned_period = \Illuminate\Support\Facades\DB::table('course_schedules')->where('course_id', '=', $course->course_id)->where('start_at', '<', \Carbon\Carbon::now())->count('course_id');
+                                                @endphp
                                                 <tr>
                                                     <th class="pl-0 py-5">
                                                         <div class="symbol symbol-50 symbol-light mr-2">
@@ -136,12 +140,12 @@
                                                             <div
                                                                 class="d-flex align-items-center justify-content-between mb-2">
                                                                 <span
-                                                                    class="text-muted mr-2 font-size-sm font-weight-bold">71%</span>
+                                                                    class="text-muted mr-2 font-size-sm font-weight-bold">{{round($learned_period /$total_period * 100)}}%</span>
                                                                 <span class="text-muted font-size-sm font-weight-bold">Tiến độ</span>
                                                             </div>
                                                             <div class="progress progress-xs w-100">
                                                                 <div class="progress-bar bg-danger" role="progressbar"
-                                                                     style="width: 71%;" aria-valuenow="50"
+                                                                     style="width: {{round($learned_period /$total_period * 100)}}%;" aria-valuenow="{{round($learned_period /$total_period * 100)}}"
                                                                      aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                         </div>
@@ -231,7 +235,7 @@
                                                 <tr>
                                                     <th class="p-0 w-50px"></th>
                                                     <th class="p-0 min-w-130px min-w-lg-100px w-100"></th>
-                                                    <th class="p-0 min-w-105px"></th>
+                                                    <th class="p-0 min-w-110px"></th>
                                                 </tr>
                                                 </thead>
                                                 <!--end::Thead-->
@@ -281,11 +285,11 @@
                                                             <a href="#"
                                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($course->course_id)->course_name}}</a>
                                                             <span
-                                                                class="text-muted font-weight-bold d-block">{{\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->first_name .' '. \App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->last_name }}</span>
+                                                                class="text-muted font-weight-bold d-block">{{ucwords(\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->first_name) .' '. ucwords(\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->last_name) }}</span>
                                                         </td>
                                                         <td class="text-left">
                                                         <span
-                                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($course->start_at)->format('h:i') . '-' . \Carbon\Carbon::parse($course->end_at)->format('h:i') }}</span>
+                                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($course->start_at)->format('H:i') . '-' . \Carbon\Carbon::parse($course->end_at)->format('H:i') }}</span>
                                                             <span
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
                                                         </td>
@@ -359,11 +363,11 @@
                                                             <a href="#"
                                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($course->course_id)->course_name}}</a>
                                                             <span
-                                                                class="text-muted font-weight-bold d-block">{{\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->first_name .' '. \App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->last_name }}</span>
+                                                                class="text-muted font-weight-bold d-block">{{ucwords(\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->first_name) .' '. ucwords(\App\Models\User::find(\App\Models\Course::find($course->course_id)->teacher_id)->last_name) }}</span>
                                                         </td>
                                                         <td class="text-left">
                                                         <span
-                                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($course->start_at)->format('h:i') . '-' . \Carbon\Carbon::parse($course->end_at)->format('h:i') }}</span>
+                                                            class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($course->start_at)->format('H:i') . '-' . \Carbon\Carbon::parse($course->end_at)->format('H:i') }}</span>
                                                             <span
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
                                                         </td>

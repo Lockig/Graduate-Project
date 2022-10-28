@@ -110,12 +110,43 @@
                     </a>
                 </li>
                 <li class="menu-section">
-                    <h4 class="menu-text">Điểm danh</h4>
+                    <h4 class="menu-text">Lớp học</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::user()->role =='student')
                 <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.attendance')}}"
-                       class="menu-link">
+                    <a
+                        href="{{route('user.listCourse')}}"
+                        class="menu-link">
+										<span class="svg-icon menu-icon">
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
+                                                        fill="#000000"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
+												</g>
+											</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+                        <span class="menu-text">Thông tin lớp học</span>
+                    </a>
+                </li>
+                @endif
+                <li class="menu-item" aria-haspopup="true">
+                    <a
+                        @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
+                            href="{{route('users.attendance')}}"
+                        @elseif(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                            href="{{route('teacher.attendance')}}"
+                        @endif
+                        class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -160,13 +191,13 @@
                     </a>
                 </li>
                 @if(\Illuminate\Support\Facades\Auth::user()->role == 'teacher')
-                <li class="menu-section">
-                    <h4 class="menu-text">Quản lý lớp học</h4>
-                    <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                </li>
-                <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('teacher.listCourse')}}"
-                       class="menu-link">
+                    <li class="menu-section">
+                        <h4 class="menu-text">Quản lý </h4>
+                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                    </li>
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('teacher.listCourse')}}"
+                           class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -184,12 +215,12 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                        <span class="menu-text">Danh sách lớp học</span>
-                    </a>
-                </li>
-                <li class="menu-item" aria-haspopup="true">
-                    <a href="{{route('users.request')}}"
-                       class="menu-link">
+                            <span class="menu-text">Danh sách lớp học</span>
+                        </a>
+                    </li>
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('users.request')}}"
+                           class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -207,200 +238,107 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                        <span class="menu-text">Đơn xin nghỉ</span>
-                    </a>
-                </li>
+                            <span class="menu-text">Đơn xin nghỉ</span>
+                        </a>
+                    </li>
                 @endif
                 @if(\Illuminate\Support\Facades\Auth::user()->role =='admin')
 
                     <li class="menu-section">
-                        <h4 class="menu-text">Quản lý lớp học</h4>
+                        <h4 class="menu-text">Quản lý</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                     </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="#" class="menu-link menu-toggle">
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('admin.listStudent')}}"
+                           class="menu-link">
 										<span class="svg-icon menu-icon">
-											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                                  viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<rect x="0" y="0" width="24" height="24"/>
 													<path
-                                                        d="M7,3 L17,3 C19.209139,3 21,4.790861 21,7 C21,9.209139 19.209139,11 17,11 L7,11 C4.790861,11 3,9.209139 3,7 C3,4.790861 4.790861,3 7,3 Z M7,9 C8.1045695,9 9,8.1045695 9,7 C9,5.8954305 8.1045695,5 7,5 C5.8954305,5 5,5.8954305 5,7 C5,8.1045695 5.8954305,9 7,9 Z"
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
                                                         fill="#000000"/>
-													<path
-                                                        d="M7,13 L17,13 C19.209139,13 21,14.790861 21,17 C21,19.209139 19.209139,21 17,21 L7,21 C4.790861,21 3,19.209139 3,17 C3,14.790861 4.790861,13 7,13 Z M17,19 C18.1045695,19 19,18.1045695 19,17 C19,15.8954305 18.1045695,15 17,15 C15.8954305,15 15,15.8954305 15,17 C15,18.1045695 15.8954305,19 17,19 Z"
-                                                        fill="#000000" opacity="0.3"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
 												</g>
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Người dùng</span>
-                            <i class="menu-arrow"></i>
+                            <span class="menu-text">Quản lý học sinh</span>
                         </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true" data-menu-toggle="hover">
-												<span class="menu-link">
-													<span class="menu-text">General</span>
-												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.create')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Tạo mới</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                    <a href="#" class="menu-link menu-toggle">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                        <i class="menu-arrow"></i>
-                                    </a>
-                                    <div class="menu-submenu">
-                                        <i class="menu-arrow"></i>
-                                        <ul class="menu-subnav">
-                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                                <a href="{{route('admin.listStudent')}}" class="menu-link menu-toggle">
-                                                    <i class="menu-bullet menu-bullet-dot">
-                                                        <span></span>
-                                                    </i>
-                                                    <span class="menu-text">Học sinh</span>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                                <a href="{{route('admin.listTeacher')}}" class="menu-link menu-toggle">
-                                                    <i class="menu-bullet menu-bullet-dot">
-                                                        <span></span>
-                                                    </i>
-                                                    <span class="menu-text">Giáo viên</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="#" class="menu-link menu-toggle">
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('admin.listTeacher')}}"
+                           class="menu-link">
 										<span class="svg-icon menu-icon">
-											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                                  viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<rect x="0" y="0" width="24" height="24"/>
 													<path
-                                                        d="M7,3 L17,3 C19.209139,3 21,4.790861 21,7 C21,9.209139 19.209139,11 17,11 L7,11 C4.790861,11 3,9.209139 3,7 C3,4.790861 4.790861,3 7,3 Z M7,9 C8.1045695,9 9,8.1045695 9,7 C9,5.8954305 8.1045695,5 7,5 C5.8954305,5 5,5.8954305 5,7 C5,8.1045695 5.8954305,9 7,9 Z"
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
                                                         fill="#000000"/>
-													<path
-                                                        d="M7,13 L17,13 C19.209139,13 21,14.790861 21,17 C21,19.209139 19.209139,21 17,21 L7,21 C4.790861,21 3,19.209139 3,17 C3,14.790861 4.790861,13 7,13 Z M17,19 C18.1045695,19 19,18.1045695 19,17 C19,15.8954305 18.1045695,15 17,15 C15.8954305,15 15,15.8954305 15,17 C15,18.1045695 15.8954305,19 17,19 Z"
-                                                        fill="#000000" opacity="0.3"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
 												</g>
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Phần cứng</span>
-                            <i class="menu-arrow"></i>
+                            <span class="menu-text">Quản lý giáo viên</span>
                         </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">General</span>
-												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="#">
-                                    <a href="{{route('admin.settings')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Thiết lập</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="#">
-                                    <a class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="#">
-                                    <a class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Bảng lương</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
-                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('admin.listCourse')}}"
+                           class="menu-link">
 										<span class="svg-icon menu-icon">
-											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                                  viewBox="0 0 24 24" version="1.1">
 												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 													<rect x="0" y="0" width="24" height="24"/>
 													<path
-                                                        d="M7,3 L17,3 C19.209139,3 21,4.790861 21,7 C21,9.209139 19.209139,11 17,11 L7,11 C4.790861,11 3,9.209139 3,7 C3,4.790861 4.790861,3 7,3 Z M7,9 C8.1045695,9 9,8.1045695 9,7 C9,5.8954305 8.1045695,5 7,5 C5.8954305,5 5,5.8954305 5,7 C5,8.1045695 5.8954305,9 7,9 Z"
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
                                                         fill="#000000"/>
-													<path
-                                                        d="M7,13 L17,13 C19.209139,13 21,14.790861 21,17 C21,19.209139 19.209139,21 17,21 L7,21 C4.790861,21 3,19.209139 3,17 C3,14.790861 4.790861,13 7,13 Z M17,19 C18.1045695,19 19,18.1045695 19,17 C19,15.8954305 18.1045695,15 17,15 C15.8954305,15 15,15.8954305 15,17 C15,18.1045695 15.8954305,19 17,19 Z"
-                                                        fill="#000000" opacity="0.3"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
 												</g>
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Lớp học</span>
-                            <i class="menu-arrow"></i>
+                            <span class="menu-text">Quản lý lớp học</span>
                         </a>
-                        <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">General</span>
-												</span>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.createCourse')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Tạo lớp</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="{{route('admin.listCourse')}}" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Danh sách</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item" aria-haspopup="true">
-                                    <a href="#" class="menu-link">
-                                        <i class="menu-bullet menu-bullet-dot">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Bảng lương</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                    </li>
+                    <li class="menu-item" aria-haspopup="true">
+                        <a href="{{route('admin.settings')}}"
+                           class="menu-link">
+										<span class="svg-icon menu-icon">
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
+                                                        fill="#000000"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
+												</g>
+											</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+                            <span class="menu-text">Quản lý thiết bị</span>
+                        </a>
                     </li>
                 @endif
             </ul>

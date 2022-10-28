@@ -41,7 +41,7 @@ class FingerprintController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -118,9 +118,9 @@ class FingerprintController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      */
-    public function update(Request $request)
+    public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         $id = User::query()->where('id','=',$request->user_id)->value('id');
         if ($id != null) {
@@ -132,7 +132,8 @@ class FingerprintController extends Controller
                 case 'update':
                     Cache::put('command','delete');
                     Cache::put('user_id',$request->user_id);
-                    break;
+                    Cache::put('command','register');
+                    return back()->with('Success','Điền vân tay để cập nhật!');
                 case 'delete':
                     Cache::put('command', 'delete');
                     Cache::put('user_id',$request->user_id);

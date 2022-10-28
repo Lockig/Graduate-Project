@@ -1,6 +1,6 @@
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
-    <a href="index.html">
+    <a href="#">
         <img alt="Logo" src="{{asset('media/logos/logo-light.png')}}"/>
     </a>
     <!--end::Logo-->

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use MongoDB\Driver\Session;
 use PHPUnit\Exception;
 use Symfony\Component\Console\Helper\Table;
@@ -128,7 +129,6 @@ class CourseController extends Controller
      */
     public function show(Course $course,Request $request)
     {
-
         $total_period = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->count('course_id');
         $learned_period = DB::table('course_schedules')->where('course_id', '=', $course->course_id)->where('start_at', '<', Carbon::now())->count('course_id');
 

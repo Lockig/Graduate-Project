@@ -47,7 +47,13 @@
                     <!--begin::Body-->
                     <div class="card-body py-0">
                         <!--begin::Form-->
-                        <form method="get" action="{{route('users.attendance')}}" class="mb-7">
+                        <form method="get"
+                              @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
+                                  action="{{route('users.attendance')}}"
+                              @elseif(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                                  action="{{route('teacher.attendance')}}"
+                              @endif
+                              class="mb-7">
                             @csrf
                             <div class="row align-items-center">
                                 <div class="col-lg-10 col-xl-9 ml-4">
@@ -58,7 +64,7 @@
                                                        class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
                                                 <select name="course_name" class="form-control">
                                                     @foreach($courses as $course)
-                                                        <option value="{{$course->course_name}}" class="form-control">
+                                                        <option value="{{$course->course_id}}" class="form-control">
                                                             {{$course->course_name}}
                                                         </option>
                                                     @endforeach
@@ -122,7 +128,7 @@
                                         </td>
                                         <td>
                                             <span
-                                               class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
                                                 {{\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)->format('h:i:s')}}
                                             </span>
                                         </td>
