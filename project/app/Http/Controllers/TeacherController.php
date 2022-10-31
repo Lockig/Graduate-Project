@@ -20,6 +20,7 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
+        $notifications = Auth::user()->unreadNotifications;
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
@@ -33,7 +34,7 @@ class TeacherController extends Controller
         $today_courses = $query->whereDate('start_at', Carbon::today())->get();
         $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses','notifications']));
     }
 
     /**

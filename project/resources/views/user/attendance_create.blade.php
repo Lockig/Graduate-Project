@@ -66,7 +66,6 @@
                                                         <option value="{{$item->start_at}}">{{\Carbon\Carbon::parse($item->start_at)->format('d/m/Y H:i:s')}}</option>
                                                     @endforeach
                                                 </select>
-
                                             </div>
                                         </div>
                                     </div>

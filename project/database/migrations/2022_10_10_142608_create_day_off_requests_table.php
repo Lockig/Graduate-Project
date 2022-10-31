@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('day_off_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->references('id')->on('users');
-            $table->foreignId('course_id')->references('course_id')->on('courses');
             $table->foreignId('schedule_id')->references('id')->on('course_schedules');
-            $table->date('day_start');
-            $table->date('day_end');
             $table->string('content');
             $table->string('stage');
             $table->softDeletes();

@@ -15,17 +15,18 @@ class RequestDayOff implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public string $user_name;
-    public string $message;
+    public $teacher;
+    public $user_id;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($teacher, $id)
     {
-        $this->user_name = $user->first_name . " " . $user->last_name;
-        $this->message = $user->first_name . " " . $user->last_name . " vừa tạo đơn xin nghỉ ! ";
+        $this->teacher = $teacher;
+        $this->user_id = $id;
         //
     }
 
@@ -38,6 +39,7 @@ class RequestDayOff implements ShouldBroadcast
     {
         return new PrivateChannel('RequestDayOff');
     }
+
     public function broadcastAs()
     {
         return 'RequestDayOff';

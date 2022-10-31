@@ -29,10 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ResetPassword::class=>[
             SendMailResetPassword::class
         ],
-//        RequestDayOff::class=>[
-//            RequestDayOffNotification::class,
-//            SendDayOffNotification::class
-//        ],
+        RequestDayOff::class=>[
+            SendDayOffNotification::class
+        ],
     ];
 
     /**

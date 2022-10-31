@@ -1,6 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
+    @include('system_message');
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -295,7 +296,7 @@
                                               title="xóa">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" data-toggle="modal" data-target="#deleteModal"
+                                            <button type="submit"
                                                     class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -316,32 +317,32 @@
                                                 <!--end::Svg Icon-->
                                             </button>
                                             <!--Modal-->
-                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-                                                 aria-labelledby="deleteModal" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Bạn có chắc muốn xóa chứ?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button"
-                                                                    class="btn btn-light-primary font-weight-bold"
-                                                                    data-dismiss="modal">Hủy
-                                                            </button>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary font-weight-bold">Chọn
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+{{--                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"--}}
+{{--                                                 aria-labelledby="deleteModal" aria-hidden="true">--}}
+{{--                                                <div class="modal-dialog" role="document">--}}
+{{--                                                    <div class="modal-content">--}}
+{{--                                                        <div class="modal-header">--}}
+{{--                                                            <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>--}}
+{{--                                                            <button type="button" class="close" data-dismiss="modal"--}}
+{{--                                                                    aria-label="Close">--}}
+{{--                                                                <i aria-hidden="true" class="ki ki-close"></i>--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="modal-body">--}}
+{{--                                                            <p>Bạn có chắc muốn xóa chứ?</p>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="modal-footer">--}}
+{{--                                                            <button type="button"--}}
+{{--                                                                    class="btn btn-light-primary font-weight-bold"--}}
+{{--                                                                    data-dismiss="modal">Hủy--}}
+{{--                                                            </button>--}}
+{{--                                                            <button type="submit"--}}
+{{--                                                                    class="btn btn-primary font-weight-bold">Chọn--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <!--endModal-->
                                         </form>
                                     </td>

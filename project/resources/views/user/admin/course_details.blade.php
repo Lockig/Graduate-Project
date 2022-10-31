@@ -67,9 +67,15 @@
                                     </div>
                                     @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
                                         <div class="my-lg-0 my-1">
-                                            <a href="{{route('users[ơ.request',$course)}}"
-                                               class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Tạo
-                                                đơn xin nghỉ phép</a>
+                                            <form action="{{route('users.request',$course)}}" method="get">
+                                                @csrf
+                                                @method('GET')
+                                                <button
+                                                    name="course_id" value="{{$course->course_id}}"
+                                                    class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
+                                                    type="submit"> Tạo đơn xin nghỉ phép
+                                                </button>
+                                            </form>
                                         </div>
                                     @endif
                                     @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
@@ -527,7 +533,130 @@
                     </div>
                 </div>
                 <!--end::Table-->
-
+                <!--begin::Card-->
+                <!--begin::Table-->
+                <div class="card card-custom gutter-b table-responsive">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="text-uppercase">Bảng điểm lớp học</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                            <thead>
+                            <tr class="text-left">
+                                <th class="pl-0" style="width: 20px">
+                                    STT
+                                </th>
+                                <th class="pl-0" style="min-width: 50px"></th>
+                                <th class="text-left" style="min-width: 50px">Họ và tên</th>
+                                <th style="min-width: 100px">Ngày sinh</th>
+                                <th style="min-width: 100px">Email</th>
+                                <th style="min-width: 100px">Số điện thoại</th>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
+                                    <th class="pr-0 text-right" style="min-width: 150px">Hành động</th>
+                                @endif
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($students as $student)
+                                <tr>
+                                    <td class="pr-0">
+                                        <label class="checkbox checkbox-lg checkbox-inline">
+                                            {{$loop->index + 1}}
+                                        </label>
+                                    </td>
+                                    <td class="pr-0">
+                                        <div class="symbol symbol-40 symbol-circle symbol-sm">
+                                            <img
+                                                src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}"
+                                                alt="image">
+                                        </div>
+                                    </td>
+                                    <td class="pr-0">
+                                        <a href="#"
+                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst($student->first_name) . ' ' . ucfirst($student->last_name)}}
+                                        </a>
+                                    </td>
+                                    <td class="pr-0">
+                                            <span
+                                                class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($student->date_of_birth)->format('d-m-Y') }}
+                                            </span>
+                                    </td>
+                                    <td>
+                                           <span
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->email}}</span>
+                                    </td>
+                                    <td>
+                                           <span
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->mobile_number}}</span>
+                                    </td>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                        <td class="pr-0 text-right">
+                                            <a href="{{route('users.show',$student->id)}}" data-toggle="tooltip"
+                                               title="thông tin cá nhân"
+                                               class="btn btn-icon btn-light btn-hover-primary btn-sm">
+																<span class="svg-icon svg-icon-md svg-icon-primary">
+																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
+																	<svg xmlns="http://www.w3.org/2000/svg"
+                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                         width="24px" height="24px" viewBox="0 0 24 24"
+                                                                         version="1.1">
+																		<g stroke="none" stroke-width="1" fill="none"
+                                                                           fill-rule="evenodd">
+																			<rect x="0" y="0" width="24" height="24"/>
+																			<path
+                                                                                d="M7,3 L17,3 C19.209139,3 21,4.790861 21,7 C21,9.209139 19.209139,11 17,11 L7,11 C4.790861,11 3,9.209139 3,7 C3,4.790861 4.790861,3 7,3 Z M7,9 C8.1045695,9 9,8.1045695 9,7 C9,5.8954305 8.1045695,5 7,5 C5.8954305,5 5,5.8954305 5,7 C5,8.1045695 5.8954305,9 7,9 Z"
+                                                                                fill="#000000"/>
+																			<path
+                                                                                d="M7,13 L17,13 C19.209139,13 21,14.790861 21,17 C21,19.209139 19.209139,21 17,21 L7,21 C4.790861,21 3,19.209139 3,17 C3,14.790861 4.790861,13 7,13 Z M17,19 C18.1045695,19 19,18.1045695 19,17 C19,15.8954305 18.1045695,15 17,15 C15.8954305,15 15,15.8954305 15,17 C15,18.1045695 15.8954305,19 17,19 Z"
+                                                                                fill="#000000" opacity="0.3"/>
+																		</g>
+																	</svg>
+                                                                    <!--end::Svg Icon-->
+																</span>
+                                            </a>
+                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm" method="post"
+                                                  action="#"
+                                                  data-toggle="tooltip"
+                                                  title="xóa">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         width="24px" height="24px" viewBox="0 0 24 24"
+                                                         version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"/>
+                                                            <path
+                                                                d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
+                                                                fill="#000000" fill-rule="nonzero"/>
+                                                            <path
+                                                                d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                                                fill="#000000" opacity="0.3"/>
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                            {!! $students->links() !!}
+                        </div>
+                    </div>
+                </div>
+                <!--end::Table-->
                 <!--begin::Row-->
                 <div class="row">
                     <div class="col-lg-12">

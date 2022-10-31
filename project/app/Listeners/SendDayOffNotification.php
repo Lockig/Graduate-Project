@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Notifications\RequestDayOff;
+use App\Models\User;
+
+use App\Notifications\RequestDayOffNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
 
 class SendDayOffNotification
 {
@@ -27,8 +29,8 @@ class SendDayOffNotification
      */
     public function handle($event)
     {
-        $admins = User::query();
-        Notification::send($admins, new RequestDayOff($event->user));
+        $teacher = User::find($event->teacher->value('teacher_id'));
+        Notification::send($teacher, new RequestDayOffNotification(User::find($event->user_id)));
         //
     }
 }

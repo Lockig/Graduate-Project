@@ -142,6 +142,24 @@
         $('#clock').html(moment().format('D/M/Y H:mm:ss'));
     }
     setInterval(update,1000);
+
+    function sendMarkRequest(id=null){
+        return $.ajax("{{route('users.markNotification')}}",{
+            method: 'POST',
+            data:{
+                _token,
+                id
+            }
+        });
+    }
+    $(function(){
+        $('mark-as-read').click(function(){
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(()=>{
+                $(this).parent('navi-item').remove();
+            })
+        });
+    });
 </script>
 @yield('script')
 <!--end:Javascript-->

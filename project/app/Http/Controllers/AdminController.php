@@ -31,6 +31,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        $notifications = Auth::user()->unreadNotifications;
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
@@ -41,7 +42,7 @@ class AdminController extends Controller
 //            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
             ->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule','today_courses','tomorrow_courses']));
+        return view('user.admin.dashboard', compact(['notifications', 'courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
     }
 
     public function create()
@@ -165,27 +166,6 @@ class AdminController extends Controller
         return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
     }
 
-    public function updatePassword(Request $request, $id): RedirectResponse
-    {
-        $user_id = Auth::user()->user_id;
-        $validated = $request->validate([
-            'current_password' => 'required|string',
-            'new_password' => 'required|string',
-            'password_confirmation' => 'required|string'
-        ]);
-        $password = $user_id->account->password;
-        if (Hash::check($validated['current_password'], $password)) {
-            if ($validated['new_password'] == $validated['password_confirmation']) {
-                $update = Account::query()
-                    ->where('user_id', $id)
-                    ->update(['password' => Hash::make($validated['password_confirmation'])]);
-                return back()->with("Success", "Update password successfully");
-            }
-        }
-        return back()->with('Fail', 'Wrong current password');
-
-    }
-
     public function exportList(Request $request)
     {
         return (new UsersExport($request))->download('users.xlsx');
@@ -193,12 +173,12 @@ class AdminController extends Controller
 
     public function settings()
     {
-        $list_requests=User::all();
+        $list_requests = User::all();
 //        $list_requests = DB::table('day_off_requests')
 //            ->where('stage', 'like', '%' . 'Chờ duyệt' . '%')
 //            ->paginate(5);
-        $fingerprints = User::query()->paginate(10,['*'],'fingerprint');
-        return view('user.admin.settings', compact('list_requests','fingerprints'));
+        $fingerprints = User::query()->paginate(10, ['*'], 'fingerprint');
+        return view('user.admin.settings', compact('list_requests', 'fingerprints'));
     }
 
     public function timeSetting(Request $request)
@@ -208,5 +188,9 @@ class AdminController extends Controller
             'time_out' => $request->time_end
         ]);
         return back()->with('Success', 'Cài đặt thời gian thành công');
+    }
+
+    public function listMark(){
+        return view('user.mark');
     }
 }

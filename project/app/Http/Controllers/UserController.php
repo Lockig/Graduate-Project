@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
@@ -28,6 +29,7 @@ class UserController extends Controller implements ShouldQueue
 
     public function index(Request $request)
     {
+        $notifications = Auth::user()->unreadNotifications;
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
@@ -42,7 +44,7 @@ class UserController extends Controller implements ShouldQueue
         $today_courses = $query->whereDate('start_at', Carbon::today())->get();
         $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
+        return view('user.admin.dashboard', compact(['notifications', 'courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
     }
 
     public function show(User $user)
@@ -58,7 +60,7 @@ class UserController extends Controller implements ShouldQueue
             ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
             ->where('course_students.student_id', '=', $user->id)
             ->get();
-        $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in','desc')->paginate(5);
+        $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
         return view('user.attendance', compact('records', 'user', 'courses'));
     }
 
@@ -72,15 +74,25 @@ class UserController extends Controller implements ShouldQueue
     public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $user = User::find($id);
-        dd($user);
-        if ($user && $user->role != 'admin') {
-            $attendance = DB::table('attendances')->where('user_id','=',$id)->delete();
-            $course_student = DB::table('course_students')->delete(['student_id'=>$id]);
-            dd($course_student);
+        if ($user && $user->role == 'student') {
+            DB::table('attendances')->where('user_id', '=', $id)->delete();
+            DB::table('course_students')->delete(['student_id' => $id]);
+            DB::table('day_off_requests')->delete(['student_id' => $id]);
+            DB::table('student_grades')->delete(['user_id' => $id]);
             User::find($id)->delete();
-            return back()->with("Success", "Delete user successfully");
+            return back()->with("Success", "Xóa người dùng thành công");
+        } elseif ($user->role == 'teacher') {
+            DB::table('attendances')->where('user_id', '=', $id)->delete();
+            DB::table('course_students')->delete(['student_id' => $id]);
+            DB::table('day_off_requests')->delete(['student_id' => $id]);
+            DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
+            DB::table('student_grades')->delete(['user_id' => $id]);
+            User::find($id)->delete();
+            return back()->with("Success", "Xóa người dùng thành công");
+        } else {
+            return back()->with("Error", "Có lỗi xảy ra");
         }
-        return back()->with("Error", "Có lỗi xảy ra");
+
         //
     }
 
@@ -152,19 +164,46 @@ class UserController extends Controller implements ShouldQueue
         return (new UsersExport($request->users))->download('users.xlsx');
     }
 
-    public function requestDayOff(Request $request,Course $course)
+    public function requestDayOff(Request $request, Course $course)
     {
-        $list = DB::table('day_off_requests')->paginate(3);
-        $courses = DB::table('course_students')->where('student_id', '=', Auth::user()->id)->get();
-        return view('user.request', compact('list'));
+        $course = Course::find($request->course_id);
+        $schedules = DB::table('course_schedules')
+            ->where('course_id', '=', $request->course_id)
+            ->where('start_at', '>=', Carbon::parse(Carbon::now())->format('Y-m-d H:i:s'))->get();
+        $list = DB::table('day_off_requests')
+            ->join('course_schedules', 'course_schedules.id', '=', 'day_off_requests.schedule_id')
+            ->where('student_id', '=', Auth::user()->id)->paginate(5);
+        return view('user.request', compact(['list', 'course', 'schedules']));
     }
 
     public function storeRequestDayOff(Request $request)
     {
+        $validated = $request->validate(['schedule_id' => 'required', 'content' => 'required|min:10']);
+        $query = DB::table('day_off_requests')
+            ->where('schedule_id', '=', $validated['schedule_id'])
+            ->where('student_id', '=', Auth::user()->id);
+        $id = $query->value('id');
+
+        if ($id == null) {
+            DB::table('day_off_requests')->insert([
+                'student_id' => Auth::user()->id,
+                'schedule_id' => $validated['schedule_id'],
+                'content' => $validated['content'],
+                'stage' => 'Chờ duyệt'
+            ]);
+            $request = $query->value('student_id');
+
+            $user = User::query()
+                ->leftJoin('courses', 'courses.teacher_id', '=', 'users.id')
+                ->leftJoin('course_schedules', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('course_schedules.id', '=', $validated['schedule_id'])->get();
+            Event::dispatch(new RequestDayOff($user, $request));
+            return back()->with('Success', 'Tạo đơn xin nghỉ thành công');
+        } else {
+            return back()->with('Fail', 'Đơn đã được tạo');
+        }
 
     }
-
-
 
 
     function updateInfos(UserUpdateRequest $request, $id): RedirectResponse
@@ -189,8 +228,7 @@ class UserController extends Controller implements ShouldQueue
     }
 
 
-    public
-    function updatePasswords(Request $request, $id): RedirectResponse
+    public function updatePasswords(Request $request, $id): RedirectResponse
     {
         $user = User::find($id);
         $password = $user->password;
@@ -210,6 +248,16 @@ class UserController extends Controller implements ShouldQueue
             }
         }
         return back()->with('Fail', 'Mật khẩu cũ không chính xác');
+    }
 
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request) {
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+        return response()->noContent();
     }
 }

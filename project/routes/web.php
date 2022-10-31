@@ -54,10 +54,12 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
     Route::get('/request,{course)', [UserController::class, 'requestDayOff'])->name('users.request');
     Route::get('/list/course', [StudentController::class, 'listCourse'])->name('user.listCourse');
+    Route::get('/list/request', [StudentController::class, 'listRequest'])->name('users.listRequest');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('users.coursesDetails');
     Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/{user}/edit', [UserController::class, 'editInfos'])->name('users.editInfos');
     Route::get('/{user}/password', [UserController::class, 'editPasswords'])->name('users.editPasswords');
+    Route::post('/mark-as-read', [UserController::class, 'markNotification'])->name('users.markNotification');
     Route::post('/edit', [UserController::class, 'updateInfo'])->name('users.updateInfo');
     Route::post('/edit/password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::post('/{user}/edit', [UserController::class, 'updateInfos'])->name('users.updateInfos');
@@ -94,7 +96,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/list/student', [StudentController::class, 'listStudent'])->name('admin.listStudent');
     Route::get('/list/teacher', [TeacherController::class, 'listTeacher'])->name('admin.listTeacher');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
-
+    Route::get('/mark', [AdminController::class,'listMark'])->name('admin.createMark');
     Route::post('/settings/fingerprint', [FingerprintController::class, 'update'])->name('admin.fingerprintSetting');
     Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

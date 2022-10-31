@@ -31,7 +31,7 @@ class StudentController extends Controller
             return view('user.admin.list_student', compact('students'));
         } else {
 //            return (new UsersExport($students))->download('users.xlsx');
-            return Excel::download(new UsersExport($students),'student_list.xlsx');
+            return Excel::download(new UsersExport($students), 'student_list.xlsx');
         }
     }
 
@@ -68,12 +68,14 @@ class StudentController extends Controller
         //
     }
 
-    public function listCourse(){
+    public function listCourse()
+    {
         $courses = DB::table('courses')
-            ->join('course_students','course_students.course_id','=','courses.course_id')
-            ->where('student_id','=',Auth::user()->id)->paginate(5);
-        return view('user.admin.list_course',compact('courses'));
+            ->join('course_students', 'course_students.course_id', '=', 'courses.course_id')
+            ->where('student_id', '=', Auth::user()->id)->paginate(5);
+        return view('user.admin.list_course', compact('courses'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -135,7 +137,23 @@ class StudentController extends Controller
             return view('user.admin.list_student', compact('students'));
         } else {
 //            return (new UsersExport($students))->download('users.xlsx');
-            return Excel::download(new UsersExport($students),'student_list.xlsx');
+            return Excel::download(new UsersExport($students), 'student_list.xlsx');
         }
     }
+
+    public function listRequest()
+    {
+        if (Auth::user()->role == 'student') {
+            $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->paginate(5);
+        } else {
+            $requests = DB::table('day_off_requests')
+                ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->paginate(5);
+        }
+        return view('user.list_request', compact('requests'));
+    }
 }
+
+
