@@ -101,11 +101,14 @@
                                         <thead>
                                         <tr class="text-left">
                                             <th class="pl-0" style="width: 20px">STT</th>
+                                            <th class="pl-0" style="width: 100px">Họ Tên</th>
                                             <th class="pr-0" style="width: 100px">Tên lớp</th>
                                             <th class="pr-0" style="width: 100px">Buổi</th>
-                                            <th class="pr-0" style="width: 100px">Số ngày</th>
-                                            <th class="pr-0" style="width: 100px">Lý do</th>
+                                            <th class="pr-0" style="width: 200px">Lý do</th>
                                             <th class="pr-0 text-right" style="min-width: 50px">Tình trạng</th>
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role=='Teacher')
+                                            <th class="pr-0 text-right" style="min-width: 70px">Hành động</th>
+                                                @endif
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -114,30 +117,30 @@
                                                 <td class="pr-0">{{$loop->index +1 }}</td>
                                                 <td class="pr-0">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\User::find($item->student_id)->first_name . ' ' . \App\Models\User::find($item->student_id)->last_name}}</a>
                                                 </td>
                                                 <td class="pr-0">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
-                                                </td>
-                                                <td class="pr-0 text-left">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($item->course_id)->course_name}}</a>
                                                 </td>
                                                 <td class="pr-0">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($item->start_at)->format('d/m/Y')}}</a>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <a href="#"
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->content}}</a>
                                                 </td>
                                                 <td class="pr-0 text-right">
                                                     @if($item->stage='Chờ duyệt')
                                                         <a href="#"
-                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">Chờ duyệt</a>
                                                     @elseif($item->stage='Đã duyệt')
                                                         <a href="#"
-                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">Đã duyệt</a>
                                                     @else
                                                         <a href="#"
-                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">#</a>
+                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">Từ chối</a>
                                                     @endif
                                                 </td>
                                             </tr>

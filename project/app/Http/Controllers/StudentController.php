@@ -143,6 +143,7 @@ class StudentController extends Controller
 
     public function listRequest()
     {
+        $notifications = Auth::user()->unreadNotifications;
         if (Auth::user()->role == 'student') {
             $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->paginate(5);
         } else {
@@ -150,9 +151,27 @@ class StudentController extends Controller
                 ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
                 ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
                 ->where('courses.teacher_id', '=', Auth::user()->id)
-                ->paginate(5);
+                ->where('day_off_requests.stage', '=', 'Chờ duyệt')
+                ->paginate(5, ['day_off_requests.id', 'day_off_requests.content', 'day_off_requests.schedule_id', 'day_off_requests.student_id', 'day_off_requests.stage'], 'requests');
         }
-        return view('user.list_request', compact('requests'));
+        $accept = DB::table('day_off_requests')
+            ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.teacher_id', '=', Auth::user()->id)
+            ->where('day_off_requests.stage', '=', 'Đã duyệt')
+            ->orWhere('day_off_requests.stage', '=', 'Từ chối')
+            ->paginate(5, ['*'], 'stage');
+        return view('user.list_request', compact('requests', 'accept', 'notifications'));
+    }
+
+    public function updateRequest(Request $request, $id)
+    {
+        if ($request->has('accept')) {
+            DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Đã duyệt']);
+        } elseif ($request->has('reject')) {
+            DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Từ chối']);
+        }
+        return back()->with('Success', 'Duyệt đơn thành công');
     }
 }
 

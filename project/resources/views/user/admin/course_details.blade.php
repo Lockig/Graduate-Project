@@ -65,26 +65,41 @@
                                             <i class="flaticon2-correct text-success icon-md ml-2"></i></a>
                                         <!--end::Name-->
                                     </div>
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
-                                        <div class="my-lg-0 my-1">
-                                            <form action="{{route('users.request',$course)}}" method="get">
-                                                @csrf
-                                                @method('GET')
-                                                <button
-                                                    name="course_id" value="{{$course->course_id}}"
-                                                    class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
-                                                    type="submit"> Tạo đơn xin nghỉ phép
-                                                </button>
-                                            </form>
-                                        </div>
-                                    @endif
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                        <div class="my-lg-0 my-1">
-                                            <a href="{{route('admin.editCourse',$course)}}"
-                                               class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Chỉnh
-                                                sửa</a>
-                                        </div>
-                                    @endif
+                                    <div class="d-flex">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
+                                            <div class="my-lg-0 my-1">
+                                                <form action="{{route('users.request',$course)}}" method="get">
+                                                    @csrf
+                                                    @method('GET')
+                                                    <button
+                                                        name="course_id" value="{{$course->course_id}}"
+                                                        class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
+                                                        type="submit"> Tạo đơn xin nghỉ phép
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        @endif
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher' || \Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                            <div class="my-lg-0 my-1">
+                                                <form action="{{route('admin.createMark',$course->course_id)}}"
+                                                      method="get">
+                                                    @csrf
+                                                    @method('GET')
+                                                    <button
+                                                        name="course_id" value="{{$course->course_id}}"
+                                                        class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
+                                                        type="submit"> Tạo điểm
+                                                </form>
+                                            </div>
+                                        @endif
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                            <div class="my-lg-0 my-1">
+                                                <a href="{{route('admin.editCourse',$course)}}"
+                                                   class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Chỉnh
+                                                    sửa</a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                                 <!--end: Title-->
                                 <!--begin: Content-->
@@ -542,6 +557,145 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <form method="get" action="{{route('admin.createMark',$course)}}" class="mb-7">
+                            @csrf
+                            <div class="row">
+                                <label for="schedule_id"
+                                       class="col-lg-1 align-center mt-3">Mã học sinh</label>
+                                <div class="col-lg-8 col-md-10 col-sm-6">
+                                    <select name="schedule_id"
+                                            class="form-control">
+                                        @foreach($course_schedule as $item)
+                                            <option
+                                                value="{{$item->start_at}}"
+                                                class="form-control form-control-lg form-control-solid">
+                                                {{\Carbon\Carbon::parse($item->start_at)->format('d/m/Y')}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row align-items-center mt-2">
+                                <div class="col-md-12 my-2 my-md-0">
+                                    <button class="btn btn-light-primary px-6 font-weight-bold">  <span
+                                            class="svg-icon svg-icon-md">
+													<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                         height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path
+                                                                d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                                fill="#000000" opacity="0.3"/>
+															<path
+                                                                d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                                fill="#000000"/>
+														</g>
+													</svg>
+                                            <!--end::Svg Icon-->
+												</span>Tìm kiếm
+                                    </button>
+                                    <a href="{{route('admin.createMark',$course->course_id)}}"
+                                       class="btn btn-light-primary font-weight-bold">
+											<span class="svg-icon svg-icon-md">
+												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+												<svg xmlns="http://www.w3.org/2000/svg"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                     height="24px" viewBox="0 0 24 24" version="1.1">
+													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24"/>
+														<circle fill="#000000" cx="9" cy="15" r="6"/>
+														<path
+                                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                                            fill="#000000" opacity="0.3"/>
+													</g>
+												</svg>
+                                                <!--end::Svg Icon-->
+											</span>Tạo mới</a>
+                                    <!--begin::Dropdown-->
+                                    <div class="dropdown dropdown-inline mr-2">
+                                        <button type="button"
+                                                class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<span class="svg-icon svg-icon-md">
+													<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                         height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"/>
+															<path
+                                                                d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                                fill="#000000" opacity="0.3"/>
+															<path
+                                                                d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                                fill="#000000"/>
+														</g>
+													</svg>
+                                                    <!--end::Svg Icon-->
+												</span>Xuất
+                                        </button>
+                                        <!--begin::Dropdown Menu-->
+                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                            <!--begin::Navigation-->
+                                            <ul class="navi flex-column navi-hover py-2">
+                                                <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
+                                                    Chọn:
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-print"></i>
+																</span>
+                                                        <span class="navi-text">Print</span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-copy"></i>
+																</span>
+                                                        <span class="navi-text">Copy</span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <form action="{{route('admin.listCourse')}}" method="get">
+                                                        @csrf
+                                                        <button name="export" type="submit"
+                                                                class="navi-link btn btn-borderless w-100">
+                                                                    <span class="navi-con">
+                                                                        <i class="la la-file-excel-o"></i>
+                                                                        <span class="navi-text">Excel</span>
+                                                                    </span>
+                                                        </button>
+                                                    </form>
+                                                    {{--                                            <a href="" class="navi-link">--}}
+                                                    {{--																<span class="navi-icon">--}}
+                                                    {{--																	<i class="la la-file-excel-o"></i>--}}
+                                                    {{--																</span>--}}
+                                                    {{--                                                <span class="navi-text">Excel</span>--}}
+                                                    {{--                                            </a>--}}
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-file-pdf-o"></i>
+																</span>
+                                                        <span class="navi-text">PDF</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <!--end::Navigation-->
+                                        </div>
+                                        <!--end::Dropdown Menu-->
+                                    </div>
+                                    <!--end::Dropdown-->
+                                </div>
+                            </div>
+                        </form>
                         <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
                             <thead>
                             <tr class="text-left">
@@ -550,16 +704,17 @@
                                 </th>
                                 <th class="pl-0" style="min-width: 50px"></th>
                                 <th class="text-left" style="min-width: 50px">Họ và tên</th>
-                                <th style="min-width: 100px">Ngày sinh</th>
-                                <th style="min-width: 100px">Email</th>
-                                <th style="min-width: 100px">Số điện thoại</th>
+                                <th style="min-width: 100px">Điểm lần 1</th>
+                                <th style="min-width: 100px">Điểm lần 2</th>
+                                <th style="min-width: 100px">Điểm lần 3</th>
+                                <th style="min-width: 100px">Trung bình</th>
                                 @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
                                     <th class="pr-0 text-right" style="min-width: 150px">Hành động</th>
                                 @endif
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($students as $student)
+                            @forelse($grades as $grade)
                                 <tr>
                                     <td class="pr-0">
                                         <label class="checkbox checkbox-lg checkbox-inline">
@@ -575,26 +730,31 @@
                                     </td>
                                     <td class="pr-0">
                                         <a href="#"
-                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst($student->first_name) . ' ' . ucfirst($student->last_name)}}
+                                           class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst(\App\Models\User::find($grade->student_id)->first_name) . ' ' . ucfirst(\App\Models\User::find($grade->student_id)->last_name)}}
                                         </a>
                                     </td>
                                     <td class="pr-0">
                                             <span
-                                                class="text-dark-75 font-weight-bolder d-block font-size-lg">{{\Carbon\Carbon::parse($student->date_of_birth)->format('d-m-Y') }}
+                                                class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$grade->diem_lan_1}}
                                             </span>
                                     </td>
                                     <td>
                                            <span
-                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->email}}</span>
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$grade->diem_lan_2}}</span>
                                     </td>
                                     <td>
                                            <span
-                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$student->mobile_number}}</span>
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{$grade->diem_lan_3}}</span>
+                                    </td>
+                                    <td>
+                                           <span
+                                               class="text-dark-75 font-weight-bolder d-block font-size-lg">{{round(($grade->diem_lan_3+$grade->diem_lan_2+$grade->diem_lan_3)/3,2)}}</span>
                                     </td>
                                     @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
                                         <td class="pr-0 text-right">
-                                            <a href="{{route('users.show',$student->id)}}" data-toggle="tooltip"
-                                               title="thông tin cá nhân"
+                                            <a href="{{route('users.editMark',[$course->course_id,$student->student_id])}}"
+                                               data-toggle="tooltip"
+                                               title="chỉnh sửa"
                                                class="btn btn-icon btn-light btn-hover-primary btn-sm">
 																<span class="svg-icon svg-icon-md svg-icon-primary">
 																	<!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
@@ -617,7 +777,7 @@
 																</span>
                                             </a>
                                             <form class="btn btn-icon btn-light btn-hover-primary btn-sm" method="post"
-                                                  action="#"
+                                                  action="{{route('users.deleteMark',[$course->course_id , $student->student_id])}}"
                                                   data-toggle="tooltip"
                                                   title="xóa">
                                                 @csrf
@@ -646,7 +806,9 @@
                                         </td>
                                     @endif
                                 </tr>
-                            @endforeach
+                            @empty
+                            @endforelse
+                            <span>no data found<spam>
                             </tbody>
                         </table>
                     </div>

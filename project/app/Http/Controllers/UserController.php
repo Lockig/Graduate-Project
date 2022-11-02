@@ -76,17 +76,17 @@ class UserController extends Controller implements ShouldQueue
         $user = User::find($id);
         if ($user && $user->role == 'student') {
             DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->delete(['student_id' => $id]);
-            DB::table('day_off_requests')->delete(['student_id' => $id]);
-            DB::table('student_grades')->delete(['user_id' => $id]);
+            DB::table('course_students')->where('student_id','=',$id)->delete();
+            DB::table('day_off_requests')->where('student_id','=',$id)->delete();
+            DB::table('student_grades')->where('user_id','=',$id)->delete();
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } elseif ($user->role == 'teacher') {
             DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->delete(['student_id' => $id]);
-            DB::table('day_off_requests')->delete(['student_id' => $id]);
+            DB::table('course_students')->where('student_id','=',$id)->delete();
+            DB::table('day_off_requests')->where('student_id','=',$id)->delete();
             DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
-            DB::table('student_grades')->delete(['user_id' => $id]);
+            DB::table('student_grades')->where('user_id','=',$id)->delete();
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } else {

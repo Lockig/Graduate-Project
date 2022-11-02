@@ -159,6 +159,52 @@ class TeacherController extends Controller
         } else {
             return redirect()->back()->with('Fail', 'Thời gian nhập vào không đúng!');
         }
+    }
 
+    public function createMark($course)
+    {
+        $students = DB::table('course_students')
+            ->leftJoin('users', 'users.id', '=', 'course_students.student_id')
+            ->where('course_id', '=', $course)->get();
+        $grades = DB::table('student_grades')
+            ->join('course_students', 'course_students.student_id', '=', 'student_grades.user_id')
+            ->where('course_students.course_id', '=', $course)
+            ->get();
+        return view('user.mark', compact('grades', 'students', 'course'));
+    }
+
+    public function storeMark($course, Request $request)
+    {
+        $validated = $request->validate([
+            'student_id' => 'required|integer',
+            'diem_lan_1' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'diem_lan_2' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'diem_lan_3' => 'required|regex:/^\d+(\.\d{1,2})?$/'
+        ]);
+        $id = DB::table('course_students')->where('course_id','=',$course)
+            ->where('student_id','=',$validated['student_id'])->value('id');
+        DB::table('student_grades')->insert([
+            'user_id' => $id,
+            'diem_lan_1' => $validated['diem_lan_1'],
+            'diem_lan_2' => $validated['diem_lan_2'],
+            'diem_lan_3' => $validated['diem_lan_3']
+        ]);
+        return back()->with('Success','Cập nhập điểm thành công');
+    }
+    public function editMark($course_id,$student_id){
+        $course = $course_id;
+        $students = DB::table('course_students')
+            ->leftJoin('users', 'users.id', '=', 'course_students.student_id')
+            ->where('course_id', '=', $course)->get();
+        return view('user.mark',compact('course_id','student_id','course','students'));
+    }
+    public function destroyMark($course,$student_id){
+        $id = DB::table('course_students')
+            ->where('course_id','=',$course)
+            ->where('student_id','=',$student_id)
+            ->value('id');
+        DB::table('student_grades')->where('user_id','=',$id)
+        ->delete();
+        return back()->with('Success','Xóa điểm thành công');
     }
 }

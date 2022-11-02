@@ -190,7 +190,4 @@ class AdminController extends Controller
         return back()->with('Success', 'Cài đặt thời gian thành công');
     }
 
-    public function listMark(){
-        return view('user.mark');
-    }
 }
