@@ -132,10 +132,10 @@
                                                        class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->content}}</a>
                                                 </td>
                                                 <td class="pr-0 text-right">
-                                                    @if($item->stage='Chờ duyệt')
+                                                    @if($item->stage=='Chờ duyệt')
                                                         <a href="#"
                                                            class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">Chờ duyệt</a>
-                                                    @elseif($item->stage='Đã duyệt')
+                                                    @elseif($item->stage=='Đã duyệt')
                                                         <a href="#"
                                                            class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">Đã duyệt</a>
                                                     @else

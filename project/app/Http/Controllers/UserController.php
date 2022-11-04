@@ -125,7 +125,7 @@ class UserController extends Controller implements ShouldQueue
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        User::find($user->id)->update([
+        User::query()->where('id','=',$user->id)->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
@@ -176,7 +176,7 @@ class UserController extends Controller implements ShouldQueue
         return view('user.request', compact(['list', 'course', 'schedules']));
     }
 
-    public function storeRequestDayOff(Request $request)
+    public function storeRequestDayOff(Request $request): RedirectResponse
     {
         $validated = $request->validate(['schedule_id' => 'required', 'content' => 'required|min:10']);
         $query = DB::table('day_off_requests')
@@ -216,7 +216,7 @@ class UserController extends Controller implements ShouldQueue
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        User::find($user->id)->update([
+        $user->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),

@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Events\ConfirmDayOff;
 use App\Events\CreateFingerprint;
 use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
 use App\Listener\SendMailResetPassword;
 use App\Listeners\CreateFingerprintListener;
 use App\Listeners\CreateUserWorkingDetails;
+use App\Listeners\sendConfirmDayOffNotification;
 use App\Listeners\SendDayOffNotification;
 use App\Notifications\RequestDayOffNotification;
 use Illuminate\Auth\Events\Registered;
@@ -26,12 +28,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        ResetPassword::class=>[
+        ResetPassword::class => [
             SendMailResetPassword::class
         ],
-        RequestDayOff::class=>[
+        RequestDayOff::class => [
             SendDayOffNotification::class
         ],
+        ConfirmDayOff::class => [
+            sendConfirmDayOffNotification::class
+        ]
     ];
 
     /**

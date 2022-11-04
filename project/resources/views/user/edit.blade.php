@@ -230,10 +230,10 @@
                                             <label name="date_of_birth" for="last_name"
                                                    class="col-xl-3 col-lg-3 col-form-label">Ngày sinh</label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <input name="date_of_birth"
+                                                <input name="date_of_birth" type="text"
                                                        class="form-control form-control-lg form-control-solid"
-                                                       type="text"
-                                                       value="{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}"/>
+                                                       id="kt_datepicker_1" readonly="readonly"
+                                                       placeholder="{{old('date_of_birth')}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -321,8 +321,9 @@
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{mix('js/user/user.js')}}"></script>
     <!--end::Page Scripts-->
-
+    <script src="{{mix('js/user/date-picker.js')}}"></script>
     <script>
         var avatar3 = new KTImageInput('kt_image_3');
     </script>
 @endsection
+

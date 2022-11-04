@@ -76,13 +76,13 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('teachers.editPassword');
     Route::get('/course/list', [TeacherController::class, 'show'])->name('teacher.listCourse');
     Route::get('/course/{course}/attendance', [TeacherController::class, 'createAttendance'])->name('teacher.createAttendance');
-    Route::get('/course/{course}/mark', [TeacherController::class,'createMark'])->name('admin.createMark');
+    Route::get('/course/{course}/mark', [TeacherController::class, 'createMark'])->name('admin.createMark');
     Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
-    Route::get('/course/{course}/{user}/mark/edit',[TeacherController::class,'editMark'])->name('users.editMark');
-    Route::post('/course/{course}/mark', [TeacherController::class,'storeMark'])->name('users.storeMark');
+    Route::get('/course/{course}/{user}/mark/edit', [TeacherController::class, 'editMark'])->name('users.editMark');
+    Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
     Route::post('/course/{course}/create', [TeacherController::class, 'storeAttendance'])->name('teacher.storeAttendance');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-    Route::delete('/course/{course}/{user}/mark', [TeacherController::class,'destroyMark'])->name('users.deleteMark');
+    Route::delete('/course/{course}/{user}/mark', [TeacherController::class, 'destroyMark'])->name('users.deleteMark');
 });
 
 

@@ -12,7 +12,7 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Tạo đơn xin nghỉ</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">Tạo điểm</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -20,7 +20,7 @@
                                 <a href="" class="text-muted">Thông tin lớp học</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">#</a>
+                                <a href="" class="text-muted">{{\App\Models\Course::find($course)->course_name}}</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Thêm điểm của học sinh</a>
@@ -46,8 +46,9 @@
                                 <h3 class="card-title text-uppercase">Điền điểm</h3>
                             </div>
                             <!--begin::Form-->
-                            <form class="form" method="post" action="{{route('users.storeMark',$course)}}">
+                            <form class="form" method="POST" action="{{route('users.storeMark',$course)}}">
                                 @csrf
+                                @method('PATCH')
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-lg-10 ml-lg-auto">
@@ -66,7 +67,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-10 ml-lg-auto">
-                                            <label for="diem_lan_1" class="col-form-label text-left col-lg-3 col-sm-12">Điểm
+                                            <label for="diem_lan_1" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
                                                 lần 1</label>
                                             <div class="col-lg-10 col-md-10 col-sm-6">
                                                 <input name="diem_lan_1" class="form-control">
@@ -75,7 +76,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-10 ml-lg-auto">
-                                            <label for="diem_lan_2" class="col-form-label text-left col-lg-3 col-sm-12">Điểm
+                                            <label for="diem_lan_2" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
                                                 lần 2</label>
                                             <div class="col-lg-10 col-md-10 col-sm-6">
                                                 <input name="diem_lan_2" class="form-control">
@@ -84,7 +85,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-10 ml-lg-auto">
-                                            <label for="diem_lan_3" class="col-form-label text-left col-lg-3 col-sm-12">Điểm
+                                            <label for="diem_lan_3" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
                                                 lần 3</label>
                                             <div class="col-lg-10 col-md-10 col-sm-6">
                                                 <input name="diem_lan_3" class="form-control">
@@ -126,6 +127,7 @@
                                             <th class="pr-0" style="width: 100px">Điểm lần 2</th>
                                             <th class="pr-0" style="width: 100px">Điểm lần 3</th>
                                             <th class="pr-0 text-right" style="min-width: 50px">Trung bình</th>
+                                            <th class="pr-0 text-right" style="min-width: 50px">Hành động</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -135,7 +137,7 @@
                                                     <td class="pr-0">{{$loop->index +1 }}</td>
                                                     <td class="pr-0">
                                                         <a href="#"
-                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\User::find($grade->user_id)->first_name . ' ' . \App\Models\User::find($grade->user_id)->last_name}}</a>
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\User::find($grade->student_id)->first_name . ' ' . \App\Models\User::find($grade->student_id)->last_name}}</a>
                                                     </td>
                                                     <td class="pr-0">
                                                         <a href="#"
@@ -148,6 +150,10 @@
                                                     <td class="pr-0">
                                                         <a href="#"
                                                            class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$grade->diem_lan_3}}</a>
+                                                    </td>
+                                                    <td class="pr-0 text-right">
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{round(($grade->diem_lan_3+$grade->diem_lan_2+$grade->diem_lan_1)/3),2}}</a>
                                                     </td>
                                                     <td class="pr-0 text-right">
                                                         <a href="#"

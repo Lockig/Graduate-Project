@@ -153,6 +153,7 @@ class CourseController extends Controller
             ->paginate(5);
         $grades = DB::table('student_grades')
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
+            ->where('course_students.course_id', '=', $course->course_id)
             ->get();
         return view('user.admin.course_details', compact(['course', 'course_schedule', 'students', 'student_count', 'total_period', 'learned_period','attendances','grades']));
         //

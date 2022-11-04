@@ -68,144 +68,170 @@
                                     <div class="d-flex">
                                         @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
                                             <div class="my-lg-0 my-1">
-                                                <form action="{{route('users.request',$course)}}" method="get">
-                                                    @csrf
-                                                    @method('GET')
-                                                    <button
-                                                        name="course_id" value="{{$course->course_id}}"
-                                                        class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
-                                                        type="submit"> Tạo đơn xin nghỉ phép
-                                                    </button>
-                                                </form>
+                                                <div class="my-lg-0 my-1">
+                                                    <form action="{{route('users.request',$course)}}" method="get">
+                                                        @csrf
+                                                        @method('GET')
+                                                        <button
+                                                            name="course_id" value="{{$course->course_id}}"
+                                                            class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
+                                                            type="submit"> Tạo đơn xin nghỉ phép
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                @endif
+                                                @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher' || \Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                                    <div class="my-lg-0 my-1">
+                                                        <form action="{{route('admin.createMark',$course->course_id)}}"
+                                                              method="get">
+                                                            @csrf
+                                                            @method('GET')
+                                                            <button
+                                                                name="course_id" value="{{$course->course_id}}"
+                                                                class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
+                                                                type="submit"> Tạo điểm
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                @endif
+                                                @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                                    <div class="my-lg-0 my-1">
+                                                        <a href="{{route('admin.editCourse',$course)}}"
+                                                           class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Chỉnh
+                                                            sửa</a>
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @endif
-                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher' || \Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                            <div class="my-lg-0 my-1">
-                                                <form action="{{route('admin.createMark',$course->course_id)}}"
-                                                      method="get">
-                                                    @csrf
-                                                    @method('GET')
-                                                    <button
-                                                        name="course_id" value="{{$course->course_id}}"
-                                                        class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
-                                                        type="submit"> Tạo điểm
-                                                </form>
-                                            </div>
-                                        @endif
-                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                            <div class="my-lg-0 my-1">
-                                                <a href="{{route('admin.editCourse',$course)}}"
-                                                   class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Chỉnh
-                                                    sửa</a>
-                                            </div>
-                                        @endif
                                     </div>
-                                </div>
-                                <!--end: Title-->
-                                <!--begin: Content-->
-                                <div class="d-flex align-items-center flex-wrap justify-content-between">
-                                    <div
-                                        class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">{{$course->course_description}}</div>
-                                    <div class="d-flex flex-wrap align-items-center py-2">
-                                        <div class="d-flex align-items-center mr-10">
-                                            <div class="mr-6">
-                                                <div class="font-weight-bold mb-2">Bắt đầu</div>
-                                                <span
-                                                    class="btn btn-sm btn-text btn-light-primary text-uppercase font-weight-bold">{{Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
+                                    <!--end: Title-->
+                                    <!--begin: Content-->
+                                    <div class="d-flex align-items-center flex-wrap justify-content-between">
+                                        <div
+                                            class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">{{$course->course_description}}</div>
+                                        <div class="d-flex flex-wrap align-items-center py-2">
+                                            <div class="d-flex align-items-center mr-10">
+                                                <div class="mr-6">
+                                                    <div class="font-weight-bold mb-2">Bắt đầu</div>
+                                                    <span
+                                                        class="btn btn-sm btn-text btn-light-primary text-uppercase font-weight-bold">{{Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
+                                                </div>
+                                                <div class="">
+                                                    <div class="font-weight-bold mb-2">Kết thúc</div>
+                                                    <span
+                                                        class="btn btn-sm btn-text btn-light-danger text-uppercase font-weight-bold">{{Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <div class="font-weight-bold mb-2">Kết thúc</div>
-                                                <span
-                                                    class="btn btn-sm btn-text btn-light-danger text-uppercase font-weight-bold">{{Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
+                                            <div class="flex-grow-1 flex-shrink-0 w-150px w-xl-300px mt-4 mt-sm-0">
+                                                <span class="font-weight-bold">Tiến độ</span>
+                                                <div class="progress progress-xs mt-2 mb-2">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                         style="width: {{$learned_period /$total_period * 100}}%;"
+                                                         aria-valuenow="{{round($learned_period /$total_period * 100,1)}}"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                                <span class="font-weight-bolder text-dark">{{round($learned_period /$total_period * 100,1)}}%</span>
                                             </div>
                                         </div>
-                                        <div class="flex-grow-1 flex-shrink-0 w-150px w-xl-300px mt-4 mt-sm-0">
-                                            <span class="font-weight-bold">Tiến độ</span>
-                                            <div class="progress progress-xs mt-2 mb-2">
-                                                <div class="progress-bar bg-success" role="progressbar"
-                                                     style="width: {{$learned_period /$total_period * 100}}%;"
-                                                     aria-valuenow="{{round($learned_period /$total_period * 100,1)}}"
-                                                     aria-valuemin="0"
-                                                     aria-valuemax="100"></div>
-                                            </div>
-                                            <span class="font-weight-bolder text-dark">{{round($learned_period /$total_period * 100,1)}}%</span>
-                                        </div>
                                     </div>
+                                    <!--end: Content-->
                                 </div>
-                                <!--end: Content-->
+                                <!--end: Info-->
                             </div>
-                            <!--end: Info-->
-                        </div>
-                        <div class="separator separator-solid my-7"></div>
-                        <!--begin: Items-->
-                        <div class="d-flex align-items-center flex-wrap">
-                            <!--begin: Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                            <div class="separator separator-solid my-7"></div>
+                            <!--begin: Items-->
+                            <div class="d-flex align-items-center flex-wrap">
+                                <!--begin: Item-->
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 												<span class="mr-4">
 													<i class="flaticon-piggy-bank icon-2x text-muted font-weight-bold"></i>
 												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Giáo viên</span>
-                                    <a href="{{route('users.show',$course->teacher_id)}}"
-                                       class="text-dark text-hover-primary font-weight-bolder font-size-h5">
-                                        {{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
+                                    <div class="d-flex flex-column text-dark-75">
+                                        <span class="font-weight-bolder font-size-sm">Giáo viên</span>
+                                        <a href="{{route('users.show',$course->teacher_id)}}"
+                                           class="text-dark text-hover-primary font-weight-bolder font-size-h5">
+                                            {{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--end: Item-->
-                            <!--begin: Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                <!--end: Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 												<span class="mr-4">
 													<i class="flaticon2-hourglass icon-2x text-muted font-weight-bold"></i>
 												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Thời lượng</span>
-                                    <span class="font-weight-bolder font-size-h5">
+                                    <div class="d-flex flex-column text-dark-75">
+                                        <span class="font-weight-bolder font-size-sm">Thời lượng</span>
+                                        <span class="font-weight-bolder font-size-h5">
 													{{$course->course_hour}} giờ</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--end: Item-->
-                            <!--begin: Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                <!--end: Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 												<span class="mr-4">
 													<i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
 												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Thành viên</span>
-                                    <span class="font-weight-bolder font-size-h5">
+                                    <div class="d-flex flex-column text-dark-75">
+                                        <span class="font-weight-bolder font-size-sm">Thành viên</span>
+                                        <span class="font-weight-bolder font-size-h5">
                                         {{$student_count . ' học sinh'}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--end: Item-->
-                            <!--begin: Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                <!--end: Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 												<span class="mr-4">
 													<i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
 												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Số buổi đã học</span>
-                                    <span class="font-weight-bolder font-size-h5">
+                                    <div class="d-flex flex-column text-dark-75">
+                                        <span class="font-weight-bolder font-size-sm">Số buổi đã học</span>
+                                        <span class="font-weight-bolder font-size-h5">
                                         {{$learned_period .'/'.$total_period}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--end: Item-->
-                            <!--begin: Item-->
-                            <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                <!--end: Item-->
+                                <!--begin: Item-->
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
 												<span class="mr-4">
 													<i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
 												</span>
-                                <div class="d-flex flex-column text-dark-75">
-                                    <span class="font-weight-bolder font-size-sm">Trạng thái</span>
-                                    <span class="font-weight-bolder font-size-h5">
+                                    <div class="d-flex flex-column text-dark-75">
+                                        <span class="font-weight-bolder font-size-sm">Trạng thái</span>
+                                        <span class="font-weight-bolder font-size-h5">
                                         {{ucfirst($course->course_status)}}</span>
+                                    </div>
                                 </div>
+                                <!--end: Item-->
                             </div>
-                            <!--end: Item-->
+                            <!--begin: Items-->
                         </div>
-                        <!--begin: Items-->
+                    </div>
+                    <!--end::Card-->
+                    <!--begin::Row-->
+                </div>
+
+                <div class="card card-custom gutter-b">
+                    <div class="card-header border-0 py-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder text-dark">Thông báo</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id=""> hello bitch</div>
                     </div>
                 </div>
-                <!--end::Card-->
-                <!--begin::Row-->
+
+                <div class="card card-custom gutter-b mr-5">
+                    <div class="card-header border-0 py-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder text-dark">Tỷ lệ điểm danh</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="pie-chart"></div>
+                    </div>
+                </div>
+
                 <!--begin::Table-->
                 <div class="card card-custom gutter-b table-responsive">
                     <div class="card-header">
@@ -288,7 +314,8 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm" method="post"
+                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                                                  method="post"
                                                   action="#"
                                                   data-toggle="tooltip"
                                                   title="xóa">
@@ -776,7 +803,8 @@
                                                                     <!--end::Svg Icon-->
 																</span>
                                             </a>
-                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm" method="post"
+                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                                                  method="post"
                                                   action="{{route('users.deleteMark',[$course->course_id , $student->student_id])}}"
                                                   data-toggle="tooltip"
                                                   title="xóa">
@@ -808,7 +836,7 @@
                                 </tr>
                             @empty
                             @endforelse
-                            <span>no data found<spam>
+                            <span>no data found</span>
                             </tbody>
                         </table>
                     </div>
@@ -825,7 +853,8 @@
                         <div class="card card-custom gutter-b">
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label font-weight-bolder text-dark">Thời khóa biểu lớp học</span>
+                                        <span
+                                            class="card-label font-weight-bolder text-dark">Thời khóa biểu lớp học</span>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -847,6 +876,33 @@
 
 
 @section('script')
+    <script src="{{mix('js/chart.js')}}"></script>
+    <script>
+
+        var options = {
+            series: [{{$attendances->count()}}, {{$learned_period - $attendances->count()}}],
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: ['Đã điểm danh', 'Chưa điểm danh'],
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pie-chart"), options);
+        chart.render();
+
+    </script>
     <script src="{{asset('js/external-events.js')}}"></script>
     <script>
         {{--const data = <?php--}}

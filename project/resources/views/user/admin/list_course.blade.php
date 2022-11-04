@@ -76,7 +76,7 @@
                             </div>
                             <div class="row align-items-center mt-2">
                                 <div class="col-md-12 my-2 my-md-0">
-                                    <button class="btn btn-light-primary px-6 font-weight-bold">  <span
+                                    <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">  <span
                                             class="svg-icon svg-icon-md">
 													<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
 													<svg xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,6 @@
 												</svg>
                                                 <!--end::Svg Icon-->
 											</span>Tạo mới</a>
-                                    @endif
                                     <!--begin::Dropdown-->
                                     <div class="dropdown dropdown-inline mr-2">
                                         <button type="button"
@@ -195,6 +194,7 @@
                                         <!--end::Dropdown Menu-->
                                     </div>
                                     <!--end::Dropdown-->
+                                    @endif
                                 </div>
                             </div>
                         </form>

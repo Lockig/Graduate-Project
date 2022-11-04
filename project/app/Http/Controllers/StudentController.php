@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConfirmDayOff;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Student;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -68,11 +70,18 @@ class StudentController extends Controller
         //
     }
 
-    public function listCourse()
+    public function listCourse(Request $request)
     {
-        $courses = DB::table('courses')
-            ->join('course_students', 'course_students.course_id', '=', 'courses.course_id')
-            ->where('student_id', '=', Auth::user()->id)->paginate(5);
+        if ($request->input('course_name') != null) {
+            $courses = DB::table('courses')
+                ->join('course_students', 'course_students.course_id', '=', 'courses.course_id')
+                ->where('student_id', '=', Auth::user()->id)
+                ->where('courses.course_name', 'like', '%' . $request->course_name . '%')->paginate(5);
+        } else {
+            $courses = DB::table('courses')
+                ->join('course_students', 'course_students.course_id', '=', 'courses.course_id')
+                ->where('student_id', '=', Auth::user()->id)->paginate(5);
+        }
         return view('user.admin.list_course', compact('courses'));
     }
 
@@ -166,11 +175,16 @@ class StudentController extends Controller
 
     public function updateRequest(Request $request, $id)
     {
+        $teacher_id = Auth::user()->id;
+
+        $query = DB::table('day_off_requests')->where('id', '=', $id);
+        $student_id = $query->value('student_id');
         if ($request->has('accept')) {
-            DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Đã duyệt']);
+            $query->update(['stage' => 'Đã duyệt']);
         } elseif ($request->has('reject')) {
-            DB::table('day_off_requests')->where('id', '=', $id)->update(['stage' => 'Từ chối']);
+            $query->update(['stage' => 'Từ chối']);
         }
+        Event::dispatch( new ConfirmDayOff($teacher_id, $student_id));
         return back()->with('Success', 'Duyệt đơn thành công');
     }
 }
