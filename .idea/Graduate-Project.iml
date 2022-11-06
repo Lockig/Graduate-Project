@@ -126,6 +126,12 @@
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/markbaker/complex" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/markbaker/matrix" />
       <excludeFolder url="file://$MODULE_DIR$/project/vendor/maennchen/zipstream-php" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/phenx/php-svg-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/phenx/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/sabberworm/php-css-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/project/vendor/barryvdh/laravel-dompdf" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

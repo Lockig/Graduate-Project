@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "ext-http": "*",
         "ext-xlswriter": "*",
+        "barryvdh/laravel-dompdf": "*",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -14,8 +16,7 @@
         "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "2.0",
-        "pusher/pusher-php-server": "^7.0",
-      "ext-http": "*"
+        "pusher/pusher-php-server": "^7.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

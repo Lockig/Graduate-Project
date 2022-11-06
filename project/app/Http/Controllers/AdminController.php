@@ -35,6 +35,7 @@ class AdminController extends Controller
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
+
         $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
         $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
         $courses = Course::all();

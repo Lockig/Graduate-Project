@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ListMarkExport;
 use App\Exports\UsersExport;
 use App\Models\Course;
 
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -212,5 +214,22 @@ class TeacherController extends Controller
         DB::table('student_grades')->where('user_id','=',$id)
         ->delete();
         return back()->with('Success','Xóa điểm thành công');
+    }
+
+    //export to pdf
+    public function listMark($course,Request $request){
+        $grades = DB::table('student_grades')
+            ->leftJoin('course_students','course_students.id','=','student_grades.user_id')
+            ->where('course_students.course_id','=',$course)
+            ->get(['student_id','diem_lan_1','diem_lan_2','diem_lan_3']);
+        $students = DB::table('course_students')->where('course_id','=',$course)->get();
+        if($request->has('pdf')){
+            $pdf = Pdf::loadView('user.export.list_mark',compact('students','course'));
+            return $pdf->download('list_mark.pdf');
+        }
+        if($request->has('excel')){
+            return Excel::download(new ListMarkExport($grades),'list_mark.xlsx');
+        }
+//        dd($students);
     }
 }
