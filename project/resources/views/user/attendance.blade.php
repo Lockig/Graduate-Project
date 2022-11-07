@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="col-md-5 col-xl-3 mt-5 mt-lg-0">
                                             <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
-                                                Search
+                                                Tìm kiếm
                                             </button>
                                         </div>
                                     </div>

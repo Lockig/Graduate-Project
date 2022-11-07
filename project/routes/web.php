@@ -80,6 +80,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
     Route::get('/course/{course}/{user}/mark/edit', [TeacherController::class, 'editMark'])->name('users.editMark');
     Route::get('/course/{course}/list_mark', [TeacherController::class, 'listMark'])->name('teacher.listMark');
+    Route::post('/course/{course}/notification', [TeacherController::class, 'createNotification'])->name('teacher.createNotification');
     Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
     Route::post('/course/{course}/create', [TeacherController::class, 'storeAttendance'])->name('teacher.storeAttendance');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

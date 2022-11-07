@@ -60,7 +60,14 @@ class UserController extends Controller implements ShouldQueue
             ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
             ->where('course_students.student_id', '=', $user->id)
             ->get();
-        $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
+        if ($request->has('course_name')) {
+            $records = DB::table('attendances')
+                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+                ->where('course_schedules.course_id', '=', $request->input('course_name'))
+                ->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
+        } else {
+            $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
+        }
         return view('user.attendance', compact('records', 'user', 'courses'));
     }
 
@@ -76,17 +83,17 @@ class UserController extends Controller implements ShouldQueue
         $user = User::find($id);
         if ($user && $user->role == 'student') {
             DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->where('student_id','=',$id)->delete();
-            DB::table('day_off_requests')->where('student_id','=',$id)->delete();
-            DB::table('student_grades')->where('user_id','=',$id)->delete();
+            DB::table('course_students')->where('student_id', '=', $id)->delete();
+            DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
+            DB::table('student_grades')->where('user_id', '=', $id)->delete();
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } elseif ($user->role == 'teacher') {
             DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->where('student_id','=',$id)->delete();
-            DB::table('day_off_requests')->where('student_id','=',$id)->delete();
+            DB::table('course_students')->where('student_id', '=', $id)->delete();
+            DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
             DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
-            DB::table('student_grades')->where('user_id','=',$id)->delete();
+            DB::table('student_grades')->where('user_id', '=', $id)->delete();
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } else {
@@ -125,7 +132,7 @@ class UserController extends Controller implements ShouldQueue
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        User::query()->where('id','=',$user->id)->update([
+        User::query()->where('id', '=', $user->id)->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),

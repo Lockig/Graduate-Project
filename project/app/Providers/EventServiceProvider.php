@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Events\ConfirmDayOff;
+use App\Events\CreateClassNotification;
 use App\Events\CreateFingerprint;
 use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
 use App\Listener\SendMailResetPassword;
 use App\Listeners\CreateFingerprintListener;
 use App\Listeners\CreateUserWorkingDetails;
+use App\Listeners\SaveClassNotification;
 use App\Listeners\sendConfirmDayOffNotification;
 use App\Listeners\SendDayOffNotification;
 use App\Notifications\RequestDayOffNotification;
@@ -36,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ConfirmDayOff::class => [
             sendConfirmDayOffNotification::class
+        ],
+        CreateClassNotification::class=>[
+            SaveClassNotification::class
         ]
     ];
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateClassNotification;
 use App\Exports\ListMarkExport;
 use App\Exports\UsersExport;
 use App\Models\Course;
@@ -12,7 +13,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class TeacherController extends Controller
 {
@@ -36,7 +39,7 @@ class TeacherController extends Controller
         $today_courses = $query->whereDate('start_at', Carbon::today())->get();
         $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
         $users = User::query()->name($request)->paginate(5);
-        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses','notifications']));
+        return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses', 'notifications']));
     }
 
     /**
@@ -108,15 +111,15 @@ class TeacherController extends Controller
     public function listTeacher(Request $request)
     {
         if ($request->has('last_name')) {
-            $teachers = User::query()->name($request)->where('role', '=' , 'teacher')->paginate(5);
+            $teachers = User::query()->name($request)->where('role', '=', 'teacher')->paginate(5);
         } else {
-            $teachers = User::query()->where('role',  '=' , 'teacher')->paginate(5);
+            $teachers = User::query()->where('role', '=', 'teacher')->paginate(5);
         }
         if (!$request->has('export')) {
             $request->flashOnly('last_name');
             return view('user.admin.list_teacher', compact('teachers'));
         } else {
-            return Excel::download(new UsersExport($teachers),'teacher_list.xlsx');
+            return Excel::download(new UsersExport($teachers), 'teacher_list.xlsx');
         }
     }
 
@@ -183,53 +186,70 @@ class TeacherController extends Controller
             'diem_lan_2' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
             'diem_lan_3' => 'nullable|regex:/^\d+(\.\d{1,2})?$/'
         ]);
-        $id = DB::table('course_students')->where('course_id','=',$course)
-            ->where('student_id','=',$validated['student_id'])->value('id');
-        $check = DB::table('student_grades')->where('user_id','=',$id)->value('user_id');
-        if($check == null){
+        $id = DB::table('course_students')->where('course_id', '=', $course)
+            ->where('student_id', '=', $validated['student_id'])->value('id');
+        $check = DB::table('student_grades')->where('user_id', '=', $id)->value('user_id');
+        if ($check == null) {
             DB::table('student_grades')->insert([
                 'user_id' => $id,
                 'diem_lan_1' => $validated['diem_lan_1'],
                 'diem_lan_2' => $validated['diem_lan_2'],
                 'diem_lan_3' => $validated['diem_lan_3']
             ]);
-            return back()->with('Success','Cập nhập điểm thành công');
-        }else{
-            return back()->with('Warning','Người dùng đã có điểm, không được thêm mới, chỉ được chỉnh sửa');
+            return back()->with('Success', 'Cập nhập điểm thành công');
+        } else {
+            return back()->with('Warning', 'Người dùng đã có điểm, không được thêm mới, chỉ được chỉnh sửa');
         }
 
     }
-    public function editMark($course_id,$student_id){
+
+    public function editMark($course_id, $student_id)
+    {
         $course = $course_id;
         $students = DB::table('course_students')
             ->leftJoin('users', 'users.id', '=', 'course_students.student_id')
             ->where('course_id', '=', $course)->get();
-        return view('user.mark',compact('course_id','student_id','course','students'));
+        return view('user.mark', compact('course_id', 'student_id', 'course', 'students'));
     }
-    public function destroyMark($course,$student_id){
+
+    public function destroyMark($course, $student_id)
+    {
         $id = DB::table('course_students')
-            ->where('course_id','=',$course)
-            ->where('student_id','=',$student_id)
+            ->where('course_id', '=', $course)
+            ->where('student_id', '=', $student_id)
             ->value('id');
-        DB::table('student_grades')->where('user_id','=',$id)
-        ->delete();
-        return back()->with('Success','Xóa điểm thành công');
+        DB::table('student_grades')->where('user_id', '=', $id)
+            ->delete();
+        return back()->with('Success', 'Xóa điểm thành công');
     }
 
     //export to pdf
-    public function listMark($course,Request $request){
+    public function listMark($course, Request $request)
+    {
         $grades = DB::table('student_grades')
-            ->leftJoin('course_students','course_students.id','=','student_grades.user_id')
-            ->where('course_students.course_id','=',$course)
-            ->get(['student_id','diem_lan_1','diem_lan_2','diem_lan_3']);
-        $students = DB::table('course_students')->where('course_id','=',$course)->get();
-        if($request->has('pdf')){
-            $pdf = Pdf::loadView('user.export.list_mark',compact('students','course'));
+            ->leftJoin('course_students', 'course_students.id', '=', 'student_grades.user_id')
+            ->where('course_students.course_id', '=', $course)
+            ->get(['student_id', 'diem_lan_1', 'diem_lan_2', 'diem_lan_3']);
+        $students = DB::table('course_students')->where('course_id', '=', $course)->get();
+        if ($request->has('pdf')) {
+            $pdf = Pdf::loadView('user.export.list_mark', compact('students', 'course'));
             return $pdf->download('list_mark.pdf');
         }
-        if($request->has('excel')){
-            return Excel::download(new ListMarkExport($grades),'list_mark.xlsx');
+        if ($request->has('excel')) {
+            return Excel::download(new ListMarkExport($grades), 'list_mark.xlsx');
         }
 //        dd($students);
+    }
+
+    public function createNotification($id, Request $request)
+    {
+        $content = $request->input('content');
+        $students = User::query()
+            ->join('course_students','course_students.student_id','=','users.id')
+            ->where('course_id','=',$id)->get();
+//        $students = DB::table('course_students')->where('course_id', '=', $id)->get();
+        $teacher = Auth::user();
+        Event::dispatch(new CreateClassNotification($students, $teacher, $content));
+        return back()->with('Success','Tạo thông báo thành công');
     }
 }
