@@ -62,7 +62,8 @@ class User extends Authenticatable
     public function scopeEmail($query, $request)
     {
         if ($request->has('email')) {
-            return $query->where('email', 'like', '%' . $request->input('email') . '%');
+            return $query
+                ->where('email', 'like', '%' . $request->input('email') . '%');
         }
         return $query;
     }
@@ -70,7 +71,8 @@ class User extends Authenticatable
     public function scopePassword($query, $request)
     {
         if ($request->has('password')) {
-            return $query->where('password', 'like', '%' . $request->input('password') . '%');
+            return $query
+                ->where('password', 'like', '%' . $request->input('password') . '%');
         }
         return $query;
     }
@@ -78,7 +80,9 @@ class User extends Authenticatable
     public function scopeName($query, $request)
     {
         if ($request->has('last_name')) {
-            return $query->where('last_name', 'like', '%' . $request->input('last_name') . '%');
+            return $query
+                ->where('last_name', 'like', '%' . $request->input('last_name') . '%')
+                ->orWhere('first_name', 'like', '%' . $request->input('last_name') . '%');
         }
         return $query;
     }
@@ -86,7 +90,8 @@ class User extends Authenticatable
     public function scopeFingerprint($query, $request)
     {
         if ($request->has('fingerID')) {
-            return $query->where('fingerprint', '=', $request->input('fingerID'));
+            return $query
+                ->where('fingerprint', '=', $request->input('fingerID'));
         }
         return $query;
     }

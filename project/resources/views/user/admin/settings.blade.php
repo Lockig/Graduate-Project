@@ -38,13 +38,13 @@
                                 <div class="card-body">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="time_start" class="col-form-label text-left col-lg-3 col-sm-12">Nhập
+                                        <label for="time_start" class="col-form-label text-left col-lg-4 col-sm-12">Nhập
                                             ID</label>
                                         <div class="col-lg-8 col-md-9 col-sm-12">
                                             <div class="input-group timepicker">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <i class="la la-clock-o"></i>
+                                                        <i class="la la-id-card"></i>
                                                     </span>
                                                 </div>
                                                 <input name="user_id" class="form-control"
@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="action" class="col-form-label text-left col-lg-3 col-sm-12">Hành
+                                        <label for="action" class="col-form-label text-left col-lg-4 col-sm-12">Hành
                                             động</label>
                                         <div class="col-lg-8 col-md-9 col-sm-12">
                                             <select name="action"
@@ -97,10 +97,10 @@
                                         <thead>
                                         <tr class="text-left">
                                             <th class="pl-0" style="width: 20px">STT</th>
-                                            <th class="pl-0" style="width: 100px">ID</th>
+                                            <th class="pl-0" style="width: 50px">ID</th>
                                             <th class="pl-0" style="width: 100px">Họ tên</th>
                                             <th class="pl-0" style="width: 100px">Vân tay</th>
-                                            <th class="pl-0 text-right" style="width: 100px">Tình trạng</th>
+{{--                                            <th class="pl-0 text-right" style="width: 100px">Tình trạng</th>--}}
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -125,29 +125,29 @@
                                                         @endif
                                                     </a>
                                                 </td>
-                                                <td class="pr-0 text-right d-flex justify-content-end">
-                                                    <form method="post" id="accept"
-                                                          action="  "
-                                                          class="mr-1">
-                                                        @csrf
-                                                        <button type="submit" data-toggle="tooltip" title
-                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                                                                data-original-title="duyệt">
-                                                            <span><i
-                                                                    class="flaticon2-check-mark text-success"></i></span>
-                                                        </button>
-                                                    </form>
-                                                    <form method="post"
-                                                          action="  ">
-                                                        @csrf
-                                                        <button type="submit" data-toggle="tooltip" title
-                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                                                                data-original-title="từ chối">
-                                                            <span><i
-                                                                    class="flaticon2-delete text-danger"></i></span>
-                                                        </button>
-                                                    </form>
-                                                </td>
+{{--                                                <td class="pr-0 text-right d-flex justify-content-end">--}}
+{{--                                                    <form method="post" id="accept"--}}
+{{--                                                          action="  "--}}
+{{--                                                          class="mr-1">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <button type="submit" data-toggle="tooltip" title--}}
+{{--                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"--}}
+{{--                                                                data-original-title="duyệt">--}}
+{{--                                                            <span><i--}}
+{{--                                                                    class="flaticon2-check-mark text-success"></i></span>--}}
+{{--                                                        </button>--}}
+{{--                                                    </form>--}}
+{{--                                                    <form method="post"--}}
+{{--                                                          action="  ">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <button type="submit" data-toggle="tooltip" title--}}
+{{--                                                                class="btn btn-icon btn-light btn-hover-primary btn-sm"--}}
+{{--                                                                data-original-title="từ chối">--}}
+{{--                                                            <span><i--}}
+{{--                                                                    class="flaticon2-delete text-danger"></i></span>--}}
+{{--                                                        </button>--}}
+{{--                                                    </form>--}}
+{{--                                                </td>--}}
                                             </tr>
                                         @endforeach
                                         </tbody>

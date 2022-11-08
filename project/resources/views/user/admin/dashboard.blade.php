@@ -242,7 +242,7 @@
                                                 <!--end::Thead-->
                                                 <!--begin::Tbody-->
                                                 <tbody>
-                                                @foreach($today_courses as $course)
+                                                @forelse($today_courses as $course)
                                                     <tr>
                                                         <td class="pl-0 py-5">
                                                             <div class="symbol symbol-45 symbol-light mr-2">
@@ -295,7 +295,9 @@
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @empty
+                                                    <span>Không có lịch học </span>
+                                                @endforelse
                                                 </tbody>
                                                 <!--end::Tbody-->
                                             </table>
@@ -320,7 +322,7 @@
                                                 <!--end::Thead-->
                                                 <!--begin::Tbody-->
                                                 <tbody>
-                                                @foreach($tomorrow_courses as $course)
+                                                @forelse($tomorrow_courses as $course)
                                                     <tr>
                                                         <td class="pl-0 py-5">
                                                             <div class="symbol symbol-45 symbol-light mr-2">
@@ -373,7 +375,9 @@
                                                                 class="text-muted font-weight-bold d-block font-size-sm">Thời gian</span>
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @empty
+                                                    <span>Không có lịch học</span>
+                                                @endforelse
                                                 </tbody>
                                                 <!--end::Tbody-->
                                             </table>

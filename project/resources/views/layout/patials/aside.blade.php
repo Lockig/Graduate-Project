@@ -109,10 +109,12 @@
                         <span class="menu-text">Đổi mật khẩu</span>
                     </a>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::user()->role=='student' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
                 <li class="menu-section">
                     <h4 class="menu-text">Lớp học</h4>
                     <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                 </li>
+                @endif
                 @if(\Illuminate\Support\Facades\Auth::user()->role =='student')
                 <li class="menu-item" aria-haspopup="true">
                     <a
@@ -139,6 +141,7 @@
                     </a>
                 </li>
                 @endif
+                @if(\Illuminate\Support\Facades\Auth::user()->role=='student' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
                 <li class="menu-item" aria-haspopup="true">
                     <a
                         @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
@@ -190,6 +193,7 @@
                         <span class="menu-text">Đơn xin nghỉ</span>
                     </a>
                 </li>
+                @endif
                 @if(\Illuminate\Support\Facades\Auth::user()->role == 'teacher')
                     <li class="menu-section">
                         <h4 class="menu-text">Quản lý </h4>

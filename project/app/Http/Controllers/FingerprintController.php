@@ -66,7 +66,7 @@ class FingerprintController extends Controller
                             'time_in' => $current_time->format('Y-m-d H:i:s'),
                         ]);
                     }
-                    echo 'hello ' . User::find($check)->last_name;
+                    echo 'hello ' . User::find($check)->first_name . ' '. User::find($check)->last_name ;
                 } else {
                     echo 'no user find';
                 }

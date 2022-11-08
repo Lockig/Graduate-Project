@@ -154,7 +154,7 @@ class StudentController extends Controller
     {
         $notifications = Auth::user()->unreadNotifications;
         if (Auth::user()->role == 'student') {
-            $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->paginate(5);
+            $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->orderBy('id','desc')->paginate(5);
         } else {
             $requests = DB::table('day_off_requests')
                 ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')

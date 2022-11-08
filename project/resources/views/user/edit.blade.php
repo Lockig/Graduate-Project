@@ -233,7 +233,7 @@
                                                 <input name="date_of_birth" type="text"
                                                        class="form-control form-control-lg form-control-solid"
                                                        id="kt_datepicker_1" readonly="readonly"
-                                                       placeholder="{{old('date_of_birth')}}"/>
+                                                       value="{{\Carbon\Carbon::parse($user->date_of_birth)->format('m/d/Y')}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
