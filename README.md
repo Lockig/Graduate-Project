@@ -1,2 +1,2 @@
 # Graduate-Project
-project website chấm công 
+project website quản lý học sinh sinh viên
