@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RoleSeeder extends Seeder
+class RequestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,17 +15,15 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
+        DB::table('day_off_requests')->insert(
             [
-                'role_name' => 'admin'
-            ],
-            [
-                'role_name' => 'teacher'
-            ],
-            [
-                'role_name' => 'student'
+                'student_id'=>'4',
+                'schedule_id'=>'4',
+                'content'=>'em xin nghỉ ốm ạ',
+                'stage'=>'Chờ duyệt'
             ]
-        ]);
+        );
+
         //
     }
 }

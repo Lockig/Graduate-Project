@@ -6,3 +6,4 @@ chạy các câu lệnh sau:
 - composer install
 - npm run dev để generate các file asset.
 - php artisan migrate 
+- php artisan db:seed

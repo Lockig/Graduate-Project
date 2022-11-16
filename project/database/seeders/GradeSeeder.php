@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class LogSeeder extends Seeder
+class GradeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,12 @@ class LogSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('attendances')->insert(
-            [
-                'account_id'=>'3',
-                'time_in'=>'2022-10-7 9:42:00'
-            ]
-        );
-
+        DB::table('student_grades')->insert([
+           'user_id'=>'1',
+           'diem_lan_1'=>'7',
+           'diem_lan_2'=>'8',
+           'diem_lan_3'=>'9'
+        ]);
         //
     }
 }

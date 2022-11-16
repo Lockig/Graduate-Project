@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SubjectSeeder::class,
             CourseSeeder::class,
-            LogSeeder::class,
-            PenaltySeeder::class
+            RequestSeeder::class,
+            PenaltySeeder::class,
+            GradeSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();

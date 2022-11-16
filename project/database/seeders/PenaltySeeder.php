@@ -17,11 +17,14 @@ class PenaltySeeder extends Seeder
     {
         DB::table('penalties')->insert([
             [
+                'penalty_amount' => '10000'
+            ],
+            [
                 'penalty_amount' => '20000'
             ],
             [
-                'penalty_amount' => '50000'
-            ]
+                'penalty_amount' => '30000'
+            ],
         ]);
         //
     }
