@@ -757,7 +757,7 @@
                                     <td class="pr-0">
                                         <div class="symbol symbol-40 symbol-circle symbol-sm">
                                             <img
-                                                src="{{asset((\App\Models\User::find($item->user_id)->avatar != "null")?(\App\Models\User::find($item->user_id)->avatar):'media/users/default.jpg')}}"
+                                                src="{{asset((\App\Models\User::find($item->user_id)->avatar != "")?(\App\Models\User::find($item->user_id)->avatar):'media/users/default.jpg')}}"
                                                 alt="image">
                                         </div>
                                     </td>

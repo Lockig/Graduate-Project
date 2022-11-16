@@ -76,16 +76,16 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
     Route::get('/info', [UserController::class, 'show'])->name('teachers.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('teachers.edit');
+    Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('teachers.editPassword');
     Route::get('/course/list', [TeacherController::class, 'show'])->name('teacher.listCourse');
     Route::get('/course/{course}/material', [CourseController::class, 'createMaterial'])->name('teacher.createCourseMaterial');
     Route::get('/course/{course}/attendance', [UserAttendanceController::class, 'create'])->name('teacher.createAttendance');
     Route::get('/course/{course}/mark', [TeacherController::class, 'createMark'])->name('teacher.createMark');
-    Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
+    Route::get('/course/{course}/material/{material}', [CourseController::class, 'editMaterial'])->name('teacher.editCourseMaterial');
     Route::get('/course/{course}/{user}/mark/edit', [TeacherController::class, 'editMark'])->name('users.editMark');
     Route::get('/course/{course}/list_mark', [TeacherController::class, 'listMark'])->name('teacher.listMark');
     Route::get('/course/{course}/{user}/export', [TeacherController::class, 'exportUserCourse'])->name('teacher.exportUserCourse');
-    Route::get('/course/{course}/material/{material}', [CourseController::class, 'editMaterial'])->name('teacher.editCourseMaterial');
     Route::post('/course/{course}/material', [CourseController::class, 'storeMaterial'])->name('teacher.storeCourseMaterial');
     Route::post('/course/{course}/notification', [TeacherController::class, 'createNotification'])->name('teacher.createNotification');
     Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
