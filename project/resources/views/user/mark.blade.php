@@ -52,7 +52,7 @@
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <div class="col-lg-10 ml-lg-auto">
-                                            <label for="day_start" class="col-form-label text-left col-lg-3 col-sm-12">
+                                            <label for="day_start" class="col-form-label text-left col-lg-4 col-sm-12">
                                                 Học sinh</label>
                                             <div class="col-lg-10 col-md-10 col-sm-6">
                                                 <select name="student_id" class="form-control">
@@ -127,7 +127,6 @@
                                             <th class="pr-0" style="width: 100px">Điểm lần 2</th>
                                             <th class="pr-0" style="width: 100px">Điểm lần 3</th>
                                             <th class="pr-0 text-right" style="min-width: 50px">Trung bình</th>
-                                            <th class="pr-0 text-right" style="min-width: 50px">Hành động</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -153,11 +152,11 @@
                                                     </td>
                                                     <td class="pr-0 text-right">
                                                         <a href="#"
-                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{round(($grade->diem_lan_3+$grade->diem_lan_2+$grade->diem_lan_1)/3),2}}</a>
-                                                    </td>
-                                                    <td class="pr-0 text-right">
-                                                        <a href="#"
-                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{round(($grade->diem_lan_3+$grade->diem_lan_2+$grade->diem_lan_1)/3),2}}</a>
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">
+                                                            @if($grade->diem_lan_1 != null && $grade->diem_lan_2 != null && $grade->diem_lan_3 != null)
+                                                                {{round(($grade->diem_lan_1+$grade->diem_lan_2+$grade->diem_lan_3)/3,2)}}
+                                                            @endif
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

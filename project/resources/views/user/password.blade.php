@@ -151,7 +151,11 @@
                     <div class="flex-row-fluid ml-lg-7">
                         <!--begin::Card-->
                         <form class="card card-custom card-stretch gutter-b" method="post"
+                              @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
                               action="{{route('users.updatePassword',$user)}}">
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                action="{{route('users.updatePasswords',$user)}}">
+                            @endif
                             @csrf
                             @method('post')
                             <!--begin::Header-->

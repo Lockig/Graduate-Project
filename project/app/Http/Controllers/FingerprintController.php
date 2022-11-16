@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\SyntheticSkippedError;
 
 class FingerprintController extends Controller
 {
@@ -83,7 +84,10 @@ class FingerprintController extends Controller
             }
             if (Cache::get('command') == 'delete') {
                 echo Cache::get('command') . Cache::get('user_id');
+                sleep(1000);
+                Cache::flush();
             }
+
         }
 
 //        get new fingerprint_id
@@ -122,21 +126,35 @@ class FingerprintController extends Controller
      */
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
+//        if($request->input('action')=='delete'){
+//            Cache::put('command', 'delete');
+//            Cache::put('user_id',$request->user_id);
+//            return back()->with('Success','Xóa vân tay thành công!');
+//        }
+//        return back()->with('Fail','Error!');
         $id = User::query()->where('id','=',$request->user_id)->value('id');
         if ($id != null) {
             switch ($request->input('action')):
                 case 'create':
-                    Cache::put('user_id', $request->user_id);
-                    Cache::put('command','register');
-                    return back()->with('Success','Thêm vân tay thành công!');
+                    $fingerprint  = User::find($id)->fingerprint;
+                    if($fingerprint != 0){
+                        return back()->with('Fail','Đã có vân tay không thể thêm mới!');
+                    }else{
+                        Cache::put('user_id', $request->user_id);
+                        Cache::put('command','register');
+                        User::find($id)->update(['fingerprint'=>$request->user_id]);
+                        return back()->with('Success','Thêm vân tay thành công!');
+                    }
                 case 'update':
                     Cache::put('command','delete');
                     Cache::put('user_id',$request->user_id);
                     Cache::put('command','register');
+                    User::find($id)->update(['fingerprint'=>0]);
                     return back()->with('Success','Điền vân tay để cập nhật!');
                 case 'delete':
                     Cache::put('command', 'delete');
                     Cache::put('user_id',$request->user_id);
+                    User::find($id)->update(['fingerprint'=>0]);
                     return back()->with('Success','Xóa vân tay thành công!');
                 default:
                     return back()->with('Fail','Chưa chọn hành động');

@@ -99,7 +99,6 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      */
     public function update(UserUpdateRequest $request)
     {
@@ -126,8 +125,6 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Student $student
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Student $student)
     {
@@ -137,9 +134,13 @@ class StudentController extends Controller
     public function listStudent(Request $request)
     {
         if ($request->has('last_name')) {
-            $students = User::query()->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+            $students = User::query()
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         } else {
-            $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+            $students = User::query()
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         }
         if (!$request->has('export')) {
             $request->flashOnly('last_name');
@@ -150,43 +151,7 @@ class StudentController extends Controller
         }
     }
 
-    public function listRequest()
-    {
-        $notifications = Auth::user()->unreadNotifications;
-        if (Auth::user()->role == 'student') {
-            $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->orderBy('id','desc')->paginate(5);
-        } else {
-            $requests = DB::table('day_off_requests')
-                ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
-                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
-                ->where('courses.teacher_id', '=', Auth::user()->id)
-                ->where('day_off_requests.stage', '=', 'Chờ duyệt')
-                ->paginate(5, ['day_off_requests.id', 'day_off_requests.content', 'day_off_requests.schedule_id', 'day_off_requests.student_id', 'day_off_requests.stage'], 'requests');
-        }
-        $accept = DB::table('day_off_requests')
-            ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
-            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
-            ->where('courses.teacher_id', '=', Auth::user()->id)
-            ->where('day_off_requests.stage', '=', 'Đã duyệt')
-            ->orWhere('day_off_requests.stage', '=', 'Từ chối')
-            ->paginate(5, ['*'], 'stage');
-        return view('user.list_request', compact('requests', 'accept', 'notifications'));
-    }
 
-    public function updateRequest(Request $request, $id)
-    {
-        $teacher_id = Auth::user()->id;
-
-        $query = DB::table('day_off_requests')->where('id', '=', $id);
-        $student_id = $query->value('student_id');
-        if ($request->has('accept')) {
-            $query->update(['stage' => 'Đã duyệt']);
-        } elseif ($request->has('reject')) {
-            $query->update(['stage' => 'Từ chối']);
-        }
-        Event::dispatch( new ConfirmDayOff($teacher_id, $student_id));
-        return back()->with('Success', 'Duyệt đơn thành công');
-    }
 }
 
 

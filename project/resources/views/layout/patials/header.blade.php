@@ -852,7 +852,7 @@
             <!--begin::Notifications-->
             <div class="dropdown">
                 <!--begin::Toggle-->
-                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px" >
                     <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
 											<span class="svg-icon svg-icon-xl svg-icon-primary">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
@@ -893,11 +893,11 @@
                             <ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-line-transparent-white nav-tabs-line-active-border-success mt-3 px-8"
                                 role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active show" data-toggle="tab"
+                                    <a class="nav-link" data-toggle="tab"
                                        href="#topbar_notifications_notifications">Alerts</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab"
+                                    <a class="nav-link active show" data-toggle="tab"
                                        href="#topbar_notifications_events">Events</a>
                                 </li>
                                 <li class="nav-item">
@@ -910,7 +910,7 @@
                         <!--begin::Content-->
                         <div class="tab-content">
                             <!--begin::Tabpane-->
-                            <div class="tab-pane active show p-8" id="topbar_notifications_notifications"
+                            <div class="tab-pane p-8" id="topbar_notifications_notifications"
                                  role="tabpanel">
                                 <!--begin::Scroll-->
                                 <div class="scroll pr-7 mr-n7" data-scroll="true" data-height="300"
@@ -1209,7 +1209,7 @@
                             </div>
                             <!--end::Tabpane-->
                             <!--begin::Tabpane-->
-                            <div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
+                            <div class="tab-pane active show" id="topbar_notifications_events" role="tabpanel">
                                 <!--begin::Nav-->
                                 <div class="navi navi-hover scroll my-4" data-scroll="true"
                                      data-height="300" data-mobile-height="200">

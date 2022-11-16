@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
+use App\Exports\CourseExport;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -11,7 +12,9 @@ use App\Models\Account;
 use App\Models\Course;
 use App\Models\Position;
 use App\Models\Role;
+use App\Models\Subject;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use GuzzleHttp\Promise\Coroutine;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +24,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Nette\Utils\Random;
 
 class AdminController extends Controller
@@ -31,7 +35,8 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = Auth::user()->unreadNotifications;
+
+        $notifications = Auth::user()->notifications()->paginate(5);
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
@@ -84,9 +89,21 @@ class AdminController extends Controller
 
     public function show(Request $request)
     {
-        $courses = Course::query()
-            ->name($request)->status($request)
-            ->paginate(5);
+        if($request->has('pdf')){
+            $pdf = Pdf::loadView('user.export.export');
+            return $pdf->download('list.pdf');
+        }
+        if ($request->has('export')) {
+            $courses = Course::query()
+                ->select('course_name', 'start_date', 'end_date', 'course_hour', 'course_description', 'course_status')
+                ->name($request)
+                ->paginate(5);
+            $request->flashOnly('course_name');
+            return Excel::download(new CourseExport($courses), 'course.xlsx');
+        } else {
+            $courses = Course::query()
+                ->paginate(5);
+        }
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
         return view('user.admin.list_course', compact(['courses', 'teachers', 'students']));
@@ -191,4 +208,30 @@ class AdminController extends Controller
         return back()->with('Success', 'Cài đặt thời gian thành công');
     }
 
+    public function destroyUser($course, $student)
+    {
+        DB::transaction(function () use ($course, $student) {
+            $query = DB::table('course_students')->where('student_id', '=', $student)
+                ->where('course_id', '=', $course)
+                ->get();
+            DB::table('attendances')
+                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.course_id', '=', $course)
+                ->where('attendances.user_id', '=', $student)
+                ->delete();
+            DB::table('student_grades')->where('user_id', '=', $query->value('id'))->delete();
+            DB::table('course_students')->where('id', '=', $query->value('id'))->delete();
+        }, 5);
+        return back()->with('Success','Xóa học sinh khỏi lớp thành công');
+    }
+
+    public function listSubject(){
+        $subjects = DB::table('subjects')->get();
+        return view('user.admin.list_subject',compact('subjects'));
+    }
+    public function storeSubject(Request $request){
+        Subject::query()->insert(['subject_id'=>$request->id,'subject_name'=>$request->subject]);
+        return redirect()->back()->with('Success','Tạo môn học thành công');
+    }
 }

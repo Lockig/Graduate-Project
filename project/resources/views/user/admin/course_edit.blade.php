@@ -230,10 +230,15 @@
 																				<i class="la la-file-text"></i>
 																			</span>
                                                         </div>
-                                                        <input name="course_status" type="text"
-                                                               class="form-control form-control-lg form-control-solid"
-                                                               value="{{$course->course_status}}"
-                                                               required/>
+                                                        <select name="course_status"
+                                                                class="form-control form-control-lg form-control-solid">
+                                                            <option value="1"
+                                                                    class="form-control form-control-lg form-control-solid">Chưa bắt đầu</option>
+                                                            <option value="2"
+                                                                    class="form-control form-control-lg form-control-solid">Đang diễn ra</option>
+                                                            <option value="3"
+                                                                    class="form-control form-control-lg form-control-solid">Kết thúc</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

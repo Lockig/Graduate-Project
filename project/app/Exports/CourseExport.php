@@ -4,8 +4,10 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CourseExport implements FromCollection
+class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell
 {
     use Exportable;
 
@@ -21,6 +23,22 @@ class CourseExport implements FromCollection
     */
     public function collection()
     {
+        return $this->courses;
         //
+    }
+    public function headings():array
+    {
+        return [
+            'STT',
+            'Ten khoa',
+            'Ngay bat dau',
+            'Ngay ket thuc',
+            'Mo ta',
+            'Tinh trang',
+        ];
+    }
+    public function startCell(): string
+    {
+        return 'B2';
     }
 }

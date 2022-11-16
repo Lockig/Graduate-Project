@@ -1846,10 +1846,11 @@
     "/js/widget.js": "/js/widget.js?id=34811c3786898098ecfdaea4f2bc6247",
     "/js/user/table.js": "/js/user/table.js?id=73e1764dc0a8596d7e6e335f8bdf7828",
     "/js/chart.js": "/js/chart.js?id=88e44c242a641cb5ce43bb3072acd83e",
+    "/js/form-editor.js": "/js/form-editor.js?id=495bbc20248a3ea9d52698559fa6cf23",
     "/js/list-user.js": "/js/list-user.js?id=73e1764dc0a8596d7e6e335f8bdf7828",
     "/js/datetimepicker.js": "/js/datetimepicker.js?id=42be45390f0b2ba56aa3a251d2d66e94",
     "/js/user/profile.js": "/js/user/profile.js?id=1baf01b6a4ed22f2af963c7f5913f8a1",
     "/js/user/date-picker.js": "/js/user/date-picker.js?id=e80d047b8e8f34ac618998e174ed9e75",
-    "/js/user/image-input.js": "/js/user/image-input.js?id=830ef56ba86750b74a663abdfd3de7c2",
+    "/js/user/image-input.js": "/js/user/image-input.js?id=e300d144053bd91035fe2b94e882a241",
     "/js/timepicker.js": "/js/timepicker.js?id=54e6df953e4366f1857bc26322aa4e5d"
 }

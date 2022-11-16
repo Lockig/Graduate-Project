@@ -12,8 +12,12 @@ class Schedule extends Model
     protected $table = 'course_schedules';
     protected $primaryKey = 'id';
 
+    protected $fillable=[
+        'course_id','start_at','end_at'
+    ];
+
     public function course()
     {
-        $this->belongsTo(Course::class,'course_id');
+        $this->belongsTo(Course::class,'course_id','course_id');
     }
 }

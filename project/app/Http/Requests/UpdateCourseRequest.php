@@ -30,7 +30,7 @@ class UpdateCourseRequest extends FormRequest
             'end_at'=>'required',
             'duration'=>'required',
             'course_description'=>'required|string',
-            'course_status'=>'required|string'
+            'course_status'=>'required|integer'
             //
         ];
     }

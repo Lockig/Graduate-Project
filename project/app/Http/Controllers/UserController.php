@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -53,23 +54,6 @@ class UserController extends Controller implements ShouldQueue
         return view('user.info', compact('user'));
     }
 
-    public function showAttendance(Request $request)
-    {
-        $user = Auth::user();
-        $courses = Course::query()
-            ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
-            ->where('course_students.student_id', '=', $user->id)
-            ->get();
-        if ($request->has('course_name')) {
-            $records = DB::table('attendances')
-                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
-                ->where('course_schedules.course_id', '=', $request->input('course_name'))
-                ->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
-        } else {
-            $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
-        }
-        return view('user.attendance', compact('records', 'user', 'courses'));
-    }
 
     public function editPassword(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
@@ -146,6 +130,7 @@ class UserController extends Controller implements ShouldQueue
 
     public function updatePassword(Request $request): RedirectResponse
     {
+        dd('hello');
         $user = Auth::user();
         $validated = $request->validate([
             'current_password' => 'required|string',
@@ -159,7 +144,7 @@ class UserController extends Controller implements ShouldQueue
                 $update = User::query()
                     ->where('id', $user->id)
                     ->update(['password' => Hash::make($validated['password_confirmation'])]);
-                return back()->with("Success", "Cập nhật mật khẩu thành công");
+                Session::put('Success', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại');
             }
         }
         return back()->with('Fail', 'Mật khẩu cũ không chính xác');
@@ -237,24 +222,25 @@ class UserController extends Controller implements ShouldQueue
 
     public function updatePasswords(Request $request, $id): RedirectResponse
     {
-        $user = User::find($id);
-        $password = $user->password;
+        $user = User::findOrFail($id);
 
         $validated = $request->validate([
             'current_password' => 'required|string',
             'new_password' => 'required|string',
             'password_confirmation' => 'required|string'
         ]);
-
-        if (Hash::check($validated['current_password'], $password)) {
+        if (Hash::check($validated['current_password'], $user->password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
-                $update = User::query()
-                    ->where('id', $user->id)
+                User::query()
+                    ->where('id', '=', $id)
                     ->update(['password' => Hash::make($validated['password_confirmation'])]);
-                return back()->with("Success", "Cập nhật mật khẩu thành công");
+                return back()->with('Success', 'Cập nhật mật khẩu thành công');
+            } else {
+                return back()->with('Fail', 'Mật khẩu xác nhận không khớp');
             }
+        } else {
+            return back()->with('Fail', 'Mật khẩu cũ không đúng');
         }
-        return back()->with('Fail', 'Mật khẩu cũ không chính xác');
     }
 
     public function markNotification(Request $request)
@@ -267,4 +253,28 @@ class UserController extends Controller implements ShouldQueue
             ->markAsRead();
         return response()->noContent();
     }
+
+    public function editPasswords($id)
+    {
+        $user = User::find($id);
+        return view('user.password', compact('user'));
+    }
+
+    public function calendar()
+    {
+        $notifications = Auth::user()->notifications()->paginate(5);
+        $course_schedule = DB::table('course_schedules')->get();
+        $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
+        $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
+        return view('user.calendar', compact('today_courses', 'tomorrow_courses', 'course_schedule', 'notifications'));
+    }
+
+    public function mark()
+    {
+        $user_marks = DB::table('student_grades')
+            ->rightJoin('course_students', 'course_students.id', '=', 'student_grades.user_id')
+            ->where('course_students.student_id', '=', Auth::user()->id)->get();
+        return view('user.user_mark', compact('user_marks'));
+    }
+
 }

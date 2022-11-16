@@ -25,7 +25,7 @@ class TeacherController extends Controller
      */
     public function index(Request $request)
     {
-        $notifications = Auth::user()->unreadNotifications;
+        $notifications = Auth::user()->notifications()->paginate(5);
         $student_count = User::query()->where('role', 'like', '%' . 'student' . '%')->count('id');
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
@@ -112,9 +112,13 @@ class TeacherController extends Controller
     public function listTeacher(Request $request)
     {
         if ($request->has('last_name')) {
-            $teachers = User::query()->name($request)->where('role', '=', 'teacher')->paginate(5);
+            $teachers = User::query()->name($request)
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->where('role', '=', 'teacher')->paginate(5);
         } else {
-            $teachers = User::query()->where('role', '=', 'teacher')->paginate(5);
+            $teachers = User::query()
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->where('role', '=', 'teacher')->paginate(5);
         }
         if (!$request->has('export')) {
             $request->flashOnly('last_name');
@@ -142,36 +146,16 @@ class TeacherController extends Controller
         return view('user.attendance', compact('records', 'user', 'courses'));
     }
 
-    public function createAttendance($id)
-    {
-        $course_schedule = DB::table('course_schedules')->where('course_id', '=', $id)->get();
-        $students = DB::table('course_students')->where('course_id', '=', $id)->orderBy('student_id')->get();
-        return view('user.attendance_create', compact('course_schedule', 'students', 'id'));
-    }
 
-    public function storeAttendance(Request $request, $id)
-    {
-        $query = DB::table('course_schedules')
-            ->where('course_id', '=', $id)
-            ->where('start_at', '=', Carbon::parse($request->schedule)->format('Y-m-d H:i:s'));
-        $time_in = Carbon::parse($request->time_in)->format('Y-m-d H:i:s');
-        if ($time_in > $query->value('start_at') && $time_in < $query->value('end_at')) {
-            DB::table('attendances')->insert([
-                'schedule_id' => $query->value('id'),
-                'user_id' => $request->user_id,
-                'time_in' => Carbon::parse($request->time_in)->format('Y-m-d H:i:s')
-            ]);
-            return redirect()->back()->with('Success', 'Điểm danh cho học sinh thành công!');
-        } else {
-            return redirect()->back()->with('Fail', 'Thời gian nhập vào không đúng!');
-        }
-    }
 
     public function createMark($course)
     {
         $students = DB::table('course_students')
             ->leftJoin('users', 'users.id', '=', 'course_students.student_id')
-            ->where('course_id', '=', $course)->get();
+            ->where('course_id', '=', $course)
+            ->where('users.role','=','student')
+            ->where('users.deleted_at','=',null)
+            ->get();
         $grades = DB::table('student_grades')
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
             ->where('course_students.course_id', '=', $course)
@@ -256,5 +240,24 @@ class TeacherController extends Controller
         $teacher = Auth::user();
         Event::dispatch(new CreateClassNotification($students, $teacher, $content));
         return back()->with('Success', 'Tạo thông báo thành công');
+    }
+
+    public function exportUserCourse(Request $request,$course,$id){
+        $grade = DB::table('student_grades')
+            ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
+            ->where('course_students.student_id','=',$id)
+            ->where('course_students.course_id', '=', $course)
+            ->get();
+        $total_period = DB::table('course_schedules')->where('course_id', '=', $course)->count('course_id');
+        $learned_period = DB::table('course_schedules')->where('course_id', '=', $course)->where('start_at', '<', Carbon::now())->count('course_id');
+        $attendances = DB::table('attendances')
+            ->join('course_schedules','attendances.schedule_id','=','course_schedules.id')
+            ->join('users','users.id','=','attendances.user_id')
+            ->where('users.deleted_at','=',null)
+            ->where('attendances.user_id','=',$id)
+            ->where('course_schedules.course_id','=',$course)
+            ->count('time_in');
+        $pdf = Pdf::loadView('user.export.user_course_information',compact('id','course','grade','total_period','attendances'));
+            return $pdf->download('user_course_information.pdf');
     }
 }

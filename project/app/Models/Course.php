@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
 
 class Course extends Model
 {
+//    use HasFactory,SoftDeletes;
     use HasFactory;
-
     protected $primaryKey = 'course_id';
     protected $fillable = [
         'course_name',
@@ -29,7 +30,11 @@ class Course extends Model
 
     public function schedule()
     {
-        $this->hasMany(Schedule::class, 'course_id', 'id');
+        $this->hasMany(Schedule::class, 'course_id', 'course_id');
+    }
+
+    public function subject(){
+        $this->belongsTo(Subject::class,'subject_id','subject_id');
     }
 
     public function scopeName($query, Request $request)

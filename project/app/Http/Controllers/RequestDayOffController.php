@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConfirmDayOff;
 use App\Events\RequestDayOff;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 
 class RequestDayOffController extends Controller
 {
@@ -65,23 +67,54 @@ class RequestDayOffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
-        //
+        $notifications = Auth::user()->unreadNotifications;
+        if (Auth::user()->role == 'student') {
+            $requests = DB::table('day_off_requests')->where('student_id', '=', Auth::user()->id)->orderBy('id','desc')->paginate(5);
+            $accept = DB::table('day_off_requests')
+                ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('day_off_requests.student_id', '=', Auth::user()->id)
+                ->paginate(5, ['*'], 'stage');
+
+        } else {
+            $requests = DB::table('day_off_requests')
+                ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->where('day_off_requests.stage', '=', 'Chờ duyệt')
+                ->paginate(5, ['day_off_requests.id', 'day_off_requests.content', 'day_off_requests.schedule_id', 'day_off_requests.student_id', 'day_off_requests.stage'], 'requests');
+            $accept = DB::table('day_off_requests')
+                ->join('course_schedules', 'day_off_requests.schedule_id', '=', 'course_schedules.id')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->where('day_off_requests.stage', '=', 'Đã duyệt')
+                ->orWhere('day_off_requests.stage', '=', 'Từ chối')
+                ->paginate(5, ['*'], 'stage');
+        }
+        return view('user.list_request', compact('requests', 'accept', 'notifications'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+
      */
-    public function edit(User $user)
+    public function edit(Request $request, $id)
     {
-        //
+        $teacher_id = Auth::user()->id;
+
+        $query = DB::table('day_off_requests')->where('id', '=', $id);
+        $student_id = $query->value('student_id');
+        if ($request->has('accept')) {
+            $query->update(['stage' => 'Đã duyệt']);
+        } elseif ($request->has('reject')) {
+            $query->update(['stage' => 'Từ chối']);
+        }
+        Event::dispatch( new ConfirmDayOff($teacher_id, $student_id));
+        return back()->with('Success', 'Duyệt đơn thành công');
     }
 
     /**

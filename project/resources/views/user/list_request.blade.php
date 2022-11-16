@@ -6,6 +6,7 @@
         <!--begin::Container-->
         <div class="container-fluid">
             <!--begin::Card-->
+            @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
             <div class="card card-custom gutter-b table-responsive">
                 <div class="card-header">
                     <div class="card-title">
@@ -139,7 +140,7 @@
                 </div>
             </div>
             <!--end::Card-->
-
+            @endif
             <!--begin::Card-->
             <div class="card card-custom gutter-b table-responsive">
                 <div class="card-header">

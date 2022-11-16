@@ -49,12 +49,14 @@ Route::get('/layout', function () {
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::get('/info', [UserController::class, 'info'])->name('users.info');
+    Route::get('/calendar', [UserController::class, 'calendar'])->name('users.calendar');
+    Route::get('/mark', [UserController::class, 'mark'])->name('users.mark');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('users.editInfo');
     Route::get('/password', [UserController::class, 'editPassword'])->name('users.editPassword');
-    Route::get('/attendance', [UserController::class, 'showAttendance'])->name('users.attendance');
+    Route::get('/attendance', [UserAttendanceController::class, 'index'])->name('users.attendance');
     Route::get('/request/{course)', [UserController::class, 'requestDayOff'])->name('users.request');
     Route::get('/list/course', [StudentController::class, 'listCourse'])->name('user.listCourse');
-    Route::get('/list/request', [StudentController::class, 'listRequest'])->name('users.listRequest');
+    Route::get('/list/request', [RequestDayOffController::class, 'show'])->name('users.listRequest');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('users.coursesDetails');
     Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
     Route::get('/{user}/edit', [UserController::class, 'editInfos'])->name('users.editInfos');
@@ -65,8 +67,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/{user}/edit', [UserController::class, 'updateInfos'])->name('users.updateInfos');
     Route::post('/{user}/password', [UserController::class, 'updatePasswords'])->name('users.updatePasswords');
     Route::post('/request', [UserController::class, 'storeRequestDayOff'])->name('users.storeRequest');
-    Route::post('/list/request/{request}', [StudentController::class, 'updateRequest'])->name('users.updateRequest');
+    Route::post('/list/request/{request}', [RequestDayOffController::class, 'edit'])->name('users.updateRequest');
     Route::delete('/{user}/delete', [UserController::class, 'destroy'])->name('users.destroy');
+
 });
 
 Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
@@ -75,16 +78,21 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/edit', [UserController::class, 'editInfo'])->name('teachers.edit');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('teachers.editPassword');
     Route::get('/course/list', [TeacherController::class, 'show'])->name('teacher.listCourse');
-    Route::get('/course/{course}/attendance', [TeacherController::class, 'createAttendance'])->name('teacher.createAttendance');
-    Route::get('/course/{course}/mark', [TeacherController::class, 'createMark'])->name('admin.createMark');
+    Route::get('/course/{course}/material', [CourseController::class, 'createMaterial'])->name('teacher.createCourseMaterial');
+    Route::get('/course/{course}/attendance', [UserAttendanceController::class, 'create'])->name('teacher.createAttendance');
+    Route::get('/course/{course}/mark', [TeacherController::class, 'createMark'])->name('teacher.createMark');
     Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
     Route::get('/course/{course}/{user}/mark/edit', [TeacherController::class, 'editMark'])->name('users.editMark');
     Route::get('/course/{course}/list_mark', [TeacherController::class, 'listMark'])->name('teacher.listMark');
+    Route::get('/course/{course}/{user}/export', [TeacherController::class, 'exportUserCourse'])->name('teacher.exportUserCourse');
+    Route::get('/course/{course}/material/{material}', [CourseController::class, 'editMaterial'])->name('teacher.editCourseMaterial');
+    Route::post('/course/{course}/material', [CourseController::class, 'storeMaterial'])->name('teacher.storeCourseMaterial');
     Route::post('/course/{course}/notification', [TeacherController::class, 'createNotification'])->name('teacher.createNotification');
     Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
-    Route::post('/course/{course}/create', [TeacherController::class, 'storeAttendance'])->name('teacher.storeAttendance');
+    Route::post('/course/{course}/create', [UserAttendanceController::class, 'store'])->name('teacher.storeAttendance');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::delete('/course/{course}/{user}/mark', [TeacherController::class, 'destroyMark'])->name('users.deleteMark');
+    Route::delete('/course/{course}/material/{material}', [CourseController::class, 'destroyMaterial'])->name('teacher.deleteMaterial');
 });
 
 
@@ -100,9 +108,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('admin.editCourse');
     Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
     Route::get('/list/course', [AdminController::class, 'show'])->name('admin.listCourse');
+    Route::get('/list/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
     Route::get('/list/student', [StudentController::class, 'listStudent'])->name('admin.listStudent');
     Route::get('/list/teacher', [TeacherController::class, 'listTeacher'])->name('admin.listTeacher');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/list/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
     Route::post('/settings/fingerprint', [FingerprintController::class, 'update'])->name('admin.fingerprintSetting');
     Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

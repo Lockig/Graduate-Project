@@ -153,16 +153,23 @@
                                                     </a>
                                                 </li>
                                                 <li class="navi-item">
-                                                    <form action="{{route('admin.listCourse')}}" method="get">
-                                                        @csrf
-                                                        <button name="export" type="submit"
-                                                                class="navi-link btn btn-borderless w-100">
+{{--                                                    <form action="{{route('admin.listCourse')}}" method="get">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <button name="export" type="submit"--}}
+{{--                                                                class="navi-link btn btn-borderless w-100">--}}
+{{--                                                                    <span class="navi-con">--}}
+{{--                                                                        <i class="la la-file-excel-o"></i>--}}
+{{--                                                                        <span class="navi-text">Excel</span>--}}
+{{--                                                                    </span>--}}
+{{--                                                        </button>--}}
+{{--                                                    </form>--}}
+                                                    <button name="export" type="submit"
+                                                            class="navi-link btn btn-borderless w-100">
                                                                     <span class="navi-con">
                                                                         <i class="la la-file-excel-o"></i>
                                                                         <span class="navi-text">Excel</span>
                                                                     </span>
-                                                        </button>
-                                                    </form>
+                                                    </button>
                                                     {{--                                            <a href="" class="navi-link">--}}
                                                     {{--																<span class="navi-icon">--}}
                                                     {{--																	<i class="la la-file-excel-o"></i>--}}

@@ -37,7 +37,7 @@
         <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
-            <div class="container">
+            <div class="container-fluid">
                 <!--begin::Advance Table Widget 1-->
                 <div id="form" class="card card-custom gutter-b">
                     <!--begin::Header-->
@@ -115,11 +115,11 @@
 												</svg>
                                                 <!--end::Svg Icon-->
 											</span>Tạo mới</a>
-                                    <!--begin::Dropdown-->
-                                    <div class="dropdown dropdown-inline mr-2">
-                                        <button type="button"
-                                                class="btn btn-light-primary font-weight-bolder dropdown-toggle"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!--begin::Dropdown-->
+                                        <div class="dropdown dropdown-inline mr-2">
+                                            <button type="button"
+                                                    class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												<span class="svg-icon svg-icon-md">
 													<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
 													<svg xmlns="http://www.w3.org/2000/svg"
@@ -138,62 +138,63 @@
 													</svg>
                                                     <!--end::Svg Icon-->
 												</span>Xuất
-                                        </button>
-                                        <!--begin::Dropdown Menu-->
-                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                            <!--begin::Navigation-->
-                                            <ul class="navi flex-column navi-hover py-2">
-                                                <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
-                                                    Chọn:
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                            </button>
+                                            <!--begin::Dropdown Menu-->
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                <!--begin::Navigation-->
+                                                <ul class="navi flex-column navi-hover py-2">
+                                                    <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
+                                                        Chọn:
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																<span class="navi-icon">
 																	<i class="la la-print"></i>
 																</span>
-                                                        <span class="navi-text">Print</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
+                                                            <span class="navi-text">Print</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
 																<span class="navi-icon">
 																	<i class="la la-copy"></i>
 																</span>
-                                                        <span class="navi-text">Copy</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <form action="{{route('admin.listCourse')}}" method="get">
-                                                        @csrf
-                                                        <button name="export" type="submit"
-                                                                class="navi-link btn btn-borderless w-100">
+                                                            <span class="navi-text">Copy</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <form action="{{route('admin.listCourse')}}" method="get">
+                                                            @csrf
+                                                            <button name="export" type="submit"
+                                                                    class="navi-link btn btn-borderless w-100">
                                                                     <span class="navi-con">
                                                                         <i class="la la-file-excel-o"></i>
                                                                         <span class="navi-text">Excel</span>
                                                                     </span>
+                                                            </button>
+                                                        </form>
+                                                        {{--                                            <a href="" class="navi-link">--}}
+                                                        {{--																<span class="navi-icon">--}}
+                                                        {{--																	<i class="la la-file-excel-o"></i>--}}
+                                                        {{--																</span>--}}
+                                                        {{--                                                <span class="navi-text">Excel</span>--}}
+                                                        {{--                                            </a>--}}
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <button name="pdf" type="submit"
+                                                                class="navi-link btn btn-borderless w-100">
+                                                                    <span class="navi-con">
+                                                                        <i class="la la-file-pdf-o"></i>
+                                                                        <span class="navi-text">PDF</span>
+                                                                    </span>
                                                         </button>
-                                                    </form>
-                                                    {{--                                            <a href="" class="navi-link">--}}
-                                                    {{--																<span class="navi-icon">--}}
-                                                    {{--																	<i class="la la-file-excel-o"></i>--}}
-                                                    {{--																</span>--}}
-                                                    {{--                                                <span class="navi-text">Excel</span>--}}
-                                                    {{--                                            </a>--}}
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																<span class="navi-icon">
-																	<i class="la la-file-pdf-o"></i>
-																</span>
-                                                        <span class="navi-text">PDF</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Navigation-->
+                                                    </li>
+                                                </ul>
+                                                <!--end::Navigation-->
+                                            </div>
+                                            <!--end::Dropdown Menu-->
                                         </div>
-                                        <!--end::Dropdown Menu-->
-                                    </div>
-                                    <!--end::Dropdown-->
+                                        <!--end::Dropdown-->
                                     @endif
                                 </div>
                             </div>
@@ -207,6 +208,7 @@
                                     <th class="pl-0" style="width: 20px">
                                         STT
                                     </th>
+                                    <th style="min-width: 50px">Mã lớp</th>
                                     <th style="min-width: 50px">Tên lớp</th>
                                     <th style="min-width: 100px">Giáo viên</th>
                                     <th style="min-width: 100px">Ngày bắt đầu</th>
@@ -221,6 +223,11 @@
                                         <td class="pr-0">
                                             <label class="checkbox checkbox-lg checkbox-inline">
                                                 {{$loop->index + 1}}
+                                            </label>
+                                        </td>
+                                        <td class="pr-0">
+                                            <label class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                                {{$course->course_id}}
                                             </label>
                                         </td>
                                         <td class="pr-0">
@@ -243,7 +250,15 @@
                                         </td>
                                         <td>
                                            <span
-                                               class="text-dark-75 text-hover-primary font-weight-bolder d-block font-size-lg">{{$course->course_status}}</span>
+                                               class="text-dark-75 text-hover-primary font-weight-bolder d-block font-size-lg">
+                                               @if($course->course_status == 1)
+                                                   chưa bắt đầu
+                                               @elseif($course->course_status == 2)
+                                                   đang diễn ra
+                                               @else
+                                                   đã kết thúc
+                                               @endif
+                                           </span>
                                         </td>
                                         <td class="pr-0 text-right">
                                             @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
@@ -287,7 +302,8 @@
                                                 class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3">
                                                <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Clipboard-list.svg--><svg
                                                        xmlns="http://www.w3.org/2000/svg"
-                                                       xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                       xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                       height="24px"
                                                        viewBox="0 0 24 24" version="1.1">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                         <rect x="0" y="0" width="24" height="24"/>
@@ -297,17 +313,23 @@
                                                         <path
                                                             d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z"
                                                             fill="#000000"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="9" width="7" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="9" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="13" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="13" width="7" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="7" y="17" width="2" height="2" rx="1"/>
-                                                        <rect fill="#000000" opacity="0.3" x="10" y="17" width="7" height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="10" y="9" width="7"
+                                                              height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="7" y="9" width="2"
+                                                              height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="7" y="13" width="2"
+                                                              height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="10" y="13" width="7"
+                                                              height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="7" y="17" width="2"
+                                                              height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" x="10" y="17" width="7"
+                                                              height="2" rx="1"/>
                                                     </g>
                                                 </svg><!--end::Svg Icon--></span>
-                                                </a>
+                                            </a>
                                             @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                                <form method="get" action="{{route('admin.deleteCourse',$course)}}"
+                                                <form method="post" action="{{route('admin.deleteCourse',$course)}}"
                                                       data-toggle="tooltip"
                                                       title="xóa"
                                                       class="btn btn-icon btn-light btn-hover-primary btn-sm">

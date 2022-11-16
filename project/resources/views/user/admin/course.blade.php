@@ -12,15 +12,15 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Tạo đơn xin nghỉ</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">Tạo lớp học</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Điểm danh</a>
+                                <a href="" class="text-muted">Danh sách lớp học</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Tạo đơn xin nghỉ</a>
+                                <a href="" class="text-muted">Tạo lớp học</a>
                             </li>
                         </ul>
                         <!--end::Breadcrumb-->
@@ -52,7 +52,8 @@
                                                    class="col-form-label text-left col-lg-5 col-sm-12">Tên
                                                 lớp</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="course_name" type="text" class="form-control" value="{{old('course_name')}}"
+                                                <input name="course_name" type="text" class="form-control"
+                                                       value="{{old('course_name')}}"
                                                 />
                                             </div>
                                         </div>
@@ -77,6 +78,24 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
+                                            <label for="role"
+                                                   class="col-lg-12 ml-lg-auto">Môn học</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <select name="subject"
+                                                        class="form-control">
+                                                    @foreach($subjects as $subject)
+                                                        <option
+                                                            value="{{$subject->subject_id}}"
+                                                            class="form-control form-control-lg form-control-solid">
+                                                            {{$subject->subject_name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
                                             <label for="day_start" class="col-form-label text-left col-lg-5 col-sm-12">Từ
                                                 ngày</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
@@ -84,7 +103,7 @@
                                                        id="kt_datepicker_1"
                                                        readonly="readonly"
                                                        value="{{old('day_start')}}"
-                                                  />
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -97,24 +116,28 @@
                                                        id="kt_datepicker_1"
                                                        readonly="readonly"
                                                        value="{{old('day_end')}}"
-                                                  />
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="duration" class="col-form-label text-left col-lg-12 col-sm-12">Thời lượng</label>
+                                            <label for="duration" class="col-form-label text-left col-lg-12 col-sm-12">Thời
+                                                lượng</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="duration" type="text" class="form-control" placeholder="Nhập số giờ"/>
+                                                <input name="duration" type="text" class="form-control"
+                                                       placeholder="Nhập số giờ"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
                                             <label for="course_description"
-                                                   class="col-form-label text-left col-lg-12 col-sm-12">Thông tin</label>
+                                                   class="col-form-label text-left col-lg-12 col-sm-12">Thông
+                                                tin</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input value="{{old('course_description')}}" type="text" name="course_description" class="form-control"/>
+                                                <input value="{{old('course_description')}}" type="text"
+                                                       name="course_description" class="form-control"/>
                                             </div>
                                         </div>
                                     </div>
@@ -165,33 +188,32 @@
                                                 </td>
                                                 <td class="pr-0">
                                                     <span href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
+                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
                                                 </td>
                                                 <td class="pr-0 text-left">
                                                     <span href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
+                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
                                                 </td>
                                                 <td class="pr-0">
                                                     <span href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
+                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
                                                 </td>
                                                 <td class="pr-0">
                                                     <span href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</span>
+                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</span>
                                                 </td>
                                                 <td class="pr-0 text-right">
                                                     <span href="#"
-                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->status}}</span>
-                                                    {{--                                                    @if($item->stage='Chờ duyệt')--}}
-                                                    {{--                                                        <a href="#"--}}
-                                                    {{--                                                           class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
-                                                    {{--                                                    @elseif($item->stage='Đã duyệt')--}}
-                                                    {{--                                                        <a href="#"--}}
-                                                    {{--                                                           class="text-success font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
-                                                    {{--                                                    @else--}}
-                                                    {{--                                                        <a href="#"--}}
-                                                    {{--                                                           class="text-danger font-weight-bold text-hover-primary mb-1 font-size-lg">{{$item->stage}}</a>--}}
-                                                    {{--                                                    @endif--}}
+                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">
+                                                        @if($course->course_status == 1)
+                                                            Chưa bắt đầu
+                                                        @elseif($course->course_status == 2)
+                                                            Đang bắt đầu
+                                                        @else
+                                                            Kết thúc
+                                                        @endif
+                                                    </span>
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -236,12 +258,19 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
-                                            <label for="start_time" class="col-form-label text-left col-lg-12 col-sm-12">Chọn giờ cố định 1</label>
+                                            <label for="start_time"
+                                                   class="col-form-label text-left col-lg-12 col-sm-12">Chọn giờ cố định
+                                                1</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <div class="input-group date" id="kt_datetimepicker_2" data-target-input="nearest">
-                                                    <input name="start_time" type="text" class="form-control datetimepicker-input" placeholder="Chọn giờ" data-target="#kt_datetimepicker_2" >
-                                                    <div class="input-group-append" data-target="#kt_datetimepicker_2" data-toggle="datetimepicker">
-                                                        <span class="input-group-text"><i class="ki ki-calendar"></i></span>
+                                                <div class="input-group date" id="kt_datetimepicker_2"
+                                                     data-target-input="nearest">
+                                                    <input name="start_time" type="text"
+                                                           class="form-control datetimepicker-input"
+                                                           placeholder="Chọn giờ" data-target="#kt_datetimepicker_2">
+                                                    <div class="input-group-append" data-target="#kt_datetimepicker_2"
+                                                         data-toggle="datetimepicker">
+                                                        <span class="input-group-text"><i
+                                                                class="ki ki-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,7 +280,7 @@
                                         <div class="col-lg-12 ml-lg-auto pl-8">
                                             <label class="checkbox">
                                                 <input type="checkbox" checked="checked" name="auto_create"/>
-                                                       <span></span>
+                                                <span></span>
                                                 Tạo tự động (+7 ngày)
                                             </label>
 
@@ -338,9 +367,11 @@
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
                                             <label for="student_id"
-                                                   class="col-form-label text-left col-lg-12 col-sm-12">Mã học sinh</label>
+                                                   class="col-form-label text-left col-lg-12 col-sm-12">Mã học
+                                                sinh</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input value="{{old('student_id')}}" type="text" name="student_id" class="form-control"/>
+                                                <input value="{{old('student_id')}}" type="text" name="student_id"
+                                                       class="form-control"/>
                                             </div>
                                         </div>
                                     </div>

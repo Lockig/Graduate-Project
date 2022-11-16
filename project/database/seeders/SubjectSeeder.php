@@ -17,12 +17,15 @@ class SubjectSeeder extends Seeder
     {
         DB::table('subjects')->insert([
             [
+                'subject_id'=>'A1',
                 'subject_name' => 'Toán'
             ],
             [
+                'subject_id'=>'B1',
                 'subject_name' => 'Văn'
             ],
             [
+                'subject_id'=>'C1',
                 'subject_name' => 'Anh'
             ]
         ]);

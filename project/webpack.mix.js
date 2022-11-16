@@ -53,10 +53,15 @@ mix.scripts([
 //chart
 mix.scripts(['resources/assets/js/pages/features/charts/apexcharts.js'],'public/js/chart.js').version();
 
+//form editor
+mix.scripts([
+    'resources/assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js',
+    'resources/assets/js/pages/crud/forms/editors/ckeditor-classic.js',
+],'public/js/form-editor.js').version();
 //js user profile
 mix.scripts('resources/assets/js/pages/crud/ktdatatable/base/html-table.js','public/js/list-user.js').version();
 mix.scripts('resources/assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js','public/js/datetimepicker.js').version()
 mix.scripts('resources/assets/js/pages/custom/profile/profile.js','public/js/user/profile.js').version();
 mix.scripts('resources/assets/js/pages/crud/forms/widgets/bootstrap-datepicker.js','public/js/user/date-picker.js').version();
-mix.scripts('resources/assets/js/pages/crud/file-upload/image-input.js','public/js/user/image-input.js','public/js/image-input.js').version();
+mix.scripts('resources/assets/js/pages/crud/file-upload/image-input.js','public/js/user/image-input.js').version();
 mix.scripts('resources/assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js','public/js/timepicker.js').version();
