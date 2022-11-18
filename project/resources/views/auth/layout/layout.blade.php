@@ -37,8 +37,8 @@
 {{--                    </a>--}}
                     <!-- end::Aside header -->
                     <!--begin::Aside Title-->
-                    <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Time Attendance System For Small Business
-                        <br />Đỗ Lê Minh
+                    <h3 class="font-weight-bolder text-center font-size-h3 text-dark-50 line-height-xl">
+                        Chào mừng bạn đã đến với website chúng tôi!
                     </h3>
                     <!--end::Aside Title-->
                 </div>

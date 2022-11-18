@@ -23,10 +23,7 @@
                                 <a href="" class="text-muted">Danh sách</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">{{\App\Models\Course::find($id)->course_name}}</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Thông tin</a>
+                                <a href="{{route('users.coursesDetails',$id)}}" class="text-muted">{{\App\Models\Course::find($id)->course_name}}</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Điểm danh hộ</a>

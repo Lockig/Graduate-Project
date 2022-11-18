@@ -32,12 +32,19 @@ class TeacherController extends Controller
         $courses = Course::query()
             ->where('teacher_id', '=', Auth::user()->id)
             ->get();
-        $query = DB::table('course_schedules')
-            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
-            ->where('student_id', '=', Auth::user()->id);
-        $course_schedule = $query->get();
-        $today_courses = $query->whereDate('start_at', Carbon::today())->get();
-        $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
+        $course_schedule = DB::table('course_schedules')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.teacher_id', '=', Auth::user()->id)->get();
+        $today_courses = DB::table('course_schedules')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.teacher_id', '=', Auth::user()->id)
+            ->whereDate('start_at', Carbon::today())
+            ->get();
+        $tomorrow_courses = DB::table('course_schedules')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.teacher_id', '=', Auth::user()->id)
+            ->whereDate('start_at', Carbon::tomorrow())
+            ->get();
         $users = User::query()->name($request)->paginate(5);
 
         return view('user.admin.dashboard', compact(['courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses', 'notifications']));
@@ -113,11 +120,11 @@ class TeacherController extends Controller
     {
         if ($request->has('last_name')) {
             $teachers = User::query()->name($request)
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
                 ->where('role', '=', 'teacher')->paginate(5);
         } else {
             $teachers = User::query()
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
                 ->where('role', '=', 'teacher')->paginate(5);
         }
         if (!$request->has('export')) {
@@ -232,6 +239,7 @@ class TeacherController extends Controller
         DB::table('course_notifications')->insert([
             'course_id' => $id,
             'content' => $content,
+            'created_at'=>Carbon::now()
         ]);
         $students = User::query()
             ->join('course_students', 'course_students.student_id', '=', 'users.id')
@@ -259,5 +267,17 @@ class TeacherController extends Controller
             ->count('time_in');
         $pdf = Pdf::loadView('user.export.user_course_information',compact('id','course','grade','total_period','attendances'));
             return $pdf->download('user_course_information.pdf');
+    }
+    public function updateMark($course,$id,Request $request){
+
+        $user_id = DB::table('course_students')->where('course_id','=',$course)->where('student_id','=',$id)->value('id');
+        DB::table('student_grades')
+            ->where('user_id','=',$user_id)
+            ->update([
+                'diem_lan_1'=>$request->diem_lan_1,
+                'diem_lan_2'=>$request->diem_lan_2,
+                'diem_lan_3'=>$request->diem_lan_3
+            ]);
+        return back()->with('Success','Cập nhật điểm thành công');
     }
 }

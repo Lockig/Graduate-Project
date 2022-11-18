@@ -140,13 +140,24 @@
                                                             <div
                                                                 class="d-flex align-items-center justify-content-between mb-2">
                                                                 <span
-                                                                    class="text-muted mr-2 font-size-sm font-weight-bold">{{round($learned_period /$total_period * 100)}}%</span>
+                                                                    class="text-muted mr-2 font-size-sm font-weight-bold">
+                                                                @if($total_period != 0 )
+                                                                        {{round($learned_period /$total_period * 100)}}%
+                                                                    @else
+                                                                        0%
+                                                                    @endif
+                                                                </span>
                                                                 <span class="text-muted font-size-sm font-weight-bold">Tiến độ</span>
                                                             </div>
                                                             <div class="progress progress-xs w-100">
                                                                 <div class="progress-bar bg-danger" role="progressbar"
-                                                                     style="width: {{round($learned_period /$total_period * 100)}}%;"
-                                                                     aria-valuenow="{{round($learned_period /$total_period * 100)}}"
+                                                                     @if($total_period != 0 )
+                                                                         style="width: {{round($learned_period /$total_period * 100)}}%;"
+                                                                        aria-valuenow="{{round($learned_period /$total_period * 100)}}"
+                                                                     @else
+                                                                         style="width: 0%;"
+                                                                        aria-valuenow="0"
+                                                                     @endif
                                                                      aria-valuemin="0" aria-valuemax="100"></div>
                                                             </div>
                                                         </div>
@@ -482,26 +493,26 @@
                     </div>
                 </div>
                 <!--end::List Classes-->
-            <div class="row">
-                <div class="col-12">
-                    <!--begin::Card-->
-                    <div class="card card-custom card-stretch">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h3 class="card-label">
-                                    Thời khóa biểu cá nhân
-                                </h3>
+                <div class="row">
+                    <div class="col-12">
+                        <!--begin::Card-->
+                        <div class="card card-custom card-stretch">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        Thời khóa biểu cá nhân
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="kt_calendar"></div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div id="kt_calendar"></div>
-                        </div>
+                        <!--end::Card-->
                     </div>
-                    <!--end::Card-->
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

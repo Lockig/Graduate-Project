@@ -16,7 +16,7 @@ class GradeSeeder extends Seeder
     public function run()
     {
         DB::table('student_grades')->insert([
-           'user_id'=>'1',
+           'user_id'=>'5',
            'diem_lan_1'=>'7',
            'diem_lan_2'=>'8',
            'diem_lan_3'=>'9'

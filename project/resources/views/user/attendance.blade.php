@@ -17,9 +17,6 @@
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Điểm danh</a>
-                            </li>
-                            <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Thông tin điểm danh</a>
                             </li>
                         </ul>
@@ -89,8 +86,7 @@
                                     <th class="pl-0" style="width: 20px">
                                         STT
                                     </th>
-                                    <th class="pr-0" style="width: 50px">Lớp</th>
-                                    <th style="min-width: 100px"></th>
+                                    <th class="pr-0" style="width: 150px">Lớp</th>
                                     <th class="text-left" style="min-width: 150px">Buổi</th>
                                     <th style="min-width: 150px">Giờ bắt đầu</th>
                                     <th style="min-width: 150px">Giờ vào</th>
@@ -104,15 +100,6 @@
                                             <label class="">
                                                 <span>{{$loop->index +1}}</span>
                                             </label>
-                                        </td>
-                                        <td class="pr-0">
-                                            <div class="symbol symbol-50 symbol-light mt-1">
-																<span class="symbol-label">
-																	<img
-                                                                        src="{{asset('media/svg/avatars/001-boy.svg')}}"
-                                                                        class="h-75 align-self-end" alt=""/>
-																</span>
-                                            </div>
                                         </td>
                                         <td class="pl-0">
                                             <a href="#"

@@ -87,6 +87,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/course/{course}/list_mark', [TeacherController::class, 'listMark'])->name('teacher.listMark');
     Route::get('/course/{course}/{user}/export', [TeacherController::class, 'exportUserCourse'])->name('teacher.exportUserCourse');
     Route::post('/course/{course}/material', [CourseController::class, 'storeMaterial'])->name('teacher.storeCourseMaterial');
+    Route::post('/course/{course}/{user}/mark/edit', [TeacherController::class, 'updateMark'])->name('users.updateMark');
     Route::post('/course/{course}/notification', [TeacherController::class, 'createNotification'])->name('teacher.createNotification');
     Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
     Route::post('/course/{course}/create', [UserAttendanceController::class, 'store'])->name('teacher.storeAttendance');

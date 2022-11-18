@@ -153,16 +153,16 @@
                                                     </a>
                                                 </li>
                                                 <li class="navi-item">
-{{--                                                    <form action="{{route('admin.listCourse')}}" method="get">--}}
-{{--                                                        @csrf--}}
-{{--                                                        <button name="export" type="submit"--}}
-{{--                                                                class="navi-link btn btn-borderless w-100">--}}
-{{--                                                                    <span class="navi-con">--}}
-{{--                                                                        <i class="la la-file-excel-o"></i>--}}
-{{--                                                                        <span class="navi-text">Excel</span>--}}
-{{--                                                                    </span>--}}
-{{--                                                        </button>--}}
-{{--                                                    </form>--}}
+                                                    {{--                                                    <form action="{{route('admin.listCourse')}}" method="get">--}}
+                                                    {{--                                                        @csrf--}}
+                                                    {{--                                                        <button name="export" type="submit"--}}
+                                                    {{--                                                                class="navi-link btn btn-borderless w-100">--}}
+                                                    {{--                                                                    <span class="navi-con">--}}
+                                                    {{--                                                                        <i class="la la-file-excel-o"></i>--}}
+                                                    {{--                                                                        <span class="navi-text">Excel</span>--}}
+                                                    {{--                                                                    </span>--}}
+                                                    {{--                                                        </button>--}}
+                                                    {{--                                                    </form>--}}
                                                     <button name="export" type="submit"
                                                             class="navi-link btn btn-borderless w-100">
                                                                     <span class="navi-con">
@@ -219,9 +219,8 @@
                                     </td>
                                     <td class="pr-0">
                                         <div class="symbol symbol-40 symbol-circle symbol-sm">
-                                            <img
-                                                src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}"
-                                                alt="image">
+                                            <div class="symbol-label"
+                                                 style="background-image:url('{{asset(($student->avatar!=null)?($student->avatar):'media/users/default.jpg')}}')"></div>
                                         </div>
                                     </td>
                                     <td class="pr-0">
@@ -324,32 +323,32 @@
                                                 <!--end::Svg Icon-->
                                             </button>
                                             <!--Modal-->
-{{--                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"--}}
-{{--                                                 aria-labelledby="deleteModal" aria-hidden="true">--}}
-{{--                                                <div class="modal-dialog" role="document">--}}
-{{--                                                    <div class="modal-content">--}}
-{{--                                                        <div class="modal-header">--}}
-{{--                                                            <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>--}}
-{{--                                                            <button type="button" class="close" data-dismiss="modal"--}}
-{{--                                                                    aria-label="Close">--}}
-{{--                                                                <i aria-hidden="true" class="ki ki-close"></i>--}}
-{{--                                                            </button>--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="modal-body">--}}
-{{--                                                            <p>Bạn có chắc muốn xóa chứ?</p>--}}
-{{--                                                        </div>--}}
-{{--                                                        <div class="modal-footer">--}}
-{{--                                                            <button type="button"--}}
-{{--                                                                    class="btn btn-light-primary font-weight-bold"--}}
-{{--                                                                    data-dismiss="modal">Hủy--}}
-{{--                                                            </button>--}}
-{{--                                                            <button type="submit"--}}
-{{--                                                                    class="btn btn-primary font-weight-bold">Chọn--}}
-{{--                                                            </button>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            {{--                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"--}}
+                                            {{--                                                 aria-labelledby="deleteModal" aria-hidden="true">--}}
+                                            {{--                                                <div class="modal-dialog" role="document">--}}
+                                            {{--                                                    <div class="modal-content">--}}
+                                            {{--                                                        <div class="modal-header">--}}
+                                            {{--                                                            <h5 class="modal-title" id="exampleModalLabel">Cảnh báo</h5>--}}
+                                            {{--                                                            <button type="button" class="close" data-dismiss="modal"--}}
+                                            {{--                                                                    aria-label="Close">--}}
+                                            {{--                                                                <i aria-hidden="true" class="ki ki-close"></i>--}}
+                                            {{--                                                            </button>--}}
+                                            {{--                                                        </div>--}}
+                                            {{--                                                        <div class="modal-body">--}}
+                                            {{--                                                            <p>Bạn có chắc muốn xóa chứ?</p>--}}
+                                            {{--                                                        </div>--}}
+                                            {{--                                                        <div class="modal-footer">--}}
+                                            {{--                                                            <button type="button"--}}
+                                            {{--                                                                    class="btn btn-light-primary font-weight-bold"--}}
+                                            {{--                                                                    data-dismiss="modal">Hủy--}}
+                                            {{--                                                            </button>--}}
+                                            {{--                                                            <button type="submit"--}}
+                                            {{--                                                                    class="btn btn-primary font-weight-bold">Chọn--}}
+                                            {{--                                                            </button>--}}
+                                            {{--                                                        </div>--}}
+                                            {{--                                                    </div>--}}
+                                            {{--                                                </div>--}}
+                                            {{--                                            </div>--}}
                                             <!--endModal-->
                                         </form>
                                     </td>

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('student_grades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('course_students')->unique();
-            $table->float('diem_lan_1');
-            $table->float('diem_lan_2');
-            $table->float('diem_lan_3');
+            $table->float('diem_lan_1')->nullable();
+            $table->float('diem_lan_2')->nullable();
+            $table->float('diem_lan_3')->nullable();
             $table->timestamps();
         });
     }

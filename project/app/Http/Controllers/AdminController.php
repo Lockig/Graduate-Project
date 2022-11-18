@@ -41,8 +41,14 @@ class AdminController extends Controller
         $teacher_count = User::query()->where('role', 'like', '%' . 'teacher' . '%')->count('id');
         $course_count = Course::query()->count('course_id');
 
-        $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
-        $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
+        $tomorrow_courses = DB::table('course_schedules')
+            ->join('courses','course_schedules.course_id','=','courses.course_id')
+            ->where('courses.course_status','=','2')
+            ->whereDate('start_at', Carbon::tomorrow())->get();
+        $today_courses = DB::table('course_schedules')
+            ->join('courses','course_schedules.course_id','=','courses.course_id')
+            ->where('courses.course_status','=','2')
+            ->whereDate('start_at', Carbon::today())->get();
         $courses = Course::all();
         $course_schedule = DB::table('course_schedules')
 //            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
@@ -64,7 +70,7 @@ class AdminController extends Controller
         }
         $password = Random::generate(8);
         $date = Carbon::createFromFormat('m/d/Y', $credentials['date_of_birth'])->format('Y-m-d');
-        DB::table('users')->insert([
+        $id = DB::table('users')->insertGetId([
             'first_name' => $credentials['first_name'],
             'last_name' => $credentials['last_name'],
             'date_of_birth' => $date,
@@ -77,6 +83,7 @@ class AdminController extends Controller
             'fingerprint' => '0'
         ]);
 
+
         $user_id = User::query()->email($request)->value('id');
 
         $user = User::find($user_id);
@@ -84,7 +91,10 @@ class AdminController extends Controller
         event(new ResetPassword($user, $password));
         Cache::put('command', 'register');
         Cache::put('user_id', $user_id);
-        return redirect()->back()->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
+        if(User::find($id)->role=='student'){
+            return redirect()->route('admin.listStudent')->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
+        }else
+            return redirect()->route('admin.listTeacher')->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
     }
 
     public function show(Request $request)
@@ -226,7 +236,7 @@ class AdminController extends Controller
         return back()->with('Success','Xóa học sinh khỏi lớp thành công');
     }
 
-    public function listSubject(){
+    public function listSubject(Request $request){
         $subjects = DB::table('subjects')->get();
         return view('user.admin.list_subject',compact('subjects'));
     }

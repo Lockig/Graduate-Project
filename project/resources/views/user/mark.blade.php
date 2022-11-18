@@ -20,7 +20,7 @@
                                 <a href="" class="text-muted">Thông tin lớp học</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">{{\App\Models\Course::find($course)->course_name}}</a>
+                                <a href="{{route('users.coursesDetails',$course)}}" class="text-muted">{{\App\Models\Course::find($course)->course_name}}</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Thêm điểm của học sinh</a>

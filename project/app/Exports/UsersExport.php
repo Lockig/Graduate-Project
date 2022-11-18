@@ -30,7 +30,7 @@ class UsersExport implements FromCollection, WithCustomStartCell, ShouldQueue, W
 
     public function collection()
     {
-        return $this->users;
+        return $this->users->except('avatar');
     }
 
     public function startCell(): string
@@ -51,7 +51,8 @@ class UsersExport implements FromCollection, WithCustomStartCell, ShouldQueue, W
             'Ten',
             'Ngay sinh',
             'Email',
-            'So dien thoai'
+            'So dien thoai',
+            'Avatar'
         ];
     }
 }

@@ -27,14 +27,19 @@
                             <a href="" class="text-muted">Lớp học</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Danh sách</a>
+                            <a href="
+                            @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
+                            {{route('user.listCourse')}}
+                            @elseif(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                            {{route('teacher.listCourse')}}
+                            @endif
+                            " class="text-muted">Danh sách</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">{{$course->course_name}}</a>
+                            <a href="{{route('users.coursesDetails',$course->course_id)}}"
+                               class="text-muted">{{$course->course_name}}</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="" class="text-muted">Thông tin</a>
-                        </li>
+
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>
@@ -180,12 +185,23 @@
                                             <span class="font-weight-bold">Tiến độ</span>
                                             <div class="progress progress-xs mt-2 mb-2">
                                                 <div class="progress-bar bg-success" role="progressbar"
-                                                     style="width: {{$learned_period /$total_period * 100}}%;"
-                                                     aria-valuenow="{{round($learned_period /$total_period * 100,1)}}"
+                                                     @if($total_period != 0 )
+                                                         style="width: {{round($learned_period /$total_period * 100)}}%;"
+                                                     aria-valuenow="{{round($learned_period /$total_period * 100)}}"
+                                                     @else
+                                                         style="width: 0%;"
+                                                     aria-valuenow="0"
+                                                     @endif
                                                      aria-valuemin="0"
                                                      aria-valuemax="100"></div>
                                             </div>
-                                            <span class="font-weight-bolder text-dark">{{round($learned_period /$total_period * 100,1)}}%</span>
+                                            <span class="font-weight-bolder text-dark">
+                                                 @if($total_period != 0 )
+                                                    {{round($learned_period /$total_period * 100)}}%
+                                                @else
+                                                    0%
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -303,6 +319,9 @@
                         </div>
                         <!--end::Timeline-->
                     </div>
+                    <div class="card-footer">
+                        {{$course_notifications->links()}}
+                    </div>
                 </div>
 
                 <!--begin::Tài liệu lớp học-->
@@ -402,30 +421,6 @@
                     </div>
                 </div>
                 <!--end::Tài liệu lớp học-->
-
-                <div class="d-flex">
-                    <div class="card card-custom gutter-b flex-grow-3">
-                        <div class="card-header border-0 py-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Tỷ lệ điểm danh</span>
-                            </h3>
-                        </div>
-                        <div class="card-body d-flex">
-                            <div id="pie-chart"></div>
-                            <div id="pie-chart-1"></div>
-                        </div>
-                    </div>
-                    <div class="card card-custom gutter-b flex-grow-1">
-                        <div class="card-header border-0 py-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label font-weight-bolder text-dark">Biểu đồ điểm</span>
-                            </h3>
-                        </div>
-                        <div class="card-body d-flex">
-                            <div id="column-chart"></div>
-                        </div>
-                    </div>
-                </div>
 
                 <!--begin::Table-->
                 <div class="card card-custom gutter-b table-responsive">
@@ -583,6 +578,31 @@
                     </div>
                 </div>
                 <!--end::Table-->
+
+                <div class="d-flex">
+                    <div class="card card-custom gutter-b flex-grow-3">
+                        <div class="card-header border-0 py-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Tỷ lệ điểm danh</span>
+                            </h3>
+                        </div>
+                        <div class="card-body d-flex">
+                            <div id="pie-chart"></div>
+                            <div id="pie-chart-1"></div>
+                        </div>
+                    </div>
+                    <div class="card card-custom gutter-b flex-grow-1">
+                        <div class="card-header border-0 py-5">
+                            <h3 class="card-title align-items-start flex-column">
+                                <span class="card-label font-weight-bolder text-dark">Biểu đồ điểm</span>
+                            </h3>
+                        </div>
+                        <div class="card-body d-flex">
+                            <div id="column-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!--end::Row-->
                 <!--begin::Table-->
                 <div class="card card-custom gutter-b table-responsive">
@@ -981,12 +1001,13 @@
                                                        @endif
                                                    </span>
                                     </td>
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                        <td class="pr-0 text-right">
-                                            <a href="{{route('users.editMark',[$course->course_id,$student->student_id])}}"
-                                               data-toggle="tooltip"
-                                               title="chỉnh sửa"
-                                               class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                    <td class="pr-0 text-right">
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='admin' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                                            <button type="button"
+                                                    data-toggle="modal"
+                                                    data-target="#editMark"
+                                                    title="chỉnh sửa"
+                                                    class="btn btn-icon btn-light btn-hover-primary btn-sm">
                                                                         <span
                                                                             class="svg-icon svg-icon-md svg-icon-primary">
                                                                             <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
@@ -1010,7 +1031,63 @@
                                                                             </svg>
                                                                             <!--end::Svg Icon-->
                                                                         </span>
-                                            </a>
+                                            </button>
+                                            <!-- Modal-->
+                                            <div class="modal fade" id="editMark" tabindex="-1" role="dialog"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <form
+                                                        action="{{route('users.updateMark',[$course->course_id,$student->student_id])}}"
+                                                        method="post">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa
+                                                                    điểm</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body d-flex flex-column">
+                                                                <div class="row">
+                                                                    <h6 class="align-items-start">Học
+                                                                        sinh {{\App\Models\User::find($student->student_id)->first_name . ' ' . \App\Models\User::find($student->student_id)->last_name}}</h6>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <label>Điểm lần 1:</label>
+                                                                    <input value="{{$grade->diem_lan_1}}"
+                                                                           name="diem_lan_1" type="text"
+                                                                           class="form-control form-control-solid">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <label>Điểm lần 2:</label>
+                                                                    <input value="{{$grade->diem_lan_2}}"
+                                                                           name="diem_lan_2" type="text"
+                                                                           class="form-control form-control-solid">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <label>Điểm lần 3:</label>
+                                                                    <input value="{{$grade->diem_lan_3}}"
+                                                                           name="diem_lan_3" type="text"
+                                                                           class="form-control form-control-solid">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        class="btn btn-light-primary font-weight-bold"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit"
+                                                                        class="btn btn-primary font-weight-bold">Lưu
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
                                             <form class="btn btn-icon btn-light btn-hover-primary btn-sm"
                                                   method="post"
                                                   action="{{route('users.deleteMark',[$course->course_id , $student->student_id])}}"
@@ -1039,8 +1116,8 @@
                                                     <!--end::Svg Icon-->
                                                 </button>
                                             </form>
-                                        </td>
-                                    @endif
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <span>Chưa có thông tin</span>

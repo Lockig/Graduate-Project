@@ -99,6 +99,10 @@ class FingerprintController extends Controller
             echo 'new finger registered';
             Cache::flush();
         }
+
+        if($request->has('deleted')){
+            DB::table('users')->where('id','=',$request->input('deleted'))->update(['fingerprint'=>0]);
+        }
     }
 
     /**
@@ -126,12 +130,6 @@ class FingerprintController extends Controller
      */
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
-//        if($request->input('action')=='delete'){
-//            Cache::put('command', 'delete');
-//            Cache::put('user_id',$request->user_id);
-//            return back()->with('Success','Xóa vân tay thành công!');
-//        }
-//        return back()->with('Fail','Error!');
         $id = User::query()->where('id','=',$request->user_id)->value('id');
         if ($id != null) {
             switch ($request->input('action')):
@@ -149,12 +147,12 @@ class FingerprintController extends Controller
                     Cache::put('command','delete');
                     Cache::put('user_id',$request->user_id);
                     Cache::put('command','register');
-                    User::find($id)->update(['fingerprint'=>0]);
+                    DB::table('users')->where('id','=',$request->user_id)->update(['fingerprint'=>0]);
                     return back()->with('Success','Điền vân tay để cập nhật!');
                 case 'delete':
                     Cache::put('command', 'delete');
                     Cache::put('user_id',$request->user_id);
-                    User::find($id)->update(['fingerprint'=>0]);
+                    DB::table('users')->where('id','=',$request->user_id)->update(['fingerprint'=>0]);
                     return back()->with('Success','Xóa vân tay thành công!');
                 default:
                     return back()->with('Fail','Chưa chọn hành động');

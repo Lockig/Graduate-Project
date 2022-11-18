@@ -135,11 +135,11 @@ class StudentController extends Controller
     {
         if ($request->has('last_name')) {
             $students = User::query()
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
                 ->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         } else {
             $students = User::query()
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
                 ->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         }
         if (!$request->has('export')) {

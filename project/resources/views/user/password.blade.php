@@ -23,7 +23,7 @@
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Thông tin cá nhân</a>
+                                <a href="{{route('users.info')}}" class="text-muted">Thông tin cá nhân</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Đổi mật khẩu</a>
@@ -151,7 +151,7 @@
                     <div class="flex-row-fluid ml-lg-7">
                         <!--begin::Card-->
                         <form class="card card-custom card-stretch gutter-b" method="post"
-                              @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
+                              @if(\Illuminate\Support\Facades\Auth::user()->role=='student' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
                               action="{{route('users.updatePassword',$user)}}">
                             @elseif(\Illuminate\Support\Facades\Auth::user()->role=='admin')
                                 action="{{route('users.updatePasswords',$user)}}">

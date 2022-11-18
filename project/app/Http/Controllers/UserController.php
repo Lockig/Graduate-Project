@@ -38,12 +38,20 @@ class UserController extends Controller implements ShouldQueue
             ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
             ->where('course_students.student_id', '=', Auth::user()->id)
             ->get();
-        $query = DB::table('course_schedules')
+        $course_schedule = DB::table('course_schedules')
             ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
-            ->where('student_id', '=', Auth::user()->id);
-        $course_schedule = $query->get();
-        $today_courses = $query->whereDate('start_at', Carbon::today())->get();
-        $tomorrow_courses = $query->whereDate('start_at', Carbon::tomorrow())->get();
+            ->where('student_id', '=', Auth::user()->id)
+            ->get();
+        $today_courses = DB::table('course_schedules')
+            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+            ->where('student_id', '=', Auth::user()->id)
+            ->whereDate('start_at', Carbon::today())
+            ->get();
+        $tomorrow_courses = DB::table('course_schedules')
+            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+            ->where('student_id', '=', Auth::user()->id)
+            ->whereDate('start_at', Carbon::tomorrow())
+            ->get();
         $users = User::query()->name($request)->paginate(5);
         return view('user.admin.dashboard', compact(['notifications', 'courses', 'users', 'student_count', 'teacher_count', 'course_count', 'course_schedule', 'today_courses', 'tomorrow_courses']));
     }
@@ -66,18 +74,22 @@ class UserController extends Controller implements ShouldQueue
     {
         $user = User::find($id);
         if ($user && $user->role == 'student') {
-            DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->where('student_id', '=', $id)->delete();
-            DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
-            DB::table('student_grades')->where('user_id', '=', $id)->delete();
+            DB::transaction(function () use ($id) {
+                DB::table('attendances')->where('user_id', '=', $id)->delete();
+                DB::table('course_students')->where('student_id', '=', $id)->delete();
+                DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
+                DB::table('student_grades')->where('user_id', '=', $id)->delete();
+            });
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } elseif ($user->role == 'teacher') {
-            DB::table('attendances')->where('user_id', '=', $id)->delete();
-            DB::table('course_students')->where('student_id', '=', $id)->delete();
-            DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
-            DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
-            DB::table('student_grades')->where('user_id', '=', $id)->delete();
+            DB::transaction(function () use ($id) {
+                DB::table('attendances')->where('user_id', '=', $id)->delete();
+                DB::table('course_students')->where('student_id', '=', $id)->delete();
+                DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
+                DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
+                DB::table('student_grades')->where('user_id', '=', $id)->delete();
+            });
             User::find($id)->delete();
             return back()->with("Success", "Xóa người dùng thành công");
         } else {
@@ -116,21 +128,20 @@ class UserController extends Controller implements ShouldQueue
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        User::query()->where('id', '=', $user->id)->update([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
+        DB::table('users')->where('id', '=', $user->id)->update([
+            'first_name' => ucwords($validated['first_name']),
+            'last_name' => ucwords($validated['last_name']),
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
             'address' => $validated['address'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
-        return back()->with("Success", "Cập nhật thông tin thành công");
+        return to_route('users.info')->with("Success", "Cập nhật thông tin thành công");
     }
 
 
     public function updatePassword(Request $request): RedirectResponse
     {
-        dd('hello');
         $user = Auth::user();
         $validated = $request->validate([
             'current_password' => 'required|string',
@@ -139,16 +150,21 @@ class UserController extends Controller implements ShouldQueue
         ]);
         $password = $user->password;
 //        if(strcmp($validated['current_password'],$password) == 0){
+        if ($validated['current_password'] == $validated['new_password']) {
+            return back()->with('Fail', 'Mật khẩu mới không được trùng mật khẩu cũ');
+        }
         if (Hash::check($validated['current_password'], $password)) {
             if ($validated['new_password'] == $validated['password_confirmation']) {
                 $update = User::query()
                     ->where('id', $user->id)
                     ->update(['password' => Hash::make($validated['password_confirmation'])]);
-                Session::put('Success', 'Đổi mật khẩu thành công, vui lòng đăng nhập lại');
+                return to_route('users.info')->with('Success', 'Đổi mật khẩu thành công');
+            } else {
+                return back()->with('Fail', 'Xác nhận mậ khẩu không khớp');
             }
+        } else {
+            return back()->with('Fail', 'Mật khẩu cũ không chính xác');
         }
-        return back()->with('Fail', 'Mật khẩu cũ không chính xác');
-
     }
 
     public function exportList(Request $request)
@@ -208,15 +224,15 @@ class UserController extends Controller implements ShouldQueue
             $profile_avatar = $request->file('profile_avatar')->store('images');
         }
         $validated = $request->validated();
-        $user->update([
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
+        DB::table('users')->where('id', '=', $id)->update([
+            'first_name' => ucwords($validated['first_name']),
+            'last_name' => ucwords($validated['last_name']),
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
             'address' => $validated['address'],
             'avatar' => $profile_avatar ?? $user->avatar
         ]);
-        return back()->with("Success", "Cập nhật thông tin thành công");
+        return to_route('admin.listStudent')->with("Success", "Cập nhật thông tin thành công");
     }
 
 

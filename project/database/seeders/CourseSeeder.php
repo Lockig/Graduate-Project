@@ -47,7 +47,9 @@ class CourseSeeder extends Seeder
         DB::table('course_students')->insert([
             ['course_id' => '1', 'student_id' => '4'],
             ['course_id' => '1', 'student_id' => '5'],
-            ['course_id' => '1', 'student_id' => '6']
+            ['course_id' => '1', 'student_id' => '6'],
+            ['course_id' => '1', 'student_id' => '7'],
+            ['course_id' => '1', 'student_id' => '8'],
         ]);
         DB::table('course_notifications')->insert([
             'course_id'=>'1',

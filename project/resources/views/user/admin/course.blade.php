@@ -17,7 +17,7 @@
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Danh sách lớp học</a>
+                                <a href="{{route('admin.listCourse')}}" class="text-muted">Danh sách lớp học</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Tạo lớp học</a>
@@ -69,7 +69,7 @@
                                                         <option
                                                             value="{{$teacher->id}}"
                                                             class="form-control form-control-lg form-control-solid">
-                                                            {{$teacher->id}}
+                                                            {{\App\Models\User::find($teacher->id)->first_name .' ' .\App\Models\User::find($teacher->id)->last_name}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -243,11 +243,11 @@
                                             <label for="course_name"
                                                    class="col-lg-12 ml-lg-auto">Tên lớp</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <select name="course_name"
+                                                <select name="course_id"
                                                         class="form-control">
                                                     @foreach($courses as $course)
                                                         <option
-                                                            value="{{$course->course_name}}"
+                                                            value="{{$course->course_id}}"
                                                             class="form-control form-control-lg form-control-solid">
                                                             {{$course->course_name}}
                                                         </option>
@@ -380,11 +380,15 @@
                                             <label for="course_name"
                                                    class="col-lg-12 ml-lg-auto">Tên lớp</label>
                                             <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <select name="course_name"
+                                                <select name="course_id"
                                                         class="form-control">
+                                                    <option
+                                                        value=""
+                                                        class="form-control form-control-lg form-control-solid">
+                                                    </option>
                                                     @foreach($courses as $course)
                                                         <option
-                                                            value="{{$course->course_name}}"
+                                                            value="{{$course->course_id}}"
                                                             class="form-control form-control-lg form-control-solid">
                                                             {{$course->course_name}}
                                                         </option>

@@ -19,7 +19,7 @@
                             <!--begin::Breadcrumb-->
                             <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                 <li class="breadcrumb-item">
-                                    <a href="" class="text-muted">Thông tin cá nhân</a>
+                                    <a href="{{route('users.info')}}" class="text-muted">Thông tin cá nhân</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="" class="text-muted">Chỉnh sửa</a>
@@ -227,13 +227,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label name="date_of_birth" for="last_name"
+                                            <label  for="date_of_birth"
                                                    class="col-xl-3 col-lg-3 col-form-label">Ngày sinh</label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="date_of_birth" type="text"
                                                        class="form-control form-control-lg form-control-solid"
                                                        id="kt_datepicker_1" readonly="readonly"
-                                                       value="{{\Carbon\Carbon::parse($user->date_of_birth)->format('m/d/Y')}}"/>
+                                                       value="{{\Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y')}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">

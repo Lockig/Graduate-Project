@@ -52,9 +52,9 @@
                                 <div class="row align-items-center ">
                                     <div class=" col-lg-12 my-2 my-md-0">
                                         <div class="input-icon">
-                                            <input name="last_name" type="text" class="form-control"
+                                            <input name="search" type="text" class="form-control"
                                                    placeholder="Tên ..." id="kt_datatable_search_query"
-                                                   value="{{old("last_name")}}"/>
+                                                   value="{{old("search")}}"/>
                                             <span>
                                                     <i class="flaticon2-search-1 text-muted"></i>
                                                 </span>
@@ -65,9 +65,9 @@
                         </div>
                         <div class="row align-items-center mt-2">
                             <div class="col-md-12 my-2 my-md-0">
-                                <form method="get" action="#" class="mb-7">
+                                <form method="get" action="{{route('admin.listSubject')}}" class="mb-7">
                                     @csrf
-                                    <button class="btn btn-light-primary px-6 font-weight-bold">  <span
+                                    <button type="submit" name="search" class="btn btn-light-primary px-6 font-weight-bold">  <span
                                             class="svg-icon svg-icon-md">
 													<!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
 													<svg xmlns="http://www.w3.org/2000/svg"
