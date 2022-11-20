@@ -301,8 +301,8 @@
                                 @foreach($course_schedule as $item)
                             {
                                 'title': '{{\App\Models\Course::find($item->course_id)->course_name}}',
-                                'start': '{{\Carbon\Carbon::parse($item->start_at)->format('Y-m-d h:i:s')}}',
-                                'end': '{{\Carbon\Carbon::parse($item->end_at)->format('Y-m-d h:i:s')}}',
+                                'start': '{{\Carbon\Carbon::parse($item->start_at)->format('Y-m-d H:i:s')}}',
+                                'end': '{{\Carbon\Carbon::parse($item->end_at)->format('Y-m-d H:i:s')}}',
                                 {{--                                @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')--}}
                                 {{--                                'url': '{{route('admin.listAttendance',$item)}}'--}}
                                 {{--                                @endif--}}

@@ -24,6 +24,7 @@ class CourseSeeder extends Seeder
             'start_date' => '2022-01-01',
             'end_date' => '2022-04-01',
             'course_hour' => '2',
+            'money'=>'200000',
             'course_description' => 'Khóa học Toán cấp tốc cho học sinh lớp 10',
             'course_status' => '2'
         ]);
@@ -57,13 +58,9 @@ class CourseSeeder extends Seeder
             'created_at'=>'2021-10-01 08:00:00'
         ]);
 
-        DB::table('attendances')->insert([
-            ['user_id'=>'2','schedule_id'=>'1','time_in'=>'2021-11-01 08:00:00'],
-            ['user_id'=>'4','schedule_id'=>'1','time_in'=>'2021-11-01 08:05:00'],
-            ['user_id'=>'5','schedule_id'=>'1','time_in'=>'2021-11-01 08:10:00'],
-            ['user_id'=>'6','schedule_id'=>'1','time_in'=>'2021-11-01 08:15:00'],
-            ['user_id'=>'7','schedule_id'=>'1','time_in'=>'2021-11-01 08:20:00'],
-            ['user_id'=>'8','schedule_id'=>'1','time_in'=>'2021-11-01 08:00:00'],
+        DB::table('teacher_incomes')->insert([
+            'attendance_id'=>'1',
+            'penalty_id'=>'1'
         ]);
     }
 }

@@ -98,29 +98,37 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+//    user
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-    Route::get('/create/course', [CourseController::class, 'create'])->name('admin.createCourse');
     Route::get('/info', [UserController::class, 'show'])->name('admin.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('admin.edit');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('admin.editPassword');
+    Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
+    Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+//    course
+    Route::get('/create/course', [CourseController::class, 'create'])->name('admin.createCourse');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('admin.coursesDetails');
     Route::get('/course/{course}/attendance', [UserAttendanceController::class, 'show'])->name('admin.listAttendance');
     Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('admin.editCourse');
-    Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
     Route::get('/list/course', [AdminController::class, 'show'])->name('admin.listCourse');
-    Route::get('/list/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
-    Route::get('/list/student', [StudentController::class, 'listStudent'])->name('admin.listStudent');
-    Route::get('/list/teacher', [TeacherController::class, 'listTeacher'])->name('admin.listTeacher');
-    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
-    Route::post('/list/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
-    Route::post('/settings/fingerprint', [FingerprintController::class, 'update'])->name('admin.fingerprintSetting');
-    Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
-    Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-    Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
     Route::post('/course/schedule', [CourseController::class, 'storeCourseSchedule'])->name('admin.storeCourseSchedule');
-    Route::post('/course/student', [CourseController::class, 'storeCourseStudent'])->name('admin.storeCourseStudent');
+    Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
+    Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
     Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');
+//    subject
+    Route::get('/list/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
+    Route::post('/list/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
+//    student
+    Route::get('/list/student', [StudentController::class, 'listStudent'])->name('admin.listStudent');
+    Route::post('/course/student', [CourseController::class, 'storeCourseStudent'])->name('admin.storeCourseStudent');
+    Route::get('/list/teacher', [TeacherController::class, 'listTeacher'])->name('admin.listTeacher');
+//    settings
+    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::post('/settings/fingerprint', [FingerprintController::class, 'update'])->name('admin.fingerprintSetting');
+
+
+
 
 });

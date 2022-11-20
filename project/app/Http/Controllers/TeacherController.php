@@ -140,13 +140,14 @@ class TeacherController extends Controller
         $user = Auth::user();
         $courses = Course::query()
             ->where('teacher_id', '=', $user->id)->get();
-        if (!$request->has('course_name')) {
+        if (!$request->input('course_name') != NULL) {
             $records = DB::table('attendances')
                 ->where('user_id', '=', $user->id)->orderBy('time_in', 'asc')->paginate(5);
+
         } else {
             $records = DB::table('attendances')
                 ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
-                ->where('course_schedules.course_id', '=', $request->course_name)
+                ->where('course_schedules.course_id', '=', $request->course_id)
                 ->where('user_id', '=', $user->id)
                 ->orderBy('time_in', 'desc')->paginate(5);
         }
@@ -224,7 +225,11 @@ class TeacherController extends Controller
             ->get(['student_id', 'diem_lan_1', 'diem_lan_2', 'diem_lan_3']);
         $students = DB::table('course_students')->where('course_id', '=', $course)->get();
         if ($request->has('pdf')) {
-            $pdf = Pdf::loadView('user.export.list_mark', compact('students', 'course'));
+            $grades = DB::table('student_grades')
+                ->join('course_students','student_grades.user_id','=','course_students.id')
+                ->where('course_students.course_id','=',$course)
+                ->get();
+            $pdf = Pdf::loadView('user.export.list_mark', compact('students', 'course','grades'));
             return $pdf->download('list_mark.pdf');
         }
         if ($request->has('excel')) {

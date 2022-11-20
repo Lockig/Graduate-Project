@@ -25,16 +25,16 @@ class Course extends Model
 
     public function user()
     {
-        $this->hasMany(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function schedule()
     {
-        $this->hasMany(Schedule::class, 'course_id', 'course_id');
+        return $this->hasMany(Schedule::class, 'course_id', 'course_id');
     }
 
     public function subject(){
-        $this->belongsTo(Subject::class,'subject_id','subject_id');
+        return $this->belongsTo(Subject::class,'subject_id','subject_id');
     }
 
     public function scopeName($query, Request $request)

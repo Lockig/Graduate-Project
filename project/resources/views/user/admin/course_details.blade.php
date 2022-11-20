@@ -1171,7 +1171,7 @@
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Đã điểm danh', 'Chưa điểm danh'],
+            labels: ['Đã điểm danh', 'Chưa điểm danh','Xin nghỉ'],
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -1345,8 +1345,8 @@
                                 @foreach($course_schedule as $item)
                             {
                                 'title': '{{ $course->course_name }}',
-                                'start': '{{ \Carbon\Carbon::parse($item->start_at)->format('Y-m-d h:i:s') }}',
-                                'end': '{{ \Carbon\Carbon::parse($item->end_at)->format('Y-m-d h:i:s') }}',
+                                'start': '{{ \Carbon\Carbon::parse($item->start_at)->format('Y-m-d H:i:s') }}',
+                                'end': '{{ \Carbon\Carbon::parse($item->end_at)->format('Y-m-d H:i:s') }}',
                             },
                             @endforeach
                         ],

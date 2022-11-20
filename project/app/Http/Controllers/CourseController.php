@@ -60,6 +60,7 @@ class CourseController extends Controller
             'day_start' => 'required|date',
             'day_end' => 'required|date',
             'duration' => 'required',
+            'money' => 'required|integer',
             'subject' => 'required|string',
             'course_description' => 'required'
         ]);
@@ -70,6 +71,7 @@ class CourseController extends Controller
             'start_date' => Carbon::parse($credentials['day_start'])->format('Y-m-d'),
             'end_date' => Carbon::parse($credentials['day_end'])->format('Y-m-d'),
             'course_hour' => $credentials['duration'],
+            'money' => $credentials['money'],
             'course_description' => $credentials['course_description'],
             'course_status' => '2'
         ]);
@@ -78,7 +80,7 @@ class CourseController extends Controller
 
     public function storeCourseSchedule(Request $request)
     {
-        $validated=$request->validate([
+        $validated = $request->validate([
             'course_id' => 'required',
             'start_time' => 'required',
         ]);
@@ -146,14 +148,14 @@ class CourseController extends Controller
                 ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
                 ->join('users', 'users.id', '=', 'attendances.user_id')
                 ->where('course_schedules.start_at', '=', $request->input('schedule_id'))
-                ->where('users.role','=','student')
+                ->where('users.role', '=', 'student')
                 ->where('users.deleted_at', '=', null)
                 ->where('course_schedules.course_id', '=', $course->course_id)->paginate(5, ['*'], 'attendance');
         } else {
             $attendances = DB::table('attendances')
                 ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
                 ->join('users', 'users.id', '=', 'attendances.user_id')
-                ->where('users.role','=','student')
+                ->where('users.role', '=', 'student')
                 ->where('users.deleted_at', '=', null)
                 ->where('course_schedules.course_id', '=', $course->course_id)->paginate(5, ['*'], 'attendance');
         }
@@ -170,7 +172,7 @@ class CourseController extends Controller
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
             ->where('course_students.course_id', '=', $course->course_id)
             ->get();
-        $course_notifications = DB::table('course_notifications')->where('course_id', '=', $course->course_id)->orderBy('created_at','desc')->paginate(5);
+        $course_notifications = DB::table('course_notifications')->where('course_id', '=', $course->course_id)->orderBy('created_at', 'desc')->paginate(5);
 
         $notifications = Auth::user()->unreadNotifications;
         $materials = DB::table('course_materials')->select()->where('course_id', '=', $course->course_id)->get();
@@ -210,7 +212,7 @@ class CourseController extends Controller
         $data = $request->validated();
         $teacher_id = DB::table('users')->where('id', '=', $data['teacher_id'])->where('role', '=', 'teacher')->value('id');
         if ($teacher_id != null) {
-            DB::table('courses')->where('course_id','=',$course->course_id)->update([
+            DB::table('courses')->where('course_id', '=', $course->course_id)->update([
                 'course_name' => $data['course_name'],
                 'teacher_id' => $teacher_id,
                 'start_date' => Carbon::parse($data['start_at'])->format('Y-m-d'),

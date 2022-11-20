@@ -132,6 +132,15 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-12 ml-lg-auto">
+                                            <label for="money" class="col-form-label text-left col-lg-12 col-sm-12">Tiền học/buổi</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <input name="money" type="text" class="form-control"
+                                                       placeholder="Nhập số tiền"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 ml-lg-auto">
                                             <label for="course_description"
                                                    class="col-form-label text-left col-lg-12 col-sm-12">Thông
                                                 tin</label>
@@ -175,6 +184,7 @@
                                             <th class="pr-0" style="width: 100px">Ngày kết thúc</th>
                                             <th class="pr-0" style="width: 100px">Giáo viên</th>
                                             <th class="pr-0" style="width: 100px">Thông tin</th>
+                                            <th class="pr-0" style="width: 100px">Học phí</th>
                                             <th class="pr-0 text-right" style="min-width: 50px">Trạng thái</th>
                                         </tr>
                                         </thead>
@@ -201,6 +211,10 @@
                                                 <td class="pr-0">
                                                     <span href="#"
                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</span>
+                                                </td>
+                                                <td class="pr-0">
+                                                    <span href="#"
+                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{number_format($course->money, 0, ',', '.')}}</span>
                                                 </td>
                                                 <td class="pr-0 text-right">
                                                     <span href="#"

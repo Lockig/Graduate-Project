@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             SubjectSeeder::class,
+            PenaltySeeder::class,
             CourseSeeder::class,
             RequestSeeder::class,
-            PenaltySeeder::class,
             GradeSeeder::class
         ]);
 

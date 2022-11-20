@@ -18,6 +18,6 @@ class Schedule extends Model
 
     public function course()
     {
-        $this->belongsTo(Course::class,'course_id','course_id');
+        return $this->belongsTo(Course::class,'course_id','course_id');
     }
 }

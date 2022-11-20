@@ -17,6 +17,9 @@ class PenaltySeeder extends Seeder
     {
         DB::table('penalties')->insert([
             [
+                'penalty_amount' => '0'
+            ],
+            [
                 'penalty_amount' => '10000'
             ],
             [

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('schedule_id')->references('id')->on('course_schedules');
             $table->dateTime('time_in');
+            $table->foreignId('penalty_id')->references('penalty_id')->on('penalties');
             $table->softDeletes();
             $table->timestamps();
         });
