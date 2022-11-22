@@ -140,10 +140,9 @@ class TeacherController extends Controller
         $user = Auth::user();
         $courses = Course::query()
             ->where('teacher_id', '=', $user->id)->get();
-        if ($request->input('course_name') != NULL) {
+        if ($request->input('course_id') == NULL) {
             $records = DB::table('attendances')
                 ->where('user_id', '=', $user->id)->orderBy('time_in', 'asc')->paginate(5);
-
         } else {
             $records = DB::table('attendances')
                 ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')

@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    @include('system_message');
+    @include('system_message')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -41,14 +41,17 @@
                             <h3 class="text-uppercase">Bảng điểm</h3>
                         </div>
                     </div>
+                    <div class="col-3">
+                        <a href="{{route('users.mark_export',\Illuminate\Support\Facades\Auth::user()->id)}}" class="btn btn-light-primary">In</a>
+                    </div>
+
                     <div class="card-body">
-                        <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                        <table class="table  table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
                             <thead>
                             <tr class="text-left">
                                 <th class="pl-0" style="width: 20px">
                                     STT
                                 </th>
-                                <th class="pl-0" style="min-width: 50px"></th>
                                 <th class="text-left" style="min-width: 50px">Mã lớp học</th>
                                 <th style="min-width: 100px">Lớp học</th>
                                 <th style="min-width: 100px">Điểm lần 1</th>
@@ -64,9 +67,6 @@
                                         <label class="checkbox checkbox-lg checkbox-inline">
                                             {{$loop->index + 1}}
                                         </label>
-                                    </td>
-                                    <td class="pr-0">
-
                                     </td>
                                     <td class="pr-0">
                                         <a href="#"

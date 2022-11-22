@@ -60,6 +60,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/list/request', [RequestDayOffController::class, 'show'])->name('users.listRequest');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('users.coursesDetails');
     Route::get('/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/{user}/mark-export', [UserController::class, 'exportMark'])->name('users.mark_export');
     Route::get('/{user}/edit', [UserController::class, 'editInfos'])->name('users.editInfos');
     Route::get('/{user}/password', [UserController::class, 'editPasswords'])->name('users.editPasswords');
     Route::post('/mark-as-read', [UserController::class, 'markNotification'])->name('users.markNotification');

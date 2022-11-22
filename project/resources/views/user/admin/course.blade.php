@@ -35,211 +35,6 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container">
-                <div class="row mb-3">
-                    <div class="col-4">
-                        <!--begin::Card-->
-                        <div class="card card-custom">
-                            <div class="card-header d-flex justify-content-center">
-                                <h3 class="card-title text-uppercase">TẠO LỚP HỌC</h3>
-                            </div>
-                            <!--begin::Form-->
-                            <form class="form" method="post" action="{{route('admin.storeCourse')}}">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="course_name"
-                                                   class="col-form-label text-left col-lg-5 col-sm-12">Tên
-                                                lớp</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="course_name" type="text" class="form-control"
-                                                       value="{{old('course_name')}}"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="role"
-                                                   class="col-lg-12 ml-lg-auto">Giáo viên</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <select name="teacher"
-                                                        class="form-control">
-                                                    @foreach($teachers as $teacher)
-                                                        <option
-                                                            value="{{$teacher->id}}"
-                                                            class="form-control form-control-lg form-control-solid">
-                                                            {{\App\Models\User::find($teacher->id)->first_name .' ' .\App\Models\User::find($teacher->id)->last_name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="role"
-                                                   class="col-lg-12 ml-lg-auto">Môn học</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <select name="subject"
-                                                        class="form-control">
-                                                    @foreach($subjects as $subject)
-                                                        <option
-                                                            value="{{$subject->subject_id}}"
-                                                            class="form-control form-control-lg form-control-solid">
-                                                            {{$subject->subject_name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="day_start" class="col-form-label text-left col-lg-5 col-sm-12">Từ
-                                                ngày</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="day_start" type="text" class="form-control"
-                                                       id="kt_datepicker_1"
-                                                       readonly="readonly"
-                                                       value="{{old('day_start')}}"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="day_end" class="col-form-label text-left col-lg-12 col-sm-12">Tới
-                                                ngày</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="day_end" type="text" class="form-control"
-                                                       id="kt_datepicker_1"
-                                                       readonly="readonly"
-                                                       value="{{old('day_end')}}"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="duration" class="col-form-label text-left col-lg-12 col-sm-12">Thời
-                                                lượng</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="duration" type="text" class="form-control"
-                                                       placeholder="Nhập số giờ"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="money" class="col-form-label text-left col-lg-12 col-sm-12">Tiền học/buổi</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input name="money" type="text" class="form-control"
-                                                       placeholder="Nhập số tiền"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto">
-                                            <label for="course_description"
-                                                   class="col-form-label text-left col-lg-12 col-sm-12">Thông
-                                                tin</label>
-                                            <div class="col-lg-12 col-md-10 col-sm-6">
-                                                <input value="{{old('course_description')}}" type="text"
-                                                       name="course_description" class="form-control"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto d-flex flex-row justify-content-center">
-                                            <button type="submit" class="btn btn-success mr-2">Tạo</button>
-                                            <button type="reset" class="btn btn-secondary">Hủy</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!--end::Form-->
-                        </div>
-                        <!--end::Card-->
-                    </div>
-                    <div class="col-8">
-                        <!--begin::Card-->
-                        <div class="card card-custom gutter-b card-stretch">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h3 class="card-label text-uppercase">DANH SÁCH lớp học</h3>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-head-custom table-vertical-center"
-                                           id="kt_advance_table_widget_1">
-                                        <thead>
-                                        <tr class="text-left">
-                                            <th class="pl-0" style="width: 20px">STT</th>
-                                            <th class="pr-0" style="width: 100px">Tên</th>
-                                            <th class="pr-0" style="width: 100px">Ngày bắt đầu</th>
-                                            <th class="pr-0" style="width: 100px">Ngày kết thúc</th>
-                                            <th class="pr-0" style="width: 100px">Giáo viên</th>
-                                            <th class="pr-0" style="width: 100px">Thông tin</th>
-                                            <th class="pr-0" style="width: 100px">Học phí</th>
-                                            <th class="pr-0 text-right" style="min-width: 50px">Trạng thái</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($courses as $course)
-                                            <tr>
-                                                <td class="pr-0">{{$loop->index +1 }}</td>
-                                                <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_name}}</a>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <span href="#"
-                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->start_date)->format('d/m/Y')}}</span>
-                                                </td>
-                                                <td class="pr-0 text-left">
-                                                    <span href="#"
-                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course->end_date)->format('d/m/Y')}}</span>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <span href="#"
-                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</span>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <span href="#"
-                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{$course->course_description}}</span>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <span href="#"
-                                                          class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{number_format($course->money, 0, ',', '.')}}</span>
-                                                </td>
-                                                <td class="pr-0 text-right">
-                                                    <span href="#"
-                                                       class="text-info font-weight-bold text-hover-primary mb-1 font-size-lg">
-                                                        @if($course->course_status == 1)
-                                                            Chưa bắt đầu
-                                                        @elseif($course->course_status == 2)
-                                                            Đang bắt đầu
-                                                        @else
-                                                            Kết thúc
-                                                        @endif
-                                                    </span>
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    {!! $courses->links() !!}
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Card-->
-                    </div>
-                </div>
 
                 <div class="row mb-2">
                     <div class="col-4">
@@ -291,13 +86,29 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-lg-12 ml-lg-auto pl-8">
-                                            <label class="checkbox">
-                                                <input type="checkbox" checked="checked" name="auto_create"/>
-                                                <span></span>
-                                                Tạo tự động (+7 ngày)
-                                            </label>
-
+                                        <div class="col-lg-12 ml-lg-auto">
+                                            <label for="course_name"
+                                                   class="col-lg-12 ml-lg-auto">Tạo</label>
+                                            <div class="col-lg-12 col-md-10 col-sm-6">
+                                                <select name="action"
+                                                        class="form-control">
+                                                        <option
+                                                            value="manually"
+                                                            class="form-control form-control-lg form-control-solid">
+                                                            Tạo thủ công
+                                                        </option>
+                                                    <option
+                                                        value="daily"
+                                                        class="form-control form-control-lg form-control-solid">
+                                                        Hàng ngày (Thứ 2 - Thứ 6)
+                                                    </option>
+                                                    <option
+                                                        value="weekly"
+                                                        class="form-control form-control-lg form-control-solid">
+                                                        Hàng tuần (+7 ngày)
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -331,8 +142,8 @@
                                             <th class="pl-0" style="width: 20px">STT</th>
                                             <th class="pr-0" style="width: 100px">Tên</th>
                                             <th class="pr-0" style="width: 100px">Buổi</th>
-                                            <th class="pr-0" style="width: 100px">Ngày bắt đầu</th>
-                                            <th class="pr-0" style="width: 100px">Ngày kết thúc</th>
+                                            <th class="pr-0" style="width: 100px">Bắt đầu</th>
+                                            <th class="pr-0" style="width: 100px">Kết thúc</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -349,11 +160,11 @@
                                                 </td>
                                                 <td class="pr-0">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('h:i')}}</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('H:i')}}</a>
                                                 </td>
                                                 <td class="pr-0 text-left">
                                                     <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('h:i')}}</a>
+                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('H:i')}}</a>
                                                 </td>
                                             </tr>
                                         @endforeach

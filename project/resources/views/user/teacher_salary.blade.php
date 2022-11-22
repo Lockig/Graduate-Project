@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    @include('system_message');
+    @include('system_message')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -30,6 +30,16 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container-fluid">
+                <div class="card card-custom gutter-b table-responsive">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="text-uppercase">Bảng lương</h3>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

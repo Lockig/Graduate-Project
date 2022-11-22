@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ResetPassword;
 use App\Events\RequestDayOff;
+use App\Exports\UserMark;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
@@ -293,4 +294,14 @@ class UserController extends Controller implements ShouldQueue
         return view('user.user_mark', compact('user_marks'));
     }
 
+    public function exportMark($id){
+        $export = DB::table('student_grades')
+            ->join('course_students','student_grades.user_id','=','course_students.id')
+            ->join('courses','courses.course_id','=','course_students.course_id')
+            ->join('users','users.id','=','courses.teacher_id')
+            ->where('student_id','=',$id)
+            ->get(['courses.course_id','course_name','diem_lan_1','diem_lan_2','diem_lan_3']);
+//        dd($export);
+        return Excel::download(new UserMark($export), 'user_marks.xlsx');
+    }
 }

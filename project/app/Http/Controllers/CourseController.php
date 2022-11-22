@@ -39,7 +39,7 @@ class CourseController extends Controller
     {
         $courses = Course::paginate(5, ['*'], 'course');
         $subjects = DB::table('subjects')->get();
-        $course_schedules = DB::table('course_schedules')->orderBy('start_at')->paginate(10, ['*'], 'schedule');
+        $course_schedules = DB::table('course_schedules')->orderBy('course_id', 'desc')->paginate(10, ['*'], 'schedule');
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->get();
         return view('user.admin.course', compact(['courses', 'teachers', 'students', 'course_schedules', 'subjects']));
@@ -67,7 +67,7 @@ class CourseController extends Controller
         DB::table('courses')->insert([
             'teacher_id' => $credentials['teacher'],
             'subject_id' => $credentials['subject'],
-            'course_name' => $credentials['course_name'],
+            'course_name' => ucwords($credentials['course_name']),
             'start_date' => Carbon::parse($credentials['day_start'])->format('Y-m-d'),
             'end_date' => Carbon::parse($credentials['day_end'])->format('Y-m-d'),
             'course_hour' => $credentials['duration'],
@@ -83,6 +83,7 @@ class CourseController extends Controller
         $validated = $request->validate([
             'course_id' => 'required',
             'start_time' => 'required',
+            'action' => 'required'
         ]);
         $course_id = $validated['course_id'];
         $duration = Course::find($course_id)->value('course_hour');
@@ -92,24 +93,42 @@ class CourseController extends Controller
         if ($input_time < $start_date || $input_time > $end_date) {
             return redirect()->back()->with('Fail', 'Giờ nhập vào không được phép');
         }
-        while ($input_time < $end_date) {
 
+
+        while ($input_time < $end_date) {
+            if ($request->input('action') == 'weekly') {
+                DB::table('course_schedules')->insert([
+                    'course_id' => $course_id,
+                    'start_at' => $input_time,
+                    'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
+                ]);
+                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
+            }elseif($request->input('action')=='daily'){
+                DB::table('course_schedules')->insert([
+                    'course_id' => $course_id,
+                    'start_at' => $input_time,
+                    'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
+                ]);
+                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(1);
+            }else{
+                break;
+            }
+        }
+
+        if($request->input('action')=='manually'){
             DB::table('course_schedules')->insert([
                 'course_id' => $course_id,
                 'start_at' => $input_time,
                 'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
             ]);
-            if ($request->has('auto_create')) {
-                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
-            } else {
-                break;
-            }
         }
+
         return redirect()->back()->with('Success', 'Thêm lịch học thành công');
     }
 
     public function storeCourseStudent(Request $request)
     {
+        dd($request->all());
         $validated = $request->validate([
             'student_id' => 'required|string',
             'course_id' => 'required'
