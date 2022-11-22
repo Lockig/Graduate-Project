@@ -40,7 +40,7 @@ class Course extends Model
     public function scopeName($query, Request $request)
     {
         if ($request->has('course_name')) {
-            return $query->where('course_name', 'like', '%' . $request->input('course_name'));
+            return $query->where('course_name', 'like', '%' . $request->input('course_name') .'%');
         }
         return $query;
     }
@@ -48,7 +48,7 @@ class Course extends Model
     public function scopeStatus($query, Request $request)
     {
         if ($request->has('status')) {
-            return $query->where('course_status', 'like', '%' . $request->input('status'));
+            return $query->where('course_status', 'like', '%' . $request->input('status') .'%');
         }
         return $query;
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FingerprintController;
+use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\RequestDayOffController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
@@ -76,6 +77,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/', [TeacherController::class, 'index'])->name('teachers.index');
     Route::get('/info', [UserController::class, 'show'])->name('teachers.show');
     Route::get('/edit', [UserController::class, 'editInfo'])->name('teachers.edit');
+    Route::get('/salary',[TeacherController::class,'getSalary'])->name('teachers.getSalary');
     Route::get('/attendance', [TeacherController::class, 'showAttendance'])->name('teacher.attendance');
     Route::get('/edit/password', [UserController::class, 'editPassword'])->name('teachers.editPassword');
     Route::get('/course/list', [TeacherController::class, 'show'])->name('teacher.listCourse');
@@ -107,7 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::put('/create/user', [AdminController::class, 'store'])->name('admin.store');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 //    course
-    Route::get('/create/course', [CourseController::class, 'create'])->name('admin.createCourse');
+    Route::get('/course/create', [CourseController::class, 'create'])->name('admin.createCourse');
     Route::get('/course/{course}', [CourseController::class, 'show'])->name('admin.coursesDetails');
     Route::get('/course/{course}/attendance', [UserAttendanceController::class, 'show'])->name('admin.listAttendance');
     Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('admin.editCourse');
@@ -118,8 +120,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
     Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');
 //    subject
-    Route::get('/list/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
-    Route::post('/list/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
+    Route::get('/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
+    Route::post('/subject/{subject}', [AdminController::class, 'updateSubject'])->name('admin.updateSubject');
+    Route::post('/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
+    Route::delete('/subject/{subject}', [AdminController::class, 'deleteSubject'])->name('admin.deleteSubject');
+
+//    penalty
+    Route::get('/penalty',[PenaltyController::class,'index'])->name('admin.getPenalty');
+    Route::post('/penalty',[PenaltyController::class,'store'])->name('admin.storePenalty');
+    Route::post('/penalty/{penalty}',[AdminController::class,'updatePenalty'])->name('admin.updatePenalty');
+    Route::delete('/penalty/{penalty}',[PenaltyController::class,'destroy'])->name('admin.deletePenalty');
 //    student
     Route::get('/list/student', [StudentController::class, 'listStudent'])->name('admin.listStudent');
     Route::post('/course/student', [CourseController::class, 'storeCourseStudent'])->name('admin.storeCourseStudent');

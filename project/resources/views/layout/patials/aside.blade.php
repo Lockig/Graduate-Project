@@ -132,13 +132,11 @@
                         <span class="menu-text">Đổi mật khẩu</span>
                     </a>
                 </li>
-                @if(\Illuminate\Support\Facades\Auth::user()->role=='student' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
                     <li class="menu-section">
                         <h4 class="menu-text">Lớp học</h4>
                         <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                     </li>
-                @endif
-                @if(\Illuminate\Support\Facades\Auth::user()->role =='student')
                     <li class="menu-item" aria-haspopup="true">
                         <a
                             href="{{route('user.listCourse')}}"
@@ -165,6 +163,10 @@
                     </li>
                 @endif
                 @if(\Illuminate\Support\Facades\Auth::user()->role=='student' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                    <li class="menu-section">
+                        <h4 class="menu-text">Điểm danh</h4>
+                        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+                    </li>
                     <li class="menu-item" aria-haspopup="true">
                         <a
                             @if(\Illuminate\Support\Facades\Auth::user()->role=='student')
@@ -194,6 +196,34 @@
                         </a>
                     </li>
                 @endif
+                @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                    <li class="menu-item" aria-haspopup="true">
+                        <a
+                            @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                                href="{{route('teachers.getSalary')}}"
+                            @endif
+                            class="menu-link">
+										<span class="svg-icon menu-icon">
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path
+                                                        d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
+                                                        fill="#000000"/>
+													<rect fill="#000000" opacity="0.3"
+                                                          transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                                          x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
+												</g>
+											</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+                            <span class="menu-text">Báo cáo điểm danh</span>
+                        </a>
+                    </li>
+                    @endif
                 @if(\Illuminate\Support\Facades\Auth::user()->role =='student')
                     <li class="menu-item" aria-haspopup="true">
                         <a href="{{route('users.listRequest')}}"
@@ -323,9 +353,9 @@
                             <span class="menu-text">Quản lý học sinh</span>
                         </a>
                     </li>
-                    <li class="menu-item" aria-haspopup="true">
-                        <a href="{{route('admin.listTeacher')}}"
-                           class="menu-link">
+                    <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                        <a href=""
+                           class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -344,11 +374,43 @@
                                             <!--end::Svg Icon-->
 										</span>
                             <span class="menu-text">Quản lý giáo viên</span>
+                            <i class="menu-arrow"></i>
                         </a>
+                        <div class="menu-submenu">
+                            <i class="menu-arrow"></i>
+                            <ul class="menu-subnav">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{route('admin.listTeacher')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Danh sách giáo viên</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Bảng lương</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{route('admin.getPenalty')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Bảng tiền phạt</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li class="menu-item" aria-haspopup="true">
-                        <a href="{{route('admin.listCourse')}}"
-                           class="menu-link">
+
+
+                    <li class="menu-item menu-item-submenu" aria-haspopup="true">
+                        <a href=""
+                           class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +429,36 @@
                                             <!--end::Svg Icon-->
 										</span>
                             <span class="menu-text">Quản lý lớp học</span>
+                            <i class="menu-arrow"></i>
                         </a>
+                        <div class="menu-submenu">
+                            <ul class="menu-subnav">
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{route('admin.listCourse')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Danh sách lớp học</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Lịch học</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Danh sách sinh viên theo lớp</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="menu-item" aria-haspopup="true">
                         <a href="{{route('admin.listSubject')}}"

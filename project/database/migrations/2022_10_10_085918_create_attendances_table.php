@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('schedule_id')->references('id')->on('course_schedules');
             $table->dateTime('time_in');
             $table->foreignId('penalty_id')->references('penalty_id')->on('penalties');
+            $table->integer('status');
             $table->softDeletes();
             $table->timestamps();
         });

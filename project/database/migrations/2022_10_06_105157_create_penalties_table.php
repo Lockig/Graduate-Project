@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('penalties', function (Blueprint $table) {
             $table->id('penalty_id');
             $table->integer('penalty_amount');
+            $table->string('penalty_description');
             $table->timestamps();
         });
     }

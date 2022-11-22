@@ -137,22 +137,6 @@
                                                     Chọn:
                                                 </li>
                                                 <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																<span class="navi-icon">
-																	<i class="la la-print"></i>
-																</span>
-                                                        <span class="navi-text">Print</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-																<span class="navi-icon">
-																	<i class="la la-copy"></i>
-																</span>
-                                                        <span class="navi-text">Copy</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
 {{--                                                    <form action="{{route('admin.listCourse')}}" method="get">--}}
 {{--                                                        @csrf--}}
 {{--                                                        <button name="export" type="submit"--}}

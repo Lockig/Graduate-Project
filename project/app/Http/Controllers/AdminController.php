@@ -42,12 +42,12 @@ class AdminController extends Controller
         $course_count = Course::query()->count('course_id');
 
         $tomorrow_courses = DB::table('course_schedules')
-            ->join('courses','course_schedules.course_id','=','courses.course_id')
-            ->where('courses.course_status','=','2')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.course_status', '=', '2')
             ->whereDate('start_at', Carbon::tomorrow())->get();
         $today_courses = DB::table('course_schedules')
-            ->join('courses','course_schedules.course_id','=','courses.course_id')
-            ->where('courses.course_status','=','2')
+            ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+            ->where('courses.course_status', '=', '2')
             ->whereDate('start_at', Carbon::today())->get();
         $courses = Course::all();
         $course_schedule = DB::table('course_schedules')
@@ -91,15 +91,15 @@ class AdminController extends Controller
         event(new ResetPassword($user, $password));
         Cache::put('command', 'register');
         Cache::put('user_id', $user_id);
-        if(User::find($id)->role=='student'){
+        if (User::find($id)->role == 'student') {
             return redirect()->route('admin.listStudent')->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
-        }else
+        } else
             return redirect()->route('admin.listTeacher')->with('Success', 'Tạo tài khoản thành công, kiểm tra hòm thư để nhận mật khẩu');
     }
 
     public function show(Request $request)
     {
-        if($request->has('pdf')){
+        if ($request->has('pdf')) {
             $pdf = Pdf::loadView('user.export.export');
             return $pdf->download('list.pdf');
         }
@@ -111,12 +111,13 @@ class AdminController extends Controller
             $request->flashOnly('course_name');
             return Excel::download(new CourseExport($courses), 'course.xlsx');
         } else {
-            $courses = Course::query()
+            $courses = Course::query()->name($request)
                 ->paginate(5);
         }
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
-        return view('user.admin.list_course', compact(['courses', 'teachers', 'students']));
+        $subjects = DB::table('subjects')->get();
+        return view('user.admin.list_course', compact(['courses', 'teachers', 'students','subjects']));
     }
 
     public function showAttendance($id)
@@ -233,15 +234,35 @@ class AdminController extends Controller
             DB::table('student_grades')->where('user_id', '=', $query->value('id'))->delete();
             DB::table('course_students')->where('id', '=', $query->value('id'))->delete();
         }, 5);
-        return back()->with('Success','Xóa học sinh khỏi lớp thành công');
+        return back()->with('Success', 'Xóa học sinh khỏi lớp thành công');
     }
 
-    public function listSubject(Request $request){
-        $subjects = DB::table('subjects')->get();
-        return view('user.admin.list_subject',compact('subjects'));
+    public function listSubject(Request $request)
+    {
+        $subjects = Subject::query()->name($request)->get();
+        return view('user.admin.list_subject', compact('subjects'));
     }
-    public function storeSubject(Request $request){
-        Subject::query()->insert(['subject_id'=>$request->id,'subject_name'=>$request->subject]);
-        return redirect()->back()->with('Success','Tạo môn học thành công');
+
+    public function storeSubject(Request $request): RedirectResponse
+    {
+        Subject::query()->insert(['subject_id' => $request->subject_id, 'subject_name' => $request->subject_name]);
+        return redirect()->back()->with('Success', 'Tạo môn học thành công');
     }
+
+    public function updateSubject(Request $request, $id): RedirectResponse
+    {
+        DB::table('subjects')->where('subject_id', '=', $id)->update([
+            'subject_id' => $request->subject_id,
+            'subject_name' => $request->subject_name
+        ]);
+        return back()->with('Success', 'Cập nhật thông tin lớp học thành công');
+    }
+
+    public function deleteSubject(Request $request,$id){
+        DB::table('subjects')->where('subject_id','=',$id)->delete();
+        return back()->with('Success','Xóa môn học thành công');
+    }
+
+
+
 }

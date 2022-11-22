@@ -796,7 +796,7 @@
                                             $start_at = $query->value('start_at');
                                             $end_at = $query->value('end_at');
                                         @endphp
-                                        @if(\Carbon\Carbon::parse($item->time_in)->diffInMinutes($start_at) <=5)
+                                        @if($item->penalty_id == 1)
                                             <span
                                                 class="text-success font-weight-bolder d-block font-size-lg">
                                                        Đúng giờ
@@ -804,10 +804,10 @@
                                             @php
                                                 $count_on_time +=1
                                             @endphp
-                                        @elseif(\Carbon\Carbon::parse($item->time_in)->diffInMinutes($start_at) <10)
+                                        @elseif($item->penalty_id == 2)
                                             <span
                                                 class="text-warning  font-weight-bolder d-block font-size-lg">
-                                                      Muộn < 10p
+                                                      Muộn 10p
                                                    </span>
                                             @php
                                                 $count_late_time  +=1
@@ -815,7 +815,7 @@
                                         @else
                                             <span
                                                 class="text-danger  font-weight-bolder d-block font-size-lg">
-                                                      Muộn >10p
+                                                      Muộn 15p
                                                    </span>
                                             @php
                                                 $count_late_time +=1
@@ -1225,7 +1225,7 @@
                     data: [
                         {
                             x: 'Điểm lần 1',
-                            y: {{$avg_diem_lan_1/$grade_record}},
+                            y: {{round($avg_diem_lan_1/$grade_record,2)}},
                             goals: [{
                                 name: 'Điểm của bạn',
                                 value: 8,
@@ -1237,7 +1237,7 @@
                         },
                         {
                             x: 'Điểm lần 2',
-                            y: {{$avg_diem_lan_2/$grade_record}},
+                            y: {{round($avg_diem_lan_2/$grade_record,2)}},
                             goals: [{
                                 name: 'Điểm của bạn',
                                 value: 8,
@@ -1249,7 +1249,7 @@
                         },
                         {
                             x: 'Điểm lần 3',
-                            y: {{$avg_diem_lan_3/$grade_record}},
+                            y: {{round($avg_diem_lan_3/$grade_record,2)}},
                             goals: [{
                                 name: 'Điểm của bạn',
                                 value: 8,

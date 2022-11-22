@@ -11,11 +11,20 @@ class Subject extends Model
 
     protected $table = 'subjects';
 
-    protected $primaryKey = 'subject_id';
+    protected $guarded;
 
-    protected $fillable = ['subject_id','subject_name'];
-
-    public function course(){
-        $this->hasMany(Course::class,'subject_id','subject_id');
+    public function course()
+    {
+        $this->hasMany(Course::class, 'subject_id', 'subject_id');
     }
+
+    public function scopeName($query, $request)
+    {
+        if ($request->has('name')) {
+            return $query->where('subject_id', 'like', '%' . $request->input('name') . '%')
+                ->orWhere('subject_name', 'like', '%' . $request->input('name') . '%');
+        }
+        return $query;
+    }
+
 }

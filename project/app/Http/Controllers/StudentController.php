@@ -143,10 +143,9 @@ class StudentController extends Controller
                 ->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         }
         if (!$request->has('export')) {
-            $request->flashOnly('last_name');
+
             return view('user.admin.list_student', compact('students'));
         } else {
-//            return (new UsersExport($students))->download('users.xlsx');
             return Excel::download(new UsersExport($students), 'student_list.xlsx');
         }
     }

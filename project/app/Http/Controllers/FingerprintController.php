@@ -49,25 +49,43 @@ class FingerprintController extends Controller
     {
         if ($request->has('fingerID')) {
             if ($request->input('fingerID') < 254) {
-                $check = User::query()
+                $user = User::query()
                     ->fingerprint($request)
-                    ->value('id');
-                if ($check) {
+                    ->get();
+                if ($user) {
                     $current_time = Carbon::now();
-                    $schedule_id = DB::table('course_schedules')
-                        ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
-                        ->where('course_students.student_id', '=', $check)
-                        ->where('course_schedules.start_at', '<', $current_time)
-                        ->where('course_schedules.end_at', '>', $current_time)
-                        ->value('course_schedules.id');
-                    if ($schedule_id) {
+                    if ($user->value('role') == 'student') {
+                        $schedule_id = DB::table('course_schedules')
+                            ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+                            ->where('course_students.student_id', '=', $user->value('id'))
+                            ->where('course_schedules.start_at', '<=', $current_time)
+                            ->where('course_schedules.end_at', '>=', $current_time)
+                            ->get();
+                    } elseif ($user->value('role') == 'teacher') {
+                        $schedule_id = DB::table('course_schedules')
+                            ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+                            ->where('courses.teacher_id', '=', $user->value('id'))
+                            ->where('course_schedules.start_at', '<=', $current_time)
+                            ->where('course_schedules.end_at', '>=', $current_time)
+                            ->get();
+                    }
+                    if ($schedule_id->value('id')) {
+                        $diff = $current_time->diffInMinutes($schedule_id->value('start_at'));
+                        $penalty = NULL;
+                        if ($diff <= 10)
+                            $penalty = 1;
+                        elseif ($diff <= 15)
+                            $penalty = 2;
+                        else
+                            $penalty = 3;
                         DB::table('attendances')->insert([
-                            'user_id' => $check,
-                            'schedule_id' => $schedule_id,
+                            'user_id' => $user->value('id'),
+                            'schedule_id' => $schedule_id->value('id'),
                             'time_in' => $current_time->format('Y-m-d H:i:s'),
+                            'penalty_id' => $penalty
                         ]);
                     }
-                    echo 'hello ' . User::find($check)->first_name . ' '. User::find($check)->last_name ;
+                    echo 'hello ' . $user->value('first_name') . ' ' . $user->value('last_name');
                 } else {
                     echo 'no user find';
                 }
@@ -100,8 +118,8 @@ class FingerprintController extends Controller
             Cache::flush();
         }
 
-        if($request->has('deleted')){
-            DB::table('users')->where('id','=',$request->input('deleted'))->update(['fingerprint'=>0]);
+        if ($request->has('deleted')) {
+            DB::table('users')->where('id', '=', $request->input('deleted'))->update(['fingerprint' => 0]);
         }
     }
 
@@ -130,32 +148,32 @@ class FingerprintController extends Controller
      */
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $id = User::query()->where('id','=',$request->user_id)->value('id');
+        $id = User::query()->where('id', '=', $request->user_id)->value('id');
         if ($id != null) {
             switch ($request->input('action')):
                 case 'create':
-                    $fingerprint  = User::find($id)->fingerprint;
-                    if($fingerprint != 0){
-                        return back()->with('Fail','Đã có vân tay không thể thêm mới!');
-                    }else{
+                    $fingerprint = User::find($id)->fingerprint;
+                    if ($fingerprint != 0) {
+                        return back()->with('Fail', 'Đã có vân tay không thể thêm mới!');
+                    } else {
                         Cache::put('user_id', $request->user_id);
-                        Cache::put('command','register');
-                        User::find($id)->update(['fingerprint'=>$request->user_id]);
-                        return back()->with('Success','Thêm vân tay thành công!');
+                        Cache::put('command', 'register');
+                        User::find($id)->update(['fingerprint' => $request->user_id]);
+                        return back()->with('Success', 'Thêm vân tay thành công!');
                     }
                 case 'update':
-                    Cache::put('command','delete');
-                    Cache::put('user_id',$request->user_id);
-                    Cache::put('command','register');
-                    DB::table('users')->where('id','=',$request->user_id)->update(['fingerprint'=>0]);
-                    return back()->with('Success','Điền vân tay để cập nhật!');
+                    Cache::put('command', 'delete');
+                    Cache::put('user_id', $request->user_id);
+                    Cache::put('command', 'register');
+                    DB::table('users')->where('id', '=', $request->user_id)->update(['fingerprint' => 0]);
+                    return back()->with('Success', 'Điền vân tay để cập nhật!');
                 case 'delete':
                     Cache::put('command', 'delete');
-                    Cache::put('user_id',$request->user_id);
-                    DB::table('users')->where('id','=',$request->user_id)->update(['fingerprint'=>0]);
-                    return back()->with('Success','Xóa vân tay thành công!');
+                    Cache::put('user_id', $request->user_id);
+                    DB::table('users')->where('id', '=', $request->user_id)->update(['fingerprint' => 0]);
+                    return back()->with('Success', 'Xóa vân tay thành công!');
                 default:
-                    return back()->with('Fail','Chưa chọn hành động');
+                    return back()->with('Fail', 'Chưa chọn hành động');
             endswitch;
         } else {
             return back()->with('Fail', 'Sai ID');

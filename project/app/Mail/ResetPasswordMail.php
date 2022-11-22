@@ -17,9 +17,11 @@ class ResetPasswordMail extends Mailable implements ShouldQueue
      * @return void
      */
     public $details;
-    public function __construct($details)
+    public $email;
+    public function __construct($details,$email)
     {
         $this->details = $details;
+        $this->email=$email;
         //
     }
 
@@ -31,8 +33,9 @@ class ResetPasswordMail extends Mailable implements ShouldQueue
     public function build()
     {
         $details = $this->details;
+        $email = $this->email;
         return $this->from('minhntt2001hn@gmail.com','Example')
                     ->subject('Reset password')
-                    ->markdown('mail', compact(['details']));
+                    ->markdown('mail', compact(['details','email']));
     }
 }

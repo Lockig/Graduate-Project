@@ -35,7 +35,7 @@ class ForgotPasswordController extends Controller
             ]);
 
             Mail::to($email)
-                ->send(new ResetPasswordMail($random_password));
+                ->send(new ResetPasswordMail($random_password,$email));
 
             Session::put('email',$email);
             return redirect('/login')->with('Success', 'Đã gửi mail reset pass thành công');

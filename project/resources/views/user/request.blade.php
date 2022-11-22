@@ -17,7 +17,7 @@
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="{{route('users.listCourse')}}" class="text-muted">Danh sách lớp học</a>
+                                <a href="{{route('user.listCourse')}}" class="text-muted">Danh sách lớp học</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="{{route('users.coursesDetails',$course->course_id)}}" class="text-muted">{{$course->course_name}}</a>

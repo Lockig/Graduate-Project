@@ -120,11 +120,11 @@ class TeacherController extends Controller
     {
         if ($request->has('last_name')) {
             $teachers = User::query()->name($request)
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number', 'avatar')
                 ->where('role', '=', 'teacher')->paginate(5);
         } else {
             $teachers = User::query()
-                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
+                ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number', 'avatar')
                 ->where('role', '=', 'teacher')->paginate(5);
         }
         if (!$request->has('export')) {
@@ -140,7 +140,7 @@ class TeacherController extends Controller
         $user = Auth::user();
         $courses = Course::query()
             ->where('teacher_id', '=', $user->id)->get();
-        if (!$request->input('course_name') != NULL) {
+        if ($request->input('course_name') != NULL) {
             $records = DB::table('attendances')
                 ->where('user_id', '=', $user->id)->orderBy('time_in', 'asc')->paginate(5);
 
@@ -155,14 +155,13 @@ class TeacherController extends Controller
     }
 
 
-
     public function createMark($course)
     {
         $students = DB::table('course_students')
             ->leftJoin('users', 'users.id', '=', 'course_students.student_id')
             ->where('course_id', '=', $course)
-            ->where('users.role','=','student')
-            ->where('users.deleted_at','=',null)
+            ->where('users.role', '=', 'student')
+            ->where('users.deleted_at', '=', null)
             ->get();
         $grades = DB::table('student_grades')
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
@@ -226,10 +225,10 @@ class TeacherController extends Controller
         $students = DB::table('course_students')->where('course_id', '=', $course)->get();
         if ($request->has('pdf')) {
             $grades = DB::table('student_grades')
-                ->join('course_students','student_grades.user_id','=','course_students.id')
-                ->where('course_students.course_id','=',$course)
+                ->join('course_students', 'student_grades.user_id', '=', 'course_students.id')
+                ->where('course_students.course_id', '=', $course)
                 ->get();
-            $pdf = Pdf::loadView('user.export.list_mark', compact('students', 'course','grades'));
+            $pdf = Pdf::loadView('user.export.list_mark', compact('students', 'course', 'grades'));
             return $pdf->download('list_mark.pdf');
         }
         if ($request->has('excel')) {
@@ -244,7 +243,7 @@ class TeacherController extends Controller
         DB::table('course_notifications')->insert([
             'course_id' => $id,
             'content' => $content,
-            'created_at'=>Carbon::now()
+            'created_at' => Carbon::now()
         ]);
         $students = User::query()
             ->join('course_students', 'course_students.student_id', '=', 'users.id')
@@ -255,34 +254,42 @@ class TeacherController extends Controller
         return back()->with('Success', 'Tạo thông báo thành công');
     }
 
-    public function exportUserCourse(Request $request,$course,$id){
+    public function exportUserCourse(Request $request, $course, $id)
+    {
         $grade = DB::table('student_grades')
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
-            ->where('course_students.student_id','=',$id)
+            ->where('course_students.student_id', '=', $id)
             ->where('course_students.course_id', '=', $course)
             ->get();
         $total_period = DB::table('course_schedules')->where('course_id', '=', $course)->count('course_id');
         $learned_period = DB::table('course_schedules')->where('course_id', '=', $course)->where('start_at', '<', Carbon::now())->count('course_id');
         $attendances = DB::table('attendances')
-            ->join('course_schedules','attendances.schedule_id','=','course_schedules.id')
-            ->join('users','users.id','=','attendances.user_id')
-            ->where('users.deleted_at','=',null)
-            ->where('attendances.user_id','=',$id)
-            ->where('course_schedules.course_id','=',$course)
+            ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
+            ->join('users', 'users.id', '=', 'attendances.user_id')
+            ->where('users.deleted_at', '=', null)
+            ->where('attendances.user_id', '=', $id)
+            ->where('course_schedules.course_id', '=', $course)
             ->count('time_in');
-        $pdf = Pdf::loadView('user.export.user_course_information',compact('id','course','grade','total_period','attendances'));
-            return $pdf->download('user_course_information.pdf');
+        $pdf = Pdf::loadView('user.export.user_course_information', compact('id', 'course', 'grade', 'total_period', 'attendances'));
+        return $pdf->download('user_course_information.pdf');
     }
-    public function updateMark($course,$id,Request $request){
 
-        $user_id = DB::table('course_students')->where('course_id','=',$course)->where('student_id','=',$id)->value('id');
+    public function updateMark($course, $id, Request $request)
+    {
+
+        $user_id = DB::table('course_students')->where('course_id', '=', $course)->where('student_id', '=', $id)->value('id');
         DB::table('student_grades')
-            ->where('user_id','=',$user_id)
+            ->where('user_id', '=', $user_id)
             ->update([
-                'diem_lan_1'=>$request->diem_lan_1,
-                'diem_lan_2'=>$request->diem_lan_2,
-                'diem_lan_3'=>$request->diem_lan_3
+                'diem_lan_1' => $request->diem_lan_1,
+                'diem_lan_2' => $request->diem_lan_2,
+                'diem_lan_3' => $request->diem_lan_3
             ]);
-        return back()->with('Success','Cập nhật điểm thành công');
+        return back()->with('Success', 'Cập nhật điểm thành công');
+    }
+
+    public function getSalary()
+    {
+        return view('user.teacher_salary');
     }
 }

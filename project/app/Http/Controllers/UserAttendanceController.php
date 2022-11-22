@@ -22,10 +22,10 @@ class UserAttendanceController extends Controller
             ->join('course_students', 'courses.course_id', '=', 'course_students.course_id')
             ->where('course_students.student_id', '=', $user->id)
             ->get();
-        if ($request->has('course_name')) {
+        if ($request->input('course_id')!=NULL) {
             $records = DB::table('attendances')
                 ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
-                ->where('course_schedules.course_id', '=', $request->input('course_name'))
+                ->where('course_schedules.course_id', '=', $request->input('course_id'))
                 ->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);
         } else {
             $records = DB::table('attendances')->where('user_id', '=', $user->id)->orderBy('time_in', 'desc')->paginate(5);

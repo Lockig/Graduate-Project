@@ -82,7 +82,8 @@ class User extends Authenticatable
         if ($request->has('last_name')) {
             return $query
                 ->where('last_name', 'like', '%' . $request->input('last_name') . '%')
-                ->orWhere('first_name', 'like', '%' . $request->input('last_name') . '%');
+                ->orWhere('first_name', 'like', '%' . $request->input('last_name') . '%')
+                ->orWhere('email','like','%'.$request->input('last_name').'%');
         }
         return $query;
     }

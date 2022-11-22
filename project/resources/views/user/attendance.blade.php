@@ -95,15 +95,11 @@
                                     <th class="text-left" style="min-width: 150px">Buổi</th>
                                     <th style="min-width: 150px">Giờ bắt đầu</th>
                                     <th style="min-width: 150px">Giờ vào</th>
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
-                                    <th class="pr-0 text-right" style="min-width: 150px">Tiền phạt</th>
-                                    <th class="pr-0 text-right" style="min-width: 150px">Số tiền</th>
-                                    @endif
                                     <th class="pr-0 text-right" style="min-width: 150px">Ghi chú</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($records as $record)
+                                @forelse($records as $record)
                                     <tr>
                                         <td class="pl-0">
                                             <label class="">
@@ -134,23 +130,6 @@
                                             {{\Carbon\Carbon::parse($record->time_in)->format('H:i:s')}}
                                         </span>
                                         </td>
-                                        @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
-                                        <td>
-                                            <span
-                                                class="text-right text-danger font-weight-bolder text-hover-primary d-block mb-1 font-size-lg">
-                                                {{$total_penalty += \Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$record->penalty_id)->value('penalty_amount')}}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span
-                                                class="text-right text-primary font-weight-bolder text-hover-primary d-block font-size-lg">
-                                                {{$total_money += \App\Models\Schedule::find($record->schedule_id)->course->money
-                                                       -
-                                                        \Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$record->penalty_id)->value('penalty_amount')}}
-
-                                            </span>
-                                        </td>
-                                        @endif
                                         <td class="pr-0 text-right">
                                             @if($record->penalty_id == 1)
                                                 <span
@@ -164,19 +143,9 @@
                                             @endif
                                         </td>
                                     </tr>
-                                @endforeach
-                                @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
-                                <tr>
-                                    <td class="pl-0 text-left text-muted font-weight-bold">Tổng</td>
-                                    <td class="pl-0 text-left text-muted font-weight-bold"></td>
-                                    <td class="pl-0 text-left text-muted font-weight-bold">{{$records->count()}}</td>
-                                    <td class="pl-0 text-left text-muted font-weight-bold"></td>
-                                    <td class="pl-0 text-left text-muted font-weight-bold"></td>
-                                    <td class="pl-0 text-right text-muted font-weight-bold">{{$total_penalty}}</td>
-                                    <td class="pl-0 text-right text-muted font-weight-bold">{{$total_money}}</td>
-                                    <td class="pl-0 text-left text-muted font-weight-bold"></td>
-                                </tr>
-                                    @endif
+                                @empty
+                                     <tr>Không có dữ liệu</tr>
+                                @endforelse
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">
