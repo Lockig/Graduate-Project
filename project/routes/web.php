@@ -117,6 +117,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/list/course', [AdminController::class, 'show'])->name('admin.listCourse');
     Route::post('/course/schedule', [CourseController::class, 'storeCourseSchedule'])->name('admin.storeCourseSchedule');
     Route::post('/course/create', [CourseController::class, 'store'])->name('admin.storeCourse');
+    Route::post('/course/schedule/delete', [CourseController::class, 'destroyCourseSchedule'])->name('admin.destroyCourseSchedule');
     Route::post('/course/{course}/edit', [CourseController::class, 'update'])->name('admin.updateCourse');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
     Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');

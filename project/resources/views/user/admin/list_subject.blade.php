@@ -186,7 +186,7 @@
                                     <td class="pr-0 text-right">
                                         <button type="button"
                                                 data-toggle="modal"
-                                                data-target="#editSubject"
+                                                data-target="#editSubject--{{$loop->index+1}}"
                                                 title="chỉnh sửa"
                                                 class="btn btn-icon btn-light btn-hover-primary btn-sm">
                                                                         <span
@@ -214,7 +214,7 @@
                                                                         </span>
                                         </button>
                                         <!-- Modal-->
-                                        <div class="modal fade" id="editSubject" tabindex="-1" role="dialog"
+                                        <div class="modal fade" id="editSubject--{{$loop->index+1}}" tabindex="-1" role="dialog"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <form

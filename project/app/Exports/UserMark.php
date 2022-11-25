@@ -25,6 +25,7 @@ class UserMark implements FromCollection, WithCustomStartCell, ShouldQueue, With
 
     public function collection()
     {
+
         return $this->list;
         //
     }

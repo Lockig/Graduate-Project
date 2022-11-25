@@ -37,7 +37,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $courses = Course::paginate(5, ['*'], 'course');
+        $courses = Course::all();
         $subjects = DB::table('subjects')->get();
         $course_schedules = DB::table('course_schedules')->orderBy('course_id', 'desc')->paginate(10, ['*'], 'schedule');
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->get();
@@ -332,5 +332,19 @@ class CourseController extends Controller
     public function editMaterial($course, $id)
     {
         return view('user.course_material_create', compact('course', 'id'));
+    }
+    public function destroyCourseSchedule(Request $request)
+    {
+//        dd($request->all());
+        if($request->has('check')){
+            foreach($request->input('check') as $item)
+            {
+                DB::table('course_schedules')->where('id','=',$item)->delete();
+            }
+            return back()->with('Success','Xóa lịch hoc thành công');
+        }else{
+            return back()->with('Fail','Chưa chọn lịch học');
+        }
+
     }
 }

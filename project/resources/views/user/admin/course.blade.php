@@ -134,44 +134,56 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-head-custom table-vertical-center"
-                                           id="kt_advance_table_widget_1">
-                                        <thead>
-                                        <tr class="text-left">
-                                            <th class="pl-0" style="width: 20px">STT</th>
-                                            <th class="pr-0" style="width: 100px">Tên</th>
-                                            <th class="pr-0" style="width: 100px">Buổi</th>
-                                            <th class="pr-0" style="width: 100px">Bắt đầu</th>
-                                            <th class="pr-0" style="width: 100px">Kết thúc</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($course_schedules as $course_schedule)
-                                            <tr>
-                                                <td class="pr-0">{{$loop->index +1 }}</td>
-                                                <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($course_schedule->course_id)->course_name}}</a>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('d-m-Y')}}</a>
-                                                </td>
-                                                <td class="pr-0">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('H:i')}}</a>
-                                                </td>
-                                                <td class="pr-0 text-left">
-                                                    <a href="#"
-                                                       class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('H:i')}}</a>
-                                                </td>
+                                <form method="post" action="{{route('admin.destroyCourseSchedule')}}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success btn-sm">Xóa</button>
+                                    <div class="table-responsive">
+                                        <table class="table table-head-custom table-vertical-center"
+                                               id="kt_advance_table_widget_1">
+                                            <thead>
+                                            <tr class="text-left">
+                                                <th class="pl-0" style="width: 20px">#</th>
+                                                <th class="pl-0" style="width: 20px">STT</th>
+                                                <th class="pr-0" style="width: 100px">Tên</th>
+                                                <th class="pr-0" style="width: 100px">Buổi</th>
+                                                <th class="pr-0" style="width: 100px">Bắt đầu</th>
+                                                <th class="pr-0" style="width: 100px">Kết thúc</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                    {!! $course_schedules->links() !!}
-                                </div>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($course_schedules as $course_schedule)
+                                                <tr>
+                                                    <td class="pr-0">
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" name="check[]" value="{{$course_schedule->id}}"/>
+                                                            <span></span>
+                                                        </label>
+                                                    </td>
+                                                    <td class="pr-0">{{$loop->index +1 }}</td>
+                                                    <td class="pr-0">
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\App\Models\Course::find($course_schedule->course_id)->course_name}}</a>
+                                                    </td>
+                                                    <td class="pr-0">
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('d-m-Y')}}</a>
+                                                    </td>
+                                                    <td class="pr-0">
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->start_at)->format('H:i')}}</a>
+                                                    </td>
+                                                    <td class="pr-0 text-left">
+                                                        <a href="#"
+                                                           class="text-dark-75 font-weight-bold text-hover-primary mb-1 font-size-lg">{{\Carbon\Carbon::parse($course_schedule->end_at)->format('H:i')}}</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                        {!! $course_schedules->links() !!}
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                         <!--end::Card-->

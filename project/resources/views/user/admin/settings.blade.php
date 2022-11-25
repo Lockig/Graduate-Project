@@ -69,6 +69,9 @@
                                                 <option value="delete"
                                                         class="form-control form-control-lg form-control-solid">Xóa
                                                 </option>
+                                                <option value="clear"
+                                                        class="form-control form-control-lg form-control-solid">Xóa toàn bộ
+                                                </option>
                                             </select>
                                         </div>
                                     </div>

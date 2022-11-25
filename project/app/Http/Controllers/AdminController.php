@@ -104,15 +104,15 @@ class AdminController extends Controller
                 ->join('users', 'users.id', '=', 'courses.teacher_id')
                 ->select('course_name', 'users.first_name', 'users.last_name', 'start_date', 'end_date', 'course_hour', 'course_description')
                 ->name($request)
-                ->paginate(5);
+                ->paginate(10);
             $request->flashOnly('course_name');
             return Excel::download(new CourseExport($courses), 'course.xlsx');
         } else {
             $courses = Course::query()->name($request)
-                ->paginate(5);
+                ->paginate(10);
         }
-        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(10);
+        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         $subjects = DB::table('subjects')->get();
         return view('user.admin.list_course', compact(['courses', 'teachers', 'students', 'subjects']));
     }

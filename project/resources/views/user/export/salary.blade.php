@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td style="text-align: start">Chức vụ:</td>
-                <td style="text-align: end;">{{$data[0]->role}}</td>
+                <td style="text-align: end;">{{ucwords($data[0]->role)}}</td>
             </tr>
         </table>
     </div>
@@ -100,11 +100,11 @@
 </div>
 <div class="container footer" style="display: flex; justify-content: space-between">
     <div style="margin-left: 20px;">
-        <h3 style="margin:0; font-size: 16px; text-align: center">Người lập</h3>
-        <h3 style="margin:0; font-size: 16px; text-align: center">Admin</h3>
+        <h3 style="margin:0; font-size: 16px; text-align: left">Người lập</h3>
+        <h3 style="margin:0; font-size: 16px; text-align: left">Admin</h3>
     </div>
     <div style="margin-right: 20px;">
-        <h3 style="margin:0; font-size: 16px; text-align: center">Người lao động</h3>
+        <h3 style="margin:0; font-size: 16px; text-align: right">Người lao động</h3>
     </div>
 </div>
 </body>

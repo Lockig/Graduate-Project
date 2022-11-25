@@ -80,8 +80,8 @@ class TeacherController extends Controller
         $courses = Course::query()
             ->where('teacher_id', '=', Auth::user()->id)
             ->name($request)->status($request)->paginate(5);
-        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
-        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
+        $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(10);
+        $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         return view('user.admin.list_course', compact(['courses', 'teachers', 'students']));
     }
 

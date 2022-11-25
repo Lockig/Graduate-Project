@@ -343,7 +343,7 @@
                                         </td>
                                         <td class="pr-0 text-right">
                                             @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                                <button type="button" data-toggle="modal" data-target="#addStudent"
+                                                <button type="button" data-toggle="modal" data-target="#addStudent--{{$loop->index+1}}"
                                                         class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 												<svg data-toggle="tooltip" title="Thêm học sinh vào lớp" xmlns="http://www.w3.org/2000/svg"
@@ -360,7 +360,7 @@
                                                 <!--end::Svg Icon-->
                                                 </button>
                                                 <!--begin::Modal-->
-                                                <div class="modal fade" id="addStudent" tabindex="-1" role="dialog"
+                                                <div class="modal fade" id="addStudent--{{$loop->index+1}}" tabindex="-1" role="dialog"
                                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <form

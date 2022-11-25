@@ -299,7 +299,6 @@ class UserController extends Controller implements ShouldQueue
             ->join('users','users.id','=','courses.teacher_id')
             ->where('student_id','=',$id)
             ->get(['courses.course_id','course_name','diem_lan_1','diem_lan_2','diem_lan_3']);
-//        dd($export);
-        return Excel::download(new UserMark($export), 'user_marks.xlsx');
+        return Excel::download(new UserMark($export), User::find($id)->first_name .'_' . User::find($id)->last_name .'.xlsx');
     }
 }

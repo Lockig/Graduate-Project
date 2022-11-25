@@ -111,13 +111,13 @@
                                         <td class="pl-0">
                                             <a href="#"
                                                class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                {{\Carbon\Carbon::parse($record->time_in)->format('d/m/Y')}}
+                                                {{\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)->format('d/m/Y')}}
                                             </a>
                                         </td>
                                         <td>
                                             <span
                                                 class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                {{\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)->format('h:i:s')}}
+                                                {{\Carbon\Carbon::parse(\App\Models\Schedule::find($record->schedule_id)->start_at)->format('H:i:s')}}
                                             </span>
                                         </td>
                                         <td>
