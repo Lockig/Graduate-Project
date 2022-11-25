@@ -15,13 +15,27 @@ class RequestSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('day_off_requests')->insert(
-            [
-                'student_id'=>'4',
-                'schedule_id'=>'4',
-                'content'=>'em xin nghỉ ốm ạ',
-                'stage'=>'Chờ duyệt'
-            ]
+        DB::table('day_off_requests')->insert([
+                [
+                    'student_id'=>'4',
+                    'schedule_id'=>'4',
+                    'content'=>'em xin nghỉ ốm ạ',
+                    'stage'=>'Chờ duyệt'
+                ],
+                [
+                    'student_id'=>'5',
+                    'schedule_id'=>'4',
+                    'content'=>'em xin nghỉ ốm ạ',
+                    'stage'=>'Chờ duyệt'
+                ],
+                [
+                    'student_id'=>'6',
+                    'schedule_id'=>'4',
+                    'content'=>'em xin nghỉ ốm ạ',
+                    'stage'=>'Chờ duyệt'
+                ]
+        ]
+
         );
 
         //

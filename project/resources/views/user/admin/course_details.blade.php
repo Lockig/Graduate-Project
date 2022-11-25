@@ -670,6 +670,11 @@
                                 <div class="col-lg-8 col-md-10 col-sm-6">
                                     <select name="schedule_id"
                                             class="form-control">
+                                        <option
+                                            value=""
+                                            class="form-control form-control-lg form-control-solid">
+
+                                        </option>
                                         @foreach($course_schedule as $item)
                                             <option
                                                 value="{{$item->start_at}}"

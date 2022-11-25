@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell,ShouldAutoSize,WithDrawings
+class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell,ShouldAutoSize
 {
     use Exportable;
 
@@ -60,7 +60,4 @@ class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell,Sh
         ];
     }
 
-    public function drawings(){
-        $arrDrawings = [];
-    }
 }

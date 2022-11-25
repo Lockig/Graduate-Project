@@ -321,7 +321,7 @@ class AdminController extends Controller
             DB::transaction(function () use ($request) {
                 DB::table('attendances')->where('id', '=', $request->input('accept'))->update(['status' => '1']);
             });
-            return back()->with('Success', 'Từ chối thành công');
+            return back()->with('Success', 'Duyệt thành công');
         }
         return back();
     }

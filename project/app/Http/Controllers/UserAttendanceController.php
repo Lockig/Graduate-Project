@@ -56,18 +56,32 @@ class UserAttendanceController extends Controller
      */
     public function store(Request $request, $id)
     {
-
         $query = DB::table('course_schedules')
             ->where('course_id', '=', $id)
-            ->where('start_at', '=', Carbon::parse($request->schedule)->format('Y-m-d H:i:s'));
-        $time_in = Carbon::parse($request->time_in)->format('Y-m-d H:i:s');
-        if ($time_in > $query->value('start_at') && $time_in < $query->value('end_at')) {
+            ->where('start_at', '=', Carbon::parse($request->schedule)->format('Y-m-d H:i:s'))->get();
+        $start_at = Carbon::parse($query->value('start_at'));
+        $end_at = Carbon::parse($query->value('end_at'));
+        $time_in = Carbon::parse($request->input('time_in'));
+        $penalty_id = 0;
+        if($time_in->diffInMinutes($start_at) <=5){
+            $penalty_id = 1;
+        }elseif($time_in->diffInMinutes($start_at)<=10){
+            $penalty_id = 2;
+        }elseif($time_in->diffInMinutes($start_at)<=15){
+            $penalty_id = 3;
+        }else{
+            $penalty_id = 4;
+        }
+
+        if ($time_in->gte($start_at) && $time_in->lte($end_at)) {
             DB::table('attendances')->insert([
                 'schedule_id' => $query->value('id'),
                 'user_id' => $request->user_id,
-                'time_in' => Carbon::parse($request->time_in)->format('Y-m-d H:i:s')
+                'time_in' => Carbon::parse($request->time_in)->format('Y-m-d H:i:s'),
+                'penalty_id'=>$penalty_id,
+                'status' => '0'
             ]);
-            return redirect()->back()->with('Success', 'Điểm danh cho học sinh thành công!');
+            return redirect()->route('teacher.listCourse')->with('Success', 'Điểm danh cho học sinh thành công!');
         } else {
             return redirect()->back()->with('Fail', 'Thời gian nhập vào không đúng!');
         }

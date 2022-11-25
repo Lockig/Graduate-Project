@@ -86,8 +86,6 @@ class UserController extends Controller implements ShouldQueue
         } elseif ($user->role == 'teacher') {
             DB::transaction(function () use ($id) {
                 DB::table('attendances')->where('user_id', '=', $id)->delete();
-                DB::table('course_students')->where('student_id', '=', $id)->delete();
-                DB::table('day_off_requests')->where('student_id', '=', $id)->delete();
                 DB::table('courses')->where('teacher_id', '=', $id)->update(['teacher_id' => '10']);
                 DB::table('student_grades')->where('user_id', '=', $id)->delete();
             });

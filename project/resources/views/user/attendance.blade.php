@@ -129,13 +129,10 @@
                                         <td class="pr-0 text-right">
                                             @if($record->penalty_id == 1)
                                                 <span
-                                                    class="text-success font-weight-bolder font-size-lg">Đúng giờ</span>
-                                            @elseif($record->penalty_id == 2)
-                                                <span
-                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn < 10p</span>
+                                                    class="text-success font-weight-bolder font-size-lg">{{\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$record->penalty_id)->value('penalty_description')}}</span>
                                             @else
                                                 <span
-                                                    class="text-danger font-weight-bolder font-size-lg">Đi muộn > 10p</span>
+                                                    class="text-danger font-weight-bolder font-size-lg">{{\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$record->penalty_id)->value('penalty_description')}}</span>
                                             @endif
                                         </td>
                                     </tr>

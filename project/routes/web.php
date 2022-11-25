@@ -26,11 +26,11 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('signOut');
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->role == 'admin') {
-            return redirect()->route('admin.index')->with('Success', 'Đăng nhập là admin, xin chào ' . Auth::user()->last_name);
+            return redirect()->route('admin.index')->with('Success', 'Xin chào ' . Auth::user()->last_name);
         } elseif (Auth::user()->role == 'teacher') {
-            return redirect()->route('teachers.index')->with('Success', 'Đăng nhập là giáo viên, xin chào ' . Auth::user()->last_name);
+            return redirect()->route('teachers.index')->with('Success', 'Xin chào ' . Auth::user()->last_name);
         } elseif (Auth::user()->role == 'student') {
-            return redirect()->route('users.index')->with('Success', 'Đăng nhập là học sinh, xin chào ' . Auth::user()->last_name);
+            return redirect()->route('users.index')->with('Success', 'Xin chào ' . Auth::user()->last_name);
         } else {
             return redirect()->back()->with('Fail', 'Có lỗi xảy ra');
         }
@@ -93,7 +93,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::post('/course/{course}/{user}/mark/edit', [TeacherController::class, 'updateMark'])->name('users.updateMark');
     Route::post('/course/{course}/notification', [TeacherController::class, 'createNotification'])->name('teacher.createNotification');
     Route::patch('/course/{course}/mark', [TeacherController::class, 'storeMark'])->name('users.storeMark');
-    Route::post('/course/{course}/create', [UserAttendanceController::class, 'store'])->name('teacher.storeAttendance');
+    Route::post('/course/{course}/attendance', [UserAttendanceController::class, 'store'])->name('teacher.storeAttendance');
     Route::post('/edit/password/{user}', [UserController::class, 'updatePassword'])->name('users.updatePassword');
     Route::delete('/course/{course}/{user}/mark', [TeacherController::class, 'destroyMark'])->name('users.deleteMark');
     Route::delete('/course/{course}/material/{material}', [CourseController::class, 'destroyMaterial'])->name('teacher.deleteMaterial');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('email')->unique();
             $table->string('mobile_number');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->string('address');
             $table->string('password');
             $table->string('role');
