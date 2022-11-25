@@ -95,17 +95,19 @@ class FingerprintController extends Controller
 
         }
 
-//        check to register
+//        command
         if ($request->has('check')) {
             if (Cache::get('command') == 'register') {
                 echo Cache::get('command') . Cache::get('user_id');
             }
-            if (Cache::get('command') == 'delete') {
+            if (Cache::get('command') == 'clear') {
                 echo Cache::get('command') . Cache::get('user_id');
                 sleep(1000);
                 Cache::flush();
             }
-
+            if(Cache::get('command')=='clear'){
+                echo Cache::get('command');
+            }
         }
 
 //        get new fingerprint_id
@@ -149,6 +151,11 @@ class FingerprintController extends Controller
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         $id = User::query()->where('id', '=', $request->user_id)->value('id');
+        if($request->input('action')=='clear'){
+            Cache::put('command','clear');
+            DB::table('users')->update(['fingerprint'=>'0']);
+            return back()->with('Success','Xóa toàn bộ vân tay');
+        }
         if ($id != null) {
             switch ($request->input('action')):
                 case 'create':

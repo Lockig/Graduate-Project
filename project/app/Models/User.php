@@ -59,6 +59,13 @@ class User extends Authenticatable
         $this->hasMany(Course::class);
     }
 
+    public function scopeId($query, $request){
+        if ($request->has('last_name')) {
+            return $query
+                ->where('id', '=', $request->input('last_name'));
+        }
+        return $query;
+    }
     public function scopeEmail($query, $request)
     {
         if ($request->has('email')) {

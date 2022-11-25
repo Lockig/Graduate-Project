@@ -2,49 +2,49 @@
 
 namespace App\Exports;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithBackgroundColor;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell,ShouldAutoSize,WithDrawings
+class UserMark implements FromCollection, WithCustomStartCell, ShouldQueue, WithHeadings,WithStyles, ShouldAutoSize,WithBackgroundColor
 {
     use Exportable;
 
-    private $courses;
+    public $list;
 
-    public function __construct($courses)
-    {
-        $this->courses = $courses;
+    public function __construct($list){
+        $this->list = $list;
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
-        return $this->courses;
+        return $this->list;
         //
     }
-    public function headings():array
-    {
-        return [
-            'Tên khoá học',
-            'Họ',
-            'Tên',
-            'Ngày bắt đầu',
-            'Ngày kết thúc',
-            'Mô tả',
-            'Tình trạng',
-        ];
-    }
+
     public function startCell(): string
     {
         return 'B2';
     }
+
+    public function headings(): array{
+
+        return [
+            'Mã lớp học',
+            'Tên lớp học',
+            'Điểm lần 1',
+            'Điểm lần 2',
+            'Điểm lần 3'
+        ];
+    }
+
     public function styles(Worksheet $sheet)
     {
         return [
@@ -54,13 +54,12 @@ class CourseExport implements FromCollection,WithHeadings,WithCustomStartCell,Sh
             'E2'=>['font'=>['bold'=>true]],
             'F2'=>['font'=>['bold'=>true]],
             'G2'=>['font'=>['bold'=>true]],
-            'H2'=>['font'=>['bold'=>true]],
-            'I2'=>['font'=>['bold'=>true]],
 
         ];
     }
 
-    public function drawings(){
-        $arrDrawings = [];
+    public function backgroundColor()
+    {
+
     }
 }

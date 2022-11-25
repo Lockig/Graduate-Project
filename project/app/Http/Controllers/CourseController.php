@@ -103,13 +103,14 @@ class CourseController extends Controller
                     'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
                 ]);
                 $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(7);
+
             }elseif($request->input('action')=='daily'){
                 DB::table('course_schedules')->insert([
                     'course_id' => $course_id,
                     'start_at' => $input_time,
                     'end_at' => Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addHour($duration),
                 ]);
-                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addDay(1);
+                $input_time = Carbon::createFromFormat('Y-m-d H:i:s', $input_time)->addWeekday();
             }else{
                 break;
             }
@@ -123,12 +124,12 @@ class CourseController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('Success', 'Thêm lịch học thành công');
+        return redirect()->back()
+            ->with('Success', 'Thêm lịch học thành công');
     }
 
     public function storeCourseStudent(Request $request)
     {
-        dd($request->all());
         $validated = $request->validate([
             'student_id' => 'required|string',
             'course_id' => 'required'
@@ -136,15 +137,16 @@ class CourseController extends Controller
             'student_id.required' => 'Vui lòng nhập mã ID học sinh',
             'course_name.required' => 'Vui lòng nhập tên lớp học'
         ]);
+        $course_id = Course::query()->where('course_name','like','%'.$request->course_id.'%')->value('course_id');
         $student_id = User::find($validated['student_id']);
-        if ($student_id) {
+        if ($student_id && $course_id) {
             DB::table('course_students')->insert([
                 'student_id' => $student_id->id,
-                'course_id' => $validated['course_id']
+                'course_id' => $course_id
             ]);
             return redirect()->back()->with('Success', 'Thêm học sinh vào lớp thành công');
         }
-        return redirect()->back()->with('Fail', 'Mã học sinh không đúng');
+        return redirect()->back()->with('Fail', 'Thông tin điền vào không đúng');
     }
 
     /**

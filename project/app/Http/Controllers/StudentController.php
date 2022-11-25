@@ -133,10 +133,14 @@ class StudentController extends Controller
 
     public function listStudent(Request $request)
     {
+
         if ($request->has('last_name')) {
             $students = User::query()
                 ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
-                ->name($request)->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+                ->where('role', 'like', '%' . 'student' . '%')
+                ->orWhere('id','=',$request->input('last_name'))
+                ->name($request)
+                ->paginate(20);
         } else {
             $students = User::query()
                 ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')

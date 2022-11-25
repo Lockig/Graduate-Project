@@ -42,10 +42,14 @@
                 <div class="card card-custom gutter-b">
                     <div class="card-header border-0 py-5"></div>
                     <div class="card-body py-0">
-                        <!--begin:Tạo mới-->
-                        <button type="button" class="btn btn-light-primary font-weight-bold" data-toggle="modal"
-                                data-target="#createPenalty"
-                                title="tạo mới">
+                        <div class="card-title">
+                            <h3 class="text-center">Bảng thông tin tiền phạt</h3>
+                        </div>
+                        @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                            <!--begin:Tạo mới-->
+                            <button type="button" class="btn btn-light-primary font-weight-bold" data-toggle="modal"
+                                    data-target="#createPenalty"
+                                    title="tạo mới">
                           		<span class="svg-icon svg-icon-md">
 												<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
 												<svg xmlns="http://www.w3.org/2000/svg"
@@ -61,76 +65,80 @@
 												</svg>
                                     <!--end::Svg Icon-->
                                 </span>
-                            Tạo mới
-                        </button>
-                        <div class="modal fade" id="createPenalty" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <form
-                                    action="{{route('admin.storePenalty')}}"
-                                    method="post">
-                                    @csrf
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tạo mới</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body d-flex flex-column">
-                                            <div class="row">
-                                                <label>Tiền phạt:</label>
-                                                <input value=""
-                                                       name="penalty_amount" type="text"
-                                                       class="form-control form-control-solid">
+                                Tạo mới
+                            </button>
+                            <div class="modal fade" id="createPenalty" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <form
+                                        action="{{route('admin.storePenalty')}}"
+                                        method="post">
+                                        @csrf
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tạo mới</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                </button>
                                             </div>
-                                            <div class="row">
-                                                <label>Ghi chú:</label>
-                                                <input value=""
-                                                       name="penalty_description" type="text"
-                                                       class="form-control form-control-solid">
+                                            <div class="modal-body d-flex flex-column">
+                                                <div class="row">
+                                                    <label>Tiền phạt:</label>
+                                                    <input value=""
+                                                           name="penalty_amount" type="text"
+                                                           class="form-control form-control-solid">
+                                                </div>
+                                                <div class="row">
+                                                    <label>Ghi chú:</label>
+                                                    <input value=""
+                                                           name="penalty_description" type="text"
+                                                           class="form-control form-control-solid">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button"
+                                                        class="btn btn-light-primary font-weight-bold"
+                                                        data-dismiss="modal">Close
+                                                </button>
+                                                <button type="submit"
+                                                        class="btn btn-primary font-weight-bold">Lưu
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button"
-                                                    class="btn btn-light-primary font-weight-bold"
-                                                    data-dismiss="modal">Close
-                                            </button>
-                                            <button type="submit"
-                                                    class="btn btn-primary font-weight-bold">Lưu
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <!--end:Tạo mới-->
-                        <table class="table table-bordered mt-2">
+                            <!--end:Tạo mới-->
+                        @endif
+                        <table class="table table-bordered table-head-borderless mt-2">
                             <thead>
-                                <tr class="text-center">
-                                    <th class="pl-0" style="width: 20px">
-                                        STT
-                                    </th>
-                                    <th class="text-center" style="min-width: 150px">Tiền phạt</th>
-                                    <th style="min-width: 150px">Ghi chú</th>
-                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
-                                    <th class="pr-0 text-center" >Hành động</th>
-                                        @endif
-                                </tr>
+                            <tr class="text-center">
+                                <th class="pl-0" style="width: 20px">
+                                    STT
+                                </th>
+                                <th class="text-center" style="min-width: 100px">Tiền phạt</th>
+                                <th style="min-width: 100px">Ghi chú</th>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                    <th class="pr-0 text-center">Hành động</th>
+                                @endif
+                            </tr>
                             </thead>
                             <tbody>
                             @foreach($penalties as $penalty)
                                 <tr>
                                     <td class="text-center pl-0"><label><span>{{$loop->index+1}}</span></label></td>
-                                    <td class="pl-0 text-center"><span class="text-dark-75">{{$penalty->penalty_amount}}</span></td>
-                                    <td class="pl-0 text-center"><span class="text-dark-75">{{$penalty->penalty_description}}</span></td>
-                                    <td class="d-flex justify-content-end">
-                                        <button type="button"
-                                                data-toggle="modal"
-                                                data-target="#editPenalty"
-                                                title="chỉnh sửa"
-                                                class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                    <td class="pl-0 text-center"><span
+                                            class="text-dark-75">{{$penalty->penalty_amount}}</span></td>
+                                    <td class="pl-0 text-center"><span
+                                            class="text-dark-75">{{$penalty->penalty_description}}</span></td>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
+                                        <td class="d-flex justify-content-end">
+                                            <button type="button"
+                                                    data-toggle="modal"
+                                                    data-target="#editPenalty"
+                                                    title="chỉnh sửa"
+                                                    class="btn btn-icon btn-light btn-hover-primary btn-sm">
                                                 <span
                                                     class="svg-icon svg-icon-md svg-icon-primary">
                                                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
@@ -154,80 +162,81 @@
                                                     </svg>
                                                     <!--end::Svg Icon-->
                                                 </span>
-                                        </button>
-                                        <!-- Modal-->
-                                        <div class="modal fade" id="editPenalty" tabindex="-1" role="dialog"
-                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <form
-                                                    action="{{route('admin.updatePenalty',$penalty->penalty_id)}}"
-                                                    method="post">
-                                                    @csrf
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa
-                                                               </h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body d-flex flex-column">
-                                                            <div class="row">
-                                                                <label>Tiền phạt:</label>
-                                                                <input value="{{$penalty->penalty_amount}}"
-                                                                       name="penalty_amount" type="text"
-                                                                       class="form-control form-control-solid">
-                                                            </div>
-                                                            <div class="row">
-                                                                <label>Ghi chú:</label>
-                                                                <input value="{{$penalty->penalty_description}}"
-                                                                       name="penalty_description" type="text"
-                                                                       class="form-control form-control-solid">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button"
-                                                                    class="btn btn-light-primary font-weight-bold"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <button type="submit"
-                                                                    class="btn btn-primary font-weight-bold">Lưu
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <form class="btn btn-icon btn-light btn-hover-primary btn-sm"
-                                              method="post"
-                                              action="{{route('admin.deletePenalty',$penalty->penalty_id)}}"
-                                              data-toggle="tooltip"
-                                              title="xóa">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
-                                                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     width="24px" height="24px" viewBox="0 0 24 24"
-                                                     version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none"
-                                                       fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24"/>
-                                                        <path
-                                                            d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
-                                                            fill="#000000" fill-rule="nonzero"/>
-                                                        <path
-                                                            d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
-                                                            fill="#000000" opacity="0.3"/>
-                                                    </g>
-                                                </svg>
-                                                <!--end::Svg Icon-->
                                             </button>
-                                        </form>
-                                    </td>
+                                            <!-- Modal-->
+                                            <div class="modal fade" id="editPenalty" tabindex="-1" role="dialog"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <form
+                                                        action="{{route('admin.updatePenalty',$penalty->penalty_id)}}"
+                                                        method="post">
+                                                        @csrf
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <i aria-hidden="true" class="ki ki-close"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body d-flex flex-column">
+                                                                <div class="row">
+                                                                    <label>Tiền phạt:</label>
+                                                                    <input value="{{$penalty->penalty_amount}}"
+                                                                           name="penalty_amount" type="text"
+                                                                           class="form-control form-control-solid">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <label>Ghi chú:</label>
+                                                                    <input value="{{$penalty->penalty_description}}"
+                                                                           name="penalty_description" type="text"
+                                                                           class="form-control form-control-solid">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        class="btn btn-light-primary font-weight-bold"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit"
+                                                                        class="btn btn-primary font-weight-bold">Lưu
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <form class="btn btn-icon btn-light btn-hover-primary btn-sm"
+                                                  method="post"
+                                                  action="{{route('admin.deletePenalty',$penalty->penalty_id)}}"
+                                                  data-toggle="tooltip"
+                                                  title="xóa">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="svg-icon svg-icon-md svg-icon-primary btn btn-icon btn-light btn-hover-primary btn-sm">
+                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         width="24px" height="24px" viewBox="0 0 24 24"
+                                                         version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24" height="24"/>
+                                                            <path
+                                                                d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
+                                                                fill="#000000" fill-rule="nonzero"/>
+                                                            <path
+                                                                d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
+                                                                fill="#000000" opacity="0.3"/>
+                                                        </g>
+                                                    </svg>
+                                                    <!--end::Svg Icon-->
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

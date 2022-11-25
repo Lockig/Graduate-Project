@@ -132,21 +132,69 @@
                                                                 </button>
                                                             </div>
                                                         </form>
-
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="my-lg-0 my-1">
-                                                <form action="{{route('teacher.createMark',$course->course_id)}}"
-                                                      method="get">
-                                                    @csrf
-                                                    @method('GET')
                                                     <button
+                                                        data-toggle="modal" data-target="#createMark"
                                                         name="course_id" value="{{$course->course_id}}"
                                                         class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3"
                                                         type="submit"> Tạo điểm
                                                     </button>
-                                                </form>
+                                                <div id="createMark" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog">
+
+                                                        <!-- Modal content-->
+                                                        <form class="modal-content" method="post"
+                                                              action="{{route('users.storeMark',$course->course_id)}}">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Tạo điểm cho sinh viên</h4>
+                                                                <button type="button" class="close"
+                                                                        data-dismiss="modal">&times;
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group row">
+                                                                    <label>Sinh viên:</label>
+                                                                    <select name="student_id" class="form-control form-control-solid">
+                                                                        @foreach($students as $student)
+                                                                            <option class="form-control form-control-solid"
+                                                                                value="{{$student->id}}">{{$student->first_name . ' ' . $student->last_name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                        <label for="diem_lan_1" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
+                                                                            lần 1</label>
+                                                                            <input name="diem_lan_1" class="form-control form-control-solid">
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                        <label for="diem_lan_2" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
+                                                                            lần 2</label>
+                                                                            <input name="diem_lan_2" class="form-control form-control-solid"/>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                        <label for="diem_lan_3" class="col-form-label text-left col-lg-4 col-sm-12">Điểm
+                                                                            lần 3</label>
+                                                                            <input name="diem_lan_3" class="form-control form-control-solid"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        class="btn btn-light-primary"
+                                                                        data-dismiss="modal">Đóng
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">
+                                                                    Lưu
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div class="my-lg-0 my-1">
                                                 <a href="{{route('teacher.createCourseMaterial',$course->course_id)}}"
@@ -357,6 +405,7 @@
                                         </div>
                                     @endif
                                 </div>
+                                @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
                                 <div class="col-1">
                                     <form method="get"
                                           action="{{route('teacher.editCourseMaterial',[$course,$material->id])}}"
@@ -413,6 +462,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                    @endif
                             </div>
                             <div class="separator separator-solid my-1"></div>
                         @empty
@@ -587,8 +637,8 @@
                             </h3>
                         </div>
                         <div class="card-body d-flex">
-                            <div id="pie-chart"></div>
-                            <div id="pie-chart-1"></div>
+                            <div class="col-5" id="pie-chart"></div>
+                            <div class="col-5" id="pie-chart-1"></div>
                         </div>
                     </div>
                     <div class="card card-custom gutter-b flex-grow-1">

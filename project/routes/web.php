@@ -140,6 +140,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/settings/fingerprint', [FingerprintController::class, 'update'])->name('admin.fingerprintSetting');
 
 
+//    salary
+    Route::get('/salary',[AdminController::class,'getSalary'])->name('admin.getSalary');
+    Route::post('/salary',[AdminController::class,'updateSalary'])->name('admin.updateSalary');
+    Route::post('/salary/{salary}',[AdminController::class,'exportSalary'])->name('admin.exportSalary');
+
+    Route::get('/abc',(function(){
+        return view('user.export.salary');
+    }));
 
 
 });

@@ -8,22 +8,18 @@ use App\Exports\CourseExport;
 use App\Exports\UsersExport;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\Account;
 use App\Models\Course;
-use App\Models\Position;
-use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
+use App\Notifications\UpdatePaymentNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
-use GuzzleHttp\Promise\Coroutine;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Nette\Utils\Random;
 
@@ -105,7 +101,8 @@ class AdminController extends Controller
         }
         if ($request->has('export')) {
             $courses = Course::query()
-                ->select('course_name', 'start_date', 'end_date', 'course_hour', 'course_description', 'course_status')
+                ->join('users', 'users.id', '=', 'courses.teacher_id')
+                ->select('course_name', 'users.first_name', 'users.last_name', 'start_date', 'end_date', 'course_hour', 'course_description')
                 ->name($request)
                 ->paginate(5);
             $request->flashOnly('course_name');
@@ -117,7 +114,7 @@ class AdminController extends Controller
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(5);
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(5);
         $subjects = DB::table('subjects')->get();
-        return view('user.admin.list_course', compact(['courses', 'teachers', 'students','subjects']));
+        return view('user.admin.list_course', compact(['courses', 'teachers', 'students', 'subjects']));
     }
 
     public function showAttendance($id)
@@ -258,11 +255,83 @@ class AdminController extends Controller
         return back()->with('Success', 'Cập nhật thông tin lớp học thành công');
     }
 
-    public function deleteSubject(Request $request,$id){
-        DB::table('subjects')->where('subject_id','=',$id)->delete();
-        return back()->with('Success','Xóa môn học thành công');
+    public function deleteSubject(Request $request, $id)
+    {
+        $check = DB::table('courses')->where('subject_id', '=', $id)->value('course_id');
+        if ($check != NULL) {
+            return back()->with('Fail', 'Không thể xóa!');
+        } else {
+            DB::table('subjects')->where('subject_id', '=', $id)->delete();
+            return back()->with('Success', 'Xóa môn học thành công');
+        }
     }
 
 
+    public function getSalary(Request $request)
+    {
+        $uncheck_attendances = DB::table('attendances')
+            ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+            ->join('users', 'users.id', '=', 'attendances.user_id')
+            ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+            ->where('users.role', '=', 'teacher')
+            ->where('status', '=', '0')
+            ->orderBy('time_in', 'asc')
+            ->get(['attendances.id', 'courses.teacher_id', 'users.first_name', 'users.last_name', 'courses.course_id', 'courses.course_name', 'attendances.time_in', 'courses.money', 'attendances.penalty_id']);
+        $test = [];
+        if ($request->input('month') != NULL) {
+            $all = DB::table('attendances')
+                ->join('users', 'users.id', '=', 'attendances.user_id')
+                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+                ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+                ->join('penalties', 'penalties.penalty_id', '=', 'attendances.penalty_id')
+                ->whereMonth('attendances.time_in', Carbon::parse($request->input('month'))->format('m'))
+                ->whereYear('attendances.time_in', Carbon::parse($request->input('month'))->format('Y'))
+                ->where('status', '=', '1')
+                ->get();
+//            dd($all);
+            foreach ($all as $value) {
+                $test[$value->user_id][] = $value;
+            }
+        }
+        return view('user.admin.teacher_salary', compact('uncheck_attendances', 'test'));
+    }
+
+    public function updateSalary(Request $request)
+    {
+        if ($request->has('check')) {
+            DB::transaction(function () use ($request) {
+                foreach ($request->input('check') as $item) {
+                    DB::table('attendances')->where('id', '=', $item)->update([
+                        'status' => '1'
+                    ]);
+
+                    $teacher = User::find(DB::table('attendances')->where('id', '=', $item)->value('user_id'));
+                    \Illuminate\Support\Facades\Notification::send($teacher, new UpdatePaymentNotification());
+                }
+            });
+            return back()->with('Success', 'Duyệt tất cả thành công!');
+        }
+        if ($request->has('decline')) {
+            DB::transaction(function () use ($request) {
+                DB::table('attendances')->where('id', '=', $request->input('decline'))->update(['status' => '3']);
+            });
+            return back()->with('Success', 'Từ chối thành công');
+        }
+        if ($request->has('accept')) {
+            DB::transaction(function () use ($request) {
+                DB::table('attendances')->where('id', '=', $request->input('accept'))->update(['status' => '1']);
+            });
+            return back()->with('Success', 'Từ chối thành công');
+        }
+        return back();
+    }
+
+    public function exportSalary(Request $request){
+        $data = json_decode($request->data);
+//        return view('user.export.salary',compact('data'));
+        $pdf = Pdf::loadView('user.export.salary',compact('data'));
+        $pdf->setPaper('A4','landscape');
+        return $pdf->download('salary.pdf');
+    }
 
 }

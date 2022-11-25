@@ -302,7 +302,7 @@
                                 @foreach($courses as $course)
                                     <tr>
                                         <td class="pr-0">
-                                            <label class="checkbox checkbox-lg checkbox-inline">
+                                            <label class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
                                                 {{$loop->index + 1}}
                                             </label>
                                         </td>

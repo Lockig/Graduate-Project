@@ -287,8 +287,28 @@ class TeacherController extends Controller
         return back()->with('Success', 'Cập nhật điểm thành công');
     }
 
-    public function getSalary()
+    public function getSalary(Request $request)
     {
-        return view('user.teacher_salary');
+//        dd($request->all());
+        $salary = [];
+        if ($request->input('start') != NULL && $request->input('end') != NULL) {
+            $start = Carbon::parse($request->input('start'))->format('Y-m-d 00:00:00');
+            $end = Carbon::parse($request->input('end'))->format('Y-m-d');
+        }
+//        $time_in = DB::table('attendances')->where('time_in','>',$start)->get();
+//        dd($time_in);
+        if($request->input('course_name')!=NULL)
+        $salary = DB::table('attendances')
+            ->join('users', 'users.id', '=', 'attendances.user_id')
+            ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+            ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+            ->orWhere('course_name', 'like', '%' . $request->input('course_name') . '%')
+            ->where('courses.teacher_id', '=', Auth::user()->id)
+            ->where('users.role', '=', 'teacher')
+            ->where('attendances.status', '=', '1')
+            ->orderBy('time_in', 'desc')
+            ->get();
+        return view('user.teacher_salary', compact('salary'));
+
     }
 }

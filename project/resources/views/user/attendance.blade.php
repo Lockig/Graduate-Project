@@ -55,30 +55,26 @@
                               @endif
                               class="mb-7">
                             @csrf
-                            <div class="row align-items-center">
-                                <div class="col-lg-10 col-xl-9 ml-4">
-                                    <div class="row align-items-end">
-                                        <div class="col-md-5 my-2 my-md-0">
-                                            <div class="row d-flex align-items-center">
-                                                <label for="course_name"
-                                                       class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
-                                                <select name="course_id" class="form-control">
-                                                    <option class="form-control">
-                                                    </option>
-                                                    @foreach($courses as $course)
-                                                        <option value="{{$course->course_id}}" class="form-control">
-                                                            {{$course->course_name}}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 col-xl-3 mt-5 mt-lg-0">
-                                            <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
-                                                Tìm kiếm
-                                            </button>
-                                        </div>
+                            <div class="row align-items-end">
+                                <div class="col-md-5 my-2 my-md-0">
+                                    <div class="row d-flex align-items-center">
+                                        <label for="course_name"
+                                               class="mr-3 mb-0 d-none d-md-block">Chọn lớp</label>
+                                        <select name="course_id" class="form-control">
+                                            <option class="form-control">
+                                            </option>
+                                            @foreach($courses as $course)
+                                                <option value="{{$course->course_id}}" class="form-control">
+                                                    {{$course->course_name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="col-md-5 col-xl-3 mt-5 mt-lg-0">
+                                    <button type="submit" class="btn btn-light-primary px-6 font-weight-bold">
+                                        Tìm kiếm
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -144,7 +140,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                     <tr>Không có dữ liệu</tr>
+                                    <tr>Không có dữ liệu</tr>
                                 @endforelse
                                 </tbody>
                             </table>

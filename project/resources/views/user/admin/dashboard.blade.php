@@ -574,7 +574,7 @@
                             },
                             @endforeach
                         ],
-
+                        eventColor: 'lightblue',
                         eventClick: function (event) {
                             if (event.url) {
                                 window.open(event.url);
