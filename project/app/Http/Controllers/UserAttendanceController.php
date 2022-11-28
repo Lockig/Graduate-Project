@@ -140,4 +140,8 @@ class UserAttendanceController extends Controller
     {
         //
     }
+
+    public function getTeacherAttendance(){
+        return view('');
+    }
 }

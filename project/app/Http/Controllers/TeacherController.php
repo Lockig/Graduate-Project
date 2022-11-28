@@ -10,6 +10,10 @@ use App\Models\Course;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -79,7 +83,9 @@ class TeacherController extends Controller
     {
         $courses = Course::query()
             ->where('teacher_id', '=', Auth::user()->id)
-            ->name($request)->status($request)->paginate(5);
+            ->name($request)->status($request)
+            ->orderBy('course_status','asc')
+            ->paginate(5);
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(10);
         $students = User::query()->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         return view('user.admin.list_course', compact(['courses', 'teachers', 'students']));
@@ -142,13 +148,13 @@ class TeacherController extends Controller
             ->where('teacher_id', '=', $user->id)->get();
         if ($request->input('course_id') == NULL) {
             $records = DB::table('attendances')
-                ->where('user_id', '=', $user->id)->orderBy('time_in', 'asc')->paginate(5);
+                ->where('user_id', '=', $user->id)->orderBy('time_in', 'asc')->paginate(10);
         } else {
             $records = DB::table('attendances')
                 ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
-                ->where('course_schedules.course_id', '=', $request->course_id)
+                ->where('course_schedules.course_id', '=', $request->input('course_id'))
                 ->where('user_id', '=', $user->id)
-                ->orderBy('time_in', 'desc')->paginate(5);
+                ->orderBy('time_in', 'desc')->paginate(10);
         }
         return view('user.attendance', compact('records', 'user', 'courses'));
     }
@@ -169,7 +175,7 @@ class TeacherController extends Controller
         return view('user.mark', compact('grades', 'students', 'course'));
     }
 
-    public function storeMark($course, Request $request)
+    public function storeMark($course, Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'student_id' => 'required|integer',
@@ -194,7 +200,7 @@ class TeacherController extends Controller
 
     }
 
-    public function editMark($course_id, $student_id)
+    public function editMark($course_id, $student_id): Factory|View|Application
     {
         $course = $course_id;
         $students = DB::table('course_students')
@@ -203,7 +209,7 @@ class TeacherController extends Controller
         return view('user.mark', compact('course_id', 'student_id', 'course', 'students'));
     }
 
-    public function destroyMark($course, $student_id)
+    public function destroyMark($course, $student_id): RedirectResponse
     {
         $id = DB::table('course_students')
             ->where('course_id', '=', $course)
@@ -236,7 +242,7 @@ class TeacherController extends Controller
 //        dd($students);
     }
 
-    public function createNotification($id, Request $request)
+    public function createNotification($id, Request $request): RedirectResponse
     {
         $content = $request->input('content');
         DB::table('course_notifications')->insert([
@@ -253,7 +259,7 @@ class TeacherController extends Controller
         return back()->with('Success', 'Tạo thông báo thành công');
     }
 
-    public function exportUserCourse(Request $request, $course, $id)
+    public function exportUserCourse(Request $request, $course, $id): \Illuminate\Http\Response
     {
         $grade = DB::table('student_grades')
             ->join('course_students', 'course_students.id', '=', 'student_grades.user_id')
@@ -275,40 +281,62 @@ class TeacherController extends Controller
 
     public function updateMark($course, $id, Request $request)
     {
-
         $user_id = DB::table('course_students')->where('course_id', '=', $course)->where('student_id', '=', $id)->value('id');
         DB::table('student_grades')
             ->where('user_id', '=', $user_id)
             ->update([
-                'diem_lan_1' => $request->diem_lan_1,
-                'diem_lan_2' => $request->diem_lan_2,
-                'diem_lan_3' => $request->diem_lan_3
+                'diem_lan_1' => $request->input('diem_lan_1'),
+                'diem_lan_2' => $request->input('diem_lan_2'),
+                'diem_lan_3' => $request->input('diem_lan_3')
             ]);
         return back()->with('Success', 'Cập nhật điểm thành công');
     }
 
     public function getSalary(Request $request)
     {
-//        dd($request->all());
+//        dd($request);
         $salary = [];
         if ($request->input('start') != NULL && $request->input('end') != NULL) {
             $start = Carbon::parse($request->input('start'))->format('Y-m-d 00:00:00');
             $end = Carbon::parse($request->input('end'))->format('Y-m-d');
         }
-//        $time_in = DB::table('attendances')->where('time_in','>',$start)->get();
-//        dd($time_in);
-        if($request->input('course_name')!=NULL)
-        $salary = DB::table('attendances')
-            ->join('users', 'users.id', '=', 'attendances.user_id')
-            ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
-            ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
-            ->orWhere('course_name', 'like', '%' . $request->input('course_name') . '%')
-            ->where('courses.teacher_id', '=', Auth::user()->id)
-            ->where('users.role', '=', 'teacher')
-            ->where('attendances.status', '=', '1')
-            ->orderBy('time_in', 'desc')
-            ->get();
+
+        if ($request->input('course_name') != NULL)
+            $salary = DB::table('attendances')
+                ->join('users', 'users.id', '=', 'attendances.user_id')
+                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+                ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+                ->orWhere('course_name', 'like', '%' . $request->input('course_name') . '%')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->where('users.role', '=', 'teacher')
+                ->where('attendances.status', '=', '1')
+                ->orderBy('time_in', 'desc')
+                ->get();
+        if ($request->input('month') != NULL) {
+
+            $salary = DB::table('attendances')
+                ->join('users', 'users.id', '=', 'attendances.user_id')
+                ->join('course_schedules', 'course_schedules.id', '=', 'attendances.schedule_id')
+                ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->whereMonth('time_in',Carbon::parse($request->input('month'))->month)
+                ->whereYear('time_in',Carbon::parse($request->input('month'))->year)
+                ->where('users.role', '=', 'teacher')
+                ->where('attendances.status', '=', '1')
+                ->orderBy('time_in', 'desc')
+                ->get();
+        }
         return view('user.teacher_salary', compact('salary'));
 
+    }
+
+    public function exportListStudent(Request $request,$id){
+        if($request->has('list_student_export')){
+            $list = DB::table('course_students')->join('users','users.id','=','course_students.student_id')
+                ->where('course_students.course_id','=',$id)
+                ->get(['users.first_name','users.last_name','users.date_of_birth','users.email','users.mobile_number','users.address']);
+            return Excel::download(new UsersExport($list), Course::find($id)->course_name . '.xlsx');
+        }
+        return back();
     }
 }

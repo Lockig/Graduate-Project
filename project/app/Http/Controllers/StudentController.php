@@ -141,14 +141,23 @@ class StudentController extends Controller
                 ->orWhere('id','=',$request->input('last_name'))
                 ->name($request)
                 ->paginate(20);
+            $student_export = User::query()
+                ->select('first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','address')
+                ->where('role', 'like', '%' . 'student' . '%')
+                ->orWhere('id','=',$request->input('last_name'))
+                ->name($request)
+                ->paginate(20);
         } else {
             $students = User::query()
                 ->select('id', 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','avatar')
                 ->where('role', 'like', '%' . 'student' . '%')->paginate(10);
+            $student_export = User::query()
+                ->select( 'first_name', 'last_name', 'date_of_birth', 'email', 'mobile_number','address')
+                ->where('role', 'like', '%' . 'student' . '%')->paginate(10);
         }
         if (!$request->has('export')) {
 
-            return view('user.admin.list_student', compact('students'));
+            return view('user.admin.list_student', compact('student_export'));
         } else {
             return Excel::download(new UsersExport($students), 'student_list.xlsx');
         }

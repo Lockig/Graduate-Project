@@ -48,13 +48,12 @@ class UsersExport implements FromCollection, WithCustomStartCell, ShouldQueue, W
     public function headings(): array
     {
         return [
-            'STT',
-            'Ho',
-            'Ten',
-            'Ngay sinh',
+            'Họ',
+            'Tên',
+            'Ngày sinh',
             'Email',
-            'So dien thoai',
-            'Avatar'
+            'SĐT',
+            'Địa chỉ'
         ];
     }
     public function styles(Worksheet $sheet)

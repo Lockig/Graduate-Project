@@ -17,12 +17,12 @@ class GradeSeeder extends Seeder
     {
         DB::table('student_grades')->insert([
                 [
-                    'user_id' => '4',
+                    'user_id' => '1',
                     'diem_lan_1' => '7',
                     'diem_lan_2' => '8',
                     'diem_lan_3' => '9'
                 ], [
-                    'user_id' => '5',
+                    'user_id' => '6',
                     'diem_lan_1' => '8',
                     'diem_lan_2' => '8',
                     'diem_lan_3' => '8'

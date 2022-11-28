@@ -175,7 +175,7 @@
                                         <div class="row">
                                             <label class="col-xl-3"></label>
                                             <div class="col-lg-9 col-xl-6">
-                                                <h5 class="font-weight-bold mb-6">Nhân viên</h5>
+                                                <h5 class="font-weight-bold mb-6"></h5>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -207,22 +207,22 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label">Họ
+                                            <label for="first_name" class="col-xl-3 col-lg-3 col-form-label" >Họ
                                             </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="first_name"
                                                        class="form-control form-control-lg form-control-solid"
-                                                       type="text"
+                                                       type="text" disabled="disabled"
                                                        value="{{ucwords($user->first_name)}}"/>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label">Tên
+                                            <label for="last_name" class="col-xl-3 col-lg-3 col-form-label" >Tên
                                             </label>
                                             <div class="col-lg-9 col-xl-6">
                                                 <input name="last_name"
                                                        class="form-control form-control-lg form-control-solid"
-                                                       type="text"
+                                                       type="text" disabled="disabled"
                                                        value="{{ucwords($user->last_name)}}"/>
                                             </div>
                                         </div>

@@ -522,7 +522,7 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('assets/js/pages/widgets.js')}}"></script>
+{{--    <script src="{{asset('assets/js/pages/widgets.js')}}"></script>--}}
     <script src="{{mix('js/user/date-picker.js')}}"></script>
     <script src="{{mix('js/datetimepicker.js')}}"></script>
     <script>

@@ -100,14 +100,10 @@
                                         STT
                                     </th>
                                     <th class="pr-0" style="width: 100px">Ngày</th>
-                                    <th class="text-left" style="min-width: 100px">Lớp</th>
+                                    <th class="text-left" style="max-width: 100px">Lớp</th>
                                     <th class="text-left">Tiền lương</th>
-                                    <th style="width: 100px">Đúng giờ</th>
-                                    <th style="min-width: 100px">Đi muộn 10p</th>
-                                    <th style="min-width: 100px">Đi muộn 15p</th>
-                                    <th style="min-width: 100px">Đi muộn > 15p</th>
-                                    <th style="min-width: 100px">Tiền nhận được</th>
-
+                                    <th style="width: 100px">Đi muộn</th>
+                                    <th class="text-right" style="max-width: 100px">Thành tiền</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -122,7 +118,8 @@
                                         ->where('attendances.schedule_id','=',$item->schedule_id)
                                         ->value('courses.course_name')}}
                                         </td>
-                                        <td><span class="text-success font-weight-bold">
+                                        <td>
+                                            <span class="text-success font-weight-bold">
                                                  {{number_format(\Illuminate\Support\Facades\DB::table('courses')
                                         ->join('course_schedules','courses.course_id','=','course_schedules.course_id')
                                         ->join('attendances','course_schedules.id','=','attendances.schedule_id')
@@ -136,38 +133,20 @@
                                         ->value('courses.money');
                                                 @endphp
                                             </span>
-
                                         </td>
                                         <td>
-                                            <span class="text-success font-weight-bold">
                                             @if($item->penalty_id == 1)
-                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-danger font-weight-bold">
-                                            @if($item->penalty_id == 2)
-                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-danger font-weight-bold">
-                                            @if($item->penalty_id == 3)
-                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="text-danger font-weight-bold">
-                                            @if($item->penalty_id == 4)
-                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
                                             <span class="text-success font-weight-bold">
+                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
+                                            </span>
+                                            @else
+                                                <span class="text-danger font-weight-bold">
+                                                    {{number_format(\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount'),0)}}
+                                            </span>
+                                            @endif
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="text-success text-right font-weight-bold">
                                                     {{ number_format(
                                             \Illuminate\Support\Facades\DB::table('courses')
                                         ->join('course_schedules','courses.course_id','=','course_schedules.course_id')
@@ -186,7 +165,6 @@
                                             \Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_amount');
                                             @endphp
                                         </td>
-                                        <td></td>
                                     </tr>
                                 @empty
                                     Không có dữ liệu
@@ -195,13 +173,9 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="text-success font-weight-bold">{{number_format($total,0)}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td class="text-success font-weight-bold"></td>
                                     <td class="text-muted text-uppercase font-size-sm"></td>
-                                    <td class="text-success font-weight-bold">{{number_format($money,0)}}</td>
-                                    <td></td>
+                                    <td class="text-success text-right font-weight-bold">{{number_format($money,0)}}</td>
                                 </tr>
                                 </tbody>
                             </table>

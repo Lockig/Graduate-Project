@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\AttendanceNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\SyntheticSkippedError;
 
@@ -56,14 +58,23 @@ class FingerprintController extends Controller
                             $penalty = 3;
                         else
                             $penalty = 4;
-                        DB::table('attendances')->insert([
-                            'user_id' => $user->value('id'),
-                            'schedule_id' => $schedule_id->value('id'),
-                            'time_in' => $current_time->format('Y-m-d H:i:s'),
-                            'penalty_id' => $penalty,
-                            'status'=>'0'
-                        ]);
-                        echo 'checked ';
+                        $check  = DB::table('attendances')
+                            ->where('user_id',$user->value('id'))
+                            ->where('schedule_id',$schedule_id->value('id'))->value('id');
+                        if($check == null){
+                            DB::table('attendances')->insert([
+                                'user_id' => $user->value('id'),
+                                'schedule_id' => $schedule_id->value('id'),
+                                'time_in' => $current_time->format('Y-m-d H:i:s'),
+                                'penalty_id' => $penalty,
+                                'status'=>'0'
+                            ]);
+                            Notification::send($user, new AttendanceNotification($penalty));
+                            echo 'checked ';
+                        }else{
+                            echo $user->value('first_name'). ' '. $user->value('last_name') . ' already checked in';
+                        }
+
                     }
                     echo 'hello ' . $user->value('first_name') . ' ' . $user->value('last_name');
                 } else {

@@ -128,8 +128,6 @@ class UserController extends Controller implements ShouldQueue
         }
         $validated = $request->validated();
         DB::table('users')->where('id', '=', $user->id)->update([
-            'first_name' => ucwords($validated['first_name']),
-            'last_name' => ucwords($validated['last_name']),
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
             'address' => $validated['address'],
@@ -224,8 +222,6 @@ class UserController extends Controller implements ShouldQueue
         }
         $validated = $request->validated();
         DB::table('users')->where('id', '=', $id)->update([
-            'first_name' => ucwords($validated['first_name']),
-            'last_name' => ucwords($validated['last_name']),
             'date_of_birth' => Carbon::parse($validated['date_of_birth'])->format('Y-m-d'),
             'mobile_number' => $validated['mobile_number'],
             'address' => $validated['address'],
@@ -278,9 +274,40 @@ class UserController extends Controller implements ShouldQueue
     public function calendar()
     {
         $notifications = Auth::user()->notifications()->paginate(5);
-        $course_schedule = DB::table('course_schedules')->get();
-        $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
-        $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
+        if(Auth::user()->role=='student'){
+            $course_schedule = DB::table('course_schedules')
+                ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+                ->where('student_id', '=', Auth::user()->id)
+                ->get();
+            $today_courses = DB::table('course_schedules')
+                ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+                ->where('student_id', '=', Auth::user()->id)
+                ->whereDate('start_at', Carbon::today())
+                ->get();
+            $tomorrow_courses = DB::table('course_schedules')
+                ->join('course_students', 'course_schedules.course_id', '=', 'course_students.course_id')
+                ->where('student_id', '=', Auth::user()->id)
+                ->whereDate('start_at', Carbon::tomorrow())
+                ->get();
+        }elseif(Auth::user()->role=='teacher'){
+            $course_schedule = DB::table('course_schedules')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)->get();
+            $today_courses = DB::table('course_schedules')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->whereDate('start_at', Carbon::today())
+                ->get();
+            $tomorrow_courses = DB::table('course_schedules')
+                ->join('courses', 'course_schedules.course_id', '=', 'courses.course_id')
+                ->where('courses.teacher_id', '=', Auth::user()->id)
+                ->whereDate('start_at', Carbon::tomorrow())
+                ->get();
+        }else{
+            $course_schedule = DB::table('course_schedules')->get();
+            $tomorrow_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::tomorrow())->get();
+            $today_courses = DB::table('course_schedules')->whereDate('start_at', Carbon::today())->get();
+        }
         return view('user.calendar', compact('today_courses', 'tomorrow_courses', 'course_schedule', 'notifications'));
     }
 

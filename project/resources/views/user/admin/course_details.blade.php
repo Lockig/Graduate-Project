@@ -7,6 +7,7 @@
         $count_late_time = 0;
         $avg_diem_lan_1 = $avg_diem_lan_2 = $avg_diem_lan_3 =  0;
         $grade_record = 0;
+        $day_off = 0;
     @endphp
     @include('system_message')
     <!--begin::Content-->
@@ -264,11 +265,11 @@
                         <!--begin: Item-->
                         <div class="d-flex align-items-center flex-lg-fill mr-5 ml-4 mr-1">
                                                         <span class="mr-4">
-                                                            <i class="flaticon-piggy-bank icon-2x text-muted font-weight-bold"></i>
+                                                            <i class="flaticon2-user icon-2x text-muted font-weight-bold"></i>
                                                         </span>
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Giáo viên</span>
-                                <a href="{{route('users.show',$course->teacher_id)}}"
+                                <a href=""
                                    class="text-dark text-hover-primary font-weight-bolder font-size-h5">
                                     {{ucwords(\App\Models\User::find($course->teacher_id)->first_name) . ' ' . ucwords(\App\Models\User::find($course->teacher_id)->last_name)}}</a>
                             </div>
@@ -289,7 +290,7 @@
                         <!--begin: Item-->
                         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
                                                         <span class="mr-4">
-                                                            <i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
+                                                            <i class="flaticon-users icon-2x text-muted font-weight-bold"></i>
                                                         </span>
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Thành viên</span>
@@ -313,7 +314,7 @@
                         <!--begin: Item-->
                         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
                                                         <span class="mr-4">
-                                                            <i class="flaticon-pie-chart icon-2x text-muted font-weight-bold"></i>
+                                                            <i class="flaticon-email icon-2x text-muted font-weight-bold"></i>
                                                         </span>
                             <div class="d-flex flex-column text-dark-75">
                                 <span class="font-weight-bolder font-size-sm">Trạng thái</span>
@@ -480,6 +481,69 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <form method="get" action="{{route('teacher.exportListStudent',$course)}}" class="mb-7">
+                            @csrf
+                            <div class="row align-items-center mt-2">
+                                <div class="col-md-12 my-2 my-md-0">
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role=='teacher')
+                                        <!--begin::Dropdown-->
+                                        <div class="dropdown dropdown-inline mr-2">
+                                            <button type="button"
+                                                    class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="svg-icon svg-icon-md">
+                                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none"
+                                                                   fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"/>
+                                                                    <path
+                                                                        d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                                        fill="#000000" opacity="0.3"/>
+                                                                    <path
+                                                                        d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                                        fill="#000000"/>
+                                                                </g>
+                                                            </svg>
+                                                            <!--end::Svg Icon-->
+                                                        </span>Xuất
+                                            </button>
+                                            <!--begin::Dropdown Menu-->
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                <!--begin::Navigation-->
+                                                <ul class="navi flex-column navi-hover py-2">
+                                                    <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
+                                                        Chọn:
+                                                    </li>
+                                                    <li class="navi-item">
+                                                            <button name="list_student_export" type="submit"
+                                                                    class="navi-link btn btn-borderless w-100">
+                                                                            <span class="navi-con">
+                                                                                <i class="la la-file-excel-o"></i>
+                                                                                <span class="navi-text">Excel</span>
+                                                                            </span>
+                                                            </button>
+                                                    </li>
+                                                    <li class="navi-item">
+                                                        <a href="#" class="navi-link">
+                                                                        <span class="navi-icon">
+                                                                            <i class="la la-file-pdf-o"></i>
+                                                                        </span>
+                                                            <span class="navi-text">PDF</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <!--end::Navigation-->
+                                            </div>
+                                            <!--end::Dropdown Menu-->
+                                        </div>
+                                        <!--end::Dropdown-->
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
                         <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
                             <thead>
                             <tr class="text-left">
@@ -637,8 +701,10 @@
                             </h3>
                         </div>
                         <div class="card-body d-flex">
-                            <div class="col-5" id="pie-chart"></div>
-                            <div class="col-5" id="pie-chart-1"></div>
+                            <div class="row">
+                                <div class="col-12" id="pie-chart"></div>
+                                <div class="col-12" id="pie-chart-1"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="card card-custom gutter-b flex-grow-1">
@@ -662,6 +728,7 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if(\Illuminate\Support\Facades\Auth::user()->role != 'student')
                         <form method="get" action="{{route('admin.coursesDetails',$course)}}" class="mb-7">
                             @csrf
                             <div class="row">
@@ -758,22 +825,6 @@
                                                         Chọn:
                                                     </li>
                                                     <li class="navi-item">
-                                                        <a href="#" class="navi-link">
-                                                                        <span class="navi-icon">
-                                                                            <i class="la la-print"></i>
-                                                                        </span>
-                                                            <span class="navi-text">Print</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="navi-item">
-                                                        <a href="#" class="navi-link">
-                                                                        <span class="navi-icon">
-                                                                            <i class="la la-copy"></i>
-                                                                        </span>
-                                                            <span class="navi-text">Copy</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="navi-item">
                                                         <form action="{{route('admin.listCourse')}}" method="get">
                                                             @csrf
                                                             <button name="export" type="submit"
@@ -784,12 +835,6 @@
                                                                             </span>
                                                             </button>
                                                         </form>
-                                                        {{--                                            <a href="" class="navi-link">--}}
-                                                        {{--																<span class="navi-icon">--}}
-                                                        {{--																	<i class="la la-file-excel-o"></i>--}}
-                                                        {{--																</span>--}}
-                                                        {{--                                                <span class="navi-text">Excel</span>--}}
-                                                        {{--                                            </a>--}}
                                                     </li>
                                                     <li class="navi-item">
                                                         <a href="#" class="navi-link">
@@ -809,14 +854,19 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_1">
+                        @endif
+                        <table class="table table-head-custom table-vertical-center" style="height:200px; overflow: auto;" id="kt_advance_table_widget_1">
                             <thead>
                             <tr class="text-left">
                                 <th class="pl-0" style="width: 20px">
                                     STT
                                 </th>
-                                <th class="pl-0" style="min-width: 50px"></th>
-                                <th class="text-left" style="min-width: 50px">Họ và tên</th>
+                                <th class="pl-0 text-center"  style="min-width: 80px">
+                                    Buổi
+                                </th>
+                                <th class="pl-0" style="width: 70px"></th>
+                                <th class="text-left" style="min-width: 50px; max-width: 120px;">Họ và tên</th>
+                                <th class="text-left" style="min-width: 50px; max-width: 120px;">Giờ bắt đầu</th>
                                 <th style="min-width: 100px">Giờ vào</th>
                                 <th style="min-width: 100px">Ghi chú</th>
                             </tr>
@@ -827,6 +877,11 @@
                                     <td class="pr-0">
                                         <label class="checkbox checkbox-lg checkbox-inline">
                                             {{$loop->index + 1}}
+                                        </label>
+                                    </td>
+                                    <td class="pl-0 text-center">
+                                        <label class="text-dark-75 text-center font-weight-bolder text-hover-primary mb-1 font-size-lg">
+                                            {{Carbon\Carbon::parse(\Illuminate\Support\Facades\DB::table('course_schedules')->where('id','=',$item->schedule_id)->value('start_at'))->format('d-m-Y')}}
                                         </label>
                                     </td>
                                     <td class="pr-0">
@@ -843,6 +898,10 @@
                                     </td>
                                     <td>
                                                    <span
+                                                       class="text-dark-75 font-weight-bolder text-hover-primary d-block font-size-lg">{{Carbon\Carbon::parse(\Illuminate\Support\Facades\DB::table('course_schedules')->where('id','=',$item->schedule_id)->value('start_at'))->format('H:i:s')}}</span>
+                                    </td>
+                                    <td>
+                                                   <span
                                                        class="text-dark-75 font-weight-bolder text-hover-primary d-block font-size-lg">{{\Carbon\Carbon::parse($item->time_in)->format("H:i:s")}}</span>
                                     </td>
                                     <td>
@@ -854,23 +913,23 @@
                                         @if($item->penalty_id == 1)
                                             <span
                                                 class="text-success font-weight-bolder d-block font-size-lg">
-                                                       Đúng giờ
+                                                       {{\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_description')}}
                                                    </span>
                                             @php
                                                 $count_on_time +=1
                                             @endphp
-                                        @elseif($item->penalty_id == 2)
+                                        @elseif($item->penalty_id == 5)
                                             <span
-                                                class="text-warning  font-weight-bolder d-block font-size-lg">
-                                                      Muộn 10p
+                                                class="text-info font-weight-bolder d-block font-size-lg">
+                                                       {{\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_description')}}
                                                    </span>
                                             @php
-                                                $count_late_time  +=1
+                                            $day_off+=1;
                                             @endphp
                                         @else
                                             <span
                                                 class="text-danger  font-weight-bolder d-block font-size-lg">
-                                                      Muộn 15p
+                                                            {{\Illuminate\Support\Facades\DB::table('penalties')->where('penalty_id',$item->penalty_id)->value('penalty_description')}}
                                                    </span>
                                             @php
                                                 $count_late_time +=1
@@ -883,11 +942,6 @@
                             @endforelse
                             </tbody>
                         </table>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            {!! $attendances->links() !!}
-                        </div>
                     </div>
                 </div>
 
@@ -1000,9 +1054,7 @@
                                 <th style="min-width: 100px">Điểm lần 2</th>
                                 <th style="min-width: 100px">Điểm lần 3</th>
                                 <th style="min-width: 100px">Trung bình</th>
-                                @if(\Illuminate\Support\Facades\Auth::user()->role == 'admin')
                                     <th class="pr-0 text-right" style="min-width: 150px">Hành động</th>
-                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -1016,7 +1068,7 @@
                                     <td class="pr-0">
                                         <div class="symbol symbol-40 symbol-circle symbol-sm">
                                             <img
-                                                src="{{asset(($student->avatar != "")?($student->avatar):'media/users/default.jpg')}}"
+                                                src="{{asset((\App\Models\User::find($grade->student_id)->avatar != "")?(\App\Models\User::find($grade->student_id)->avatar):'media/users/default.jpg')}}"
                                                 alt="image">
                                         </div>
                                     </td>
@@ -1060,7 +1112,7 @@
                                         @if(\Illuminate\Support\Facades\Auth::user()->role=='admin' || \Illuminate\Support\Facades\Auth::user()->role=='teacher')
                                             <button type="button"
                                                     data-toggle="modal"
-                                                    data-target="#editMark"
+                                                    data-target="#editMark--{{$loop->index+1}}"
                                                     title="chỉnh sửa"
                                                     class="btn btn-icon btn-light btn-hover-primary btn-sm">
                                                                         <span
@@ -1088,11 +1140,11 @@
                                                                         </span>
                                             </button>
                                             <!-- Modal-->
-                                            <div class="modal fade" id="editMark" tabindex="-1" role="dialog"
+                                            <div class="modal fade" id="editMark--{{$loop->index+1}}" tabindex="-1" role="dialog"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <form
-                                                        action="{{route('users.updateMark',[$course->course_id,$student->student_id])}}"
+                                                        action="{{route('users.updateMark',[$course->course_id,$grade->student_id])}}"
                                                         method="post">
                                                         @csrf
                                                         <div class="modal-content">
@@ -1245,13 +1297,13 @@
 
 
         var option_pie_chart_1 = {
-            series: [{{$count_on_time}}, {{$count_late_time}}],
+            series: [{{$count_on_time}}, {{$count_late_time}}, {{$day_off}}],
             // series: [12, 22],
             chart: {
                 width: 340,
                 type: 'pie',
             },
-            labels: ['Đúng giờ', 'Đi muộn'],
+            labels: ['Đúng giờ', 'Đi muộn','Xin nghỉ'],
             responsive: [{
                 breakpoint: 480,
                 options: {

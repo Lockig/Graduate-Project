@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\ConfirmDayOff;
 use App\Events\RequestDayOff;
+use App\Models\Schedule;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -108,8 +109,15 @@ class RequestDayOffController extends Controller
 
         $query = DB::table('day_off_requests')->where('id', '=', $id);
         $student_id = $query->value('student_id');
+        $schedule_id = $query->value('schedule_id');
         if ($request->has('accept')) {
             $query->update(['stage' => 'Đã duyệt']);
+            DB::table('attendances')->insert([
+                'user_id'=>$student_id,
+                'schedule_id'=>$schedule_id,
+                'time_in'=>Schedule::find($schedule_id)->value('start_at'),
+                'penalty_id'=>'5'
+            ]);
         } elseif ($request->has('reject')) {
             $query->update(['stage' => 'Từ chối']);
         }
@@ -122,7 +130,7 @@ class RequestDayOffController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -135,7 +143,7 @@ class RequestDayOffController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
+
      */
     public function destroy($id)
     {

@@ -137,16 +137,25 @@ class CourseController extends Controller
             'student_id.required' => 'Vui lòng nhập mã ID học sinh',
             'course_name.required' => 'Vui lòng nhập tên lớp học'
         ]);
-        $course_id = Course::query()->where('course_name','like','%'.$request->course_id.'%')->value('course_id');
-        $student_id = User::find($validated['student_id']);
-        if ($student_id && $course_id) {
-            DB::table('course_students')->insert([
-                'student_id' => $student_id->id,
-                'course_id' => $course_id
-            ]);
-            return redirect()->back()->with('Success', 'Thêm học sinh vào lớp thành công');
+        $check = DB::table('course_students')
+            ->join('courses','courses.course_id','=','course_students.course_id')
+            ->where('courses.course_name','like','%'.$request->course_id.'%')
+            ->where('student_id','=',$validated['student_id'])->value('id');
+        if($check == null){
+            $course_id = Course::query()->where('course_name','like','%'.$request->course_id.'%')->value('course_id');
+            $student_id = User::find($validated['student_id']);
+            if ($student_id && $course_id) {
+                DB::table('course_students')->insert([
+                    'student_id' => $student_id->id,
+                    'course_id' => $course_id
+                ]);
+                return redirect()->back()->with('Success', 'Thêm học sinh vào lớp thành công');
+            }else{
+                return redirect()->back()->with('Fail', 'Thông tin điền vào không đúng');
+            }
+        }else{
+            return redirect()->back()->with('Fail', 'Lỗi, đã thêm học sinh');
         }
-        return redirect()->back()->with('Fail', 'Thông tin điền vào không đúng');
     }
 
     /**
@@ -164,22 +173,34 @@ class CourseController extends Controller
             ->join('courses', 'courses.course_id', '=', 'course_schedules.course_id')
             ->where('courses.course_status', '=', '2')
             ->where('course_schedules.course_id', '=', $course->course_id)->orderByDesc('start_at')->get();
-        if (isset($request->schedule_id)) {
-            $attendances = DB::table('attendances')
-                ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
-                ->join('users', 'users.id', '=', 'attendances.user_id')
-                ->where('course_schedules.start_at', '=', $request->input('schedule_id'))
-                ->where('users.role', '=', 'student')
-                ->where('users.deleted_at', '=', null)
-                ->where('course_schedules.course_id', '=', $course->course_id)->paginate(5, ['*'], 'attendance');
-        } else {
+
+        if(Auth::user()->role=='student'){
             $attendances = DB::table('attendances')
                 ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
                 ->join('users', 'users.id', '=', 'attendances.user_id')
                 ->where('users.role', '=', 'student')
+                ->where('users.id','=',Auth::user()->id)
                 ->where('users.deleted_at', '=', null)
-                ->where('course_schedules.course_id', '=', $course->course_id)->paginate(5, ['*'], 'attendance');
+                ->where('course_schedules.course_id', '=', $course->course_id)->get();
+        }else{
+            if (isset($request->schedule_id)) {
+                $attendances = DB::table('attendances')
+                    ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
+                    ->join('users', 'users.id', '=', 'attendances.user_id')
+                    ->where('course_schedules.start_at', '=', $request->input('schedule_id'))
+                    ->where('users.role', '=', 'student')
+                    ->where('users.deleted_at', '=', null)
+                    ->where('course_schedules.course_id', '=', $course->course_id)->get();
+            }else{
+                $attendances = DB::table('attendances')
+                    ->join('course_schedules', 'attendances.schedule_id', '=', 'course_schedules.id')
+                    ->join('users', 'users.id', '=', 'attendances.user_id')
+                    ->where('users.role', '=', 'student')
+                    ->where('users.deleted_at', '=', null)
+                    ->where('course_schedules.course_id', '=', $course->course_id)->get();
+            }
         }
+
         $student_count = DB::table('course_students')->where('course_id', '=', $course->course_id)->count();
 
         $students = DB::table('users')

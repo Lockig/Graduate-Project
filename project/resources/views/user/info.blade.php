@@ -17,7 +17,7 @@
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Thông tin cá nhân</a>
+                                <a href="" class="text-muted">Người dùng</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="" class="text-muted">Thông tin cá nhân</a>
@@ -144,7 +144,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="col-1">Vị trí:</td>
+                                    <td class="col-1">Vai trò:</td>
                                     <td class="col-5">
                                         <span class="text-dark">{{ucwords($user->role)}}</span>
                                     </td>

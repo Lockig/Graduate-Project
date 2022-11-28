@@ -104,11 +104,12 @@ class AdminController extends Controller
                 ->join('users', 'users.id', '=', 'courses.teacher_id')
                 ->select('course_name', 'users.first_name', 'users.last_name', 'start_date', 'end_date', 'course_hour', 'course_description')
                 ->name($request)
+                ->orderBy('course_status','asc')
                 ->paginate(10);
             $request->flashOnly('course_name');
             return Excel::download(new CourseExport($courses), 'course.xlsx');
         } else {
-            $courses = Course::query()->name($request)
+            $courses = Course::query()->name($request)->orderBy('course_status','asc')
                 ->paginate(10);
         }
         $teachers = User::query()->where('role', 'like', '%' . 'teacher' . '%')->paginate(10);
@@ -232,38 +233,6 @@ class AdminController extends Controller
             DB::table('course_students')->where('id', '=', $query->value('id'))->delete();
         }, 5);
         return back()->with('Success', 'Xóa học sinh khỏi lớp thành công');
-    }
-
-    public function listSubject(Request $request)
-    {
-        $subjects = Subject::query()->name($request)->get();
-        return view('user.admin.list_subject', compact('subjects'));
-    }
-
-    public function storeSubject(Request $request): RedirectResponse
-    {
-        Subject::query()->insert(['subject_id' => $request->subject_id, 'subject_name' => $request->subject_name]);
-        return redirect()->back()->with('Success', 'Tạo môn học thành công');
-    }
-
-    public function updateSubject(Request $request, $id): RedirectResponse
-    {
-        DB::table('subjects')->where('subject_id', '=', $id)->update([
-            'subject_id' => $request->subject_id,
-            'subject_name' => $request->subject_name
-        ]);
-        return back()->with('Success', 'Cập nhật thông tin lớp học thành công');
-    }
-
-    public function deleteSubject(Request $request, $id)
-    {
-        $check = DB::table('courses')->where('subject_id', '=', $id)->value('course_id');
-        if ($check != NULL) {
-            return back()->with('Fail', 'Không thể xóa!');
-        } else {
-            DB::table('subjects')->where('subject_id', '=', $id)->delete();
-            return back()->with('Success', 'Xóa môn học thành công');
-        }
     }
 
 

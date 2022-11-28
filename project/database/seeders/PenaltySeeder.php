@@ -32,6 +32,10 @@ class PenaltySeeder extends Seeder
                 'penalty_amount' => '30000',
                 'penalty_description'=>'Muộn > 15p'
             ],
+            [
+                'penalty_amount' => '0',
+                'penalty_description'=>'Xin nghỉ phép'
+            ],
         ]);
         //
     }

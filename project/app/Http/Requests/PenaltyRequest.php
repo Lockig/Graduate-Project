@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class PenaltyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_avatar' => 'file',
-            'date_of_birth' => 'required|date|date_format:m/d/Y',
-            'mobile_number' => 'string|max:10',
-            'email' => 'required|string',
-            'address'=>'required|string'
+            'penalty_amount'=>'required|integer',
+            'penalty_description'=>'required|string'
             //
         ];
     }

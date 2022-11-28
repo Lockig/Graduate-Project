@@ -1,12 +1,6 @@
 <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
     <!--begin::Brand-->
     <div class="brand flex-column-auto justify-content-end" id="kt_brand">
-        <!--begin::Logo-->
-        {{--        <a href="#" class="brand-logo">--}}
-        {{--            <img alt="Logo" src="{{asset('media/logos/logo-light.png')}}"/>--}}
-        {{--        </a>--}}
-        <!--end::Logo-->
-        <!--begin::Toggle-->
         <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
 							<span class="svg-icon svg-icon svg-icon-xl">
 								<!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
@@ -33,7 +27,7 @@
     <!--begin::Aside Menu-->
     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
         <!--begin::Menu Container-->
-        <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
+        <div id="kt_aside_menu" class="aside-menu my-4 scroll ps ps--active-y" data-menu-vertical="1" data-menu-scroll="1"
              data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
@@ -243,7 +237,7 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Báo cáo điểm danh</span>
+                            <span class="menu-text">Bảng lương</span>
                         </a>
                     </li>
                     <li class="menu-item" aria-haspopup="true">
@@ -269,7 +263,7 @@
 											</svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            <span class="menu-text">Bảng thông tin tiền phạt</span>
+                            <span class="menu-text">Bảng thông tin khấu trừ</span>
                         </a>
                     </li>
                 @endif
@@ -426,7 +420,15 @@
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
                                         </i>
-                                        <span class="menu-text">Bảng tiền phạt</span>
+                                        <span class="menu-text">Bảng khấu trừ</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item" aria-haspopup="true">
+                                    <a href="{{route('admin.getTeacherAttendance')}}" class="menu-link">
+                                        <i class="menu-bullet menu-bullet-line">
+                                            <span></span>
+                                        </i>
+                                        <span class="menu-text">Thông tin điểm danh</span>
                                     </a>
                                 </li>
                             </ul>

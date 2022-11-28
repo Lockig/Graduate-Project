@@ -24,7 +24,7 @@
                                 <a href="{{route('admin.listTeacher')}}" class="text-muted">Quản lý giáo viên</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="" class="text-muted">Quản lý tiền phạt</a>
+                                <a href="" class="text-muted">Quản lý tiền khấu trừ</a>
                             </li>
                         </ul>
                         <!--end::Breadcrumb-->
@@ -43,7 +43,7 @@
                     <div class="card-header border-0 py-5"></div>
                     <div class="card-body py-0">
                         <div class="card-title">
-                            <h3 class="text-center">Bảng thông tin tiền phạt</h3>
+                            <h3 class="text-center">Bảng thông tin tiền khấu trừ</h3>
                         </div>
                         @if(\Illuminate\Support\Facades\Auth::user()->role=='admin')
                             <!--begin:Tạo mới-->
@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="modal-body d-flex flex-column">
                                                 <div class="row">
-                                                    <label>Tiền phạt:</label>
+                                                    <label>Tiền khấu trừ:</label>
                                                     <input value=""
                                                            name="penalty_amount" type="text"
                                                            class="form-control form-control-solid">
@@ -182,8 +182,8 @@
                                                             </div>
                                                             <div class="modal-body d-flex flex-column">
                                                                 <div class="row">
-                                                                    <label>Tiền phạt:</label>
-                                                                    <input value="{{$penalty->penalty_amount}}"
+                                                                    <label>Số tiền:</label>
+                                                                    <input value="{{number_format($penalty->penalty_amount,0)}}"
                                                                            name="penalty_amount" type="text"
                                                                            class="form-control form-control-solid">
                                                                 </div>

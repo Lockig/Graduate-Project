@@ -10,6 +10,7 @@ use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\RequestDayOffController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserAttendanceController;
 use App\Http\Controllers\UserController;
@@ -88,6 +89,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'auth'], function () {
     Route::get('/course/{course}/material/{material}', [CourseController::class, 'editMaterial'])->name('teacher.editCourseMaterial');
     Route::get('/course/{course}/{user}/mark/edit', [TeacherController::class, 'editMark'])->name('users.editMark');
     Route::get('/course/{course}/list_mark', [TeacherController::class, 'listMark'])->name('teacher.listMark');
+    Route::get('/course/{course}/list_student', [TeacherController::class, 'exportListStudent'])->name('teacher.exportListStudent');
     Route::get('/course/{course}/{user}/export', [TeacherController::class, 'exportUserCourse'])->name('teacher.exportUserCourse');
     Route::post('/course/{course}/material', [CourseController::class, 'storeMaterial'])->name('teacher.storeCourseMaterial');
     Route::post('/course/{course}/{user}/mark/edit', [TeacherController::class, 'updateMark'])->name('users.updateMark');
@@ -122,10 +124,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->name('admin.deleteCourse');
     Route::delete('/course/{course}/{user}', [AdminController::class, 'destroyUser'])->name('admin.deleteCourseStudent');
 //    subject
-    Route::get('/subject', [AdminController::class, 'listSubject'])->name('admin.listSubject');
-    Route::post('/subject/{subject}', [AdminController::class, 'updateSubject'])->name('admin.updateSubject');
-    Route::post('/subject', [AdminController::class, 'storeSubject'])->name('admin.storeSubject');
-    Route::delete('/subject/{subject}', [AdminController::class, 'deleteSubject'])->name('admin.deleteSubject');
+    Route::get('/subject', [SubjectController::class, 'index'])->name('admin.listSubject');
+    Route::post('/subject/{subject}', [SubjectController::class, 'update'])->name('admin.updateSubject');
+    Route::post('/subject', [SubjectController::class, 'store'])->name('admin.storeSubject');
+    Route::delete('/subject/{subject}', [SubjectController::class, 'destroy'])->name('admin.deleteSubject');
 
 //    penalty
     Route::get('/penalty',[PenaltyController::class,'index'])->name('admin.getPenalty');
@@ -151,4 +153,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     }));
 
 
+    Route::get('/teacher/attendance',[UserAttendanceController::class,'getTeacherAttendance'])->name('admin.getTeacherAttendance');
 });

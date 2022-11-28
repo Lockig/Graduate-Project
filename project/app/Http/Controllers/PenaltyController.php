@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\PenaltyRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
@@ -14,15 +15,11 @@ class PenaltyController extends Controller
         return view('user.penalty', compact('penalties'));
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(PenaltyRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $validated = $request->validate([
-            'penalty_amount'=>'required|integer',
-            'penalty_description'=>'required|string'
-        ]);
         DB::table('penalties')->insert([
-            'penalty_amount'=>$validated['penalty_amount'],
-            'penalty_description'=>$validated['penalty_description']
+            'penalty_amount'=>$request->input('penalty_amount'),
+            'penalty_description'=>$request->input('penalty_description')
         ]);
         return back()->with('Success','Thêm mới thành công');
     }
